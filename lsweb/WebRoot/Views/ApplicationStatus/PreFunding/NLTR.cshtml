@@ -1,0 +1,18 @@
+﻿@model LightStreamWeb.Models.PreFunding.PreFundingNLTRPageModel
+
+<section class="row panel">
+    <div class="large-12 columns">
+        <h2 class="brand">@Model.Heading</h2>
+
+        @foreach (var statement in Model.Statements)
+        {
+            <p>@Html.Raw(statement)</p>
+        }
+
+        <p>&nbsp;</p>
+    </div>
+</section>
+
+@section scripts {
+    @Html.Partial("~/Views/ApplicationStatus/_AppStatusChangeNotification.cshtml", Model)
+}

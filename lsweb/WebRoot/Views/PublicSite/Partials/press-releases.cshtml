@@ -1,0 +1,17 @@
+﻿@model LightStreamWeb.ContentManager
+@Html.Partial("~/Views/PublicSite/Partials/pr-media.cshtml")
+
+<ul class="press-releases">
+    @foreach (var pr in Model.GetMultiple<FirstAgain.Domain.SharedTypes.ContentManagement.PressRelease>()) {
+        <li>
+            @pr.HeadlineText 
+        </li>
+    }
+</ul>
+
+
+<script type="text/javascript">
+    $(function () {
+        SC.main.pressReleases();
+    });
+</script>

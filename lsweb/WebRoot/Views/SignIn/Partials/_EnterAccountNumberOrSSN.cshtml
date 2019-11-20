@@ -1,0 +1,15 @@
+﻿@model LightStreamWeb.Models.SignIn.EnterAccountNumberOrSSNModel
+<div ng-controller="EnterAccountNumberOrSSNController">
+    <div class="row">
+	    <div class="medium-6 columns medium-push-1">
+            <input type="radio" name="AccountNumberOrSSN.SelectedType" value="SocialSecurityNumber" ng-model="SelectedType" ng-change="onSelectedTypeChanged('@ViewData["formName"]')" checked="checked" tabindex="0" id="SocialSecLabel" aria-label="Click to select social security number." /><label for="SocialSecLabel">Social Security Number</label>
+            @LSForm.SocialSecurityNumber("$parent."+ @ViewData["formName"], "SocialSecurityNumber", "AccountNumberOrSSN.SocialSecurityNumber", "SelectedType=='SocialSecurityNumber'", true,"SelectedType=='AccountNumber'")
+	    </div>
+    </div>
+    <div class="row">
+	    <div class="medium-6 columns medium-push-1">
+            <input type="radio" name="AccountNumberOrSSN.SelectedType" value="AccountNumber" ng-model="SelectedType" ng-change="onSelectedTypeChanged('@ViewData["formName"]')" tabindex="0" id="AccountNumLabel" aria-label="Click to select reference or account number." /><label for="AccountNumLabel">Reference/Account Number</label>
+            @LSForm.AccountNumber("$parent." + @ViewData["formName"], "AccountNumber", "AccountNumberOrSSN.AccountNumber", "SelectedType=='AccountNumber'", true,"SelectedType=='SocialSecurityNumber'")
+	    </div>
+    </div>
+</div>

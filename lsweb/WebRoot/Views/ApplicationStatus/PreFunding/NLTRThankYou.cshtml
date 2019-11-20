@@ -1,0 +1,39 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.ApplicationStatusPageModel
+
+@{
+    Layout = "~/Views/Layouts/_Base.cshtml";
+}
+<section class="row panel msg-section">
+
+    <div class="large-12 columns">
+        <h2 class="brand">Thank you!</h2>
+
+        <p>Your new loan terms request has been received. We will email you shortly regarding our credit decision, or questions that we may have. </p>
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+</section>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            SC.prefunding.changeLoanTermThankYou();
+
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState({}, 'New Loan Term Request In Process', '/');
+            }
+
+            setTimeout(function () {
+                window.location.href = '/appstatus/refresh';
+            }, 300000);
+        });
+    </script>
+    @Html.Partial("~/Views/ApplicationStatus/_AppStatusChangeNotification.cshtml", Model)
+}
+
+
+

@@ -1,0 +1,47 @@
+﻿@import "../partials/_mixins.scss";
+
+#ahipmodal {
+    text-align: center;
+    width: 90%;
+    top: 20% !important;
+    min-height: 0;
+    height: initial;
+
+    @media screen and (max-width: 641px) {
+        margin-left: 5%;
+        padding: 14px;
+    }
+
+    @include mq('ls-desktop') {
+        width: 70%;
+    }
+
+    a {
+        border-radius: 4px;
+    }
+
+    .button-container {
+        padding: 0;
+
+        @include mq('phone-wide') {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+
+        @include mq('desktop') {
+            padding-left: 35%;
+            padding-right: 35%;
+        }
+
+        #JumpPageModalTarget {
+            border-radius: 4px !important;
+            width: 100%;
+            margin: 0;
+            box-shadow: 0px 0 1px 1px #888888;
+        }
+    }
+}
+
+.reveal-modal-bg {
+    z-index: 2000 !important;
+}

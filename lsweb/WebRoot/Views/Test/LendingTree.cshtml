@@ -1,0 +1,82 @@
+﻿@model LightStreamWeb.Models.Test.LendingTreePostConfiguration
+@{
+    ViewBag.Title = "LendingTree";
+}
+
+@section styles {
+<style>
+    label {
+        display:block;
+    }
+    button {
+        padding-top:1em;
+    }
+    #postResults, textarea {
+        width:75%;
+    }
+    #postResults {
+        display:block;
+        font-family:'Courier New';
+        border:1px solid black;
+        height: 10em;
+        padding-top:1em;
+    }
+    #loadingAnimation {
+        display:none;
+    }
+    .submitArea {
+        height:40px;
+    }
+</style>
+}
+
+<h2>Lending Tree Test Post</h2>
+
+<form>
+    <label for="xml">LT XML to POST:</label>
+    <textarea cols="100" rows="20" name="xml" id="xml"></textarea>
+    <br />
+    <br />
+    <div class="submitArea">
+        <input type="button" value="Submit Post" class="orange-button" id="submit"/>
+        <img src="/conntent/images/loadingAnimation.gif" id="loadingAnimation" />
+    </div>
+</form>
+
+<br />
+<textarea id="postResults"></textarea>
+
+@section scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#submit').click(function () {
+            $('#loadingAnimation').show();
+
+            $.ajax(
+                {
+                    url: '@Url.Content("~/Partner/LendingTree/QFReceiver.aspx")',
+                    type: 'POST',
+                    contentType: 'application/xml',
+                    username: '@Model.Username',
+                    password: '@Model.Password',
+                    data: $('#xml').val(),
+                    complete: function (xhr, status) {
+                        if (xhr.status == 200) {
+                            // success
+                            $('#postResults').text(xhr.responseText);
+                        } else {
+                            // error
+                            $('#postResults').text('ERROR: ' + xhr.status + ': ' + xhr.statusText);
+                        }
+                        $('#loadingAnimation').hide();
+                    }
+                }
+                );
+            return false;
+
+        });
+    });
+
+</script>
+}
+

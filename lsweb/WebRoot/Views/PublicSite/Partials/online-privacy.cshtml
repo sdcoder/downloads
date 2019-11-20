@@ -1,0 +1,10 @@
+﻿@model LightStreamWeb.ContentManager
+
+@Html.Raw(Model.Get<FirstAgain.Domain.SharedTypes.ContentManagement.OnlinePrivacyPractices>().OnlinePrivacyCopy)
+
+
+<script type="text/javascript">
+    $(function () {
+        SC.main.onlinePrivacyPractices();
+    });
+</script>

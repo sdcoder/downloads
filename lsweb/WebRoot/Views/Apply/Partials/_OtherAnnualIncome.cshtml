@@ -1,0 +1,222 @@
+﻿<div class="row" id="OtherAnnualIncomeSection">
+    <div class="small-6 medium-4 columns">
+        <label>
+            <span ng-hide="hasSelectedRetiredWorkStatus()" tabindex="0" aria-label="{{(LoanApp.OtherAnnualIncomeRequired) && 'Do you have other annual income? Field is preselected as yes. Proceed to next field.' || 'Do you have other annual income including bonuses, commissions, tips, interest, dividends, alimony, child support, etc. Click yes or no.'}}"><sup>*</sup>@Resources.LoanAppErrorMessages.PromptOtherAnnualIncome</span>
+            <span ng-cloak ng-show="hasSelectedRetiredWorkStatus()" tabindex="0" aria-label="{{(LoanApp.OtherAnnualIncomeRequired) && 'Do you have other annual income? Field is preselected as yes. Proceed to next field.' || 'Do you have other annual income including bonuses, commissions, tips, interest, dividends, alimony, child support, etc. Click yes or no.'}}"><sup>*</sup>@Resources.LoanAppErrorMessages.PromptOtherAnnualIncomeRetired</span>
+        </label>
+    </div>
+
+    <div class="small-6 medium-3 columns">
+        <div class="radio-button-group">
+            <input type="radio" name="HasOtherAnnualIncome" id="YesToOtherAnnualIncome" value="Yes" ng-model="LoanApp.HasOtherAnnualIncome" ng-disabled="LoanApp.OtherAnnualIncomeRequired" ng-change="otherAnnualIncomeChanged()" ng-required="true">
+            <label for="YesToOtherAnnualIncome" style="margin-right:0.5rem">Yes</label>
+            <input type="radio" name="HasOtherAnnualIncome" id="NoToOtherAnnualIncome" value="No" ng-model="LoanApp.HasOtherAnnualIncome" ng-disabled="LoanApp.OtherAnnualIncomeRequired" ng-change="otherAnnualIncomeChanged()" ng-required="true">
+            <label for="NoToOtherAnnualIncome" style="margin-right:0.5rem">No</label>
+        </div>
+        <div tabindex="0" ng-cloak class="formalert" ng-show="LoanApplication.HasOtherAnnualIncome.$dirty && !LoanApplication.HasOtherAnnualIncome.$valid">
+            <p>Please select Yes or No.</p>
+        </div>
+    </div>
+
+    <div class="small-12 medium-5 columns">
+        <div class="forminfo aside mouseover" tabindex="0">
+            <p ng-show="!hasSelectedRetiredWorkStatus() && SunTrustApp != true">@Resources.LoanAppErrorMessages.HintOtherAnnualIncome <span ng-cloak ng-show="!isWisconsin() && SunTrustApp != true">@Resources.LoanAppErrorMessages.HintOtherAnnualIncomeNonApplicant</span></p>
+            <p ng-cloak ng-show="hasSelectedRetiredWorkStatus() && SunTrustApp != true">@Resources.LoanAppErrorMessages.HintOtherAnnualIncomeRetired <span ng-cloak ng-show="!isWisconsin() && SunTrustApp != true">@Resources.LoanAppErrorMessages.HintOtherAnnualIncomeNonApplicant</span></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-12 columns">
+        <div ng-class="{true: 'teammate-alert'}[SunTrustApp == true && SuppressTeammateAlerts !== true]">
+            <p ng-cloak ng-show="!hasSelectedRetiredWorkStatus() && SunTrustApp == true && SuppressTeammateAlerts !== true" tabindex="0">
+                <i class="fa fa-comment"></i> <strong>Please Read To Client:</strong><br />@Resources.LoanAppErrorMessages.HintOtherAnnualIncome <span ng-cloak ng-show="!isWisconsin() && SunTrustApp != true">@Resources.LoanAppErrorMessages.HintOtherAnnualIncomeNonApplicant</span>
+            </p>
+            <p ng-cloak ng-show="hasSelectedRetiredWorkStatus() && SunTrustApp == true && SuppressTeammateAlerts !== true" tabindex="0">
+                <i class="fa fa-comment"></i> <strong>Please Read To Client:</strong><br />@Resources.LoanAppErrorMessages.HintOtherAnnualIncomeRetired <span ng-cloak ng-show="!isWisconsin() && SunTrustApp != true">@Resources.LoanAppErrorMessages.HintOtherAnnualIncomeNonApplicant</span>
+            </p>
+
+            <p tabindex="0">
+                Alimony, child support, or separate maintenance income need not be revealed if you do not wish to have it
+                considered as a basis for repaying this obligation.
+            </p>
+
+            <div id="MarriedWisconsinResidentDisclosure" ng-cloak="" ng-show="LoanApp.State === 'Wisconsin' || LoanApp.Applicants[0].Residence.Address.State === 'Wisconsin' || LoanApp.Applicants[1].Residence.Address.State === 'Wisconsin'">
+                <p tabindex="0">
+                    <strong>Married Wisconsin Residents:</strong>
+                    If the loan you are applying for will be in the interest of marriage or family, you may elect to have us consider marital property,
+                    such as your spouse's income, in evaluating your application.
+                    To do so, check "yes" to enter your spouse’s income below under Other Annual Income, and
+                    select "Non-applicant spouse's income" from the drop down menu.  LightStream may need to verify this income and,
+                    once verified, we will evaluate it in accordance with Wisconsin law.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@for (int i = 0; i < 4; i++)
+{
+<div class="row" ng-cloak ng-if="!hasSelectedRetiredWorkStatus()">
+    <div class="small-6 medium-3 columns">
+        @if (i == 0)
+        {
+        @:<label>Annual Amount</label>
+        }
+        else
+        {
+        @:<label class="show-for-small-only">Annual Amount</label>
+        }
+
+        <input type="text"
+               ng-model="LoanApp.ApplicationOtherIncome[@i].Amount"
+               id="OtherIncome@(i)Amount"
+               name="OtherIncome@(i)Amount"
+               ls-currency-only maxlength="14" min="0.01" max="99999999.99"
+               ng-change="otherAnnualIncomeAmountChange(@(i))"
+               pattern="\d*"
+               ng-required="isOtherIncomeAmountRequired()"
+               ng-disabled="areOtherIncomeFieldsDisabled()"
+               aria-label="Enter annual amount." />
+    </div>
+    <div class="small-6 medium-4 columns">
+        @if (i == 0)
+        {
+            @:<label>Source</label>
+        }
+        else
+        {
+            @:<label class="show-for-small-only">Source</label>
+        }
+        <span ng_if="!isWisconsin()">
+            @(Html.NgDropDownSelectList(
+            "LoanApp.ApplicationOtherIncome[" + i + "].IncomeType",
+            "OtherIncome" + i + "Type",
+            "Select source of income.",
+            FirstAgain.Domain.Lookups.FirstLook.OtherIncomeTypeLookup.BindingSource.Where(t => !t.Enumeration.Equals(FirstAgain.Domain.Lookups.FirstLook.OtherIncomeTypeLookup.OtherIncomeType.WisconsinSpouseIncome)),
+            ngRequired: "LoanApp.ApplicationOtherIncome[" + i + "].Amount > 0",
+            attributes: new { @ng_change = "otherAnnualIncomeTypeChange(" + i + ")", @ng_disabled = "areOtherIncomeFieldsDisabled()" }
+            ))
+        </span>
+        <span ng_cloak ng_if="isWisconsin()">
+            @(Html.NgDropDownSelectList(
+            "LoanApp.ApplicationOtherIncome[" + i + "].IncomeType",
+            "OtherIncome" + i + "Type",
+            "Select source of income.",
+            FirstAgain.Domain.Lookups.FirstLook.OtherIncomeTypeLookup.BindingSource,
+            ngRequired: "LoanApp.ApplicationOtherIncome[" + i + "].Amount > 0",
+            attributes: new { @ng_change = "otherAnnualIncomeTypeChange(" + i + ")", @ng_disabled = "areOtherIncomeFieldsDisabled()" }
+            ))
+        </span>
+    </div>
+    <div class="medium-5 columns">
+        @if (i == 0)
+        {
+        @:<label>If other, please describe</label>
+        }
+        else
+        {
+        @:<label class="show-for-small-only">If other, please describe</label>
+        }
+        <input type="text"
+               id="OtherIncome@(i)Description"
+               ng-model="LoanApp.ApplicationOtherIncome[@i].OtherIncomeDescription"
+               maxlength="100"
+               ng-required="LoanApp.ApplicationOtherIncome[@i].IncomeType == 'Other' || LoanApp.ApplicationOtherIncome[@i].IncomeType == 'OtherTaxExempt'"
+               ng-disabled="areOtherIncomeFieldsDisabled() || (LoanApp.ApplicationOtherIncome[@i].IncomeType != 'Other' && LoanApp.ApplicationOtherIncome[@i].IncomeType != 'OtherTaxExempt')"
+               aria-label="If your source is other, please enter description." />
+    </div>
+</div>
+
+<div class="row" ng-cloak ng-if="hasSelectedRetiredWorkStatus()">
+    <div class="small-6 medium-2 columns">
+        @if (i == 0)
+        {
+        @:<label>Amount</label>
+        }
+        else
+        {
+        @:<label class="show-for-small-only">Amount</label>
+        }
+
+        <input type="text"
+               ng-model="LoanApp.ApplicationOtherIncome[@i].FrequencyAmount"
+               id="OtherIncome@(i)FrequencyAmount"
+               name="OtherIncome@(i)FrequencyAmount"
+               ls-currency-only maxlength="14" min="0.01" max="99999999.99"
+               ng-change="otherAnnualIncomeFrequencyChange(@(i))"
+               pattern="\d*"
+               ng-required="isOtherIncomeAmountRequired()"
+               ng-disabled="areOtherIncomeFieldsDisabled()"
+               aria-label="Enter annual amount." />
+    </div>
+    <div class="small-6 medium-2 columns">
+        @if (i == 0)
+        {
+        @:<label>Frequency</label>
+        }
+        else
+        {
+        @:<label class="show-for-small-only">Frequency</label>
+        }
+        @(Html.NgDropDownSelectList(
+        "LoanApp.ApplicationOtherIncome[" + i + "].Frequency",
+        "OtherIncome" + i + "Frequency",
+        "Select frequency.",
+        FirstAgain.Domain.Lookups.FirstLook.OtherIncomeFrequencyLookup.BindingSource,
+        ngRequired: "LoanApp.ApplicationOtherIncome[" + i + "].Amount > 0",
+        attributes: new { @ng_change = "otherAnnualIncomeFrequencyChange(" + i + ")", @ng_disabled = "areOtherIncomeFieldsDisabled()" }
+        ))
+    </div>
+    <div class="small-6 medium-3 columns">
+        @if (i == 0)
+        {
+        @:<label>Source</label>
+        }
+        else
+        {
+        @:<label class="show-for-small-only">Source</label>
+        }
+        <span ng_if="!isWisconsin()">
+            @(Html.NgDropDownSelectList(
+            "LoanApp.ApplicationOtherIncome[" + i + "].IncomeType",
+            "OtherIncome" + i + "Type",
+            "Select source of income.",
+            FirstAgain.Domain.Lookups.FirstLook.OtherIncomeTypeLookup.BindingSource.Where(t => !t.Enumeration.Equals(FirstAgain.Domain.Lookups.FirstLook.OtherIncomeTypeLookup.OtherIncomeType.WisconsinSpouseIncome)),
+            ngRequired: "LoanApp.ApplicationOtherIncome[" + i + "].Amount > 0",
+            attributes: new { @ng_change = "otherAnnualIncomeTypeChange(" + i + ")", @ng_disabled = "areOtherIncomeFieldsDisabled()" }
+            ))
+        </span>
+        <span ng_cloak ng_if="isWisconsin()">
+            @(Html.NgDropDownSelectList(
+            "LoanApp.ApplicationOtherIncome[" + i + "].IncomeType",
+            "OtherIncome" + i + "Type",
+            "Select source of income.",
+            FirstAgain.Domain.Lookups.FirstLook.OtherIncomeTypeLookup.BindingSource,
+            ngRequired: "LoanApp.ApplicationOtherIncome[" + i + "].Amount > 0",
+            attributes: new { @ng_change = "otherAnnualIncomeTypeChange(" + i + ")", @ng_disabled = "areOtherIncomeFieldsDisabled()" }
+            ))
+        </span>
+    </div>
+    <div class="medium-5 columns">
+        @if (i == 0)
+        {
+        @:<label>If other, please describe</label>
+        }
+        else
+        {
+        @:<label class="show-for-small-only">If other, please describe</label>
+        }
+        <input type="text"
+               id="OtherIncome@(i)Description"
+               ng-model="LoanApp.ApplicationOtherIncome[@i].OtherIncomeDescription"
+               maxlength="100"
+               ng-required="LoanApp.ApplicationOtherIncome[@i].IncomeType == 'Other' || LoanApp.ApplicationOtherIncome[@i].IncomeType == 'OtherTaxExempt'"
+               ng-disabled="areOtherIncomeFieldsDisabled() || (LoanApp.ApplicationOtherIncome[@i].IncomeType != 'Other' && LoanApp.ApplicationOtherIncome[@i].IncomeType != 'OtherTaxExempt')"
+               aria-label="If your source is other, please enter description." />
+    </div>
+</div>
+}
+
+<hr class="show-for-small-only" />

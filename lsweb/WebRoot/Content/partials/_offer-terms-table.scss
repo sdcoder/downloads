@@ -1,0 +1,103 @@
+﻿.offer-terms-table-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    .offer-terms-table .column-block {
+    padding-right: 0;
+    margin-bottom: 1em;
+
+    &:nth-child(n+2) {
+        padding-left: 0;
+
+        div {
+            font-weight: bold;
+            margin: 0;
+            padding: 5px;
+
+            &:nth-child(n+2) {
+                font-weight: bold;
+                margin: 0;
+                padding: 5px;
+                color: #666;
+            }
+        }
+    }
+
+    div {
+        font-weight: bold;
+        margin: 0;
+        padding: 5px;
+        color: #00467e;
+        height: auto;
+        vertical-align: middle;
+
+        &:first-child {
+            border-bottom: 4px solid #ccc;
+        }
+    }
+
+    &:nth-child(3) div {
+        &:first-child {
+            border-bottom: 4px solid #fdb913;
+            background: #fff;
+        }
+
+        &:nth-child(n+2) {
+            padding-left: 20px;
+            background: #fff1d0;
+        }
+    }
+}
+
+    .offer-terms-table-small {
+        padding-left: .9375rem;
+        padding-right: .9375rem;
+
+        .column-block {
+            > div:nth-child(odd) {
+                height: auto;
+                vertical-align: middle;
+                font-weight: bold;
+                margin: 0;
+                padding: 5px;
+                color: #00467e;
+                height: auto;
+                vertical-align: middle;
+                border-bottom: 4px solid #ccc;
+            }
+
+            .column-block {
+                &:first-child {
+                    padding-right: 0;
+                }
+
+                div {
+                    border-bottom: none;
+                    color: #666;
+                    font-weight: bold;
+
+                    &:nth-child(even) {
+                        padding-left: 15px;
+                        background: #fff1d0;
+                    }
+                }
+
+                &:last-child {
+                    padding-left: 0;
+                }
+
+                div {
+                    border-bottom: none;
+                    color: #666;
+                    font-weight: bold;
+                    border-bottom: none;
+                    color: #666;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

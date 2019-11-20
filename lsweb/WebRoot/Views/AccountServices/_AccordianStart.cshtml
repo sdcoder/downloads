@@ -1,0 +1,30 @@
+﻿<ul class="accordian">
+    <li class="clearfix" ng-repeat="account in Model.Applications" ng-class="{'active' : account.Active }" 
+        @if (ViewData["ControllerName"] != null) {
+            @:ng-controller="@ViewData["ControllerName"]"
+        }
+        >
+        <a ng-click="setActiveApplication(account)" class="toggle no-track" ng-class="{'active' : account.Active }">{{account.Nickname || 'Account ' + account.ApplicationId}}</a>
+        <span class="desc" ng-show="account.Nickname">Account {{account.ApplicationId}}</span>
+        <div class="container">
+            <a class="desc account-services-blue-button" ng-click="editNickname(account)" ng-show="account.Nickname">Edit Nickname</a>
+            <a class="desc account-services-blue-button" ng-click="editNickname(account)" ng-show="!account.Nickname">Create Nickname</a>
+            <br/><a ng-href="/account/informationrequest?ctx={{account.Ctx}}" class="desc btn btn-small btn-fancy btn-darkyellow" ng-show="account.InformationReqestRequired">Back To Account Information Request</a>
+        </div>
+
+        @if (ViewData["IsExtraPaymentTab"] != null && (bool)ViewData["IsExtraPaymentTab"])
+        {
+            @:<p class="note" ng-show="account.MayBeEligibleForReamortization && !account.IsThankYouMessage && account.QueuedMonthlyPaymentAmount != account.ProjectedMinimumMonthlyPaymentAmount">
+        }
+        else
+        {
+            @:<p class="note" ng-show="account.MayBeEligibleForReamortization && account.QueuedMonthlyPaymentAmount != account.ProjectedMinimumMonthlyPaymentAmount">
+        }
+
+            <strong>Eligible for Monthly Payment Adjustment!</strong><br/>
+            This account is eligible to have its monthly payment adjusted to {{account.ProjectedMinimumMonthlyPaymentAmount | currency}}
+            <span ng-show="account.ReamortizationDate">on {{account.ReamortizationDate | date: 'longDate' }}</span>. If you were to make the payment adjustment <span ng-show="account.ReamortizationDate">on {{account.ReamortizationDate | date: 'longDate'}}</span><span ng-show="!account.ReamortizationDate">today</span>, 
+            the new payment would be effective starting with your {{account.DecreasedMonthlyPaymentEffectiveDate | date: 'longDate'}} payment.
+        </p>
+
+        <div class="content offset" ng-show="account.Active" ng-class="{'active' : account.Active }"> 

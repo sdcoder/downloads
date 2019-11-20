@@ -1,0 +1,38 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.ApprovedPageModel
+@{
+  string ListItem = this.ViewData.ContainsKey("ListIndex") ? this.ViewData["ListIndex"].ToString() + "." : "";
+}
+    <div class="row">
+        <div class="medium-12 columns">
+            <h3 class="brand">@(ListItem) Funding Date</h3>
+            <p>Please choose your desired funding date by selecting an eligible ACH or wire date from the calendar.</p>
+        </div>
+    </div>
+    <div class="row ruled">
+        <div class="large-6 medium-12 small-12 columns offset">
+            <div class="date-range clearfix" id="FundingDateCalendar" ng-class="">
+                <div class="datepicker" required="required" ui-date="dateOptions" name="FundingDate" ng-model="LoanAcceptance.FundingDate" ui-date-format="DD, MM d, yy"></div>
+            </div>
+        </div>
+
+        <div class="large-5 medium-12 columns">
+            <div class="ach datepicker-example">
+                <a class="ui-state-default" >&nbsp;</a> = eligible "ACH" date, no fees 
+            </div>
+            <div class="wire datepicker-example">
+                <a class="ui-state-default" >&nbsp;</a> = "wire" transfer required, your financial institution may <a href="" data-toggle="FedWireFeeModal" id="ChargeAFee">charge a fee</a>. 
+
+                <div id="FedWireFeeModal" data-dropdown class="f-dropdown dropdown-pane" aria-hidden="true" tabindex="-1">
+                If a fed wire is required to fund your loan, your bank will most likely charge you a fee for accepting this wire transfer into your account.  Your bank may either deduct the fee from your                     loan proceeds or bill you separately.
+                </div>
+
+            </div>
+        </div>
+        <div  class="large-12 columns">
+            Date Selected: <strong>{{LoanAcceptance.FundingDate}}</strong> <span ng-cloak ng-show="LoanAcceptance.IsWire">Your financial institution may <a href="" data-toggle="FedWireFeeModal">charge a fee</a>. </span>
+            <div class="formalert" ng-cloak ng-show="AccountSetupForm.$submitted && !LoanAcceptance.FundingDate">
+                <p>Please select a funding date.</p>
+            </div>
+        </div>
+
+    </div>

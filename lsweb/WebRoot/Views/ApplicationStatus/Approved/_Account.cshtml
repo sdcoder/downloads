@@ -1,0 +1,109 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.ApprovedPageModel
+<section>
+    <form name="AccountSetupForm" novalidate ls-validate-on-submit on-success="submitAccountInfo()">
+        @{int ListIndex = 0;}
+        @Html.Partial("~/Views/ApplicationStatus/Approved/_AccountFundingDate.cshtml", Model, new ViewDataDictionary { { "ListIndex", ++ListIndex } })
+
+        @Html.Partial("~/Views/ApplicationStatus/Approved/_AccountFundingAccount.cshtml", Model, new ViewDataDictionary { { "ListIndex", ++ListIndex } })
+
+        @if (Model.IsAutoPay)
+        {
+            @Html.Partial("~/Views/ApplicationStatus/Approved/_AccountPaymentAccount.cshtml", Model, new ViewDataDictionary { { "ListIndex", ++ListIndex } })
+        }
+        @Html.Partial("~/Views/ApplicationStatus/Approved/_AccountPaymentDate.cshtml", Model, new ViewDataDictionary { { "ListIndex", ++ListIndex } })
+
+        @Html.Partial("~/Views/ApplicationStatus/Approved/_AccountEmailPreferences.cshtml", Model, new ViewDataDictionary { { "ListIndex", ++ListIndex } })
+
+        @if (Model.IsAutoPay)
+        {
+            <div class="row">
+                <div class="medium-12 columns">
+                    <h3 class="brand">@(++ListIndex). Authorization</h3>
+                    <p ng-show="LoanAcceptance.PaymentDayOfMonth">You are authorizing a payment of {{LoanAcceptance.LoanTerms.MonthlyPayment}} on the {{LoanAcceptance.PaymentDayOfMonth | lsPaymentDayOfMonth}} day of the month.</p>
+                    <p>Please read and agree to the AutoPay Authorization Agreement.</p>
+                </div>
+            </div>
+
+            <div class="row ruled">
+                <div class="medium-12 columns">
+                    <div>
+                        <label for="AutoPayAgreement" class="checkbox">
+                            <input type="checkbox" ng-model="LoanAcceptance.AutoPayAgreement" id="AutoPayAgreement" required />
+                            @Html.Partial("~/Views/ApplicationStatus/_AutoPayDisclosure.cshtml")
+                        </label>
+                    </div>
+                </div>
+            </div>
+        }
+
+                         @if (Model.ShowWisconsinNonSpouse)
+                         {
+            <text>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <h3 class="brand">@(++ListIndex). Wisconsin Residents</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p>Under Wisconsin law, we are required to send a copy of this loan agreement to your spouse if you have a spouse and who has their primary residence in Wisconsin and your spouse is not a party of this loan agreement. If you have a spouse who is not a party to this loan agreement, please provide below his or her name and address (if different from yours). Thank you.</p>
+                    </div>
+                </div>
+                @if (Model.IsPrimaryWisconsin)
+                {
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <span>Does {{LoanAcceptance.NonAppSpouseData.Primary.ApplicantName}} have a spouse that is not on this application?</span>
+                            <input type="radio" name="PrimaryApplicantHasSpouse" id="PrimaryApplicantHasSpouseYes"
+                                   ng-required="true" ng-model="LoanAcceptance.NonAppSpouseData.Primary.HasNonApplicantSpouse" ng-value="true"><label for="PrimaryApplicantHasSpouseYes">Yes</label>
+                            <input type="radio" name="PrimaryApplicantHasSpouse" id="PrimaryApplicantHasSpouseNo"
+                                   ng-required="true" ng-model="LoanAcceptance.NonAppSpouseData.Primary.HasNonApplicantSpouse" ng-value="false"><label for="PrimaryApplicantHasSpouseNo">No</label>
+                        </div>
+                    </div>
+                }
+                @if (Model.IsSecondaryWisconsin)
+                {
+                    <div class="row" ng-if="LoanAcceptance.NonAppSpouseData.IsJoint">
+                        <div class="medium-12 columns">
+                            <span>Does {{LoanAcceptance.NonAppSpouseData.Secondary.ApplicantName}} have a spouse that is not on this application?</span>
+                            <input type="radio" name="SecondaryApplicantHasSpouse" id="SecondaryApplicantHasSpouseYes"
+                                   ng-required="true" ng-model="LoanAcceptance.NonAppSpouseData.Secondary.HasNonApplicantSpouse" ng-value="true"><label for="SecondaryApplicantHasSpouseYes">Yes</label>
+                            <input type="radio" name="SecondaryApplicantHasSpouse" id="SecondaryApplicantHasSpouseNo"
+                                   ng-required="true" ng-model="LoanAcceptance.NonAppSpouseData.Secondary.HasNonApplicantSpouse" ng-value="false"><label for="SecondaryApplicantHasSpouseNo">No</label>
+                        </div>
+                    </div>
+                }
+                <div class="row" ng-show="nonApplicantSpouseDataIsRequired()">
+                    <div class="medium-8 columns formalert">
+                        <p>
+                            Your application included income from a non-applicant spouse.  Please select Yes to
+                            <span ng-show="NonAppSpouseData.IsJoint">one of the questions above. </span>
+                            <span ng-show="!NonAppSpouseData.IsJoint">the question above. </span>
+
+                            If this is not correct please call us at @FirstAgain.Domain.Common.BusinessConstants.Instance.PhoneNumberMain to update your application.
+
+                        </p>
+                    </div>
+                </div>
+
+                <div ng-show="LoanAcceptance.NonAppSpouseData.Primary.HasNonApplicantSpouse">
+                    @Html.Partial("~/Views/ApplicationStatus/Approved/_Account_NonApplicantSpouse.cshtml", "Primary")
+                </div>
+                <div ng-if="LoanAcceptance.NonAppSpouseData.IsJoint" ng-show="LoanAcceptance.NonAppSpouseData.Secondary.HasNonApplicantSpouse">
+                    @Html.Partial("~/Views/ApplicationStatus/Approved/_Account_NonApplicantSpouse.cshtml", "Secondary")
+                </div>
+
+                <div class="row ruled"></div>
+            </text>
+        }
+        <div class="row">
+            <div class="medium-12 columns">
+                <input type="submit" class="button" id="Next" value="Next" ng-disabled="nonApplicantSpouseDataIsRequired() || Waiting" />
+                <img src="@Model.CdnBaseUrl/ajax-loader.gif" ng-cloak ng-show="Waiting" />
+            </div>
+        </div>
+
+
+    </form>
+
+</section>

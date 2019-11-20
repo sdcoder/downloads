@@ -1,0 +1,17 @@
+﻿@using LightStreamWeb.Helpers
+@model FirstAgain.Domain.SharedTypes.ContentManagement.OpenText
+
+@{
+    if (Model != null)
+    {
+        <div class="widget event-widget-copy row row-fluid open-text-component">
+            <div class="widget-header">
+                <h2 class="widget-headline-title" tabindex="0" style="font-size: @Html.Raw(Model.OpenTextTilePixelFontSize)px !important;">@Html.Raw(Model.OpenTextTitle)</h2>
+            </div>
+            <div class="widget-body" tabindex="0">
+                @Html.Raw(ADAHelper.PreventMultipleBRsRepeatingBlank(Model.OpenTextDescription))
+            </div>
+        </div>
+    }
+}
+

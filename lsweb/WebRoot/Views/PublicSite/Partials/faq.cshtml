@@ -1,0 +1,22 @@
+﻿@model LightStreamWeb.ContentManager
+
+<div class="row faq-search">
+    <div class="medium-4 columns small-12">
+        <h2 tabindex="0">FAQs</h2>
+    </div>
+    <div class="medium-8 columns small-12">
+        <input type="search" id="FAQSearch" results="5" placeholder="Search FAQs" />
+    </div>
+</div>
+
+<ul class="accordian cms faq-content">
+    @foreach (var s in Model.Get<FirstAgain.Domain.SharedTypes.ContentManagement.ContactUsFaqPage>().FAQs.OrderBy(f => f.FAQTitle))
+    {
+        <li>
+            <a href="#" id="@s.FAQAnchorTag" class="toggle no-track" tabindex="0">@s.FAQTitle</a>
+            <div class="content" tabindex="0">@Html.Raw(ADAHelper.PreventMultipleBRsRepeatingBlank(s.FAQAnswer))</div>
+        </li>
+    }
+</ul>
+
+@{Html.RegisterScriptFile("~/bundles/scripts-faq");}

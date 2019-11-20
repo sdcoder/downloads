@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@model LightStreamWeb.Models.AccountServices.AmortizationScheduleModel
+
+<button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+
+<div class="row" >
+    <div class="medium-6 columns">
+        <h2 class="brand">Amortization Schedule</h2>
+    </div>
+    <div class="medium-6 columns">
+        <a ng-click="printAmortizationSchedule('@Model.JsonItems()', @Model.ApplicationId)" class="right" style="margin-top:20px;">Print Amortization Schedule <i class="fa fa-print"></i></a>
+    </div>
+</div>         
+
+<p>This loan amortization schedule below assumes that all monthly payments and any scheduled extra payments are made on the dates listed below.</p>
+<table class="records account-history" id="AmortizationPopupTable">
+<thead>
+    <tr>
+    <th>Date</th>
+    <th>Starting Principal Balance</th>
+    <th>Payment Amount</th>
+    <th>Allocated to Interest</th>
+    <th>Allocated to Principal</th>
+    <th>Ending Principal Balance</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var row in Model.Items)  
+    {
+        <tr class="expanded">
+        <td>@row.TransactionDate.ToString()</td>
+        <td>@row.StartingPrincipalBalance.ToString("C")</td>
+        <td>@row.TransactionAmount.ToString("C")</td>
+        <td>@row.InterestAmount.ToString("C")</td>
+        <td>@row.PrincipalAmount.ToString("C")</td>
+        <td>@row.EndingPrincipalBalance.ToString("C")</td>
+        </tr>
+    }
+</tbody>
+</table>
+
+<a class="button button-medium button-navy" data-close >Close Amortization Schedule</a>

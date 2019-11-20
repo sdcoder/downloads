@@ -1,0 +1,42 @@
+﻿@model FirstAgain.Domain.SharedTypes.ContentManagement.CustomerComment
+
+<section class="row ruled featured_testimonial hide-for-small-only">
+        <div class="small-12 medium-3 columns">
+            <a class="show-for-medium testimonial-image-link" href="/customer-testimonials">
+                <img src="@Url.Content("~/content/images/testimonialchat_220x129.png")" alt="Customers are Saying" width="242" height="142">
+            </a>
+        </div>
+        <div class="quote cms small-12 medium-9 columns" tabindex="0">
+            <blockquote class="hide-for-small-only">@Html.Raw(Model.Comment)</blockquote>
+            <cite class="hide-for-small-only">@Model.CiteText()</cite>
+            <a href="/customer-testimonials">Read more...</a>
+        </div>
+</section>
+<section class="row featured_testimonial show-for-small-only">
+    <div class="small-12 columns">
+        <h2 style="">
+            See what our customers are saying
+        </h2>
+        <div class="row quote cms">
+            <div class="small-9 columns">
+                <blockquote class="fa-pull-left">
+                    @Html.Raw(Model.Comment)
+                </blockquote>
+            </div>
+            <div class="small-3 columns">
+                <i class="fa fa-comment fa-5x pull-right"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <cite>@Model.CiteText()</cite>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <a href="/customer-testimonials">Read more...</a>
+            </div>
+        </div>
+    </div>
+</section>
+

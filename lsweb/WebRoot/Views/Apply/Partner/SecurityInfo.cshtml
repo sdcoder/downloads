@@ -1,0 +1,45 @@
+﻿<section class="row">
+	<div class="large-6 columns">
+	<h1>Loan Application</h1>
+	<p class="hide-for-small-only">&nbsp;</p>
+	</div>
+</section>
+
+@Html.Partial("~/Views/Apply/Partials/_ProgressBar_Partner.cshtml", new LightStreamWeb.Models.Apply.ProgressBarModel(3))
+
+<section class="row">
+	<div class="large-12 columns">
+		<h2>Security Information</h2>
+		<p class="note"><sup>*</sup>indicates required field</p>
+	</div>
+</section>
+
+<section class="row">
+    <div class="medium-12 columns">
+        @Html.Partial("~/Views/Partials/_TempDataAlert.cshtml")
+
+        @Html.ValidationSummary()
+
+        @LoanApplicationForm.StartForm("nextStep('/apply/partner/confirm', 3)")
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="large-12 columns">
+                <p>For security purposes (yours and ours), we ask that you create your personal LightStream user ID and password and select a security question and answer. </p>
+                <p>Your "new" user ID and password will be required to access your account going forward. The security question and answer will be used, in certain situations, for additional verification.</p>
+                <p>Please remember and secure this information!</p>
+            </div>
+        </div>
+
+        @Html.Partial("~/Views/Apply/Partials/_UserCredentials.cshtml")
+
+        @LoanApplicationForm.EndForm()
+
+    </div>
+
+    @section scripts {
+        <script type="text/javascript">
+            SC.apply.securityInfo();
+        </script>
+        <script src="~/scripts/app/mouse-leave-window-popup.js" type="text/javascript"></script>
+    }

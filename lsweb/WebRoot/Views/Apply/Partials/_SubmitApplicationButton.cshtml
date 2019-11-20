@@ -1,0 +1,16 @@
+﻿<div class="row">
+    <div class="medium-12 columns" style="text-align:center;">
+        <input type="submit" id="Continue"  class="button" value="Submit" ng-disabled="Loading || LoanApp.ElectronicDisclosures === false" />
+        <img src="@Model.CdnBaseUrl/ajax-loader.gif" ng-show="Loading" alt="" />
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="medium-6 columns">	
+        <div class="formalert" tabindex="0" ng-show="ErrorMessage" ng-cloak>
+            <p>{{ErrorMessage}}</p>
+            <p>{{ErrorMessageDetails}}</p>
+        </div>
+    </div>
+</div>

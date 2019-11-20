@@ -1,0 +1,100 @@
+﻿@using FirstAgain.Domain.Common
+
+@model LightStreamWeb.Models.Apply.SunTrustApplyPageModel
+
+@section bodyTag {
+    <body class="@Model.BodyClass apply" id="ng-app" ng-app="LightStreamApp" >
+} 
+
+@section styles {
+<style type="text/css">
+#header nav li[data-nav='rates'] {
+    display:none;
+}
+#rates input[type=submit] {
+    display:none;
+}
+</style>
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#rates input[type=submit]').val('Invite Client To Apply').show();
+        });
+    </script>
+}
+
+@{Html.RegisterScriptFile("~/scripts/app/loan-application.js");}
+
+
+    <div class="row headline suntrust-intro">
+        <h1>Use a LightStream loan for....</h1>
+
+        <section class="row homeloanuses">
+            <div class="medium-8 columns">
+                <ul class="grid-x">
+                    <li class="cell home_list1">
+                        <ul>
+                            <li class="title">Auto</li>
+                            <li>New</li>
+                            <li>Used</li>
+                            <li>Refinance</li>
+                            <li>Classic Cars</li>
+                            <li>Anything Else!</li>
+                        </ul>
+                    </li>
+
+                    <li class="cell home_list2">
+                        <ul>
+                            <li class="title">Home Improvement</li>
+                            <li>Home Improvement *</li>
+                            <li>Swimming Pool</li>
+                            <li>Solar Finances</li>
+                            <li>Kitchen Remodeling</li>
+                            <li>Anything Else!</li>
+                        </ul>
+                    </li>
+
+                    <li class="cell home_list3">
+                        <ul>
+                            <li class="title">Other</li>
+                            <li>Timeshare Loans</li>
+                            <li>Motorcycle Loans</li>
+                            <li>Medical Financing</li>
+                            <li>IVF Financing</li>
+                            <li>Adoption Loans</li>
+                            <li>PreK–12 Financing</li>
+                            <li><em>...and most Anything Else!</em></li>
+                        </ul>
+                    </li>	
+                </ul>
+            </div>			
+
+            <div class="medium-4 columns" ng-controller="StartApplicationController">
+                @if (Model.DisplayMode == LightStreamWeb.Models.Apply.SunTrustApplyPageModel.IntroPageDisplayMode.ReferralForm || Model.DisplayMode == LightStreamWeb.Models.Apply.SunTrustApplyPageModel.IntroPageDisplayMode.ChannelOps)
+                {
+                    <p><a href="@Url.Action("ReferralForm")" class="button btn-invite-client">Invite Client To Apply</a></p>
+                }
+                @if (Model.DisplayMode == LightStreamWeb.Models.Apply.SunTrustApplyPageModel.IntroPageDisplayMode.PremierBanking)
+                {
+                    <p><a href="@Url.Action("ReferralForm")" class="button" ng-click="startApplication('@Url.Action("ReferralForm")')">Premier Banking - Web Link Generator</a></p>
+                    <p><a href="@Url.Action("BasicInfo")" class="button" ng-click="startApplication('@Url.Action("BasicInfo")')">Premier Banking - Concierge Application</a></p>
+                }
+                @if (Model.DisplayMode == LightStreamWeb.Models.Apply.SunTrustApplyPageModel.IntroPageDisplayMode.PrivateWealth)
+                {
+                    <p><a href="@Url.Action("ReferralForm")" class="button" ng-click="startApplication('@Url.Action("ReferralForm")')">PWM Web Link Generator</a></p>
+                    <p><a href="@Url.Action("BasicInfo")" class="button" ng-click="startApplication('@Url.Action("BasicInfo")')">PWM Concierge Application</a></p>
+                }
+            </div>
+        </section>
+        <h1>Use the SunTrust Application Process For:</h1>
+        <p>
+            Unsecured Post-Secondary Education
+        </p>
+    </div>
+
+
+<article>
+    @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+</article>
+

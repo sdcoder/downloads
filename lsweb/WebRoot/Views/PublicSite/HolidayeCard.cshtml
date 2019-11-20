@@ -1,0 +1,57 @@
+﻿@model LightStreamWeb.Models.PublicSite.BasePublicSiteModel
+
+@section header {
+    <script src="/scripts/swfobject.js" type="text/javascript"></script>
+    <style>
+        #cardContent {
+            min-height: 600px;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            overflow: visible;
+        }
+
+        #bottom-logo {
+            width: 240px;
+            margin: auto;
+        }
+    </style>
+}
+
+@section metaTags {
+    <meta name="robots" content="noindex">
+}
+
+<section class="row">
+    <div class="medium-12 columns text-center">
+        <div id="cardContent" style="background-color: #0099FF">
+            <script language="JavaScript" type="text/javascript">
+                if (swfobject.hasFlashPlayerVersion("7")) {
+                    swfobject.embedSWF('/content/images/holiday-card/FirstAgain_holiday_2008.swf', "cardContent", 760, 600, "7.0.0");
+                }
+                else {
+                    var alternateContent = '<img src="/content/images/holiday-card/FirstAgain_holidaygif_2008.jpg" alt="Wishing You Peace and Joy This Holiday Season" />';
+                    document.write(alternateContent);
+                }
+            </script>
+            <noscript>
+                <img src="/content/images/holiday-card/FirstAgain_holidaygif_2008.jpg" alt="Wishing You Peace and Joy This Holiday Season" />
+            </noscript>
+        </div>
+    </div>
+
+    <div class="medium-12 columns text-center">
+        <div id="bottom-logo">
+            <a id="A1" href="/"><img alt="LightStream" id="uxLogoFirstAgain" class="logoFirstAgain" src="@Model.CdnBaseUrl/lightstream-logo-color.jpg" /></a>
+        </div>
+    </div>
+
+</section>
+
+
+
+@section footer {
+    @Html.Partial("~/Views/PublicSite/Partials/ecard-footer.cshtml")
+}
+
+

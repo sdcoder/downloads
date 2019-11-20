@@ -1,0 +1,192 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+
+@section styles {
+    @Styles.Render("~/bundles/css-template-redesign")
+
+    @if (Model.FeatureBullets != null && Model.FeatureBullets.Count() == 3)
+    {
+        @Styles.Render("~/bundles/three-feature-bullets");
+    }
+}
+
+@section header {
+    @Html.Partial("~/Views/Components/Navbar/VideoDesktopNav.cshtml", Model)
+    @Html.Partial("~/Views/Components/Navbar/DefaultMobileMenu.cshtml", Model)
+    <!-- Header -->
+    <header id="header" class="row widerow">
+        @Html.Partial("~/Views/Components/Navbar/DefaultMobileNav.cshtml", Model)
+
+        <img src="@Model.Content.CenterGraphic.ToImageUrl()" class="banner" alt="@Model.Content.CenterGraphic.Alt" align="right" />
+
+        <div ng-controller="LandingPageController">
+            @{ var displayRate = Model.GetMinMaxRateRange(); }
+
+            <div class="headline all-purpose large-view">
+                <div class="row header-text">
+                    <div class="small-12 columns center">
+                        <p tabindex="0">
+                            <span class="headline-first cms">@Html.Raw(Model.Title)</span>
+                            <br />
+                            <span class="headline-second">Fixed rates from <span class="headline-rate">@displayRate<sup>*</sup></span> APR with AutoPay. Rates vary by loan purpose.</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row video">
+                    <iframe id="video-iframe@(Guid.NewGuid().ToString("N"))"
+                            frameborder="0"
+                            webkitallowfullscreen
+                            mozallowfullscreen
+                            allowfullscreen
+                            tabindex="0"
+                            src="@(String.Format("{0}?controls=1&rel=0&showinfo=0&autoplay=0&modestbranding=1&enablejsapi=1&html5=1&fs=0", @Model.VideoUrl))"></iframe>
+                    <div id="action-buttons">
+                        <form method="post" action="/apply" class="bannerButton ng-pristine ng-valid">
+                            <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="tidalTracking(); SC.main.banner.applyNow()">
+                        </form>
+
+                        <div id="subscribe-btn-container">
+                            <a href="#" id="subscribe-btn" data-open="subscribe-form-modal" class="button white-transparent" onclick="SC.main.banner.notReadyToApply()">
+                                <div class="auto-center-container">
+                                    <div class="auto-center-cell cms">
+                                        @Html.Raw(Model.SubscribeButtonText)
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="headline all-purpose mobile-view">
+                <div class="row header-text">
+                    <div class="small-12 columns center">
+                        <p>
+                            <span class="headline-first cms">@Html.Raw(Model.Title)</span>
+                            <span class="headline-second">Fixed rates from <span class="headline-rate">@displayRate</span> APR with AutoPay. Rates vary by loan purpose.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /Header -->
+}
+
+<div class="row video mobile-view">
+    <iframe id="video-iframe@(Guid.NewGuid().ToString("N"))"
+            frameborder="0"
+            webkitallowfullscreen
+            mozallowfullscreen
+            allowfullscreen
+            tabindex="0"
+            src="@(String.Format("{0}?controls=1&rel=0&showinfo=0&autoplay=0&modestbranding=1&enablejsapi=1&html5=1&fs=0", @Model.VideoUrl))"></iframe>
+</div>
+
+<div id="action-buttons" class="row mobile-view">
+    <div class="small-6 columns">
+        <form method="post" action="/apply" class="bannerButton ng-pristine ng-valid">
+            <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="tidalTracking(); SC.main.banner.applyNow();">
+        </form>
+    </div>
+    <div class="small-6 columns" id="subscribe-btn-container">
+        <a href="#" id="subscribe-btn" data-open="subscribe-form-modal" class="button brown-transparent" onclick="SC.main.banner.notReadyToApply()">
+            <div class="auto-center-container">
+                <div class="auto-center-cell cms">
+                    @Html.Raw(Model.SubscribeButtonText)
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+@Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "templateName", Model.TemplateName }, { "isOneClickDisclosure", true } })
+
+<div class="row">
+    <div class="homefeatures small-12 columns">
+        <h3 class="cms" tabindex="0">@Html.Raw(Model.BenefitLine)</h3>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Components/_Carousel.cshtml")
+
+@Html.Partial("~/Views/Redesign/_FeatureBullets.cshtml", Model)
+
+<div class="row page-article">
+    <article class="cms">
+        @if (!string.IsNullOrEmpty(Model.Content.ArticleTitle))
+        {
+            @:<h1>@Html.Raw(Model.Content.ArticleTitle)</h1>
+        }
+
+        <span class="hide-for-small-only">
+            @Html.Raw(Model.Content.ArticleText)
+        </span>
+    </article>
+</div>
+
+<article class="rate-calculator">
+    @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+</article>
+
+@if (Model.Content.DisplayCustomerTestimonialRow)
+{
+    <div class="row large-view">
+        <div class="small-12 columns">
+            @Html.Action("FeaturedTestimonialRedesign", "Components", new
+            {
+                testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+                mobileTestimonialGraphicUrl = @Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+                purpose = Model.PurposeOfLoan,
+                owlCarouselId = "customerCommentsCarouselLarge",
+                viewPath = "~/Views/Redesign/_CustomerCommentsWide.cshtml"
+            })
+        </div>
+    </div>
+    <div class="row mobile-view customer-testimonial-container">
+        <div class="small-12 columns center">
+            <div class="thatBlueFontTho sectionHeader">The LightStream experience</div>
+            @Html.Action("FeaturedTestimonialRedesign", "Components", new
+            {
+                testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+                mobileTestimonialGraphicUrl = @Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+                purpose = Model.PurposeOfLoan,
+                owlCarouselId = "customerCommentsCarouselSmall"
+            })
+        </div>
+    </div>
+}
+
+@section homeloanuses{
+    <section class="row ruled homeloanuses"></section>
+}
+
+@Html.Partial("~/Views/Components/_SubscribeForm.cshtml")
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/scripts-template-redesign")
+}
+
+<script type="text/javascript">
+    function tidalTracking() {
+
+        var trk1 = document.createElement("img");
+        trk1.setAttribute("src", "https://trk.tidaltv.com/ILogger.aspx?Event=Action&apid=5647&rand=RANDOM");
+        trk1.setAttribute("height", "1");
+        trk1.setAttribute("width", "1");
+        document.body.appendChild(trk1);
+
+        var trk2 = document.createElement("img");
+        trk2.setAttribute("src", "https://set.tidaltv.com/Pong.ashx?tids=2897531%7c2400");
+        trk2.setAttribute("height", "1");
+        trk2.setAttribute("width", "1");
+        document.body.appendChild(trk2);
+
+    }
+
+</script>

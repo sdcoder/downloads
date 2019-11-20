@@ -1,0 +1,9 @@
+﻿<ul class="accordian">
+    <li class="clearfix" ng-repeat="account in Model.Applications" ng-class="{'active' : account.Active }">
+        <a ng-click="setActiveApplication(account)" class="toggle no-track" ng-class="{'active' : account.Active }">{{account.Nickname || 'Account ' + account.ApplicationId}}</a>
+        <span class="desc" ng-show="account.Nickname">Account {{account.ApplicationId}}</span>
+        <a class="desc" ng-click="editNickname(account)" ng-show="account.Nickname">Edit Nickname</a>
+        <a class="desc" ng-click="editNickname(account)" ng-show="!account.Nickname">Create Nickname</a>
+        <a ng-href="/account/informationrequest?ctx={{account.Ctx}}" class="desc" ng-show="account.InformationReqestRequired">Provide VIN</a>
+
+        <div class="content wide" ng-show="account.Active" ng-class="{'active' : account.Active }"> 

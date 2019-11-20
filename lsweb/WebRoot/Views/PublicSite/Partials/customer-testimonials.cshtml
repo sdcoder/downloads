@@ -1,0 +1,27 @@
+﻿@model LightStreamWeb.ContentManager
+
+<div class="show-on-modal">
+    <center>
+        <img src="/content/images/testimonialchat.png" alt="Customers are Saying" class="hide-for-small-only" width="242" height="142">
+    </center>
+    <h3 class="brand show-for-small-only">Customers are Saying...</h3>
+</div>
+
+<ul class="testimonials">
+    @foreach (var comment in Model.GetLightstreamCustomerComments())
+    {
+        <li tabindex="0">
+            &quot;@Html.Raw(comment.Comment)&quot;
+            <cite class="brand">@Html.Raw(comment.CiteText())</cite>
+        </li>
+    }
+    <li><a href="/customer-testimonials" target="_blank">Read more....</a></li>
+</ul>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            SC.main.customerTestimonials();
+        });
+    </script>
+}

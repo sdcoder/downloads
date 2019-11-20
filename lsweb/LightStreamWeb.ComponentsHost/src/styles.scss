@@ -1,0 +1,9 @@
+/* 
+NOTE:   We are currently not importing the style bundle into the public site.  
+        We currently use web-components.scss located in the main web project.
+        This was done to address styles leaking through to the non-elements on the public site pages.
+*/
+
+body {
+  /* It needs a dummy style to compile */
+}

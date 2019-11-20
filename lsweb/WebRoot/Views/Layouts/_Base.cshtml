@@ -1,0 +1,326 @@
+﻿@using FirstAgain.Domain.Common
+@model BaseLightstreamPageModel
+<!doctype html>
+<html itemscope itemtype="https://schema.org/BankOrCreditUnion" lang="en" class="no-js">
+<head>
+    @if (Model.CanIFrame)
+    {
+        <base target="_blank" />
+    }
+    else
+    {
+        <base target="_parent" />
+    }
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <title>@(Model.HeadTitle ?? Model.Title)</title>
+    @Model.CanonicalTag()
+    @RenderSection("metaTags", required: false)
+    <meta itemprop="description" name="description" content="@(Model.MetaDescription ?? "LightStream online lending offers unsecured personal loans for auto, home improvement and practically anything else, at low rates for those with good credit.")" />
+    <meta name="keywords" content="@(Model.MetaKeywords ?? "excellent credit, car loan, home improvement financing, timeshare financing")" />
+    <meta name="p:domain_verify" content="6e1593f79ecb274d20879334808eda06" />
+    <meta itemprop="name" content="LightStream - Loans for Practically Anything" />
+    <meta itemprop="image" content="@(BusinessConstants.Instance.HomePage)/content/images/sun_LS.PNG" />
+    <meta itemprop="logo" content="@(BusinessConstants.Instance.HomePage)/content/images/sun_LS.PNG" />
+    <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr 09:00-20:00" />
+    <meta itemprop="openingHours" content="Sa 12:00-19:00" />
+
+    @Html.RenderScriptTag("~/bundles/scripts-adobe-target-bodyhiding.js")
+
+    @Html.Partial("~/Views/Components/SocialMediaMeta.cshtml", null)
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/content/images/apple-touch-icon.png">
+    @Html.Partial("~/Views/Components/Preconnects.cshtml", null)
+
+    @Styles.Render("~/bundles/css-third-party")
+    <link rel="stylesheet" href="https://use.typekit.net/hrj0lrv.css" />
+    @if (IsSectionDefined("layout"))
+    {
+        @RenderSection("layout", required: false);
+    }
+    else
+    {
+        @Styles.Render("~/bundles/css-responsive-main-wide")
+    }
+
+    @RenderSection("styles", required: false)
+    @Html.RegisteredStyles()
+
+    @if (Model.EnableRUM)
+    {
+        <script>
+            var _prum = [['id', '54bd2fd4abe53db14dd8e5c9'],
+            ['mark', 'firstbyte', (new Date()).getTime()]];
+            (function () {
+                var s = document.getElementsByTagName('script')[0]
+                    , p = document.createElement('script');
+                p.async = 'async';
+                p.src = '//rum-static.pingdom.net/prum.min.js';
+                s.parentNode.insertBefore(p, s);
+            })();
+        </script>
+    }
+    @if (IsSectionDefined("head"))
+    {
+        @RenderSection("head", required: false);
+    }
+</head>
+
+@if (IsSectionDefined("bodyTag"))
+{
+    @RenderSection("bodyTag", required: false);
+}
+else
+{
+    @:<body class="@Model.BodyClass"
+      if (!string.IsNullOrWhiteSpace(Model.NgApp)) { @: ng-app="@Model.NgApp"
+       @: id="ng-app" ng-cloak
+      } @:>
+}
+
+@if (IsSectionDefined("header"))
+{
+    @RenderSection("header", required: false)
+    @RenderSection("hero", required: false)
+}
+else
+{
+    @Html.Partial("~/Views/Components/Navbar/DefaultDesktopNav.cshtml", Model)
+
+    <!-- Mobile Menu -->
+    @Html.Partial("~/Views/Components/Navbar/DefaultMobileMenu.cshtml", Model)
+    <!-- /Mobile Menu -->
+
+    <!-- Header -->
+    <header id="header" class="row widerow">
+        @Html.Partial("~/Views/Components/Navbar/DefaultMobileNav.cshtml", Model)
+        @RenderSection("hero", required: false)
+    </header>
+    <!-- /Header -->
+}
+
+<!-- Page Container-->
+<div class="page-container">
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Page Body -->
+        <div class="page-body">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- /Page Content -->
+</div>
+<!-- /Page Container-->
+
+
+@if (!IsSectionDefined("footer"))
+{
+    <footer class="row">
+        <nav class="medium-10 small-8 columns hide-for-small-only tight-p-right tight-p-left social-icon-wfix">
+            <ul>
+                <li><a href="/who-we-are">About</a></li>
+                <li><a href="/rates-loan-calculator">Rates/Terms</a></li>
+                @if (Model is LightStreamWeb.Models.AccountServices.AccountServicesPageModel)
+                {
+                    <li><a href="/apply/accountservices">Apply</a></li>
+                }
+                else
+                {
+                    <li><a href="/apply">Apply</a></li>
+                }
+
+                @if (AppSettingsHelper.IsRatchMatchOfferEnabled())
+                {
+                    <li class="rate-match"><a href="@Url.RouteUrl("RateBeat")">Rate Beat</a></li>
+                }
+                <li><a href="/privacy-security">Privacy/Security</a></li>
+                <li><a href="/contact-us">Questions</a></li>
+                <li><a href="/site-map">Site Map</a></li>
+                <li><a href="/affiliate-program">Affiliate Program</a></li>
+                <li><a href="@Model.CareersLinkURL">Careers</a></li>
+                <li><a href="/accessibility">Accessibility</a></li>
+
+            </ul>
+        </nav>
+
+        <nav class="medium-10 small-8 columns show-for-small-only tight-p-right">
+            <ul>
+                <li><a href="/who-we-are">About</a></li>
+                <li><a href="/rates-loan-calculator">Rates/Terms</a></li>
+                @if (Model is LightStreamWeb.Models.AccountServices.AccountServicesPageModel)
+                {
+                    <li><a href="/apply/accountservices">Apply</a></li>
+                }
+                else
+                {
+                    <li><a href="/apply">Apply</a></li>
+                }
+
+                @if (AppSettingsHelper.IsRatchMatchOfferEnabled())
+                {
+                    <li class="rate-match"><a href="@Url.RouteUrl("RateBeat")">Rate Beat</a></li>
+                }
+                <li><a href="/privacy-security">Privacy/Security</a></li>
+                <li><a href="/contact-us">Questions</a></li>
+                <li><a href="/site-map">Site Map</a></li>
+                <li><a href="/affiliate-program">Affiliate Program</a></li>
+                <li><a href="@Model.CareersLinkURL">Careers</a></li>
+                <li><a href="/accessibility">Accessibility</a></li>
+
+            </ul>
+        </nav>
+
+        <div class="medium-2 small-4 columns social tight-p-left tight-p-right social-icon-wfix show-for-large">
+            <a itemprop="sameAs" href="@Model.BloggerURL" target="_blank" data-jump="true" data-tracking="e-Journal" aria-label="LightStream Blog"><i class="ls ls-blogger ls-1x"></i></a>
+            <a itemprop="sameAs" href="@Model.YoutubeURL" target="_blank" data-jump="true" data-tracking="YouTube" aria-label="LightStream YouTube"><i class="ls ls-youtube ls-1x"></i></a>
+            <a itemprop="sameAs" href="@Model.FacebookURL" target="_blank" data-jump="true" data-tracking="Facebook" aria-label="LightStream Facebook"><i class="ls ls-facebook ls-1x"></i></a>
+            <a itemprop="sameAs" href="@Model.TwitterURL" target="_blank" data-jump="true" data-tracking="Twitter" aria-label="LightStream Twitter"><i class="ls ls-twitter ls-1x"></i></a>
+        </div>
+        <div class="medium-2 small-4 columns social tight-p-left tight-p-right social-icon-wfix hide-for-large">
+            <a href="@Model.BloggerURL" target="_blank" data-jump="true" data-tracking="e-Journal" aria-label="LightStream Blog"><i class="ls ls-blogger ls-1x"></i></a>
+            <a href="@Model.YoutubeURL" target="_blank" data-jump="true" data-tracking="YouTube" aria-label="LightStream YouTube"><i class="ls ls-youtube ls-1x"></i></a>
+            <a href="@Model.FacebookURL" target="_blank" data-jump="true" data-tracking="Facebook" aria-label="LightStream Facebook"><i class="ls ls-facebook ls-1x"></i></a>
+            <a href="@Model.TwitterURL" target="_blank" data-jump="true" data-tracking="Twitter" aria-label="LightStream Twitter"><i class="ls ls-twitter ls-1x"></i></a>
+        </div>
+
+        @{
+            var redesignModel = Model as LightStreamWeb.Models.PublicSite.RedesignPageModel;
+            var landingPageModel = Model as LightStreamWeb.Models.PublicSite.LandingPageModel;
+        }
+
+
+        <article class="large-12 columns legalcopy">
+            <p class="cms" id="PreDisclosuresFooter">@{Html.RenderAction("PreDisclosuresFooter", "Components");}</p>
+            @if (!IsSectionDefined("APRDisclosure1"))
+            {
+                @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "showPaymentExample", true } })
+            }
+            else
+            {
+                @RenderSection("APRDisclosure1", required: false)
+            }
+            @RenderSection("APRDisclosure", required: false)
+            <br /><p id="SameDayFundingDisclosure" class="ada-container legalcopy" tabindex="0"></p>
+            @if (IsSectionDefined("CmsFooter"))
+            {
+                @RenderSection("CmsFooter", required: false)
+            }
+            else
+            {
+                <p class="cms" id="Footer" tabindex="0">@{ Html.RenderAction("Footer", "Components"); }</p>
+            }
+        </article>
+
+        <div class="large-12 columns footer_images">
+            <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" class="lazy no-track" data-src="@Model.CdnBaseUrl/plant-a-tree-small.png" alt="We plant a tree with every loan" width="106" height="32" /></a>
+            <a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.lightstream.com&lang=en" data-jump="true" data-popup="true" data-name="NortonSecured" data-width="580" data-height="480"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" class="lazy" data-src="@Model.CdnBaseUrl/norton.png" alt="Norton Security Badge" width="132" height="68" /></a>
+        </div>
+
+    </footer>
+}
+else
+{
+    @RenderSection("footer", required: false)
+}
+
+@* --- Global modal dialogs*@
+<div class="reveal cms" id="PlantATreeModal" data-reveal>
+    @{Html.RenderAction("PlantATree", "Components");}
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true" class="close-reveal-modal">&times;</span>
+    </button>
+</div>
+
+<div class="reveal cms" id="JumpPageModal" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <a title="LightStream" href="/"><img data-src="@Model.CdnBaseUrl/lightstream-logo-color.jpg" alt="LightStream" border="0" width="240" height="80" class="lazy" /></a>
+            <h5>You Are Leaving LightStream.com</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="medium-12 columns">
+            <p>
+                By clicking Continue, you will be taken to a third-party Web site which is not affiliated with LightStream, a division of SunTrust Bank.
+                The privacy policy, level of security or accessibility standards may differ from ours. We encourage you to review the privacy policy and
+                security offered on the third-party site prior to providing any personal information. LightStream is not responsible for and does not
+                endorse, guarantee or monitor content, availability, viewpoints, partners, advertisers, products or services that are offered or expressed
+                on third-party Web sites. You can click the Return to LightStream.com button now to return to the previous page or you can use the Back
+                button on your browser after you leave.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <a id="JumpPageModalTarget" href="#" target="_blank" class="button button-small large-5 medium-12 small-12 columns">Continue</a>
+        <button class="button button-small button-navy large-5 medium-12 small-12 columns" onclick="$('#JumpPageModal').foundation('close');return false;">Return to LightStream.com</button>
+    </div>
+</div>
+<div id="AjaxModal" class="reveal small" data-reveal> </div>
+<div id="AjaxModalMedium" class="reveal medium" data-reveal> </div>
+<div id="AjaxModalLarge" class="reveal large" data-reveal> </div>
+<div id="DisclosureModal" class="reveal large" data-reveal> </div>
+@* --- Scripts *@
+@if (FirstAgain.Domain.Common.BusinessConstants.Instance.Environment == FirstAgain.Domain.Lookups.FirstLook.EnvironmentLookup.Environment.Production)
+{
+    <script type="text/javascript" src="https://ensighten.lightstream.com/suntrust/lightstream/Bootstrap.js"></script>
+    <script type="text/javascript">window.dataLayer = window.dataLayer || [];</script>
+}
+else
+{
+    <script type="text/javascript" src="https://ensighten.lightstream.com/suntrust/lightstream-dev/Bootstrap.js"></script>
+    <script type="text/javascript">window.dataLayer = window.dataLayer || [];</script>
+}
+
+<script type="text/javascript" src="https://LightStream.7eer.net/container-1695.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">window.jQuery || document.write('<script src="/scripts/jquery-3.4.1.min.js"><\/script>')</script>
+
+@if (Model.EnableFileUpload)
+{
+    @Scripts.Render("~/bundles/angular-file-upload")
+}
+else
+{
+    @Scripts.Render("~/bundles/angular")
+}
+
+@Scripts.Render("~/bundles/foundation-global")
+@Scripts.Render("~/bundles/es5-shim")
+@Scripts.Render("~/bundles/es6-shim")
+@Scripts.Render("~/bundles/scripts-app-main")
+
+@Html.RenderScriptTag("~/bundles/scripts-marketing.js")
+@Html.RegisteredScripts()
+@Html.DeferredStyles()
+@RenderSection("scripts", required: false)
+
+@if (IsSectionDefined("QATools"))
+{
+    @RenderSection("QATools", required: false)
+}
+else
+{
+    { Html.RenderAction("Environment", "Components"); }
+}
+
+@{
+    bool logClientSideErrors = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["LogClientSideErrors"]);
+}
+
+@if (logClientSideErrors)
+{
+    <script src="/scripts/app/log-errors.js" type="text/javascript"></script>
+}
+
+@if (IsSectionDefined("analytics"))
+{
+    @RenderSection("analytics", required: false);
+}
+
+<script src="~/Scripts/webcomponents/components.js?cachebust=@(Model.GetFileHash("scripts/webcomponents/components.js"))"></script>
+
+</body>
+</html>

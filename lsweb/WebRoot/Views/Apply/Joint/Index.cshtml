@@ -1,0 +1,59 @@
+﻿@model LightStreamWeb.Models.Apply.ApplyPageModel
+
+@Html.Partial("~/Views/Apply/Partials/_ProgressBar.cshtml", new LightStreamWeb.Models.Apply.ProgressBarModel(1))
+
+<section class="row">
+	<div class="large-12 columns">
+		<p class="note"><sup>*</sup>indicates required field</p>
+	</div>
+</section>
+
+@Html.Partial("~/Views/Apply/Partials/_BasicRequirements.cshtml")
+
+<section class="row">
+	<div class="large-12 columns panel">
+	    <p>@Html.Raw(Model.AddCoApplicantIntro)</p>
+	</div>
+</section>
+
+@LoanApplicationForm.StartForm("nextStep('/apply/joint/personalinfo', 1)")
+		
+    <fieldset disabled="disabled">
+	    @Html.Partial("~/Views/Apply/Partials/_ApplicationType.cshtml")		
+	</fieldset>
+
+    @Html.Partial("~/Views/Apply/Partials/_PurposeOfLoan.cshtml")		
+
+    @if (Model.ShouldDisplayReferredBy()) {
+        @Html.Partial("~/Views/Apply/Partials/_HowYouHeard.cshtml")		
+    }
+
+    <fieldset disabled="disabled">
+        @Html.Partial("~/Views/Apply/Partials/_ZipAndState.cshtml")		
+    </fieldset>
+
+    @Html.Partial("~/Views/Apply/Partials/_LoanAmountAndTerm.cshtml")		
+		
+    @Html.Partial("~/Views/Apply/Partials/_LoanPaymentType.cshtml")		
+		
+    @Html.Partial("~/Views/Apply/Partials/_RateAndEstimatedMonthlyPayment.cshtml")		
+
+	<div class="row">
+        <div class="medium-6 columns">	
+		    <input type="submit" id="Continue" class="button" value="Continue" />
+		</div>
+	</div>
+</form>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            SC.apply.loanInfo();
+            SC.apply.basicClick();
+
+            $('form').on('submit', function () {
+                SC.apply.loanInfo(true);
+            });
+        });
+    </script>
+}

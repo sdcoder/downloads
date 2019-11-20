@@ -1,0 +1,49 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@{
+    var ts = Model.Content.TwoStories;
+}
+@if (ts != null)
+{
+    <div class="widget event-widget-jumbo-tiles row row-fluid">
+        <div class="widget-body">
+            <div class="event-widget-jumbo-tile-container">
+                <div class="large-6 medium-6 small-12 columns columns-fluid">
+                    <div class="event-widget-jumbo-tile">
+                        <div class="event-widget-jumbo-tile-content">
+                            <div class="event-widget-jumbo-tile-copy">
+                                <h2 tabindex="0">@Html.Raw(ts.Story1Title)</h2>
+                                <p tabindex="0">
+                                    @Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(ts.Story1Description))
+                                </p>
+                            </div>
+                            <p class="event-widget-jumbo-tile-actions">
+                                <a href="@ts.Story1Url" class="btn btn-jumbo-tile" ls-jump-page onclick="SC.main.jumboTiles()">
+                                    Learn Mode
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="large-6 medium-6 small-12 columns columns-fluid">
+                    <div class="event-widget-jumbo-tile">
+                        <div class="event-widget-jumbo-tile-content">
+                            <div class="event-widget-jumbo-tile-copy">
+                                <h2 tabindex="0">@Html.Raw(ts.Story2Title)</h2>
+                                <p tabindex="0">
+                                    @Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(ts.Story2Description))
+                                </p>
+                            </div>
+                            <p class="event-widget-jumbo-tile-actions">
+                                <a href="@ts.Story2Url" class="btn btn-jumbo-tile" ls-jump-page onclick="SC.main.jumboTiles()">
+                                    Learn Mode
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

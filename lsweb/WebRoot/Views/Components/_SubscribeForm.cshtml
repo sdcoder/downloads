@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+
+<style>
+    #subscribe-form-container .heading {
+        font-size: 1.5rem;
+    }
+</style>
+
+<div id="subscribe-form-modal" class="reveal small" data-reveal>
+    <div id="subscribe-form-container" ng-controller="SubscribeController">
+        <div class="row">
+            <div class="small-12 columns">
+                <div ng-show="isInMaintenanceMode" data-alert class="alert-box alert radius">
+                    Our site is undergoing routine maintenance. Please try again later.
+                </div>
+                <div ng-show="hasError" data-alert class="alert-box alert radius">
+                    Unfortunately, an Error occurred. Please try again later.
+                </div>
+                <div ng-show="emailValidation.isDuplicateEmail" data-alert class="alert-box warning radius">
+                    Email already in use.
+                </div>
+                <div ng-show="subscriptionAdded" data-alert class="alert-box success radius">
+                    Thank you! Your information has been received.<br />
+                    <img ng-if="subscriptionAdded" height='1' width='1' alt='' ng-src='https://trk.tidaltv.com/ILogger.aspx?Event=Action&apid=5650&rand=RANDOM' />
+                    <img ng-if="subscriptionAdded" height='1' width='1' alt='' ng-src='https://set.tidaltv.com/Pong.ashx?tids=2897528%7c2400' />
+                </div>
+            </div>
+        </div>
+        <form name="subscribeForm" method="post" action="#" ls-validate-on-submit on-success="subscribe()">
+            <div class="row">
+                <a class="close-reveal-modal close-button" data-close>×</a>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <label class="heading center">Stay In Touch</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <p class="description center">Keep me in the loop about financial tips and promotions from LightStream.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <input id="subscriber-firstName"
+                           type="text"
+                           placeholder="FirstName"
+                           maxlength="30"
+                           required
+                           ls-restrict-to-pattern ng-pattern="/^[A-Za-z-\' /.]+$/"
+                           ng-model="subscriber.firstName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <input id="subscriber-lastName"
+                           type="text"
+                           placeholder="LastName"
+                           maxlength="30"
+                           required
+                           ls-restrict-to-pattern ng-pattern="/^[A-Za-z-\' /.]+$/"
+                           ng-model="subscriber.lastName" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-12 columns">
+                    <input id="subscriber-email"
+                           type="email"
+                           placeholder="Email"
+                           required
+                           maxlength="50"
+                           ng-pattern="/@(@"^(?!.*([\.])\1)[a-z0-9_\-\.\+]{2,}@[a-z0-9_\-\.]{1,}\.[a-z]{2,}$/i")"
+                           ng-model="subscriber.email" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <select ng-model="subscriber.productInterest"
+                            ng-options="product.label for product in productInterestTypes track by product.id"
+                            ng-selected="$first"
+                            required>
+                        <option value="" class="first-list-item">Loan Product Interest</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns center">
+                    <p class="legalcopy">
+                        LightStream does not share your information with third parties.<br />
+                        <a href="/privacy-policy" target="_blank" aria-label="Privacy Policy page will open a new window">See our Privacy Policy HERE</a>.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns center">
+                    <input type="submit"
+                           class="button"
+                           value="Submit"
+                           ng-disabled="isInMaintenanceMode" />
+                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="email validation wait spinner" ng-show="isLoading">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

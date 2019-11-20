@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Layouts/_Base.cshtml";
+    ViewBag.Title = "forms";
+}
+<script src="/scripts/app/angular.forms.directives.js"></script>
+<h2>forms</h2>
+
+        <div ng-app>
+            <form name="MyForm">
+
+                <input type="checkbox" />
+                <input type="search" />
+            <p><input ng-model="Value" name="PhoneNumber" ls-phone-number /></p>
+            </form>
+            
+	<div class="medium-3 small-12 columns">
+        <div class="row collapse">
+	    <label><sup>*</sup>Time at current address</label>
+            <div class="medium-2 columns small-2">
+                <input type="number" 
+                    ng-model="TimeAtAddress.Years" 
+                    ls-numbers-only maxlength="2" min="0" max="99" required>
+            </div>
+            <div class="medium-3 columns small-3"><span class="postfix">Years</span></div>
+            <div class="medium-2 columns small-2">&nbsp;</div>
+            <div class="medium-2 columns small-2">
+                <input type="number" 
+                    ng-model="TimeAtAddress.Months" 
+                    ls-numbers-only max="11" min="0" maxlength="2">
+            </div>
+            <div class="medium-3 columns small-3"><span class="postfix">Months</span></div>
+        </div>
+	</div>
+
+        </div>

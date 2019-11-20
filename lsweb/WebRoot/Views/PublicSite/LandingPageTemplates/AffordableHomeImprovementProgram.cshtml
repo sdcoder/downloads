@@ -1,0 +1,76 @@
+﻿@using FirstAgain.Domain.Common
+
+@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@{
+    var testModal = this.Request.RawUrl.ToLower().Contains("testmodal").ToString().ToLower();
+}
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+@section hero {
+    <img src="@Model.Content.CenterGraphic.ToImageUrl()" class="hide-for-small banner" alt="@Model.Content.CenterGraphic.Alt" />
+
+    <div class="row headline" ng-controller="LandingPageController">
+        <h2 class="cms">@Html.Raw(Model.Title)</h2>
+        <h4 class="sub cms">@Html.Raw(Model.Content.PageSubTitle)</h4>
+        <div class="heroaction clearfix">
+
+            <div class="ratedetails">
+                <p>Fixed rates as low as </p>
+                <h3 class="ratepercentage">@Html.FormatRateWithDataAttributes(Model.DisplayRate)</h3>
+                <p class="ratenote">APR with AutoPay</p>
+            </div>
+
+            <a href="/apply" class="button" onclick="SC.main.banner.applyNow()">Apply Now</a>
+
+            <p class="seeratesandterms"><a href="#rates" target="_self" onclick="SC.main.banner.ratesAndTerms()">See Rates & Terms &raquo;</a></p>
+
+        </div>
+    </div>
+}
+
+@Html.Partial("~/Views/Components/BestLoanExperienceGuaranteeRow.cshtml")
+@Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "isOneClickDisclosure", true } })
+
+@if (Model.IfAnyFeatureBulletsDefined())
+{
+    <section class="row ruled homefeatures">
+        <h3>@Html.Raw(Model.BenefitLine)</h3>
+        @foreach (var b in Model.FeatureBullets)
+        {
+            @Html.DisplayBullet(b)
+        }
+    </section>
+}
+@if (Model.Content.DisplayCustomerTestimonialRow)
+{
+    @Html.Action("FeaturedTestimonial", "Components", new { purpose = Model.PurposeOfLoan })
+}
+
+<div class="row page-article">
+    <article class="cms">
+        @if (!string.IsNullOrEmpty(Model.Content.ArticleTitle))
+        {
+            @:<h1>@Html.Raw(Model.Content.ArticleTitle)</h1>
+        }
+
+        <span class="hide-for-small">
+            @Html.Raw(Model.Content.ArticleText)
+        </span>
+    </article>
+</div>
+
+@Html.Partial("~/Views/PublicSite/Modals/SunsetAHIP.cshtml")
+
+@section scripts {
+    <script>
+        jQuery(document).ready(function () {
+            $(window).scrollTop(0, 0);
+            jQuery("#ahipmodal").foundation('open');
+        });
+    </script>
+}
+

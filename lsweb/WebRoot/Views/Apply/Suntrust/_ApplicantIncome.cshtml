@@ -1,0 +1,14 @@
+﻿<div class="row">
+    <div class="medium-6 columns">
+		<label><sup>*</sup>Applicant Annual Salary (do not include bonuses, commissions, tips, etc.)</label>
+
+        @LSForm.Currency(nameAndId: "ApplicantGrossAnnualIncome",
+                         ariaLabel: "Enter your annual salary.",
+                         ngRequired: "true",
+                         ngModel: "LoanApp.Applicants[0].Occupation.Employer.GrossAnnualIncome",
+                         ngMin: "0",
+                         ngMax: "99999999.99",
+                         maxLength: 14)
+
+    </div>
+</div>

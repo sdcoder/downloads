@@ -1,0 +1,9 @@
+﻿nav ul li {
+    float:left;
+}
+div.pre-ie8 {
+    display:block;
+    width:100%;
+    color:red;
+    padding:2px;
+}

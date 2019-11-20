@@ -1,0 +1,24 @@
+﻿@model LightStreamWeb.Models.Apply.ApplyPageModel
+
+<div class="row">
+	<div class="medium-6 columns">
+	    <label>May we ask how you heard about us?</label>
+        @(Html.NgDropDownList(
+            "LoanApp.FACTData.FACT",
+            "FirstAgainCodeTrackingId",
+            "Select how you heard about us.",
+            Model.GetMarketingSources(),
+            required: false,
+            attributes: new { @ng_init = "LoanApp.FACTData.FACT = LoanApp.FACTData.FACT || 1" }
+            )
+        )
+	</div>
+
+	<div class="medium-6 columns">
+        <label for="ReferredByDescription" aria-label="Please be more specific on how you heard about us, if applicable.">Please be more specific, if applicable.</label>
+        <input type="text" id="ReferredByDescription" ng-model="LoanApp.FACTData.ReferredByDescription" maxlength="50" />
+	</div>
+</div>
+
+
+		

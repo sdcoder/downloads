@@ -1,0 +1,163 @@
+﻿@{ Layout = "~/Views/Layouts/_Base.cshtml"; }
+
+@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@if (!IsSectionDefined("layout"))
+{
+    @section layout {
+        @if (Model.Content.UseWideLayout)
+        {
+            @Styles.Render("~/bundles/css-responsive-main-wide")
+        }
+        else
+        {
+            @Styles.Render("~/bundles/css-responsive-main")
+        }
+    }
+}
+else
+{
+    @RenderSection("layout", required: false);
+}
+
+@if (!IsSectionDefined("bodyTag"))
+{
+    @section bodyTag {
+<body class="@Model.BodyClass @(Model.Content.UseWideLayout ? "wide-layout" : "fixed-layout")"
+      @if (!string.IsNullOrWhiteSpace(Model.NgApp)) { @: ng-app="@Model.NgApp"
+       @: id="ng-app"
+      }>
+    }
+}
+else
+{
+@RenderSection("bodyTag", required: false);
+}
+
+@RenderBody()
+
+@if (IsSectionDefined("header"))
+{
+    @section header {
+        @RenderSection("header", required: false)
+    }
+}
+
+@if (IsSectionDefined("footer"))
+{
+    @section footer {
+        @RenderSection("footer", required: false)
+    }
+}
+else
+{
+    @section footer
+    {
+        <footer class="row">
+            <nav class="medium-10 small-8 columns" style="padding-left: 0">
+                <ul>
+                    <li><a href="/who-we-are">About</a></li>
+                    <li><a href="/rates-loan-calculator">Rates/Terms</a></li>
+                    <li><a href="/apply">Apply</a></li>
+                    <li class="rate-match"><a href="/rate-beat">Rate Beat</a></li>
+                    <li><a href="/privacy-security">Privacy/Security</a></li>
+                    <li><a href="/contact-us">Questions</a></li>
+                    <li><a href="/site-map">Site Map</a></li>
+                    <li><a href="/affiliate-program">Affiliate Program</a></li>
+                    <li><a href="@Model.CareersLinkURL">Careers</a></li>
+                    <li><a href="/accessibility">Accessibility</a></li>
+                </ul>
+            </nav>
+
+            <div class="medium-2 small-4 columns social tight-p-left tight-p-right social-icon-wfix">
+                <a itemprop="sameAs" href="@Model.BloggerURL" target="_blank" data-jump="true" data-tracking="e-Journal" aria-label="LightStream Blog"><i class="ls ls-blogger ls-1x"></i></a>
+                <a itemprop="sameAs" href="@Model.YoutubeURL" target="_blank" data-jump="true" data-tracking="YouTube" aria-label="LightStream YouTube"><i class="ls ls-youtube ls-1x"></i></a>
+                <a itemprop="sameAs" href="@Model.FacebookURL" target="_blank" data-jump="true" data-tracking="Facebook" aria-label="LightStream Facebook"><i class="ls ls-facebook ls-1x"></i></a>
+                <a itemprop="sameAs" href="@Model.TwitterURL" target="_blank" data-jump="true" data-tracking="Twitter" aria-label="LightStream Twitter"><i class="ls ls-twitter ls-1x"></i></a>
+            </div>
+
+
+            <article class="large-12 columns legalcopy">
+                <p class="cms" id="PreDisclosuresFooter">@{Html.RenderAction("PreDisclosuresFooter", "Components");}</p>
+
+                @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "showPaymentExample", true } })
+                <br /><div class="ada-container legalcopy" id="SameDayFundingDisclosure" tabindex="0"></div>
+
+
+                @if (!string.IsNullOrWhiteSpace(Model.Content.DisclosureCopy))
+                {
+                    <div class="cms">@Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Content.DisclosureCopy))</div>
+                }
+
+                <p class="cms" id="Footer" tabindex="0">@{Html.RenderAction("Footer", "Components");}</p>
+
+            </article>
+
+            <div class="large-12 columns footer_images">
+                <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img src="@Model.CdnBaseUrl/plant-a-tree-small.png" alt="We plant a tree with every loan" width="106" height="32" class="no-track" /></a>
+                <a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.lightstream.com&lang=en" data-jump="true" data-popup="true" data-name="NortonSecured" data-width="580" data-height="480"><img src="@Model.CdnBaseUrl/norton.png" alt="Norton Security Badge" width="132" height="68" /></a>
+            </div>
+
+        </footer>
+    }
+}
+
+@section hero {
+    @RenderSection("hero", required: false)
+}
+
+@section metaTags {
+    @RenderSection("metaTags", required: false)
+}
+
+@section styles {
+    @RenderSection("styles", required: false)
+}
+
+@if (!Model.DisplaysCustomRates())
+{
+    <article class="rate-calculator">
+        @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+    </article>
+}
+
+@RenderSection("experience", false)
+
+@if (IsSectionDefined("mobileTestimonial"))
+{
+    @RenderSection("mobileTestimonial")
+}
+
+@if (IsSectionDefined("homeloanuses"))
+{
+    @RenderSection("homeloanuses")
+}
+else
+{
+    <section class="row ruled homeloanuses">
+        @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+    </section>
+}
+
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        (function ($, SC) {
+            @switch (Model.Content.TemplateType)
+            {
+                case FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.PaidSearch:
+                case FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.Video:
+                case FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.VideoAllPurpose:
+                case FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.LoanAggregator:
+                case FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.ComponentTemplate:
+                case FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.MultipurposeAuto:
+                    <text>SC._t({ pageName: '@Model.CustomOmniHierarchy', hier1: '@Model.CustomOmniHierarchy', products: ';AnythingLoan', events: 'prodView' });</text>
+                    break;
+                default:
+                    <text>SC._t({ pageName: '@Model.OmniPageName', hier1: '@Model.OmniHierarchy', products: ';AnythingLoan', events: 'prodView' });</text>
+                    break;
+            }
+        })($, SC);
+    </script>
+}

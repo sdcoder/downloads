@@ -1,0 +1,46 @@
+﻿<!-- How it works Modal -->
+<div id="worksModal" class="howitworks" >
+  <h2>How It Works...</h2>
+  <div class="row">
+	  <div class="small-3 columns">
+	 		<img src="/content/images/icon_devices.png" />
+	  </div>
+	  <div class="small-9 columns">
+	  		<h4>1 Apply Online</h4>
+	  		<p>You will receive a response shortly (during business hours).</p>
+	  </div>
+  </div>
+  
+  <div class="row">
+	  <div class="small-3 columns">
+	 		<img src="/content/images/icon_esign.png"/>
+	  </div>
+	  <div class="small-9 columns">
+	  		<h4>2 Accept Loan Agreement</h4>
+	  		<p>Once approved, e-sign your loan agreement and set up your loan for funding.</p>
+	  </div>
+  </div>
+  
+  <div class="row">
+	  <div class="small-3 columns">
+	 		 <img src="/content/images/icon_money.png" style="padding:18px 0;" />
+	  </div>
+	  <div class="small-9 columns">
+	  		<h4>3 That’s it! Use Your Loan.</h4>
+	  		<p>Receive your funds as early as today.<sup>&dagger;</sup></p>
+	  </div>
+  </div>
+  
+  
+  <h3>It's that simple. We're so confident that you will love the experience, <a href="/customer-guarantee" data-popup="true">we guarantee it.</a></h3>
+  
+  <p class="legalcopy">
+      @Html.Partial("~/Views/Components/SameDayFundingDisclosure.cshtml")
+  </p>
+
+  <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal close-reveal-X-mobile-view no-print">&times;</span></button>
+</div>
+
+@{ 
+    Html.RegisterScriptFile("~/Scripts/app/partial-standalone-styling.js");
+}

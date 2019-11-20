@@ -1,0 +1,282 @@
+﻿@model LightStreamWeb.Models.PreFunding.SignLoanAgreementPageModel
+
+<section class="row">
+	<div class="large-12 columns">
+        <h2 class="brand">Loan Agreement</h2>
+	</div>
+</section>
+
+              
+<section class="row">
+	<div class="large-2 columns">
+        <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img alt="Paperless Loan Documents" height="70" width="105" src="/content/images/logo_paperless_loan_docs.gif"></a>
+	</div>
+	<div class="large-10 columns">
+        <p>Below is your @if (Model.PurposeOfLoanIsSecured()) { <text>Secured Auto</text> } Note and Security Agreement.  Please carefully review the terms and conditions of this agreement,
+        @if (Model.ShowApplicantAcknowledgement) {<span style="color:red;">check the box(es) immediately next to the Truth in Lending Act Disclosures,</span> }
+        and then electronically sign the agreement in the signature area below and click "Submit Signature."</p>
+        <p>After signing, you may download or print a copy of this document for your files. You may also go to the Accounts menu within online Account Services to access this document in the future.</p>
+	</div>
+</section>
+
+<section class="row">
+<form name="LoanAgreementForm" ng-controller="SignLoanAgreementController">
+	<div class="large-12 columns" id="LoanAgreementContainer">
+        
+            <div class="row">
+                <div class="large-12 columns">
+                    @Html.Raw(Model.PreSignatureLoanAgreementHtml())
+                </div>
+            </div>
+
+            <div ng-cloak>
+            <span id="Signatures"></span>
+            @foreach (var signature in Model.Signatures)
+            {
+                Html.RenderPartial("~/Views/ApplicationStatus/Approved/_Signature.cshtml", signature);
+            }
+            </div>
+        
+            <div ng-show="!IsComplete" class="row" ng-cloak>
+                <div class="large-12 columns">
+                    <input 
+                        type="button" 
+                        class="button" 
+                        value="{{LoanAcceptance.IsJoint ? 'Submit Signatures' : 'Submit Signature'}}" 
+                        ng-disabled="allSignaturesAreEmpty() || Waiting"
+                        ng-click="submitSignatures()"
+                        />
+                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="" ng-show="Waiting" />
+                    <a ng-show="LoanAcceptance.IsSigned && !Redirecting" href="#/Account" class="button no-track">Continue to Account Setup</a>
+                </div>
+            </div>
+        
+            <div ng-show="IsComplete" class="row" ng-cloak>
+                <div class="large-12 columns">
+                    <p>Thank you, your new loan will fund as previously scheduled. You may <a href="/appstatus/prefunding/getpdfloanagreement" _target="_new">download</a> or <a href="javascript:window.print()">print</a> your signed loan agreement before proceeding. 
+                        If you download your document, you will need Adobe Reader to view your agreement.</p>
+                    <p>
+                        <a class="button" href="/appstatus/refresh">View Funding Information</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row" ng-show="ErrorMessage">
+                <div class="large-12 columns formalert">
+                    <p ng-bind-html="ErrorMessage"></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    @Html.Raw(Model.PostSignatureLoanAgreementHtml())
+                </div>
+            </div>
+        </div>
+
+        <div id="ConfirmSignOutPartialSignature" class="reveal small" data-reveal>
+            <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+            <h2>Loan Acceptance Process Incomplete</h2>
+
+            <p class="disclaimer">Only one signature has been provided.  What would you like to do?</p>
+            <a href="#" class="button button-medium button-navy" data-close ng-click="provideSecondSignature()">Provide second signature now</a>
+            <a href="/signin/logout" class="button button-medium button-navy" data-transition="true" ng-click="persistPartialSignature()">Return later with second signature</a>
+        </div>
+        <div id="ConfirmSignOut" class="reveal small" data-reveal>
+            <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+            <h2>New Loan Terms Request Incomplete</h2>
+
+            <p>You have not completed or cancelled your new loan terms request. If you sign out now, your funding will not proceed and your loan application will expire on @Model.ExpirationDate.</p>
+
+            <p>Do you still wish to sign out?</p>
+            <a href="#" class="button button-medium button-navy" data-close>No</a>
+            <a href="/signin/logout" class="button button-medium " data-transition="true">Yes</a>
+        </div>
+    </form>
+</section>
+@section scripts {
+
+<script type="text/javascript">
+    angular.module('ApplicationStatusModule')
+        .controller('SignLoanAgreementController', function ($scope, $http, $window, $sce) {
+            $scope.LoanAcceptance = {
+                ApplicationId: @Model.ApplicationId,
+                LoanTermsRequestId: @Model.LoanTermsRequestId,
+                RequiresApplicantSignatureAcknowledgement: false,
+                RequiresCoApplicantSignatureAcknowledgement: false,
+                RequiresAcknowledgements: @Model.ShowApplicantAcknowledgement.ToString().ToLower(),
+                IsSecured: @Model.PurposeOfLoanIsSecured().ToString().ToLower(),
+                IsJoint: @Model.IsJoint.ToString().ToLower(),
+                ApplicantSignature: {
+                    Submitted: @Model.IsApplicantSignatureSubmitted().ToString().ToLower()
+                    },
+                CoApplicantSignature: {
+                    Submitted: @Model.IsCoApplicantSignatureSubmitted().ToString().ToLower()
+                    }
+            };
+
+            // Rhode Island
+            if ($scope.LoanAcceptance.RequiresAcknowledgements && $scope.LoanAcceptance.IsSecured) {
+                $scope.$watch('LoanAgreementModel.CoApplicantAcknowledged', function (newValue) {
+                    var value = newValue === undefined ? false : newValue;
+
+                    $scope.ShowCoApplicantInitials = value;
+                    $scope.LoanAcceptance.RequiresCoApplicantSignatureAcknowledgement = $scope.LoanAcceptance.IsJoint && !value;
+
+                    // Wipe out signature if unchecked.
+                    if (!value && $scope.LoanAcceptance.CoApplicantSignature !== undefined && newValue !== undefined && !$scope.LoanAcceptance.CoApplicantSignature.Submitted) {
+                        $scope.LoanAcceptance.CoApplicantSignature.Data = null;
+                        var sigPad = $("#sigCoApplicantSignature").signaturePad();
+                        if (sigPad != null) {
+                            sigPad.clearCanvas();
+                        }
+                    }
+                });
+                $scope.$watch('LoanAgreementModel.ApplicantAcknowledged', function (newValue) {
+                    var value = newValue === undefined ? false : newValue;
+
+                    $scope.ShowApplicantInitials = value;
+                    $scope.LoanAcceptance.RequiresApplicantSignatureAcknowledgement = !value;
+
+                    // Wipe out signature if unchecked.
+                    if (!value && $scope.LoanAcceptance.ApplicantSignature !== undefined && newValue !== undefined && !$scope.LoanAcceptance.ApplicantSignature.Submitted) {
+                        $scope.LoanAcceptance.ApplicantSignature.Data = null;
+                        var sigPad = $("#sigApplicantSignature").signaturePad();
+                        if (sigPad != null) {
+                            sigPad.clearCanvas();
+                        }
+                    }
+                });
+
+                if ($scope.LoanAcceptance.ApplicantSignature.Submitted) {
+                    $scope.LoanAgreementModel.ApplicantAcknowledged = true;
+                }
+                if ($scope.LoanAcceptance.CoApplicantSignature.Submitted) {
+                    $scope.LoanAgreementModel.CoApplicantAcknowledged = true;
+                }
+            }
+
+            var submitSignature = function (sigData, isCoApp) {
+                $http.post('/Signature/Submit', {
+                    usingScriptFont: sigData.UsingScriptFont,
+                    signatureJSON: sigData.JSON,
+                    isCoApplicant: isCoApp,
+                    applicantFullName: sigData.ApplicantFullName
+                }).success(function (response) {
+                    if (response.Success) {
+                        sigData.Submitted = true;
+                        sigData.TimeStamp = response.TimeStamp;
+                        sigData.ImageURL = response.ImageURL;
+
+                        checkForCompleteSignatures();
+                    } else {
+                        $scope.ErrorMessage = 'There was an error saving your signature';
+                    }
+                });
+            },
+                checkForCompleteSignatures = function () {
+                    if (
+                        (!$scope.LoanAcceptance.IsJoint && $scope.LoanAcceptance.ApplicantSignature.Submitted) ||
+                            ($scope.LoanAcceptance.IsJoint && $scope.LoanAcceptance.ApplicantSignature.Submitted && $scope.LoanAcceptance.CoApplicantSignature.Submitted)
+                    ) {
+                        $scope.Waiting = true;
+                        $http.post('/AppStatus/PreFunding/PersistLoanAgreement', 
+                                {
+                                    ApplicationId: @Model.ApplicationId,
+                                    LoanTermsRequestId: @Model.LoanTermsRequestId
+                                }).success(function (result, status) {
+                                    if (result && !result.Success) {
+                                        $scope.Waiting = false;
+                                        $scope.ErrorMessage = $sce.trustAsHtml('There was an error submitting your loan agreement. Please <a href="/appstatus/refresh">click here</a> to log in and try again.');
+                                        return false;
+                                    }
+
+                                    $scope.LoanAcceptance.IsSigned = true;
+                                    $scope.LoanAcceptance.IsPartiallySigned = false;
+                                    if (result && result.IsComplete) {
+                                        $scope.Waiting = false;
+                                        $scope.IsComplete = true;
+                                    } else {
+                                        $scope.Redirecting = true;
+                                        $window.location.href = '/appstatus/prefunding/' + result.NextStep + '?ctx=@Model.Ctx';
+                                    }
+                                });
+
+                        return;
+                    }
+
+                    if ($scope.LoanAcceptance.IsJoint && ($scope.LoanAcceptance.ApplicantSignature.Submitted || $scope.LoanAcceptance.CoApplicantSignature.Submitted)) {
+                        $scope.LoanAcceptance.IsPartiallySigned = true;
+                    }
+                };
+
+            $scope.allSignaturesAreEmpty = function () {
+                var appSigned = $scope.LoanAcceptance.ApplicantSignature !== undefined && !$scope.LoanAcceptance.RequiresApplicantSignatureAcknowledgement &&
+                                ($scope.LoanAcceptance.ApplicantSignature.UsingScriptFont ||
+                                  $scope.LoanAcceptance.ApplicantSignature.Submitted ||
+                                 ($.isArray($scope.LoanAcceptance.ApplicantSignature.Data) && $scope.LoanAcceptance.ApplicantSignature.Data.length > 0)
+                                 ),
+                    coAppSigned = $scope.LoanAcceptance.CoApplicantSignature !== undefined && !$scope.LoanAcceptance.RequiresCoApplicantSignatureAcknowledgement &&
+                                 ($scope.LoanAcceptance.CoApplicantSignature.UsingScriptFont ||
+                                  $scope.LoanAcceptance.CoApplicantSignature.Submitted ||
+                                  ($.isArray($scope.LoanAcceptance.CoApplicantSignature.Data) && $scope.LoanAcceptance.CoApplicantSignature.Data.length > 0)
+                                 );
+                if ($scope.LoanAcceptance.IsJoint) {
+                    if(appSigned && $scope.LoanAcceptance.ApplicantSignature.Submitted) {
+                        return !coAppSigned;
+                    }
+                    if(coAppSigned && $scope.LoanAcceptance.CoApplicantSignature.Submitted) {
+                        return !appSigned;
+                    }
+                    return !appSigned && !coAppSigned;
+                }
+                return !appSigned;
+            };
+
+
+            $scope.submitSignatures = function () {
+                if ($scope.LoanAcceptance.ApplicantSignature &&
+                        ($scope.LoanAcceptance.ApplicantSignature.UsingScriptFont ||
+                            ($.isArray($scope.LoanAcceptance.ApplicantSignature.Data) && $scope.LoanAcceptance.ApplicantSignature.Data.length > 10))
+                        ) {
+                    submitSignature($scope.LoanAcceptance.ApplicantSignature, false);
+                }
+                if ($scope.LoanAcceptance.CoApplicantSignature && ($scope.LoanAcceptance.CoApplicantSignature.UsingScriptFont ||
+                        ($.isArray($scope.LoanAcceptance.CoApplicantSignature.Data) && $scope.LoanAcceptance.CoApplicantSignature.Data.length > 10))) {
+                    submitSignature($scope.LoanAcceptance.CoApplicantSignature, true);
+                }
+            };
+
+            $scope.persistPartialSignature = function () {
+                $scope.LoggingOut = true;
+                $http.post('/Signature/PersistPartial', {
+                    applicationId: $scope.LoanAcceptance.ApplicationId
+                }).success(function () {
+                    $window.location.href = '/signin/logout';
+                });
+            };
+
+            $scope.$watchCollection('[LoanAcceptance.IsPartiallySigned,LoanAcceptance.IsSigned]', function () {
+                console.log('Part signed: '+$scope.LoanAcceptance.IsPartiallySigned);
+                if ($scope.LoanAcceptance.IsPartiallySigned) {
+                    $('.navbar-container .navbar-navigation-header-actions .sign-out-action a').on('click', function () {
+                        $('#ConfirmSignOutPartialSignature').foundation('open');
+                        return false;
+                    }).attr('href', '');
+
+                } else if ($scope.LoanAcceptance.IsSigned) {
+                    $('.navbar-container .navbar-navigation-header-actions .sign-out-action a').on('click', function () {
+                        $('#ConfirmSignOut').foundation('open');
+                        return false;
+                    }).attr('href', '');
+                }
+            });
+
+            checkForCompleteSignatures();
+        });
+
+    // site catalyst
+    $(function () {
+        SC.prefunding.newLoanAgreement();
+    });
+</script>
+}

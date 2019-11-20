@@ -1,0 +1,45 @@
+﻿@model List<FirstAgain.Common.Caching.MachineCacheEntry>
+@{
+    ViewBag.Title = "Cache";
+}
+
+<style type="text/css">
+    tr {
+        height:2em;
+    }
+    td, th {
+        padding:0.5em;
+        vertical-align:central;
+    }
+    .button {
+        display:block;
+    }
+</style>
+<h2>Machine Cache Maintenance</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Refresh</th>
+            <th>Key</th>
+            <th>Value Size</th>
+            <th>Last Refreshed</th>
+            <th>Last Refresh Attempted</th>
+            <th>Refresh Interval</th>
+            <th>Exception?</th>
+        </tr>
+    </thead>
+    @foreach (var entry in Model)
+    {
+        <tr>
+            <td><a href="/test/refreshcache?id=@entry.Key" class="button button-small">Force Refresh</a></td>
+            <td><a href="/test/viewcacheentry?id=@entry.Key" target="_blank">@entry.Key</a></td>
+            <td>@entry.ValueSizeInBytes.FormatBytes()</td>
+            <td>@entry.LastRefreshed</td>
+            <td>@entry.LastRefreshAttempted</td>
+            <td>@entry.RefreshInterval</td>
+            <td>@entry.Exception</td>
+        </tr>
+    }
+</table>
+

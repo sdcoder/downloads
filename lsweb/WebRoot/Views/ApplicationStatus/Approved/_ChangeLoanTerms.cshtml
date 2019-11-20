@@ -1,0 +1,13 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.IChangeLoanTermsModel
+
+<section class="row">
+	<div class="medium-12 columns">
+        <h3>Change Loan Terms</h3>
+
+        <p>@Model.ChangeLoanTermsMessage</p>
+	</div>
+</section>
+
+<section class="row ruled">
+    @Html.Partial("~/Views/ApplicationStatus/_ChangeLoanTermsForm.cshtml")
+</section>

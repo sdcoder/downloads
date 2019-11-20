@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorCorrectCompleteAllRedFields" xml:space="preserve">
+    <value>Please correct or complete all red highlighted fields before selecting save.</value>
+  </data>
+  <data name="ErrorCustomerUserIdExists" xml:space="preserve">
+    <value>The user ID you selected is unavailable. Please select another user ID, thank you.</value>
+  </data>
+  <data name="ErrorCustomerUserIdRegEx" xml:space="preserve">
+    <value>The user ID you entered is invalid. Please re-enter. Review the user ID help &lt;img src="../Assets/Images/icon_information.gif" align="top" style="display:inline"/&gt;, if you need assistance.</value>
+  </data>
+  <data name="ErrorDateOfBirthLT18" xml:space="preserve">
+    <value>Applicant must be 18 years of age to apply for a LightStream loan.</value>
+  </data>
+  <data name="ErrorDateOfBirth" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="ErrorEmailAddressVal" xml:space="preserve">
+    <value>The email address entered is invalid. Please reenter.</value>
+  </data>
+  <data name="ErrorEmployerAddressLine1NoPO" xml:space="preserve">
+    <value>A P.O. Box is not a valid street address, please re-enter the information.</value>
+  </data>
+  <data name="ErrorEmployerAddressLine1Val" xml:space="preserve">
+    <value>The street address is invalid, please re-enter the information.</value>
+  </data>
+  <data name="ErrorEmployerPostalUnitType" xml:space="preserve">
+    <value>Select Bldg, Floor, Mail Stop, or Suite from the drop down box.</value>
+  </data>
+  <data name="ErrorEmployerPostalUnitValue" xml:space="preserve">
+    <value>Enter a Bldg, Floor, Mail Stop, or Suite number.</value>
+  </data>
+  <data name="ErrorEquityInHome" xml:space="preserve">
+    <value>Enter the current equity in your home. If none, please enter zero.</value>
+  </data>
+  <data name="ErrorEquityInHomeVal" xml:space="preserve">
+    <value>The equity entered is invalid, please re-enter the information.</value>
+  </data>
+  <data name="ErrorFirstNameVal" xml:space="preserve">
+    <value>The name entered is invalid, please re-enter the applicant's first name.</value>
+  </data>
+  <data name="ErrorLastNameVal" xml:space="preserve">
+    <value>The name entered in invalid, please re-enter the applicant's last name.</value>
+  </data>
+  <data name="ErrorLoanAmountRange" xml:space="preserve">
+    <value>Please enter a loan amount between {MINIMUM} and $100,000.00</value>
+  </data>
+  <data name="ErrorLoanTermRange" xml:space="preserve">
+    <value>Please enter a loan term between {MINIMUM} and {MAXIMUM} months.</value>
+  </data>
+  <data name="ErrorMiddleInitial" xml:space="preserve">
+    <value>The middle initial entered is invalid, please re-enter the middle initial.</value>
+  </data>
+  <data name="ErrorMonthlyHousingCostVal" xml:space="preserve">
+    <value>The estimated monthly housing cost entered is invalid, please re-enter the information.</value>
+  </data>
+  <data name="ErrorPasswordNoMatch" xml:space="preserve">
+    <value>The passwords entered do not match. Please re-enter your passwords. Thank you.</value>
+  </data>
+  <data name="ErrorResAddressLine1NoPO" xml:space="preserve">
+    <value>We do not accept P.O. Boxes as the street address. </value>
+  </data>
+  <data name="ErrorResAddressLine1Val" xml:space="preserve">
+    <value>The street address must begin with a number or the letter R. </value>
+  </data>
+  <data name="ErrorResPostalUnitType" xml:space="preserve">
+    <value>Select Apt, Suite or Unit from the drop down box.</value>
+  </data>
+  <data name="ErrorResPostalUnitValue" xml:space="preserve">
+    <value>Enter an apartment, suite, or unit number.</value>
+  </data>
+  <data name="ErrorResZipCodeNotFound" xml:space="preserve">
+    <value>Zip code entered not found, please review your zip code and enter your state of residence.</value>
+  </data>
+  <data name="ErrorResZipCodeStateNoMatch" xml:space="preserve">
+    <value>The zip code entered does not match the state entered.  Please review and correct.</value>
+  </data>
+  <data name="ErrorResZipCodeVal" xml:space="preserve">
+    <value>The zip code entered is invalid, please enter your 5 digit zip code.</value>
+  </data>
+  <data name="ErrorTimeAtRes" xml:space="preserve">
+    <value>Time at Current Address must  be at least one month.</value>
+  </data>
+  <data name="ErrorTimeWithEmployer" xml:space="preserve">
+    <value>Time at Current Company must be at least one month.</value>
+  </data>
+  <data name="HintApplicationType" xml:space="preserve">
+    <value>We can only consider the assets and incomes of individuals who are applicants for the requested loan</value>
+  </data>
+  <data name="HintEquityInHome" xml:space="preserve">
+    <value>Your equity is the difference between the estimated market value of your home, less the balance of any outstanding mortgages, including home equity loans.</value>
+  </data>
+  <data name="HintLiquidAssets" xml:space="preserve">
+    <value>Includes the sum of checking and savings accounts, stocks and bonds. Do not include the value of any home equity, auto(s), 401(k) or IRAs.</value>
+  </data>
+  <data name="HintRetirementAssets" xml:space="preserve">
+    <value>Retirement Assets include only monies that exist today and are 100 percent vested and owned by you. </value>
+  </data>
+  <data name="HintMonthlyHousingCost" xml:space="preserve">
+    <value>Estimate, in the case of homeowners, of all monthly mortgage payments, including first mortgages, second mortgages, and home equity loans.  Renters, please enter monthly rent.</value>
+  </data>
+  <data name="PromptOtherAnnualIncome" xml:space="preserve">
+    <value>Do you have Other &quot;Annual&quot; Income?</value>
+  </data>
+  <data name="PromptOtherAnnualIncomeRetired" xml:space="preserve">
+    <value>Do you have Other Income?</value>
+  </data>
+  <data name="HintOtherAnnualIncome" xml:space="preserve">
+    <value>Other annual income may include bonuses, commissions, tips, interest, dividends, alimony, child support, etc.</value>
+  </data>
+  <data name="HintOtherAnnualIncomeRetired" xml:space="preserve">
+    <value>Other income may include retirement pay, pension, Social Security, interest, dividends, alimony, child support, etc.</value>
+  </data>
+  <data name="HintOtherAnnualIncomeNonApplicant" xml:space="preserve">
+    <value>Please do not include non-applicant income.</value>
+  </data>
+  <data name="HintPassword" xml:space="preserve">
+    <value>Your password should be difficult to guess and follow these guidelines:&lt;ul class=passwordHint&gt;&lt;li&gt;It must contain at least 1 letter AND 1 number.&lt;/li&gt;&lt;li&gt;It cannot be the same as your user ID.&lt;li&gt;It must consist of only the following characters 0-9 &lt;nobr&gt;a-z&lt;/nobr&gt; &lt;nobr&gt;! &amp; $  - . _.&lt;/nobr&gt;&lt;/li&gt;&lt;li&gt;It may contain spaces.&lt;/li&gt;&lt;li&gt;It is not case sensitive (that is, upper and lower case versions of letters are treated the same).&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="HintPaymentType" xml:space="preserve">
+    <value>Choose AutoPay and save. With our AutoPay option, your monthly loan payments are conveniently deducted from your designated account.</value>
+  </data>
+  <data name="HintSecurityAnswer" xml:space="preserve">
+    <value>Your security answer:&lt;ul class=passwordHint&gt;&lt;li&gt;may contain only the following characters; 0-9, a-z, &lt;nobr&gt;! &amp; $ , - . _.&lt;/nobr&gt;&lt;/li&gt;&lt;li&gt;may contain spaces.&lt;/li&gt;&lt;li&gt;is not case sensitive (that is, upper and lower case versions of letters are treated the same).&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="HintUserId" xml:space="preserve">
+    <value>Your user ID must be unique and should be difficult to guess. Consider mixing numbers, letters, and other characters.  &lt;br /&gt;Your user ID:&lt;ul class=passwordHint&gt;&lt;li&gt;may contain only the following characters;&lt;br /&gt; 0-9, a-z, ! &amp; $ , - . _ @.&lt;/li&gt;&lt;li&gt;may not contain spaces.&lt;/li&gt;&lt;li&gt;is not case sensitive (that is, upper and lower case versions of letters are treated the same).&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="HintSubmitForJoint" xml:space="preserve">
+    <value>For privacy purposes, a user ID cannot have more than 2 individuals associated with it. This user ID already has 2 individuals assoicated with it.</value>
+  </data>
+  <data name="FundingDateNotAvailable" xml:space="preserve">
+    <value>We are sorry, the funding date selected is no longer available, please choose a new date from the calendar.</value>
+  </data>
+  <data name="ACHFundingDateExpired" xml:space="preserve">
+    <value>The selected funding date is now only available as a wire transfer.  Please select another date if you wish to avoid possible wire transfer fees.  Thank You.</value>
+  </data>
+  <data name="BankDoesNotSupportWire" xml:space="preserve">
+    <value>Unfortunately, your banking institution does not support wire transfers, please select another eligible date from the calendar.  Thank you.</value>
+  </data>
+  <data name="ErrorRetirementAssets" xml:space="preserve">
+    <value>Enter zero or more for the amount of your retirement assets.</value>
+  </data>
+  <data name="ErrorPasswordRegEx" xml:space="preserve">
+    <value>The password you entered is invalid. Please re-enter. Review the password help if you need assistance.</value>
+  </data>
+  <data name="ErrorOtherAnnualIncome" xml:space="preserve">
+    <value>Please enter a dollar amount for &amp;quot;Other Annual Income&amp;quot;</value>
+  </data>
+  <data name="ErrorResZipCodeMilitary" xml:space="preserve">
+    <value>We do not accept military residential addresses.</value>
+  </data>
+  <data name="ErrorEmployerCityStateMilitary" xml:space="preserve">
+    <value>Company city must be "APO" or "FPO" when the company state is AA, AE, or AP.</value>
+  </data>
+  <data name="HintOccupancyType" xml:space="preserve">
+    <value>Select Non Owner Occupied for second homes, vacation homes, and rental properties.</value>
+  </data>
+  <data name="HintPropertyType" xml:space="preserve">
+    <value>Select One To Four Family Dwelling for loans on houses, individual condominiums, apartments, or cooperative units.</value>
+  </data>
+  <data name="ErrorSocialSecurityNumber" xml:space="preserve">
+    <value>Social Security Number is not entered or is invalid.</value>
+  </data>
+  <data name="ErrorSameApplicantSocialSecurityNumber" xml:space="preserve">
+    <value>The same social security number cannot be entered for both applicants.</value>
+  </data>
+  <data name="HintOtherAnnualIncomeTaxExempt" xml:space="preserve">
+    <value>Example of non-taxable income include but are not limited to: &lt;ul class=passwordHint&gt;&lt;li&gt;Non-taxable social security benefits and disability payments&lt;/li&gt;&lt;li&gt;Certain military allowances&lt;/li&gt;&lt;li&gt;Child support payments&lt;/li&gt;&lt;li&gt;Worker's compensation benefits&lt;/li&gt;&lt;li&gt;Disability retirement payment&lt;/li&gt;&lt;li&gt;Certain types of public assistance payments&lt;/li&gt;&lt;li&gt;Tax exempt interest earnings&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="ErrorOtherAnnualIncomeRequired" xml:space="preserve">
+    <value>Other annual income information is required.</value>
+  </data>
+  <data name="HintNonResidentAlien" xml:space="preserve">
+    <value>A non-resident alien is a non-U.S. citizen who has been issued an alien registration card, otherwise known as a green card, or a valid social security number (not an ITIN).</value>
+  </data>
+</root>

@@ -1,0 +1,31 @@
+﻿#lendingUncomplicatedSection .columns, #carouselRow .columns {
+  position: relative; }
+
+.reveal {
+  padding: 30px; }
+
+.reveal-overlay {
+  z-index: 99999; }
+
+thead, tbody, tfoot {
+  border: none; }
+
+.ghostButton {
+  background: rgba(255, 255, 255, 0.25) !important;
+  top: -6px;
+  position: relative;
+  transition: background 0.25s ease-out, color 0.25s ease-out;
+  transition-property: background;
+  transition-duration: 0.25s, 0.25s;
+  transition-timing-function: ease-out, ease-out;
+  transition-delay: initial, initial; }
+  .ghostButton:hover {
+    background: rgba(255, 255, 255, 0.45) !important; }
+
+.ghostButton.bannerButtonMobile {
+  top: -7px; }
+
+.homefeatures .dropdown-pane p {
+  color: black;
+  font-weight: normal;
+  font-size: 16px; }

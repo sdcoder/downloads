@@ -1,0 +1,77 @@
+﻿@import "mixins";
+
+$ls-blue: #00467E;
+
+/*
+    Please note there is separate scss for three feature bullets called, drumroll, three-feature-bullets.scss
+    The implementation can be seen on the LoanAggregator and MultipurposeAuto template views.
+    Love, Brett. 6/22/17
+*/
+
+#feature-bullets {
+    /*position: relative;*/
+    text-align: center;
+
+    @include mq('ls-desktop') {
+        text-align: left;
+    }
+
+    .row {
+        background-color: #C3DCF6;
+        padding-bottom: 0;
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+            padding-bottom: 20px;
+        }
+
+        div:nth-child(1) {
+            margin-bottom: 20px;
+
+            @include mq('ls-desktop') {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    h2 {
+        text-align: left;
+        font-size: 24px;
+        font-weight: 700;
+        padding: 20px;
+    }
+
+    h3, h6, h2 {
+        color: $ls-blue;
+    }
+
+    h6 {
+        overflow: auto;
+        text-align: center;
+
+        @include mq('ls-desktop') {
+            text-align: left;
+        }
+    }
+
+    h3 {
+        font-weight: 700;
+        padding-top: 20px;
+
+        @include mq('ls-desktop') {
+            padding-top: 0;
+        }
+    }
+
+    img {
+        width: 85px;
+        float: none;
+        margin-right: 0;
+
+        @include mq('ls-desktop') {
+            margin-right: 2em;
+            float: left;
+        }
+    }
+}

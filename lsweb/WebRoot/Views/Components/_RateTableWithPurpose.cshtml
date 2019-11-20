@@ -1,0 +1,30 @@
+﻿@using FirstAgain.Domain.SharedTypes.ContentManagement;
+
+<div class="row">
+    <div class="input-values medium-12 columns">
+        <div class="input-values-row row">
+            <div data-field="LoanPurpose" class="medium-12 columns zeroleft-sm zeroright-sm">
+                <label for="PurposeOfLoan" tabindex="0">For Rates, Select Loan Purpose</label>
+                <select ng-cloak class="form-select ng-splash"></select>
+                <select ng-model="LoanApp.PurposeOfLoan.Type" id="PurposeOfLoan" ng-cloak="" class="ui-form-select">
+                    <option ng-repeat="lp in rates.LoanPurposes" value="{{lp.Value}}" ng-attr-title="{{lp.Caption}}"
+                            ng-selected="lp.Value == rates.PurposeOfLoan">
+                        {{lp.Value == 'NotSelected' ? '' : lp.Caption}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="medium-12 columns table">
+        @Html.Partial("~/Views/Components/_RateTable.cshtml", LandingPageContent.RateTableCalculatorDisplayType.Default.ToString())
+    </div>
+
+    <div class="medium-12 columns">
+        <p class="description" tabindex="0">
+            <br />
+            *Payment Example: Monthly payments for a $20,000 used auto loan at 2.5% APR for a term of 5 years would result in 60 monthly payments of $354.95.
+            Subject to credit approval. Advertised rates and terms are subject to change without notice.
+        </p>
+    </div>
+</div>

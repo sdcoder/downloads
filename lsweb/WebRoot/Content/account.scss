@@ -1,0 +1,758 @@
+﻿@import 'partials/global-variables';
+/*------------------------------------*\
+    Account Dashboard
+\*------------------------------------*/
+
+.ui-widget { font-family: 'proxima-nova', arial, helvetica, sans-serif !important;}
+
+
+body.account #header {
+    background: url("#{$image-url-base}/account-services/account-services-retina-cropped.jpg") no-repeat center 100%;
+    height: 312px;
+    margin-bottom: 24px;
+}
+
+h2 {
+  font-family: 'proxima-nova', arial, helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+a.info {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Tabs */
+
+ul.tabs {
+  border-bottom: 4px solid #00467e;
+  margin: 0;
+  padding: 0;
+  border-top:none;
+}
+
+ul.tabs li {
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 0;
+}
+
+ul.tabs li:last-child {
+  margin-right: 0;
+}
+
+ul.tabs li a {
+  background: #ebebeb;
+  color: #888;
+  display: block;
+  font-family: 'proxima-nova', arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+}
+
+    ul.tabs li.is-active a {
+        background: #00467e;
+        color: #fff;
+    }
+
+/* Tabs - Responsiveness */
+
+@media all and (max-width: 870px) {
+
+			  ul.tabs {
+			    border-bottom: 2px solid #00467e;
+			  }
+			
+			  ul.tabs li {
+			    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+			    float: none;
+			    margin: 0;
+                width: 100%;
+			  }
+			
+			  ul.tabs li:last-child {
+			    border: 0;
+			  }
+			
+			  ul.tabs li a {
+			    height: 36px;
+			    line-height: 36px;
+			  }
+}
+
+/* Tab (Content) */
+
+div.tab {
+  background: #d9eeff;
+}
+
+div.tab ul.accordian > li {
+  margin: 0;
+  min-height:120px;
+}
+
+div.tab ul.accordian li a.toggle {
+  background: transparent;
+  border-top: 1px solid #aebecc;
+  color: #00467e;
+  height: auto;
+  line-height: normal;
+  padding: 30px 0 15px 16px;
+  text-indent:25px;
+}
+
+div.tab ul.accordian li a.toggle.disable {
+  cursor: default;
+}
+
+div.tab ul.accordian li:first-child a.toggle {
+  border-top: 0;
+}
+
+div.tab ul.accordian li a.toggle:after {
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;  
+  border-top: 14px solid #00467e;
+  border-bottom:none;
+  left: 16px ;
+  right: auto;
+  top: 34px;
+}
+
+div.tab ul.accordian li a.toggle.wide:after { left: 206px }
+
+div.tab ul.accordian li.active a.toggle:after {
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;  
+  border-bottom: 14px solid #00467e;
+  border-top: 0;
+  left: 16px;
+  top: 37px;
+}
+
+div.tab ul.accordian li.active a.toggle.wide:after { left: 202px }
+
+div.tab ul.accordian li.no-arrow a.toggle:after {
+  display: none;
+}
+
+div.tab a.desc, div.tab span.desc {
+  color: #00467e;
+  display: block;
+  font-size: 15px;
+  line-height: 16px;
+  margin-top: 10px;
+  margin-left:15px;
+}
+div.tab span.desc {
+  color: #606060;
+  font-weight:bold;
+}
+
+div.tab a.toggle .desc.transparent {
+  color: transparent;
+}
+
+.get-adobe {
+	background: #fff;
+	width: 158px;
+	height: 44px;
+	display: block;
+}
+
+.get-adobe img {width: 100%;}
+
+/*  Enotices */
+
+.notices div.tab ul.accordian li .content.offset form {width: 100% !important;}
+.notices div.tab ul.accordian li .content.offset form ul {margin-left: 0px; padding-bottom: 80px !important; display: block;}
+.notices div.tab ul.accordian li .content.offset h4 {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+
+
+@media all and (max-width: 800px) {
+  			div.tab a.toggle .desc.transparent { display: none }
+}
+
+div.tab ul.accordian li .content {
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+div.tab ul.accordian li.no-arrow .content {
+  display: block;
+}
+
+/* Table */
+
+table.responsive {
+  background: transparent;
+  margin: 0 0 0 1%;
+  width: 98%;
+}
+
+table.responsive thead {
+  background: #b9deff;
+}
+
+table.responsive th,
+table.responsive tr td {
+  font-size: 12px !important;
+  position: relative;
+  text-align: center;
+  color: #666;
+  font-weight: bold;
+}
+
+table.responsive th,
+table.responsive tr td:first-of-type {
+  color: #00467e !important;
+}
+
+table.responsive tr.even,
+table.responsive tr.alt,
+table.responsive tr:nth-of-type(even) {
+  background: #b9deff;
+}
+
+table.responsive tbody tr {
+  border-top: 1px solid #7b7b7b;
+}
+
+/* TableSorter */
+
+table.tablesorter th {
+  cursor: pointer;
+}
+
+table.tablesorter th.headerSortUp:after,
+table.tablesorter th.headerSortDown:after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  content: '';
+  display: block;
+  height: 0;
+  position: absolute;
+  right: 0;
+  width: 0;
+}
+
+table.tablesorter th.headerSortDown:after {
+  border-top: 8px solid #00467e;
+  top: 14px;
+}
+
+table.tablesorter th.headerSortUp:after {
+  border-top: 0;
+  border-bottom: 8px solid #00467e;
+  top: 13px;
+}
+
+/* Offset */
+
+div.tab ul.accordian li .content.offset {
+  float: right;
+  margin-top: -80px;
+  width: 66%;
+}
+
+div.tab ul.accordian li .content.offset .row {
+	margin: 0 0; padding: 0;
+	height: auto;
+}
+
+div.tab ul.accordian li .content.offset .row h2 {margin: 0px;}
+
+div.tab ul.accordian li .content.offset .row ul.summarydata {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+div.tab ul.accordian li .content.offset .row ul.summarydata li {
+	margin: 0 0 3px;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 0;
+	list-style: none;
+}
+
+@media all and (min-width: 801px) {
+	div.tab ul.accordian li .content.offset.no-sub { margin-top: -54px }
+	div.tab ul.accordian li .content.offset.bump { margin-top: -76px }
+	div.tab ul.accordian li .content.offset.extra { margin-top: -103px }
+
+    div.tab ul.accordian li div.content.wide {
+        padding-left:30px;
+        padding-right:30px;
+    }
+}
+
+div.offset, div.offset p {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+div.offset h2.brand, div.wide h2.brand {
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0 0 14px;
+  margin-bottom:5px;
+}
+
+.boxed h3.brand{
+   padding-left: 0px;
+}
+
+div.offset p.notice {
+  padding-bottom: 12px;
+}
+
+@media all and (min-width: 768px) {
+
+			  div.offset p.notice {
+			    padding-right: 30px;
+			  }
+}
+
+div.offset span.title {
+  display: inline-block;
+  width: 220px;
+}
+
+div.offset dl,
+div.offset dl dt,
+div.offset dl dd {
+  margin: 0;
+}
+
+div.offset dl {
+  margin-bottom: 20px;
+}
+
+div.offset dl dt {
+  margin: 30px 0 0;
+}
+
+div.offset dl dd a.button {
+  margin: 0;
+}
+
+div.offset a.or {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 15px;
+  margin-left: 14px;
+  position: relative;
+  text-align: center;
+  top: 6px;
+  width: 84px;
+}
+
+/* Offset - Responsiveness */
+
+@media all and (max-width: 800px) {
+
+	div.tab ul.accordian li .content.offset {
+	    float: none;
+	    margin: 0;
+	    padding: 0 16px;
+	    width: 100%;
+	}
+			
+	div.offset dl {
+	    margin-bottom: 30px;
+	    padding-bottom: 30px;
+	}
+    div.tab ul.accordian li div.content.wide h2.brand {
+        margin-left:10px;
+        margin-top:0;
+    }
+    div.tab ul.accordian li div.content.wide p {
+        margin-left:10px;
+    }
+}
+
+@media all and (max-width: 568px) {
+
+			  div.offset span.title {
+			    display: block;
+			    margin: 10px 0 4px;
+			    width: auto;
+			  }
+}
+
+/* Nested Form */
+
+div.offset form {
+  margin-top: 24px;
+  max-width: 100%;
+}
+
+div.offset form label.alt,
+div.offset form label.brand {
+  font-size: 16px;
+  line-height: 18px;
+  margin: 0 0 6px;
+  padding: 0;
+}
+
+div.offset form label.alt {
+  color: #088888;
+}
+
+div.offset form fieldset > ul {
+  margin-bottom: 18px;
+}
+
+div.offset form fieldset > dl {
+  margin-bottom: 14px;
+}
+
+div.offset form input[type="submit"].button {
+  font-size: 18px;
+}
+
+div.offset form a.button {
+  font-size: 18px;
+}
+div.offset form a.button-tiny, a.button-tiny:hover {
+    font-size: 14px;
+    margin:0;
+    padding-top:0;
+    padding-bottom:0;
+    line-height:2.125rem;
+}
+
+div.offset form input[type="text"],
+div.offset form input[type="email"],
+div.offset form select,
+div.offset form textarea {
+  width: 100%;
+}
+
+div.offset form textarea {
+  min-height: 74px;
+}
+
+body.account div.offset h5.brand {
+    margin-left:-0.5em;
+}
+
+body.account div.offset p {
+    margin-bottom:5px;
+}
+
+/* Preferences Form */
+
+div.offset form.preferences {
+  margin-top: 16px;
+  padding-right: 20%;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+div.offset form.preferences legend {
+  background: transparent;;
+  color: #00467e;
+  font-family: 'proxima-nova', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+div.offset form.preferences label {
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+div.offset form.preferences input[type="checkbox"] {
+  margin: 0 2px 0 0;
+  position: relative;
+  top: 1px;
+}
+
+div.offset form.preferences input[type="text"],
+div.offset form.preferences input[type="password"] {
+  margin-top: 5px;
+}
+
+div.offset form.preferences ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.offset form.preferences ul li {
+  margin: 0 0 16px;
+  padding: 0 0 0 20px;
+  position: relative;
+}
+
+div.offset form.preferences ul.tight li {
+  margin-bottom: 4px;
+}
+
+div.offset form.preferences ul li label {
+  color: #088888;
+  /*margin-left: -20px;*/
+}
+
+div.offset form.preferences ul li label input[type="checkbox"],
+div.offset form.preferences ul li label input[type="radio"] {
+  left: 0;
+  position: absolute;
+}
+
+div.offset form.preferences ul li label input[type="checkbox"] { top: 1px }
+div.offset form.preferences ul li label input[type="radio"] { top: 0 }
+
+div.offset form.preferences ul li .desc {
+  display: block;
+  font-family: 'proxima-nova', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+}
+
+div.offset form.preferences.tight-m dl dt:first-of-type {
+  margin-top: 0;
+}
+
+div.offset form.preferences dl dd a.info {
+  margin-top: 2px;
+  }
+
+div.offset form.preferences input[type="submit"] {
+  margin-top: 16px;
+}
+
+@media all and (max-width: 800px) {
+
+			  div.offset form.preferences {
+			    padding: 0 0 10px;
+			  }
+}
+
+
+
+fieldset li {list-style: none;}
+
+@media all and (max-width: 800px) {
+
+			  div.offset form {
+			    padding-bottom: 20px;
+			  }
+}
+
+/* Account Preferences */
+.account-preferences-container {
+    margin-bottom: 1.25rem;
+}
+
+.account-preferences-navigation {
+    margin-bottom: 1.25rem;
+}
+
+.account-preferences-container form .preference-actions {
+    padding-top: 15px;
+}
+
+.preference-heading {
+    padding-top: 20px;
+}
+
+.preference-list .list-item {
+    list-style: none;
+}
+
+.testimonial-list {
+    list-style: disc;
+    font-style: italic;
+}
+
+.padded-list .list-item {
+    padding-top: 18px;
+}
+
+.navigation-button-container {
+    padding-bottom: 15px;
+}
+
+
+.navigation-button {
+    margin: 0;
+    padding: 0;
+    width: 95%;
+    height: 200px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 6px #000000;
+    -ms-box-shadow: 0 0 6px #000000;
+    box-shadow: 0 0 6px #000000;
+    background-color: #ffffff;
+}
+
+.navigation-button:hover {
+    -webkit-box-shadow: 0 0 6px #f9a93a;
+    -ms-box-shadow: 0 0 6px #f9a93a;
+    box-shadow: 0 0 6px #f9a93a;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+    background-color: #ffffff;
+}
+
+.navigation-button:focus {
+    -webkit-box-shadow: 0 0 6px #000000;
+    -ms-box-shadow: 0 0 6px #000000;
+    box-shadow: 0 0 6px #000000;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.navigation-button.active {
+    -webkit-box-shadow: 0 0 20px #00467e;
+    -ms-box-shadow: 0 0 20px #00467e;
+    box-shadow: 0 0 20px #00467e;
+    background-color: #ffffff;
+}
+
+.navigation-button .title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #00467e;
+    line-height: 1.35em;
+    text-align: center;
+}
+
+.ui-accordion-header {
+    background: #003367;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00467e', endColorstr='#002150',GradientType=0);
+    background: -webkit-gradient(linear, left top, left bottom, from(#00467e), to(#002150));
+    background: -moz-linear-gradient(top, #00467e, #002150);
+    color: #fff;
+    font-size: 18px;
+}
+
+.ui-accordion-header-active {
+    background: #fed406;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fed406', endColorstr='#f6a537',GradientType=0);
+    background: -webkit-gradient(linear, left top, left bottom, from(#fed406), to(#f6a537));
+    background: -moz-linear-gradient(top, #fed406, #f6a537);
+    color: #00416f;
+}
+
+.ui-accordion-header:hover {
+    background: #004c9a;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0062b1', endColorstr='#003683',GradientType=0);
+    background: -webkit-gradient(linear, left top, left bottom, from(#0062b1), to(#003683));
+    background: -moz-linear-gradient(top, #0062b1, #003683);
+    color: #fff;
+}
+
+.ui-accordion input, .ui-accordion select, .ui-accordion textarea, .ui-accordion button {
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+
+.alert-box {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-box.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-box.alert {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.account-table thead tr th.account-cell,
+.account-table tbody tr td.account-cell {
+    text-align: center;
+}
+
+/* Date Range */
+
+div.offset div.date-range, div.tab ul.accordian li .content.offset div.date-range {
+  background: #003b71;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00467e', endColorstr='#00204f');
+  background: -webkit-gradient(linear, left top, left bottom, from(#00467e), to(#00204f));
+  background: -moz-linear-gradient(top, #00467e, #00204f);
+  display: inline-block;
+  margin: 0 auto 26px;
+  padding: 5px;
+}
+
+div.offset div.date-range .datepicker {
+  float: left;
+  margin: 5px;
+}
+
+div.offset p.results {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+@media all and (max-width: 622px) {
+
+			  div.offset div.date-range .datepicker {
+			    float: none;
+			  }
+}
+
+/* History */
+
+body.account #header {
+    background: url("#{$image-url-base}/account-services/account-services-retina-cropped.jpg") no-repeat center; background-size: cover;
+}
+
+@media all and (max-width: 622px) {
+			  body.account #header {
+			    background:none;
+			    height: auto;
+			  }
+}
+
+
+/**
+ * Creds
+ */
+
+#user-id-form dl {
+  display: none;
+}
+
+#user-id-form dl.active {
+  display: block;
+}
+
+/**
+ * EDocs
+ */
+.ui-iframe-seamless {
+    width: 100%;
+    border-width: 0;
+    border-style: none;
+}

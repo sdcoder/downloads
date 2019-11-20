@@ -1,0 +1,8 @@
+﻿@model LightStreamWeb.ContentManager
+@{
+    var content = Model.Get<FirstAgain.Domain.SharedTypes.ContentManagement.SiteContent.AboutUs.TheAnythingLoan>();
+}
+<h3>@content.SubHeading</h3>
+
+@Html.Raw(content.TheAnythingLoanCopy)
+

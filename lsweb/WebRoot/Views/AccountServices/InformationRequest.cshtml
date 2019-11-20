@@ -1,0 +1,188 @@
+﻿@model LightStreamWeb.Models.AccountServices.AccountServicesVINPageModel
+
+<div class="row intro">
+    <div class="medium-9 columns">
+        <h2 class="brand">Account Information Request</h2>
+        <p><strong> @Model.GetApplicantNames(),</strong></p>
+        @if (Model.VerificationRequests.Any())
+        {
+            <p>Please provide the @Model.VerificationRequests.Documents.PluralOrSingluarString() below for our review. Thank you.</p>
+        }
+        else
+        {
+            <p>Please provide the information below for our review. Thank you.</p>
+        }
+    </div>
+    <div class="medium-3 columns">
+        <p><a href="/account" class="account-services-blue-button large">View Account Summary</a></p>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.VerificationRequests.CustomerInstruction))
+    {
+        <div class="medium-12 columns">
+            <p class="customer-note">@Model.VerificationRequests.CustomerInstruction</p>
+        </div>
+    }
+
+</div>
+
+
+
+<div class="row" ng-app="ApplicationStatusModule">
+    @if (Model.VINEntryRequired)
+    {
+        <h2>Part 1</h2>
+        <div class="main row" ng-controller="VINController" ng-init="setupVINCollection('@Model.ToJSON()')">
+            <div class="medium-8 columns" ng-show="!VehicleInfo.Submitted">
+                <h3>Property Description Form</h3>
+                <fieldset ng-disabled="VehicleInfo.Loading" ng-cloak>
+                    <form name="VINEntryForm" novalidate ls-validate-on-submit>
+                        <div class="row">
+                            <div class="medium-8 columns">
+                                <label>Vehicle Identification Number (VIN)</label>
+                                <input type="text" name="VIN" value="" ng-model="VehicleInfo.VIN"
+                                       ls-restrict-to-pattern="/^[A-Za-z0-9]+$/" maxlength="17" ls-proper-case="upper" ls-track-visited required ls-blur="validateVIN()">
+
+                                <label>Mileage</label>
+                                <input type="text" value="" ng-model="VehicleInfo.Mileage" name="Mileage"
+                                       ls-currency-only filter-name="number" maxlength="7" min="1" max="1000000" ls-track-visited required>
+                                <div ng-show="VINEntryForm.Mileage.$hasVisited && !VINEntryForm.Mileage.$error.required &&  VINEntryForm.Mileage.$error.max" tabindex="0" ng-cloak="">
+                                    <div class="formalert hide-no-js" ng-cloak>
+                                        <p>Please enter a value less than 1,000,000.</p>
+                                    </div>
+                                </div>
+
+                                <label>@Model.TransactionDescription</label>
+                                <input type="text" value="" name="TransactionAmount" ng-model="VehicleInfo.TransactionAmount"
+                                       ls-currency-only min="1" max="@Model.RequestedLoanAmount" ls-track-visited required>
+                                <div ng-show="VINEntryForm.TransactionAmount.$hasVisited && !VINEntryForm.TransactionAmount.$error.required && VINEntryForm.TransactionAmount.$error.max" ng-cloak="" tabindex="0">
+                                    <div class="formalert hide-no-js" ng-cloak>
+                                        <p>Please enter a value less than @Model.RequestedLoanAmount.ToString("C")</p>
+                                    </div>
+                                </div>
+
+                                <input type="button" class="button button-small" value="Continue"
+                                       ng-disabled="!VINEntryForm.$valid || VehicleInfo.Loading" ng-show="!VehicleInfo.Vehicles" ng-click="searchForVehicles()" />
+
+                            </div>
+                        </div>
+                        <div class="row" ng-cloak ng-show="VehicleInfo.Vehicles && !VehicleInfo.NoneOfAboveSelected && !CertifiedVehicleInfo">
+                            <div class="medium-12 columns">
+
+                                <p>Please confirm that your vehicle is the one listed below.</p>
+                                <div ng-repeat="vehicle in VehicleInfo.Vehicles">
+                                    <input type="radio" name="VinVehicle" id="VinVehicle{{$index}}"
+                                           ng-click="selectVehicleFromAPI(vehicle)"><label for="VinVehicle{{$index}}">{{vehicle.Year}} {{vehicle.Make}} {{vehicle.Model}} {{vehicle.Description}}</label><br>
+                                </div>
+                                <input type="radio" name="VinVehicle" value="None of these"
+                                       id="VinEntryNoneOfTheAbove" ng-click="VehicleInfo.NoneOfAboveSelected = true"><label for="VinEntryNoneOfTheAbove">None of these</label>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="VehicleInfo.NoneOfAboveSelected">
+                            <div class="medium-8 columns">
+                                <label>Year</label>
+                                <input type="text" name="Year" value="" ng-model="VehicleInfo.Year"
+                                       ls-numbers-only maxlength="4" minlength="4" min="1900" max="@(DateTime.Now.Year + 1)" ls-track-visited required>
+                                <label>Make</label>
+                                <input type="text" name="Make" value="" ng-model="VehicleInfo.Make" maxlength="30" ls-proper-case ls-track-visited required>
+                                <label>Model</label>
+                                <input type="text" name="Model" value="" ng-model="VehicleInfo.Model" maxlength="30" ls-proper-case ls-track-visited required>
+
+                                <input type="button" class="button button-small" value="Save" ng-disabled="!VINEntryForm.$valid || VehicleInfo.Loading" ng-click="selectVehicleFromUser()" />
+                            </div>
+                        </div>
+
+
+                        <img src="@Model.CdnBaseUrl/ajax-loader.gif" id="LoadingImage" alt="" ng-cloak ng-show="VehicleInfo.Loading" />
+
+                    </form>
+                </fieldset>
+                <div id="VINConfirmModal" class="reveal small" data-reveal>
+                    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+                    <h1>Please Confirm Your  Vehicle Identification Number</h1>
+                    <p>The Vehicle Information Number entered does not appear to be valid. Please note the VINs for vehicles manufactured after 1981 are 17 characters and do not contain the letters I, O, and Q. Please double-check your entry before moving forward.”</p>
+                    <h3 class="brand"><strong>{{VehicleInfo.VIN}}</strong></h3>
+                    <a href="" class="button button-medium first" ng-click="confirmCurrentVIN();">Yes, this is correct</a>
+                    <a href="" class="button button-medium" ng-click="closeVINConfirmation();">No, I need to correct the VIN</a>
+                </div>
+
+            </div>
+
+            <div class="medium-8 columns" ng-show="VehicleInfo.Submitted" ng-cloak>
+                <form name="ExibitBForm" novalidate>
+                    <h3 class="ruled">Exhibit B - On-Line Property Description Form</h3>
+
+                    <p>
+                        <strong>VIN (Vehicle Identification Number):</strong> {{VehicleInfo.VIN}} <br />
+                        <strong>Property Description (Make & Model):</strong>  {{VehicleInfo.Make}} {{VehicleInfo.Model}}<br />
+                        <strong>Year:</strong>  {{VehicleInfo.Year}}
+                    </p>
+
+                    <p><strong>@Model.TransactionDescription:</strong>  {{VehicleInfo.TransactionAmount | currency}}</p>
+                    <p>(purchase price and tax; any title, license, registration, lien filing fees, credit insurance, or extended warranty (service) contracts; and any other costs or fees you paid the Dealer)</p>
+
+                    @{ int i = 0; }
+                    @foreach (var applicantName in Model.ApplicantNames)
+                    {
+                        <label>
+                            <input type="checkbox" name="UserCertified@(i)" ng-model="VehicleInfo.UserCertified@(i)" required="" />
+                            @{ i++; }
+                            I, @applicantName certify that the information stated above accurately describes the automobile I purchased
+                            with the proceeds of this loan number @Model.LoanNumber . This Property Description Form is hereby made a part of Loan Agreement number @Model.LoanNumber.
+                        </label>
+                    }
+                    <p id="vinCertifyError" style="display:none;color:red;font-weight:bold;padding-top:20px;"></p>
+                    <input type="button" class="button button-medium" ng-disabled="!ExibitBForm.$valid" value="Submit VIN" ng-click="ceritfy('/account/savevehicleinformation')" />
+                    <a class="button button-medium button-navy" ng-disabled="VehicleInfo.Loading" ng-click="unSubmit()">Return to Previous Page</a>
+
+                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" id="LoadingImage" alt="" ng-cloak ng-show="VehicleInfo.Loading" />
+                </form>
+
+            </div>
+
+            <div class="medium-4 columns">
+                <br />
+                @Html.Partial("~/Views/AccountServices/_VerificationContactUs.cshtml")
+            </div>
+        </div>
+
+    } @*@if (Model.VINEntryRequired)*@
+
+    @if (Model.VerificationRequests.Any())
+    {
+        if (Model.VINEntryRequired)
+        {
+            <h2>Part 2</h2>
+            @Html.Partial("~/Views/ApplicationStatus/_VerificationRequests.cshtml", Model.VerificationRequests)
+        }
+        else
+        {
+            <h2>Part 1</h2>
+            <div class="row">
+                <div class="medium-9 small-12 columns">
+                    @Html.Partial("~/Views/ApplicationStatus/_VerificationRequests.cshtml", Model.VerificationRequests)
+                </div>
+                <div class="medium-3 small-12 columns">
+                    <br /><br /><br />
+                    @Html.Partial("~/Views/AccountServices/_VerificationContactUs.cshtml")
+                </div>
+            </div>
+
+        }
+    }
+    <br />
+
+</div>
+
+
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/scripts-account-services-vin-entry")
+
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+}

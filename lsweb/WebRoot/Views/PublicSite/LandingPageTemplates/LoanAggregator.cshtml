@@ -1,0 +1,173 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+@using LightStreamWeb.Helpers
+@using LightStreamWeb.Models.PublicSite
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+
+@{
+    Layout = "~/Views/Layouts/_RedesignBase.cshtml";
+    Model.NavClass = "bluetint";
+    Model.NavAutoLabel = "Auto";
+    LightStreamWeb.Models.Components.RateCalculatorModel calculator =
+        new LightStreamWeb.Models.Components.RateCalculatorModel()
+        {
+            DisplayCalculator = true,
+            FirstAgainCodeTrackingId = Model.FirstAgainCodeTrackingId,
+            PurposeOfLoan = FirstAgain.Domain.Lookups.FirstLook.PurposeOfLoanLookup.PurposeOfLoan.NotSelected,
+            DisplayItsEasyToFindYourRate = true
+        };
+
+    var ctaBarModel = new CTABarModel()
+    {
+        CTABarDescriptions = Model.Content.CTABarDescriptions,
+        ShowCTAWhyLightStreamLink = Model.Content.ShowCTAWhyLightStreamLink
+    };
+
+}
+
+@Styles.Render("~/bundles/redesign-landing-page-styles")
+
+@if (Model.FeatureBullets != null && Model.FeatureBullets.Count() == 3)
+{
+    @Styles.Render("~/bundles/three-feature-bullets")
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Content.CustomCSS))
+{
+    <style>
+        @Html.Raw(Model.Content.CustomCSSMinified)
+    </style>
+}
+
+<div ng-app="LightStreamApp" id="lsAppDiv">
+    <div ng-controller="RateCalculator" ng-init="init('@calculator.PurposeOfLoan', '@calculator.Discount.ToString()', @calculator.IsSuntrustApplication.ToString().ToLower(), @Json.Encode(calculator.CustomRateDisclosureContent))" id="rates">
+
+        @section hero {
+            <div class="banner-container cms">
+                <img src="@Model.Content.CenterGraphic.ToImageUrl()" class="hide-for-small-only banner" alt="@Model.Content.CenterGraphic.Alt" align="right" />
+                <img src="@Model.Content.MobileCenterGraphic.ToImageUrl()" alt="@Model.Content.MobileCenterGraphic.Alt" class="mobile-banner cms">
+            </div>
+
+            <div class="headline hide-for-small-only home3Headline">
+                <div class="row">
+                    <div class="columns medium-12" style="text-align: center">
+                        <h2 style="text-align: center" class="cms">@Html.Raw(Model.Content.PageTitle)</h2>
+                    </div>
+                </div>
+                <div>
+                    <h3>@Html.Raw(Model.Content.RateTitle)</h3>
+                    <h2 style="text-align: center">@Model.DisplayRate.RateRangePretty<sup>*</sup></h2>
+                    <h3>@Html.Raw(Model.Content.RateSubtitle)</h3>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="columns medium-12" style="text-align: center">
+                        <form method="post" action="/apply" class="bannerButton">
+                            <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()" />
+                        </form>
+                        <div class="ghostBox hundredHeightBold bannerButton" id="ghostBox"></div>
+                        <input type="button"
+                               id="ratesAndTerms"
+                               value="See Rates & Terms"
+                               class="transparentButtonWhiteBorder hundredHeightBold bannerButton ghostButton"
+                               style="margin-left: 20px !important;"
+                               onclick="SC.main.banner.ratesAndTerms()"
+                               onmouseenter="doHover(true)"
+                               onmouseout="doHover(false)"
+                               tabindex="-1"
+                               aria-hidden="true" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="headline show-for-small-only">
+                <div style="text-align: center" class="mobile-banner-text">
+                    <h2 class="small-12 columns cms">@Html.Raw(Model.Content.PageTitle)</h2>
+                </div>
+
+                <h3>@Html.Raw(Model.Content.RateTitle)</h3>
+                <h2>@Model.DisplayRate.RateRangePretty<sup>*</sup></h2>
+                <h3>@Html.Raw(Model.Content.RateSubtitle)</h3>
+
+                <div class="row mobile-banner-buttons-row">
+                    <div class="columns medium-12" style="text-align: center">
+                        <form method="post" action="/apply" class="bannerButton">
+                            <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()" />
+                        </form>
+                        <div class="ghostBox hundredHeightBold bannerButton" id="ghostBox"></div>
+                        <input type="button"
+                               id="ratesAndTerms"
+                               value="See Rates & Terms"
+                               class="transparentButtonWhiteBorder hundredHeightBold bannerButton bannerButtonMobile ghostButton"
+                               style="margin-left: 20px !important;"
+                               onclick="SC.main.banner.ratesAndTerms()"
+                               onmouseenter="doHover(true)"
+                               onmouseout="doHover(false)"
+                               tabindex="-1"
+                               aria-hidden="true" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @Html.Partial("~/Views/PublicSite/Partials/_CTABar.cshtml", ctaBarModel)
+
+        @Html.Partial("~/Views/PublicSite/Partials/_CTABarMobile.cshtml", ctaBarModel)
+
+        @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "isOneClickDisclosure", true } })
+
+        @Html.Partial("~/Views/Components/RateCalculator.cshtml", calculator)
+
+        @if (Model.Content.DisplayComparativeTable)
+        {
+            @Html.Partial("~/Views/Redesign/_ComparativeTable.cshtml")
+        }
+
+        @if (Model.Content.DisplayApplyInMinutes)
+        {
+            @Html.Partial("~/Views/PublicSite/Partials/_ApplyInMinutes.cshtml")
+            @Html.Partial("~/Views/PublicSite/Partials/_ApplyInMinutesMobile.cshtml")
+        }
+
+        @Html.Partial("~/Views/Redesign/_FeatureBullets.cshtml", Model)
+
+        @Html.Partial("~/Views/Components/_LightStreamExperience_LandingPage.cshtml", Model)
+
+        @Html.Partial("~/Views/PublicSite/Partials/_LendingUncomplicated.cshtml")
+
+        @section APRDisclosure1 {
+            @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "showPaymentExample", true } })
+        }
+
+        @section APRDisclosure {
+            <br />
+            @Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Content.DisclosureCopy))
+            <br />
+        }
+
+        @Html.Partial("~/Views/PublicSite/Modals/VideoModal.cshtml", String.IsNullOrWhiteSpace(Model.VideoUrl) ? "https://www.youtube.com/embed/YYuxezlgMIg" : Model.VideoUrl)
+
+        <section class="row ruled homeloanuses">
+            @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+        </section>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/scripts-template-redesign")
+
+    <script type="text/javascript">
+        @if (Model.Content.TemplateType == FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.LoanAggregator
+            || Model.Content.TemplateType == FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.ComponentTemplate)
+        {
+          <text>SC._t({ pageName: '@Model.CustomOmniHierarchy', hier1: '@Model.CustomOmniHierarchy', products: ';AnythingLoan', events: 'prodView' });</text>
+        }
+        else
+        {
+          <text>SC._t({ pageName: '@Model.OmniPageName', hier1: '@Model.OmniHierarchy', products: ';AnythingLoan', events: 'prodView'  });</text>
+        }
+    </script>
+}

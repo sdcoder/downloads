@@ -1,0 +1,37 @@
+﻿@*Estimated Monthly Housing Costs*@
+@LoanApplicationForm.OtherFinancialIncomeField(
+    ngRequired: "true", 
+    label: "Total Monthly Housing Costs",
+    ariaLabel: "Enter your total monthly housing costs.",
+    name: "MonthlyHousingCosts",
+    error: @Resources.LoanAppErrorMessages.ErrorMonthlyHousingCostVal,
+    hint:@Resources.LoanAppErrorMessages.HintMonthlyHousingCost)
+
+
+@*Estimated Equity in Home*@
+@LoanApplicationForm.OtherFinancialIncomeField(
+    ngRequired: "LoanApp.Applicants[0].Residence.Ownership == 'Own' || LoanApp.Applicants[1].Residence.Ownership == 'Own'", 
+    label: "Estimated Equity in Home (if owned)",
+    ariaLabel: "If you own your home, enter the estimated equity in your home.",
+    name: "HomeEquity",
+    error: @Resources.LoanAppErrorMessages.ErrorEquityInHome,
+    hint:@Resources.LoanAppErrorMessages.HintEquityInHome)
+
+@*Liquid Assets*@
+@LoanApplicationForm.OtherFinancialIncomeField(
+    ngRequired: "true", 
+    label: "Checking and Savings Balances plus Stocks and Bonds",
+    ariaLabel: "Enter the sum of your checking and savings balances plus stocks and bonds.",
+    name: "LiquidAssets",
+    error: "Enter the amount of your checking and savings plus any stocks and bonds.",
+    hint: @Resources.LoanAppErrorMessages.HintLiquidAssets)
+
+@*Retirement Assets*@
+@LoanApplicationForm.OtherFinancialIncomeField(
+    ngRequired: "true", 
+    label: "Retirement Assets (401(k), 403(b), 457, IRA, etc)",
+    ariaLabel: "Enter the sum of your retirement assets.",
+    name: "RetirementAssets",
+    error: @Resources.LoanAppErrorMessages.ErrorRetirementAssets,
+    hint: @Resources.LoanAppErrorMessages.HintRetirementAssets)
+

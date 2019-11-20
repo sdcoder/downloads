@@ -1,0 +1,138 @@
+﻿<style>
+    form.submitted input[type=text].ng-invalid {
+        border:2px red solid;
+    }
+    form.submitted select.ng-invalid {
+        border:2px red solid;
+    }
+    form.submitted input[type=radio].ng-invalid + label{
+        color:red;
+    }
+    #NonApplicantSpouseSection td.content {
+        padding-left:0.5em;
+    }
+    #NonApplicantSpouseSection td {
+        text-align:left;
+    }
+    #NonApplicantSpouseSection div.row div.left {
+        float:left;
+    }
+    #NonApplicantSpouseSection div.row {
+        line-height:1.4em;
+        width:100%;
+    }
+</style>
+<script type="text/javascript">
+    angular.module('NonApplicantSpouseModule', [])
+        .controller('NonApplicantSpouseController', function ($scope, $http, $sce, $timeout) {
+            $scope.load = function () {
+                $http.get('/Services/LoanAcceptance/NonApplicantSpouseData').success(function (data) {
+                    if (!data) {
+                        $scope.ErrorMessage = $sce.trustAsHtml("We're sorry, but there was an error loading the information. Please refresh the page to try again, or <a href='/contact-us'>contact us</a> if you continue to experience the issue.");
+                    } else {
+                        $scope.NonAppSpouseData = data;
+                    }
+                });
+            };
+
+            $scope.save = function () {
+                $http.post('/Services/LoanAcceptance/NonApplicantSpouseData', $scope.NonAppSpouseData);
+            };
+
+            var _pendingSave = null;
+            $scope.$watch('NonAppSpouseData', function (newVal, oldVal) {
+                if (_pendingSave) {
+                    $timeout.cancel(_pendingSave);
+                }
+                _pendingSave = $timeout(function () {
+                    $scope.save();
+                }, 500);
+            }, true);
+
+            $scope.$watch('NonAppSpouseData.Primary.SpouseNotInState', function (newVal, oldVal) {
+                if (newVal && newVal != oldVal && $scope.NonAppSpouseData) {
+                    $scope.NonAppSpouseData.Primary.Name = {};
+                    $scope.NonAppSpouseData.Primary.Address = {};
+                    $scope.NonAppSpouseData.Primary.SameAddress = false;
+                }
+            });
+            $scope.$watch('NonAppSpouseData.Secondary.SpouseNotInState', function (newVal, oldVal) {
+                if (newVal && newVal != oldVal && $scope.NonAppSpouseData) {
+                    $scope.NonAppSpouseData.Secondary.Name = {};
+                    $scope.NonAppSpouseData.Secondary.Address = {};
+                    $scope.NonAppSpouseData.Secondary.SameAddress = false;
+                }
+            });
+            $scope.$watch('NonAppSpouseData.Primary.SameAddress', function (newVal, oldVal) {
+                if (newVal != oldVal && $scope.NonAppSpouseData) {
+                    if (newVal) {
+                        $scope.NonAppSpouseData.Primary.Address = $scope.NonAppSpouseData.PrimaryApplicantAddresss;
+                    } else {
+                        $scope.NonAppSpouseData.Primary.Address = {};
+                    }
+                }
+            });
+            $scope.$watch('NonAppSpouseData.Secondary.SameAddress', function (newVal, oldVal) {
+                if (newVal != oldVal && $scope.NonAppSpouseData) {
+                    if (newVal) {
+                        $scope.NonAppSpouseData.Secondary.Address = $scope.NonAppSpouseData.SecondaryApplicantAddresss;
+                    } else {
+                        $scope.NonAppSpouseData.Secondary.Address = {};
+                    }
+                }
+            });
+            $scope.load();
+        });
+
+    angular.element(document).ready(function () {
+        angular.bootstrap(document.getElementById("NonApplicantSpouseSection"), ['NonApplicantSpouseModule']);
+    });
+
+    // hook for legacy code to call angular function
+    SaveNonApplicantSpouseSection = function () {
+        angular.element($("#NonApplicantSpouseSection")).scope().save();
+    };
+</script>
+
+<table width="760" border="0" cellpadding="0" cellspacing="0" class="loan-offer-schedule" id="NonApplicantSpouseSection" ng-controller="NonApplicantSpouseController"  >
+
+<tr style="height:10px;"></tr>
+<tr>
+    <td align="left" valign="top" class="body">
+        <strong><span>{{NonAppSpouseData.StepNumber}}.</span></strong>
+    </td>
+    <td colspan="2" style="text-align:left;width:748px;">
+        <strong>&nbsp;Wisconsin Residents</strong>
+        <div ng-if="ErrorMessage" ng-bind-html="ErrorMessage" class="errorMessage"></div>
+    </td>
+</tr>
+
+<tr ng-if="NonAppSpouseData">
+    <td align="left" valign="top" class="body">
+    </td>
+    <td colspan="2" class="content">
+        <div class="row">
+            <div class="left">Does {{NonAppSpouseData.Primary.ApplicantName}} have a spouse that is not on this application?</div>
+            <div>
+                <input type="radio" name="PrimaryApplicantHasSpouse" id="PrimaryApplicantHasSpouseYes" ng-required="true" ng-model="NonAppSpouseData.Primary.HasNonApplicantSpouse" ng-value="true"><label for="PrimaryApplicantHasSpouseYes">Yes</label>
+                <input type="radio" name="PrimaryApplicantHasSpouse" id="PrimaryApplicantHasSpouseNo" ng-required="true" ng-model="NonAppSpouseData.Primary.HasNonApplicantSpouse" ng-value="false"><label for="PrimaryApplicantHasSpouseNo">No</label>
+            </div>
+        </div>
+
+        <div class="row" ng-if="NonAppSpouseData.IsJoint">
+            <div class="left">Does {{NonAppSpouseData.Secondary.ApplicantName}} have a spouse that is not on this application?</div>
+            <div>
+                <input type="radio" name="SecondaryApplicantHasSpouse" id="SecondaryApplicantHasSpouseYes" ng-required="true" ng-model="NonAppSpouseData.Secondary.HasNonApplicantSpouse" ng-value="true"><label for="SecondaryApplicantHasSpouseYes">Yes</label>
+                <input type="radio" name="SecondaryApplicantHasSpouse" id="SecondaryApplicantHasSpouseNo" ng-required="true" ng-model="NonAppSpouseData.Secondary.HasNonApplicantSpouse" ng-value="false"><label for="SecondaryApplicantHasSpouseNo">No</label>
+            </div>
+        </div>
+        <div ng-show="NonAppSpouseData.Primary.HasNonApplicantSpouse">
+                @Html.Partial("~/Views/LoanAcceptance/_NonApplicantSpouse.cshtml", "Primary")
+        </div>
+        <div ng-if="NonAppSpouseData.IsJoint" ng-show="NonAppSpouseData.Secondary.HasNonApplicantSpouse">
+                @Html.Partial("~/Views/LoanAcceptance/_NonApplicantSpouse.cshtml", "Secondary")
+        </div>
+
+    </td>
+</tr>
+</table>

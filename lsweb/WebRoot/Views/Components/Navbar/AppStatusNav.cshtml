@@ -1,0 +1,196 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.ApplicationStatusPageModel
+
+<div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+<div class="web-component">
+    <lswc-legal-banner></lswc-legal-banner>
+</div>
+
+<!-- Backdrop -->
+<div class="backdrop mobile-menu-backdrop"></div>
+<!-- /Backdrop -->
+<!-- Nav Container -->
+<div class="nav-container">
+    <div class="row">
+        <!-- Desktop Nav-->
+        <div class="large-12 columns desktop-nav navbar affix bg-biscay @Model.NavClass ">
+            <div class="navbar-inner">
+                <!-- Navbar Container -->
+                <div class="navbar-container">
+                    <div class="row">
+                        <div class="large-12 columns columns-fluid">
+                            <!-- Navbar Brand -->
+                            <div class="navbar-brand-container pull-left">
+                                <h1 class="navbar-brand">
+                                    <a href="@Url.Action("Index")">
+                                        <img src="@Model.CdnBaseUrl/lightstream-logo.png" alt="LightStream">
+                                    </a>
+                                </h1>
+                            </div>
+                            <!-- /Navbar Brand -->
+                            <!-- Navigation -->
+                            <div class="navbar-navigation-container pull-right">
+                                <div class="navbar-navigation">
+                                    <!-- Navigation Header -->
+                                    <div class="navbar-navigation-header">
+                                        <div class="row ">
+                                            <div class="large-12">
+                                                <nav class="pull-right">
+                                                    <ul>
+                                                        <li class="navbar-navigation-header-links">
+                                                            <ul>
+                                                                @if (Model.IsAccountServices())
+                                                                {
+                                                                    <li><a class="btn btn-small btn-link no-track" href="/account/">Accounts</a></li>
+                                                                    <li><a class="btn btn-small btn-link" href="/profile">Profile</a></li>
+                                                                }
+
+                                                                <li><button class="btn btn-small btn-link no-track" data-open="RatesModal">Rates</button></li>
+                                                                <li><a class="btn btn-small btn-link no-track" href="/modals/privacy" data-popup="true">Privacy</a></li>
+
+                                                                @if (Model.DisplayContactUs())
+                                                                {
+                                                                    <li><a class="btn btn-small btn-link no-track" href="/modals/account-services-contact-us" data-open="AjaxModalMedium" data-reveal-ajax="true">Contact Us</a></li>
+                                                                }
+
+                                                                @if (Model.HasEnotices())
+                                                                {
+                                                                    <li><a class="btn btn-small btn-link no-track" href="/enotices/modal" data-popup="true">e-Notices</a></li>
+                                                                }
+
+                                                            </ul>
+                                                        </li>
+                                                        <li class="navbar-navigation-header-actions">
+                                                            <ul>
+                                                                <li class="sign-out-action">
+                                                                    <div class="btn btn-small btn-lightskyblue btn-fancy">
+                                                                        <a href="/signin/logout">Sign Out</a>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Navigation Header -->
+                                    <!-- Navigation Footer -->
+                                    <!-- /Navigation Footer -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Navbar Container -->
+            </div>
+        </div>
+        <!-- /Desktop Nav-->
+        <!-- Mobile Nav-->
+        <div class="small-12 mobile-nav">
+            <div class="nav-bar affix">
+                <ul class="left-nav pull-left">
+                    <li class="hamburger">
+                        <a href="javascript:void(0);">
+                            <i class="fa fa-bars"></i>
+                            <i class="fa fa-times hide"></i>
+                        </a>
+                    </li>
+                    <li class="logo">
+                        <h2><a href="@Url.Action("Index")"><i class="ls ls-logo ls-1x-logo"></i></a></h2>
+                    </li>
+                </ul>
+                <ul class="right-nav pull-right">
+                    <li class="sign-in">
+                        <a class="alert btn-round" href="/signin/logout">SIGN OUT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /Mobile Nav-->
+    </div>
+</div>
+<!-- /Nav Container -->
+<!-- Mobile Menu-->
+<div class="mobile-menu">
+    <ul>
+        <li class="menu">
+            <div class="large-12 medium-12 columns">
+                <nav>
+                    <ul class="accordion" data-accordion data-allow-all-closed="true" data-multi-expand="false" data-slide-speed="0">
+                        @if (Model.IsAccountServices())
+                        {
+                            <li class="accordion-item root-nav-item">
+                                <a href="/account">
+                                    <i class="ls ls-checklist ls-pull-left"></i>
+                                    <span class="title">
+                                        Accounts
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="accordion-item root-nav-item">
+                                <a href="/profile">
+                                    <i class="ls ls-user ls-pull-left"></i>
+                                    <span class="title">
+                                        Profile
+                                    </span>
+                                </a>
+                            </li>
+                        }
+                        <li class="accordion-item root-nav-item">
+                            <a class="no-track" href="#" data-open="RatesModal">
+                                <i class="ls ls-rate ls-pull-left"></i>
+                                <span class="title">
+                                    Rates
+                                </span>
+                            </a>
+                        </li>
+                        <li class="accordion-item root-nav-item">
+                            <a class="no-track" href="/modals/privacy" data-popup="true">
+                                <i class="ls ls-app-lock ls-pull-left"></i>
+                                <span class="title">
+                                    Privacy
+                                </span>
+                            </a>
+                        </li>
+                        @if (Model.DisplayContactUs())
+                        {
+                            <li class="accordion-item root-nav-item">
+                                <a class="no-track" href="/modals/account-services-contact-us" data-open="AjaxModalMedium" data-reveal-ajax="true">
+                                    <i class="ls ls-comment ls-pull-left"></i>
+                                    <span class="title">
+                                        Contact Us
+                                    </span>
+                                </a>
+                            </li>
+                        }
+
+
+                        @if (Model.HasEnotices())
+                        {
+                            <li class="accordion-item root-nav-item">
+                                <a class="no-track" href="/enotices/modal" data-popup="true">
+                                    <i class="ls ls-comment ls-pull-left"></i>
+                                    <span class="title">
+                                        e-Notices
+                                    </span>
+                                </a>
+                            </li>
+                        }
+
+                        <li class="accordion-item">
+                            <div class="social">
+                                <ul>
+                                    <li><a href="@Model.BloggerURL" target="_blank" data-jump="true" data-tracking="e-Journal" aria-label="LightStream Blog"><i class="ls ls-blogger ls-1x"></i></a></li>
+                                    <li><a href="@Model.YoutubeURL" target="_blank" data-jump="true" data-tracking="YouTube" aria-label="LightStream YouTube"><i class="ls ls-youtube ls-1x"></i></a></li>
+                                    <li><a href="@Model.FacebookURL" target="_blank" data-jump="true" data-tracking="Facebook" aria-label="LightStream Facebook"><i class="ls ls-facebook ls-1x"></i></a></li>
+                                    <li><a href="@Model.TwitterURL" target="_blank" data-jump="true" data-tracking="Twitter" aria-label="LightStream Twitter"><i class="ls ls-twitter ls-1x"></i></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- /Mobile Menu-->

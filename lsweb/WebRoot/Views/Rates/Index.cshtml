@@ -1,0 +1,51 @@
+﻿@model LightStreamWeb.Models.PublicSite.RatesPageModel
+
+@section hero {
+    <img src="@Model.Banner.ToImageUrl()" alt="@Model.Banner.Image.Alt" align="right" class="banner hide-for-small-only cms" />
+
+    <div class="small-12 columns headline" tabindex="0">
+        <h2>@Model.PageTitle<br />
+            <span class="cms">@Model.SubTitle</span>
+        </h2>
+    </div>
+
+    <div class="small-12 columns hide-for-medium rate-actions">
+        <div class="ruled-top action-link">
+            <a href="#RateTable" target="_self" class="brand">View Rates and Terms &raquo;</a>
+        </div>
+        <div class="ruled-top action-link">
+            <a href="#LoanCalculator" target="_self" class="brand">Calculate a Payment &raquo;</a>
+        </div>
+    
+        <div class="ruled-top action-link">
+            <a href="@Url.Action("Index", "Apply")" class="button">Apply Now</a>
+        </div>
+    </div>
+}
+
+<div class="hide-for-small-only" tabindex="0">
+    @Html.Partial("~/Views/Components/BestLoanExperienceGuaranteeRow.cshtml")
+</div>
+
+<article>
+    @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+    
+    @Html.Action("FeaturedTestimonial", "Components", new { purpose = Model.PurposeOfLoan })
+
+</article>
+
+<div class="show-for-small-only" style="border-top: 2px solid #cccccc" ></div>
+
+<section class="row ruled homeloanuses">
+@Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            SC.main.rates();
+        });
+    </script>
+
+}

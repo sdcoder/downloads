@@ -1,0 +1,99 @@
+﻿<div>
+    <form>
+    <div id="CustomerIdentificationSection">
+        <div class="row ruled">
+            <div class="medium-12 columns">
+                <h3 class="brand">Identity Verification for {{ApplicantName}}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div id="divInstructions" ng-cloak ng-show="showInstructions">
+                <p>For your own protection, you will be asked to answer a few multiple choice questions in order to verify your identity, and prevent someone else from fraudulently using your personal information. This process will only take a few minutes.</p>
+                <p>Once you have started the identity verification process do not use the back button on your browser. This will prohibit you from completing the verification.</p>
+                <input id="instructionsCont" type="button" value="Click here to start" class="button button-medium" ng-click="loadFirstQuestion()"/>
+            </div>
+
+            <div id="divMultiSelQuesion" ng-cloak ng-show="showMultiSelQ">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <strong class="brand">You may select one or more answers</strong>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p>{{questionData.Question.QuestionText}}</p>
+                    </div>
+                    <div class="medium-12 columns">
+                        <div ng-repeat="choice in questionData.Question.Choices" class="choice">
+                            <input type="checkbox" name="chkboxQ{{$index}}" ng-model="questionData.Question.Choices[$index].Selected" ng-true-value="true" ng-false-value="false" id="chkboxQ{{choice.ChoiceId}}" />
+                            <label for="chkboxQ{{choice.ChoiceId}}">{{choice.ChoiceText}}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <strong class="brand forminfo">{{questionData.Question.QuestionHelpText}}</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <input id="multiSelQCont" type="button" value="Continue" ng-disabled="haveAnswer() === false" class="button button-medium"  ng-click="getNextQuestion()"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="divSingleSelQuesion" ng-cloak ng-show="showSglSelQ">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <strong class="brand">You may select only one answer</strong>
+                    </div>
+                </div>
+
+                <div class="row ruled">
+                    <div class="medium-12 small-12 columns">
+                        <p>{{questionData.Question.QuestionText}}</p>
+                    </div>
+                    <div class="medium-12 small-12 columns">
+                        <div ng-repeat="choice in questionData.Question.Choices" class="choice">
+                            <input type="radio" name="radioQ" ng-model="questionData.Question.ChoiceSelected"  value="{{choice.ChoiceId}}" id="radioQ{{choice.ChoiceId}}" />
+                            <label for="radioQ{{choice.ChoiceId}}" >{{choice.ChoiceText}}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p>
+                            <strong class="brand forminfo">{{questionData.Question.QuestionHelpText}}</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <input id="singleSelQCont" type="button" class="button button-medium"  value="Continue" ng-disabled="haveAnswer() === false" ng-click="getNextQuestion()"/>
+                    </div>
+                </div>
+
+            </div>
+        
+            <div id="divProcessing" ng-cloak ng-show="showProcessing">
+                <img src="/content/images/processing.gif" alt="" style="margin-left:auto;margin-right:auto"/>
+            </div>
+        
+            <div id="divComplete" ng-cloak ng-show="showCompleted">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p>Thank you for completing the identity verification for {{ApplicantName}}.</p>
+                        <p><input id="completed" type="button" class="button button-medium" value="Return to Information Request" ng-click="gotoPage('/appstatus/refresh');" /></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+

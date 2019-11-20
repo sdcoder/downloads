@@ -1,0 +1,52 @@
+﻿@model LightStreamWeb.Models.Apply.PartnerApplicationPageModel
+
+
+<section class="row ruled">
+	<div class="large-10 columns medium-push-1">
+	    <h1>Thank You!</h1>
+
+        <p class="panel">
+            Your application is now complete. We will email you @DateUtility.CustomerResponseTimeFrameText  
+            regarding our credit decision or questions that we may have. 
+            <p>&nbsp;</p>
+        </p>
+
+        <p>Please remember!</p>
+        <p>In order to access your account going forward you will need to use your "newly" created LightStream user ID and password when you Sign In.</p>
+
+        @if (Model.Partner != null && !Model.Partner.IsURLNull() &&  !string.IsNullOrEmpty(Model.Partner.URL)) {
+            @:<p>If you would like to return to @Model.Partner.DisplayName for additional products or services, please <a href="@Model.Partner.URL" data-jump="true">click here</a>.
+        } 
+	</div>
+</section>
+
+
+<section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+@section scripts {
+
+<script type="text/javascript">
+    //Catalyst tracking
+    SC.apply.thankYou("@Model.SessionApplyCookie");
+</script>
+
+@if(@Model.Amount > 0M)
+{
+<script type="text/javascript">
+    // Marketing: test & target
+                adobe.target.trackEvent({
+                'mbox': 'orderConfirmPage',
+                'params': {
+                    'orderId': '@Model.SessionApplyCookie',
+                    'orderTotal': '@Model.Amount',
+                    'productPurchasedId': '@Model.PurposeOfLoanCaption' }
+            });
+
+    // navigating back to this page should trigger a sign out - they need to log in with the new user id
+    if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, 'Last Page', '/signin/logout');
+    }
+</script>
+}
+}

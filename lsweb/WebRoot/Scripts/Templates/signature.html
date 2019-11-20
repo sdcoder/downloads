@@ -1,0 +1,21 @@
+﻿<!--    <add key="SignatureWidth" value="585" />
+    <add key="SignatureHeight" value="74" />-->
+
+<div class="sigPad signed">
+    <b>{{ApplicantFullName}}</b>
+    <input type="hidden" runat="server" />
+    <div class="signatureBox">
+        <div class="sigWrapper">
+            <div class="script-font" ng-show="UsingScriptFont" ng-cloak ><img src="/signature/generate?name={{ApplicantFullName}}" /></div>
+            <canvas class="pad" width="585" height="74" ng-mouseup="updateModel()" ng-mouseleave="updateModel()" ng-show="!UsingScriptFont" ></canvas>
+            <input id="signatureData" type="hidden" name="output" class="output"  />
+        </div>
+        <div class="clearButton" ng-show="!UsingScriptFont" ><span>Hold down left mouse button and draw above to sign.</span><br /><a href="#clear" class="no-track orange-button">Clear</a></div>
+    </div>
+    <ul class="sigNav" ng-show="!Submitted">
+        <li ng-show="!UsingScriptFont" ><a ng-click="useScriptFont(true)" class="no-track" id="ClickHereToUseScriptFontSignature" >Click here</a> <span> if you prefer to have your signature inserted using our script font.</span></li>
+        <li ng-show="UsingScriptFont" ><a ng-click="useScriptFont(false)" class="no-track" id="ClickHereToUseMouseToSign">Click here</a> <span> if you prefer to use your mouse to sign.</span></li>
+    </ul>
+</div>
+{{Submitted}}
+

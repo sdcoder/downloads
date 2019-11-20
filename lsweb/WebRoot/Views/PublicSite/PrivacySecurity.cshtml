@@ -1,0 +1,12 @@
+﻿@model LightStreamWeb.Models.PublicSite.PrivacySecurityModel
+
+@section hero {
+<img src="@Model.Banner.ToImageUrl()" alt="@Model.Banner.Image.Alt" align="right" class="banner hide-for-small-only cms" />
+
+    <div class="small-12 columns headline">
+        <h2 class="cms" tabindex="0">@Model.Heading</h2>
+        <h3 class="sub cms" tabindex="0">@Model.SubHeading</h3>
+    </div>
+}
+
+@Html.Partial("_BasicAccordianPage", Model)

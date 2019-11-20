@@ -1,0 +1,22 @@
+﻿@model LightStreamWeb.Models.PublicSite.BasePublicPageWithAdObjects
+
+    <div class="medium-4 columns sidebar-ad">
+
+      @Html.Partial("~/Views/Components/AdObject.cshtml", Model.GetFirstAdObject())
+
+      @Html.Partial("~/Views/Components/AdObject.cshtml", Model.GetSecondAdObject())
+
+      <!-- Ad - Comments -->
+      @if (Model.RandomComment != null) {
+      <div class="ad comments">
+          <a href="/customer-testimonials"><img src="/content/images/testimonialchat.png" alt="Customers are Saying" width="242" height="142"></a>
+
+          <span class="quote cms">
+              &quot;@Html.Raw(Model.RandomComment.Comment)&quot;
+              <cite class="brand">@Model.RandomComment.CiteText()</cite>
+              
+              <a href="/customer-testimonials">Read more...</a></span>
+      </div>
+      } @* @if (Model.CustomerComment != null) *@
+               
+    </div>

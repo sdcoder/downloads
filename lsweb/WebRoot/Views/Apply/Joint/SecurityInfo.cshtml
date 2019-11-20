@@ -1,0 +1,51 @@
+﻿@model LightStreamWeb.Models.Apply.ApplyPageModel
+
+<section class="row">
+	<div class="large-6 columns">
+	<h1>Loan Application</h1>
+	<p class="hide-for-small-only">&nbsp;</p>
+	</div>
+</section>
+
+@Html.Partial("~/Views/Apply/Partials/_ProgressBar.cshtml", new LightStreamWeb.Models.Apply.ProgressBarModel(3))
+
+<section class="row">
+	<div class="large-12 columns">
+		<p class="note"><sup>*</sup>indicates required field</p>
+	</div>
+</section>
+
+@LoanApplicationForm.StartForm("reserveUserId('/apply/joint/confirm', 3)")
+
+<div class="row" >
+    <div class="large-12 columns" ng-show="LoanApp.UserCredentials.IsTemporary === false">
+        <p>
+            Please create a user ID that is different than the user ID entered on your individual application. 
+            You may use the same password, security question and answer. 
+        </p>
+        <p>
+            Your "new" user ID and password will be required to access your account going forward. The security 
+            question and answer will be used, in certain situations, for additional verification. 
+        </p>
+        <p>Please remember to secure this information to access your joint application.</p>
+    </div>
+
+    @Html.Partial("~/Views/Apply/Partials/_TemporaryUserNameMessage.cshtml")
+</div>
+
+    
+@Html.Partial("~/Views/Apply/Partials/_UserCredentials.cshtml")
+
+<div class="row" ng-cloak ng-show="LoanApp.ErrorMessage">
+    <div class="formalert">
+        <p>{{LoanApp.ErrorMessage}}</p>
+    </div>
+</div>
+
+@LoanApplicationForm.EndForm()
+
+@section scripts {
+<script type="text/javascript">
+    SC.apply.securityInfo();
+</script>
+}

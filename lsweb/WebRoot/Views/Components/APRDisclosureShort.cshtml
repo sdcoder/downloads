@@ -1,0 +1,75 @@
+﻿
+@model LightStreamWeb.Shared.Rates.DisplayRateModel
+@{
+    //parameters
+    string purposeOfLoanCaption = Model.PurposeOfLoanCaption;
+    string templateName = (string)ViewData["templateName"];
+    bool isOneClickDisclosure = ViewData["isOneClickDisclosure"] != null;
+    bool showPaymentExample = ViewData["showPaymentExample"] != null;
+
+    //variables
+    string aprString = null;
+    bool isRowInBlueBackground = false;
+    bool oneClickDisclosureShowPaymentExampleExceptions = Request.RawUrl.ToLower().Contains("/home-improvement-loan");
+    string oneClickDisclosureStatic = "*AutoPay discount is only available prior to loan funding. Rates without AutoPay are 0.50% higher. ";
+    //string oneClickDisclosurePaymentExample = "Payment example: Monthly payments for a $25,000 loan at 7.99% APR with a term of 12 years would result in 36 monthly payments of $270.48.";
+    string disclosurePaymentExample = "Payment example: Monthly payments for a " + Model.SampleAmountMin.ToString("$#,##0") + " loan at " + Model.Rate.ToString("0.00##%") + " APR with a term of " + Model.SampleTermCaption + " would result in " + Model.SampleNumberOfPayments + " monthly payments of " + Model.SampleMonthlyPayment.ToString("$#,##0.00") + ".";
+    string disclosureMaxApr = "Maximum APR for a LightStream loan is " + Model.OverallMaxRate.ToString("0.00##%") + ".";
+    string footerDisclosureStatic = "* Your loan terms, including APR, may differ based on loan purpose, amount, term length, and your credit profile. " +
+                "Rate is quoted with AutoPay discount. AutoPay discount is only available prior to loan funding. Rates without AutoPay are 0.50% higher. " +
+                "Subject to credit approval. Conditions and limitations apply. Advertised rates and terms are subject to change without notice.";
+
+    //PBI 69063: If loan purpose is home improvement and tempate is PaidSearch, show payment example on one-click disclosure.
+    //PBI 69063: one exception is "/home-improvement-loan"
+    if ((purposeOfLoanCaption == "Home Improvement/Pool/Solar Loan" && templateName == "PaidSearch") || oneClickDisclosureShowPaymentExampleExceptions)
+    {
+        aprString = oneClickDisclosureStatic + disclosurePaymentExample;
+    }
+    else
+    {
+        aprString = oneClickDisclosureStatic;
+    }
+
+    if (templateName == "PaidSearch" || templateName == "VideoAllPurpose" || templateName == "Video")
+    {
+        isRowInBlueBackground = true;
+    }
+
+    if (isOneClickDisclosure)
+    {
+        if (isRowInBlueBackground)
+        {
+            <div class="row apr-disclosure-row">
+                <div class="large-12 apr-disclosure">
+                    <p tabindex="0">
+                        @aprString
+                    </p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <section id="apr-disclosure" class="row">
+                <article class="large-12 columns legalcopy">
+                    <p class="apr-disclosure-wrapper" tabindex="0">
+                        @aprString
+                    </p>
+                </article>
+            </section>
+        }
+    }
+    else
+    {
+        <div class="ada-container" id="footerdisclosure-apr" tabindex="0">
+            @footerDisclosureStatic
+            <br />
+            @if (showPaymentExample)
+            {
+                <br aria-hidden="true" />
+                <p>
+                    @disclosurePaymentExample<br /><br aria-hidden="true" />@disclosureMaxApr
+                </p>
+            }
+        </div>
+    }
+}

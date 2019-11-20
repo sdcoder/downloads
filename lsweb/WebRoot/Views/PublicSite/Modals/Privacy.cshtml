@@ -1,0 +1,23 @@
+﻿@model LightStreamWeb.ContentManager
+
+
+<ul class="tabs" data-tabs id="PrivacyModalTabs">
+  <li class="tabs-title is-active"><a data-tabs-target="panel2-1" tabindex="0">Privacy Page</a></li>
+  <li class="tabs-title"><a data-tabs-target="panel2-2" tabindex="0">Privacy Policy</a></li>
+  <li class="tabs-title"><a data-tabs-target="panel2-3" tabindex="0">Online Privacy Practices</a></li>
+  <li class="tabs-title"><a data-tabs-target="panel2-4" tabindex="0">Security Policy</a></li>
+</ul>
+<div class="tabs-content" data-tabs-content="PrivacyModalTabs" tabindex="0">
+  <div class="tabs-panel is-active" id="panel2-1" aria-selected="true">
+    @Html.Partial("~/Views/PublicSite/Partials/privacy-security.cshtml", Model)
+  </div>
+  <div class="tabs-panel" id="panel2-2">
+    @Html.Partial("~/Views/PublicSite/Partials/privacy-policy.cshtml", Model)
+  </div>
+  <div class="tabs-panel" id="panel2-3">
+    @Html.Partial("~/Views/PublicSite/Partials/online-privacy.cshtml", Model)
+  </div>
+  <div class="tabs-panel" id="panel2-4">
+    @Html.Partial("~/Views/PublicSite/Partials/security-policy.cshtml", Model)
+  </div>
+</div>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/bundles/css-responsive-main")
+    @RenderSection("styles", required: false)
+    <style type="text/css">
+        footer {
+            background-color: #bababa;
+            width: 90%;
+            bottom: 0;
+            position: fixed;
+            margin: auto;
+            margin-bottom: 0.5em;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+            footer > span {
+                display: inline-block;
+                margin-left: 2em;
+            }
+
+        body {
+            text-align: left;
+            margin: 4em;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        tr:nth-child(even) {
+            background: #E0E0E0
+        }
+
+        tr:nth-child(odd) {
+            background: #FFF
+        }
+
+        th {
+            background-color: #686868;
+            color: white;
+        }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">window.jQuery || document.write('<script src="/scripts/jquery-3.4.1.min.js"><\/script>')</script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</head>
+<body>
+    <div id="content">
+        @RenderBody()
+    </div>
+
+    <footer>
+        <span>Server Name: @System.Configuration.ConfigurationManager.AppSettings["EnvironmentName"] ?? ""</span>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,1670 @@
+﻿/*
+    Addition to css required for specific page elements
+    include *after* style.css provided by splinter creative
+*/
+input::-ms-clear, input::-ms-reveal {
+  display: none; }
+
+/* BEGIN - Modals */
+#AjaxModal ul.testimonials {
+  list-style: none; }
+
+#AjaxModal ul.hide-bullets {
+  list-style: none; }
+
+#AjaxModal ul {
+  list-style: square; }
+
+/* END - Modals */
+/* hide social media icons if the URL's are blank */
+div.social a[href=''] {
+  display: none; }
+
+/* disclosures */
+#SameDayFundingDisclosure {
+  display: none; }
+
+/* environment / dev / qa widget / dev tools */
+#Environment {
+  display: none; }
+
+#LoanAppImportExportModal textarea {
+  min-height: 600px; }
+
+@media (min-width: 1400px) {
+  #Environment {
+    opacity: .8;
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 105px;
+    padding: 10px 20px 10px 20px;
+    margin: 1px;
+    z-index: 1000;
+    background: #00467e;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#00467e), to(#002250));
+    background-image: -webkit-linear-gradient(top, #00467e, #002250);
+    background-image: -moz-linear-gradient(top, #00467e, #002250);
+    background-image: -ms-linear-gradient(top, #00467e, #002250);
+    background-image: -o-linear-gradient(top, #00467e, #002250);
+    box-shadow: 0 3px 5px 0px #777;
+    color: #fff; }
+  #Environment h3 {
+    color: #fff;
+    font-size: 14pt; }
+  #Environment h4 {
+    color: #fff;
+    font-size: 12pt; }
+  #Environment ul {
+    list-style-type: none;
+    font-size: 10pt;
+    color: white;
+    padding-left: 8px; }
+  #Environment #Cookies {
+    display: none; }
+  #Environment a {
+    color: #fff; }
+  #Environment ul li {
+    color: #fff; }
+  #Environment p {
+    color: #fff;
+    font-size: 10pt; }
+  #CloseEnvironmentTab {
+    color: #b0b0b0;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    line-height: 0.67em;
+    margin-left: 2px;
+    margin-right: 2px; }
+  #Environment .show-if-apply {
+    display: none; }
+  body.apply #Environment .show-if-apply {
+    display: block; } }
+
+/* adjustment for CMS content? */
+#Footer span:first-of-type {
+  display: block; }
+
+/* on about page, only display the first five customer testimonials */
+ul.testimonials li:nth-child(n+5) {
+  display: none; }
+
+ul.testimonials li:last-child {
+  display: block;
+  border-bottom: none; }
+
+/* on rate match page, show all */
+.rate-match-testimonials ul.testimonials li:nth-child(n+5) {
+  display: inherit; }
+
+/* on customer testimonials page, show all, hide the "read more..." link */
+body.single-tab ul.testimonials li:nth-child(n+5) {
+  display: inherit; }
+
+body.single-tab ul.testimonials li:last-child {
+  display: none; }
+
+ul.press-releases img {
+  display: block;
+  float: left;
+  margin-right: 0.5em; }
+
+ul.press-releases span {
+  display: block; }
+
+/* search widget styling */
+div.faq-search.row {
+  margin-top: 1em; }
+
+div.faq-search h2 {
+  margin: 0;
+  padding: 0; }
+
+div.faq-search input[type=search] {
+  display: block;
+  height: 1em;
+  width: 95%;
+  margin: 0.125em;
+  border-radius: 1em; }
+
+.faq-content .highlight {
+  background-color: yellow; }
+
+/* about, privacy pages */
+body.sub #header {
+  height: auto; }
+
+/* rates page*/
+body.rates h1 {
+  font-size: 32px; }
+
+@media (max-width: 768px) {
+  body.rates h1 {
+    font-size: 18px;
+    line-height: normal;
+    padding-bottom: 0.25em; }
+  body.rates header h1 {
+    font-size: 37px; } }
+
+body.rates #header {
+  margin-bottom: 0px; }
+
+table.loanrates td {
+  text-align: center; }
+
+table.loanrates td span {
+  text-align: left;
+  display: table; }
+
+@media (min-width: 481px) {
+  table.loanrates td span {
+    margin: auto; } }
+
+.legalcopy li {
+  font-size: 12px;
+  color: #1a1a1a;
+  font-weight: 500;
+  margin-left: 1.2em; }
+
+body.rates article #rates {
+  margin-top: 0.75rem; }
+
+@media (min-width: 768px) {
+  body.rate-calculator #header {
+    height: 290px; }
+  body.sub #header {
+    height: auto; }
+  body.rate-calculator form p {
+    padding-bottom: 0.125em; }
+  body.rate-calculator p.legalcopy {
+    padding: 0 0 18px 0; }
+  body.rate-calculator table.records {
+    margin-bottom: 0.125em; } }
+
+.rateTableHeaderRow, .loanTermsMonths {
+  display: none; }
+
+@media screen and (max-width: 728px) {
+  .heroaction .rate-match-image {
+    display: none; }
+  .zeroright-sm {
+    padding-right: 0;
+    margin-right: 0; }
+  .zeroleft-sm {
+    padding-left: 0;
+    margin-right: 0; } }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  body.rate-calculator article h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 24px; } }
+
+@media (min-width: 800px) {
+  body.rate-calculator article h1 {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0.125em; }
+  body.rate-calculator #header {
+    height: 413px; }
+  body.sub #header {
+    height: auto; }
+  body.rate-calculator #rates.row {
+    padding-bottom: 0px;
+    margin-bottom: 0.125rem; } }
+
+/* Landing Pages, Home Page */
+body.home #header.no-nav .headline {
+  top: 20px; }
+
+body.landing-page .headline h4 {
+  color: #fff; }
+
+@media (min-width: 768px) {
+  .featured_testimonial a {
+    padding-top: 10px; }
+  /* 3.	Remove a little extra white above H2 headline on home/landing pages  (center better horizontally?  And/or reduce a little white?) */
+  .homefeatures h3 {
+    margin-top: 10px; }
+  /* 2.	Icons:  reduce leading in copy under icons */
+  .homefeatures p {
+    margin-top: 9px;
+    line-height: 1.35em;
+    padding-bottom: 0px; }
+  body.landing-page .headline h4 {
+    font-size: x-large;
+    font-weight: 700;
+    margin: 5px 0 10px;
+    padding: 0;
+    text-shadow: 1px 1px 2px #2e2e2e; }
+  body.landing-page.partner #header .headline h2 {
+    margin-top: 40px; }
+  body.landing-page.partner #header.no-nav .headline h2 {
+    margin-top: 0; }
+  body.landing-page #header {
+    height: 500px; }
+  body.landing-page #header.no-nav {
+    height: 381px;
+    margin-top: 10px; }
+  body.landing-page #header .headline {
+    max-width: 80%; } }
+
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+  .home.landing-page #header {
+    height: 420px; }
+  .home.landing-page.responsive-redesign-v1-page #header {
+    height: auto; } }
+
+@media screen and (max-width: 1000px) {
+  body.home.partner #header {
+    padding-bottom: 0; }
+  body.landing-page #header .headline {
+    max-width: 80%; } }
+
+@media screen and (max-width: 500px) {
+  body.home #header img.banner {
+    margin-bottom: 10px; }
+  div.ratedetails {
+    margin-top: 0px; }
+  .heroaction .ratedetails h3.ratepercentage {
+    padding: 0; }
+  body.landing-page #header .headline {
+    max-width: none; } }
+
+@media screen and (max-width: 768px) and (min-width: 500px) {
+  body.home #header .headline h2 {
+    font-size: 32px;
+    line-height: 20px;
+    margin: 40px 0 15px; } }
+
+/* Feature bullets, tablet resolution */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .homefeatures p {
+    font-size: 16px; }
+  .homefeatures .medium-3 {
+    height: 160px; } }
+
+/* Feature bullets, screen resolution */
+@media only screen and (min-width: 1024px) {
+  .homefeatures .medium-3 {
+    height: 180px; } }
+
+#ClockModal {
+  padding: 10px; }
+
+#ClockModal > p {
+  width: 175px; }
+
+div.headline-graphic {
+  margin: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  text-align: center; }
+
+@media screen and (max-width: 500px) {
+  .heroaction p.seeratesandterms {
+    display: block; }
+  .heroaction p.seeratesandterms a {
+    font-size: 14px;
+    color: #00467e;
+    white-space: nowrap; }
+  .heroaction a.button {
+    margin-top: 3em; } }
+
+/* legacy header images */
+body.legacy-landing-page #header .headline {
+  width: 100%;
+  max-width: none; }
+
+body.legacy-landing-page #header {
+  height: 425px; }
+
+div.legacy-landing-page-hero-container {
+  width: 760px;
+  display: block;
+  margin-top: 1em;
+  margin: auto; }
+
+div.legacy-landing-page-hero-container div.center-graphic {
+  width: 480px;
+  min-height: 228px;
+  float: left;
+  display: inline-block;
+  padding-left: 200px;
+  padding-top: 10px; }
+
+div.legacy-landing-page-hero-container div.partner-graphic {
+  width: 240px;
+  min-height: 228px;
+  float: left;
+  display: inline-block;
+  padding-top: 10px; }
+
+div.legacy-landing-page-hero-container ul.bullets {
+  list-style-type: square;
+  margin-top: 0.25em; }
+
+div.legacy-landing-page-hero-container p.bullets {
+  font-family: Arial;
+  font-size: 14px;
+  padding: 0; }
+
+div.legacy-landing-page-hero-container ul.bullets li {
+  font-family: Arial;
+  font-size: 12px; }
+
+div.legacy-landing-page-hero-container .heroaction {
+  float: none;
+  display: inline-block;
+  width: 280px;
+  height: 228px;
+  background-color: none;
+  background-image: url("/content/images/home_page_blue_rate_bkg.png"); }
+
+div.legacy-landing-page-hero-container h3.ratepercentage {
+  margin: 0;
+  line-height: 1; }
+
+/* partner option #3*/
+div.partner-option-3 div.center-graphic {
+  width: 240px;
+  padding-left: 0px; }
+
+div.partner-option-3 div.partner-graphic {
+  padding-top: 100px;
+  height: 228px;
+  border-top: 1px solid #b8b8b8;
+  border-left: 1px solid #b8b8b8;
+  border-bottom: 1px solid #b8b8b8;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px; }
+
+/* partner option #1 */
+div.partner-option-1 div.center-graphic {
+  padding-left: 0px;
+  padding-top: 5px;
+  height: 228px; }
+
+div.partner-option-1 div.center-graphic img {
+  display: block;
+  margin: auto; }
+
+div.partner-option-1 .bullets {
+  margin-left: 80px; }
+
+/* partner option #2 */
+div.partner-option-2 div.center-graphic {
+  padding: 0px;
+  height: 228px; }
+
+div.partner-option-2 div.center-graphic div.partner-graphic {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+div.partner-option-2 .bullets {
+  margin-left: 80px; }
+
+body.landing-page h1.legacy {
+  font-size: 20px; }
+
+/* utility - center images */
+img.center, h1.center {
+  display: block;
+  margin: auto; }
+
+/* form info */
+div.bottom {
+  display: table-cell;
+  vertical-align: bottom; }
+
+div.formalert.aside, div.forminfo.aside {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 0px; }
+
+@media (min-width: 500px) {
+  div.formalert.aside.down, div.forminfo.aside.down, div.aside.down {
+    margin-top: 33px; }
+  div.formalert.down, div.forminfo.down {
+    margin-top: 33px;
+    margin-bottom: 0;
+    padding-bottom: 0; }
+  div.formalert.down p, div.forminfo.down p {
+    padding-bottom: 0; } }
+
+div.forminfo.aside > p, div.formalert.aside > p {
+  padding-bottom: 0px; }
+
+/* apply page */
+.progressbar .position .label a {
+  background: none;
+  color: #00467e;
+  font-size: 12px;
+  text-align: center; }
+
+.progressbar .position.error .label {
+  text-decoration: underline;
+  color: red; }
+
+.progressbar_current {
+  background: url(/content/images/progress_filled.png) repeat-x; }
+
+.progressbar_current.loaded_70 {
+  width: 70%;
+  height: 100%; }
+
+.progressbar_current.loaded_43 {
+  width: 43%;
+  height: 100%; }
+
+@media (min-width: 800px) {
+  body.apply #header .headerbar,
+  body.legacy-landing-page #header .headerbar,
+  body.sign-in #header .headerbar,
+  body.pre-funding #header .headerbar {
+    background: #00467e;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#00467e), to(#002250));
+    background-image: -webkit-linear-gradient(top, #00467e, #002250);
+    background-image: -moz-linear-gradient(top, #00467e, #002250);
+    background-image: -ms-linear-gradient(top, #00467e, #002250);
+    background-image: -o-linear-gradient(top, #00467e, #002250); }
+  /* Breaks nav bar recipe created at the bottom of the css file */
+  /*
+        body.sign-in #header {
+        overflow: visible;
+        padding: 0 15px;
+    }
+    */ }
+
+@media screen and (min-width: 725px) {
+  body.apply #header h1 {
+    text-indent: -5000px;
+    background: url("https://www.suntrust.com/content/dam/lightstream/us/en/content/images/lightstream-logo.png") no-repeat center;
+    background-size: contain; } }
+
+@media screen and (max-width: 725px) {
+  body.apply #header h1 {
+    text-indent: -5000px;
+    background: url("https://www.suntrust.com/content/dam/lightstream/us/en/content/images/lightstream-logo-color.jpg") no-repeat center;
+    background-size: contain; }
+  body.apply #header h1.no-bg {
+    background: none; } }
+
+/* forms */
+form.ng-submitted .ng-invalid {
+  border: 1px red solid; }
+
+form.ng-submitted select.ng-invalid:focus {
+  border: 1px red solid;
+  outline-color: red;
+  outline-width: 1px; }
+
+form.ng-submitted .invalid-label {
+  color: red; }
+
+form h2 {
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 0.5em; }
+
+.has-visited.ng-invalid {
+  border: 1px red solid; }
+
+form input:disabled {
+  opacity: 0.6;
+  background: #e6e6e6; }
+
+form button.disabled, button[disabled], .button.disabled, .button[disabled] {
+  background: #777;
+  box-shadow: none; }
+
+form .button[disabled]:hover {
+  background: #e6e6e6;
+  box-shadow: none; }
+
+form select:disabled {
+  opacity: 0.6;
+  background: #e6e6e6; }
+
+form.applicationform label.right input[type=checkbox] {
+  margin-bottom: 0px !important; }
+
+form.applicationform div.forminfo.aside ul.passwordHint {
+  font-size: 14px;
+  color: #088888;
+  font-weight: 100;
+  list-style: square;
+  margin-left: 1rem; }
+
+form.applicationform div.app-rates p:first-of-type {
+  margin-top: 0.5em; }
+
+form.applicationform div.app-rates p {
+  margin-bottom: 0.75em; }
+
+form label em {
+  text-decoration: underline;
+  font-style: normal; }
+
+/* possible fix to layout issue on iPhone */
+@media screen and (max-width: 570px) {
+  form select,
+  form input,
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="url"],
+  textarea {
+    font-size: 16px; } }
+
+/* subtle shadow on all upper graphic headlines */
+@media screen and (min-width: 570px) {
+  #header div.headline h2 {
+    text-shadow: 1px 1px 2px #2e2e2e; }
+  #header div.headline h3 {
+    text-shadow: 1px 1px 2px #2e2e2e; } }
+
+/* validation summary styling */
+div.validation-summary-errors {
+  font-size: 14px;
+  font-family: "proxima-nova",arial,helvetica,sans-serif;
+  border: 1px solid red;
+  margin: 0.25em; }
+
+div.validation-summary-errors ul:before {
+  content: "Please correct the following errors:";
+  background-color: red;
+  color: white;
+  border-bottom: 1px solid red;
+  padding: 0.125em;
+  width: 100%;
+  display: block; }
+
+div.validation-summary-errors ul li {
+  color: red;
+  list-style-type: square;
+  margin-left: 2em; }
+
+p.error-message {
+  color: red; }
+
+/* display rate */
+.heroaction h3.ratepercentage {
+  margin: 0;
+  vertical-align: bottom;
+  line-height: 0.9;
+  margin-bottom: 4px;
+  text-align: center; }
+
+@media screen and (min-width: 1000px) {
+  .heroaction h3.ratepercentage {
+    padding-top: 7px; } }
+
+/* tagline is still used in branch app */
+#header h3.tagline {
+  display: inline-block;
+  position: absolute;
+  right: 15px; }
+
+@media (max-width: 800px) {
+  #header h3.tagline {
+    display: none; } }
+
+/* loan calculator */
+form.loancalc .formalert p {
+  padding-bottom: 0px; }
+
+form.loancalc .formalert {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px; }
+
+/* reveal modal fixes */
+.reveal-modal {
+  min-height: 150px; }
+
+.reveal-modal-bg {
+  z-index: 1000; }
+
+.reveal-modal.long {
+  top: 30% !important; }
+
+.reveal-modal.feature-bullet {
+  line-height: 1.5em; }
+
+.reveal-modal.feature-bullet h4 {
+  color: #00467e;
+  margin-bottom: 0.5em; }
+
+/* prevent 'flicker' of AngularJS elements in IE, or on slow connections */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important; }
+
+[ng-cloak].ng-splash {
+  display: block !important; }
+
+.ng-splash {
+  display: none; }
+
+/* electronic (or other) disclosure styling */
+label.checkbox {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+  line-height: 1.2rem; }
+
+label.checkbox > input {
+  margin-bottom: 0 !important; }
+
+/* partner pages */
+.partner_detail img {
+  max-width: none; }
+
+img.headline-graphic {
+  max-width: 255px;
+  max-height: 90px; }
+
+img.right-tagline-graphic {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 265px;
+  overflow: visible; }
+
+body.home.partner #header img, body.home.partner #header h1 {
+  display: inline-block; }
+
+.partner-option1 {
+  max-height: 84px; }
+
+/* javascript / cookies required messages */
+div.ls-no-js, span.ls-no-js, p.ls-no-js {
+  display: none; }
+
+html.no-js .no-js {
+  display: inherit; }
+
+html.no-js .require-js {
+  display: none; }
+
+html.no-js .hide-no-js {
+  display: none; }
+
+/* fix padding on panels */
+.panel {
+  padding-bottom: 20px; }
+
+.panel p {
+  font-weight: normal; }
+
+/* pre-funding */
+body.pre-funding section.homefeatures div span {
+  display: block;
+  min-height: 115px; }
+
+body.pre-funding #header nav li {
+  margin: 0 6px; }
+
+.pre-funding ol {
+  list-style: none;
+  display: table; }
+
+.pre-funding ol li {
+  display: table-row;
+  counter-increment: table-ol; }
+
+.pre-funding ol li:before {
+  content: counter(table-ol) ".";
+  display: table-cell;
+  padding-right: 0.4em;
+  text-align: left; }
+
+body.pre-funding h3 {
+  margin-bottom: 0.6rem; }
+
+h2.steps > span {
+  color: #f9a93a; }
+
+ul.passwordHint {
+  list-style: square;
+  font-size: 14px;
+  color: #088888;
+  font-weight: 100;
+  margin-left: 1.5em; }
+
+body.pre-funding #ENoticesContent ul {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  list-style: disc; }
+
+#ENoticesContent table {
+  margin-bottom: 1em; }
+
+#ENoticesContent, #ENoticesContent p, #ENoticesContent li, #ENoticesContent td, #ENoticesContent div {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  color: black;
+  line-height: 1.125rem; }
+
+#ENoticesContent td {
+  line-height: 1rem; }
+
+/* customer experience guarantee drop-down */
+.headertoggle_reveal h4 {
+  text-align: center; }
+
+.headertoggle_reveal p {
+  font-size: 16px;
+  margin: 0.125em; }
+
+.headertoggle_reveal .row:last-of-type {
+  padding-left: 1em;
+  padding-right: 1em; }
+
+.howitworks h4 {
+  line-height: 1; }
+
+.howitworks h3 a {
+  font-size: 16px; }
+
+/* disclosures */
+.panel.disclosures p {
+  font-weight: 500; }
+
+.panel.disclosures div.formalert p {
+  font-weight: 700;
+  font-size: 16px; }
+
+div.formalert.ng-submitted {
+  display: none; }
+
+form.ng-submitted div.formalert.ng-submitted {
+  display: block; }
+
+/* ad objects - temp solution before fully realized in CMS */
+.temp-home-improvement-ad {
+  height: 228px; }
+
+.temp-home-improvement-ad p {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 22px;
+  color: #fff; }
+
+.temp-home-improvement-ad p a {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 22px;
+  color: #fff; }
+
+.ie8 #adobject {
+  -ms-behavior: url(/Content/backgroundsize.min.htc); }
+
+#adobject {
+  background: url(/content/images/home/home_improvement_ad_object2.jpg) center;
+  background-size: cover;
+  display: block;
+  padding: 20px 20px 20px 50%; }
+
+@media screen and (max-width: 800px) {
+  #adobject {
+    padding: 10px 10px 10px 30%; } }
+
+@media screen and (max-width: 641px) {
+  #adobject {
+    padding: 10px 10px 10px 30%;
+    margin: 10px; } }
+
+.homepromotions .recentnews cite {
+  padding: 5px 20% 5px 5px; }
+
+/* contact us form */
+form.contact-us-modal label {
+  color: #088888;
+  padding-bottom: 0;
+  margin-bottom: 0; }
+
+form.contact-us-modal ul li {
+  list-style-type: none; }
+
+/* mobile tweaks */
+@media screen and (max-width: 800px) {
+  #header {
+    margin-bottom: 0.25rem; } }
+
+.ruled {
+  margin-bottom: 1.25rem; }
+
+div.ad.news a {
+  color: #777; }
+
+/* quick fix to not cut off at interest rates on mobile */
+.heroaction .ratedetails {
+  overflow-x: visible; }
+
+/* for IE7 / IE8 comptability mode */
+.pre-ie8-warning {
+  display: none; }
+
+html.ie7 .pre-ie8-warning, html.ie6 .pre-ie8-warning {
+  display: block;
+  width: 80%;
+  margin: auto;
+  margin-top: 5em;
+  margin-bottom: 5em;
+  border: 1px red solid;
+  font-size: larger;
+  padding: 1em;
+  line-height: 2em; }
+
+/* Firefox only, displaying spin buttons for number fields in 29 beta.
+ * Move to style.css when redesign is done, in this section:
+   input[type=number]::-webkit-inner-spin-button
+     ....
+ */
+input[type=number] {
+  -moz-appearance: textfield; }
+
+div.temporaryUserNameText > p {
+  color: blue; }
+
+#UserName.temporaryUserName {
+  border: 1px blue solid;
+  font-weight: bold;
+  color: blue !important; }
+
+/* print stylesheet */
+@media print {
+  .no-print {
+    display: none; }
+  .reveal-modal-bg {
+    display: none; }
+  .reveal-modal.open {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    top: 1em !important;
+    padding: 1em;
+    left: 1em;
+    margin-left: auto; } }
+
+/* highlight sign in */
+#header nav.mainmenu li[data-nav=sign-in] a,
+#header nav.mainmenu li[data-nav=sign-out] a {
+  text-transform: uppercase;
+  color: #f9a93a; }
+
+@media only screen and (min-width: 40.063em) {
+  #header nav.mainmenu li.hide-for-small-only {
+    display: inline-block !important; } }
+
+#SessionTimeoutWarning {
+  position: fixed;
+  top: 0px;
+  background-color: #f9a93a;
+  z-index: 99999;
+  text-align: center;
+  padding: 0.25em;
+  border: 1px solid #DA8B1C;
+  width: 100%;
+  display: none; }
+
+#SessionTimeoutWarning a {
+  color: white; }
+
+/* application status */
+#ENoticesModal {
+  min-width: 940px; }
+
+#ENoticesContent {
+  width: 820px;
+  margin: auto;
+  overflow: hidden; }
+
+.enotices a.active {
+  border-bottom: 1px solid #f9a93a; }
+
+.enotices a.active::before {
+  content: "*";
+  color: #f9a93a;
+  position: absolute;
+  left: -4px; }
+
+.enotices table tr.even, .enotices table tr.alt, .enotices table tr:nth-of-type(even) {
+  background: #fff; }
+
+.enotices .row {
+  margin-top: 1em; }
+
+div.row.tall {
+  margin-top: 2em;
+  margin-bottom: 2em; }
+
+/* feature bullet dropdowns */
+div.f-dropdown.content {
+  overflow: visible; }
+
+div.f-dropdown.content p {
+  font-weight: normal;
+  font-size: 1rem;
+  color: black;
+  text-align: left;
+  margin: 0; }
+
+div.f-dropdown.content h4 {
+  font-size: 1rem;
+  text-align: left; }
+
+/* app status */
+body.counter .footer_images div {
+  text-align: right; }
+
+body.counter .footer_images img {
+  margin-right: 0; }
+
+body.counter div.panel.callout {
+  padding: 1.25rem;
+  background-color: #fff;
+  border: 1px solid #ccc; }
+
+body.counter div.enotices {
+  margin-top: 1em; }
+
+.show-if-counter {
+  display: none; }
+
+body.counter .show-if-counter {
+  display: block; }
+
+body.counter super a {
+  color: inherit; }
+
+body.counter .boxed a {
+  color: #1f5586; }
+
+body.counter .boxed a {
+  font-weight: bold;
+  color: #1f5586;
+  font-size: 13.5px; }
+
+body.counter .boxed a:hover {
+  color: #1f5586;
+  text-decoration: underline; }
+
+body.counter .customer-note {
+  font-size: larger;
+  color: red;
+  font-weight: bold;
+  margin-top: 0.875em; }
+
+body.counter .disclaimer {
+  font-size: 1rem; }
+
+.boxed {
+  position: relative; }
+
+.boxed.boxed-hover {
+  border: 1px black dashed;
+  background-image: -webkit-linear-gradient(top, #d9eeff 0%, #fff 100%); }
+
+.boxed.boxed-error {
+  border: 1px red dashed;
+  background-image: -webkit-linear-gradient(top, #b0b0b0 0%, #fff 100%); }
+
+.boxed .click-here {
+  color: #1f5587;
+  font-weight: bold; }
+
+.boxed .click-here:hover {
+  text-decoration: underline; }
+
+.upload-progress-bar {
+  width: 0%; }
+
+body.counter .instructions {
+  padding: 1em; }
+
+body.counter .instructions strong {
+  text-decoration: underline; }
+
+body.counter div.tip {
+  background-image: url("/Content/images/icon_i_small.png");
+  background-repeat: no-repeat;
+  padding-left: 25px;
+  min-height: 20px; }
+
+a.button-tiny, a.button-tiny:hover {
+  font-size: 12px;
+  padding: 1px 8px 1px 8px;
+  font-weight: 700 !important; }
+
+a.button-small:focus {
+  font-size: 12px; }
+
+.boxed p[data-field=filename] {
+  height: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+a.button-navy,
+button.button-navy,
+a.button-navy:visited {
+  color: #fff !important;
+  background: #00416f;
+  -webkit-box-shadow: inset 0px 0px 12px 8px #002e60;
+  -moz-box-shadow: inset 0px 0px 12px 8px #002e60;
+  box-shadow: inset 0px 0px 12px 8px #002e60;
+  font-weight: 700 !important; }
+
+a.button-navy:visited {
+  text-decoration: underline; }
+
+a.button-navy:hover, a.button-navy:focus,
+button.button-navy:hover, button.button-navy:focus {
+  background: #002e60;
+  font-weight: 700 !important;
+  -webkit-box-shadow: inset 0px 0px 12px 8px #001f40;
+  -moz-box-shadow: inset 0px 0px 12px 8px #001f40;
+  box-shadow: inset 0px 0px 12px 8px #001f40; }
+
+a.button-small,
+button.button-small,
+a.button-small:hover,
+button.button-small {
+  font-size: 12px;
+  font-weight: 700 !important; }
+
+form .formwarning {
+  background: url(/content/images/icon-warning.png) no-repeat top left;
+  background-size: 25px 25px;
+  padding: 0 0 10px 32px;
+  margin: 10px 0; }
+
+form .formwarning p {
+  font-size: 1rem;
+  color: #f9a93a;
+  font-weight: bold; }
+
+form .forminstruct {
+  background: url(/content/images/icon_i_small.png) no-repeat top left;
+  background-size: 25px 25px;
+  padding: 0 0 10px 32px;
+  margin: 10px 0; }
+
+form .forminstruct p, form .forminstruct u, form .forminstruct li {
+  font-weight: bold; }
+
+.show-on-modal {
+  display: none; }
+
+.hide-on-modal {
+  display: block; }
+
+.reveal-modal .show-on-modal, .reveal .show-on-modal {
+  display: block; }
+
+.reveal-modal .hide-on-modal, .reveal .hide-on-modal {
+  display: none; }
+
+@media only screen and (min-width: 641px) and (max-width: 1200px) {
+  #RatesModal.reveal-modal.small {
+    width: 60%; } }
+
+@media only screen and (min-width: 641px) and (max-width: 1000px) {
+  #RatesModal.reveal-modal.small {
+    width: 80%; } }
+
+form .datepicker {
+  border: 2px solid transparent; }
+
+form.ng-submitted .datepicker.ng-invalid-required {
+  border: 2px red solid; }
+
+body.pre-funding form h2 {
+  border-bottom: none; }
+
+body.pre-funding ul.funding-review {
+  list-style: disc;
+  margin-left: 2em;
+  margin-bottom: 1em; }
+
+body.pre-funding ul.funding-review a {
+  font-weight: bold;
+  color: #00467e; }
+
+#LoanAgreementContainer {
+  padding: 2em;
+  border: 1px solid #f9a93a;
+  border-radius: 10px; }
+
+#LoanAgreementContainer div.clearButton a {
+  color: white;
+  font-weight: bold;
+  background: #E57A00;
+  padding: 1px 5px 1px 5px; }
+
+#LoanAgreementContainer table tr:nth-of-type(even) {
+  background-color: white; }
+
+#LoanAgreementContainer table {
+  border-collapse: separate; }
+
+.has-tip {
+  cursor: default;
+  color: #008cba; }
+
+/* loan agreement / signatures */
+.sigPad div.script-font {
+  border-bottom: 2px solid #F2BC7F;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 73px; }
+
+.sigPad div.script-font img {
+  padding-top: 10px; }
+
+#LoanAgreementContainer ul li {
+  list-style: disc;
+  margin-left: 1.5em;
+  font-family: Arial;
+  font-size: 10pt;
+  color: black; }
+
+div.pre-ie8 {
+  display: none; }
+
+.rate-range-small {
+  display: none; }
+
+/* rate table */
+@media all and (min-width: 380px) {
+  .rate-range-small .rate-range-amount {
+    padding-left: 20%; } }
+
+@media all and (max-width: 480px) {
+  .rate-range-small {
+    display: block; }
+  .medium-12.table {
+    margin-bottom: 24px;
+    padding: 0; }
+  table.records tr td:before {
+    top: 14px; }
+  table.records tr td {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    min-height: 50px; }
+  table.loanrates tr:nth-of-type(even) {
+    background: #ffffff; }
+  table.records td.first {
+    position: relative; }
+  table.records td.first:before {
+    content: "\f0dd";
+    display: block;
+    float: right;
+    font-family: FontAwesome;
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    position: absolute;
+    right: 18px;
+    text-align: right;
+    top: 9px;
+    width: auto; }
+  table.records tr.expanded td.first:before {
+    content: "\f0de";
+    top: 17px; } }
+
+@media all and (min-width: 481px) and (max-width: 500px) {
+  table.records td.first span[itemprop="amount"] {
+    font-size: 13px; }
+  .rate-range-large span {
+    font-size: 13px; } }
+
+.needless-red {
+  color: red; }
+
+.needless-italics {
+  font-style: italic; }
+
+p.important-legalcopy {
+  color: #f9a93a;
+  font-weight: bold; }
+
+p.important-legalcopy a {
+  color: #f9a93a;
+  text-decoration: underline; }
+
+form select {
+  height: auto; }
+
+form select[multiple] {
+  background-image: none; }
+
+/* progress bar */
+.pb {
+  height: 30px;
+  margin-bottom: 1em;
+  white-space: nowrap;
+  display: table;
+  width: 100%; }
+
+.pb .step a {
+  color: white;
+  font-weight: bold;
+  background-repeat: no-repeat;
+  background-size: 24px 20px;
+  background-position: top left;
+  line-height: 30px;
+  margin-left: 4px;
+  padding-left: 25px; }
+
+.pb .step {
+  display: table-cell;
+  width: 25%;
+  background-image: url("https://www.suntrust.com/content/dam/lightstream/us/en/content/images/progress-bar/incomplete.png");
+  background-size: auto 100%;
+  background-repeat: no-repeat; }
+
+.pb .step.first {
+  background-image: url("/Content/images/pb/pb-inactive-left.png"); }
+
+.pb .step.active.first {
+  background-image: url("https://www.suntrust.com/content/dam/lightstream/us/en/content/images/progress-bar/completed-left.png"); }
+
+.pb .step.transition {
+  background-image: url("https://www.suntrust.com/content/dam/lightstream/us/en/content/images/progress-bar/incomplete-transition.png"); }
+
+.pb .step.active {
+  background-image: url("/Content/images/pb/pb-completed.png"); }
+
+.pb .step.active a {
+  color: #1f5587; }
+
+.pb .step i {
+  display: inline-block;
+  width: 10px;
+  height: 100%;
+  border: 1px solid black; }
+
+.pb .end {
+  display: table-cell;
+  background-image: url("https://www.suntrust.com/content/dam/lightstream/us/en/content/images/progress-bar/front-end-blue.png");
+  background-repeat: no-repeat;
+  overflow: visible;
+  min-width: 24px;
+  background-size: auto 100%; }
+
+.pb .end.completed {
+  background-image: url("/Content/images/pb/front_end_yellow.png"); }
+
+@media screen and (max-width: 40.063em) {
+  .pb .step {
+    width: 15%; }
+  .pb .step a {
+    display: none; }
+  .pb .step.active {
+    width: 55%; }
+  .pb .step.active a {
+    display: inline-block;
+    padding-left: 20px; } }
+
+@media screen and (min-width: 40.063em) {
+  .pb {
+    height: 60px; }
+  .pb .step a {
+    line-height: 60px;
+    padding-left: 25px;
+    margin-left: 4px; }
+  .pb .step {
+    padding-left: 25px; }
+  .pb .step.first {
+    padding-left: 15px; }
+  /* application icons */
+  .pb .step .loan-info {
+    background-image: url("/content/images/pb/loan_white.svg"); }
+  .pb .step.active .loan-info {
+    background-image: url("/content/images/pb/loan_blue.svg"); }
+  .pb .step .personal-info {
+    background-image: url("/content/images/pb/personal_white.svg"); }
+  .pb .step.active .personal-info {
+    background-image: url("/content/images/pb/personal_blue.svg"); }
+  .pb .step .security-info {
+    background-image: url("/content/images/pb/lock_white.svg"); }
+  .pb .step.active .security-info {
+    background-image: url("/content/images/pb/lock_blue.svg"); }
+  .pb .step .confirm {
+    background-image: url("/content/images/pb/confirm_white.svg"); }
+  .pb .step.active .confirm {
+    background-image: url("/content/images/pb/confirm_blue.svg"); }
+  /* loan acceptance icons */
+  .pb .step .loan-terms {
+    background-image: url("/content/images/pb/lupe_white.svg"); }
+  .pb .step.active .loan-terms {
+    background-image: url("/content/images/pb/lupe_blue.svg"); }
+  .pb .step .loan-agreement {
+    background-image: url("/content/images/pb/pen_white.svg"); }
+  .pb .step.active .loan-agreement {
+    background-image: url("/content/images/pb/pen_blue.svg"); }
+  .pb .step .account-setup {
+    background-image: url("/content/images/pb/setting_white.svg"); }
+  .pb .step.active .account-setup {
+    background-image: url("/content/images/pb/setting_blue.svg"); }
+  .pb .step .verification {
+    background-image: url("/content/images/pb/confirm_white.svg"); }
+  .pb .step.active .verification {
+    background-image: url("/content/images/pb/confirm_blue.svg"); } }
+
+@media screen and (min-width: 40.063em) and (max-width: 59.9999em) {
+  .pb .step a {
+    background-image: none !important;
+    padding-left: 0px;
+    font-size: 10pt;
+    line-height: 40px; }
+  .pb {
+    height: 40px; } }
+
+form[name=LoanAgreementForm] div.agreement div {
+  font-family: Arial;
+  font-size: 10pt;
+  line-height: 1.2em; }
+
+/* Product Backlog Item 14401:A/B Test: Single Rate vs. Rate Range Test */
+/* control */
+.tnt-rate-range {
+  display: none; }
+
+/* test (recipe B) */
+/*
+span.tnt-rate-range {
+    display:inline;
+}
+p.tnt-rate-range {
+    display:block;
+}
+.heroaction h3.ratepercentage, .heroaction h3.ratepercentage span {
+    font-size:52px;
+    line-height:62px;
+}
+.heroaction {
+    width:340px;
+}
+.heroaction .ratenote {
+    font-weight:600;
+}
+@media screen and (max-width: 1000px) {
+    .heroaction .ratedetails h3.ratepercentage, .heroaction .ratedetails h3.ratepercentage span {
+        font-size: 44px;
+        line-height: 40px;
+        font-weight:600;
+        top:0px;
+    }
+}
+@media only screen and (max-width: 40em) {
+    .home #header .rates-container .rates-percentage {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 45px;
+        color: #1f5587;
+    }
+}
+*/
+/*=====================================================
+======================================================*    NAV BAR UPDATE PBI17516 (recipe C)
+\*=====================================================
+======================================================*/
+@media only screen and (min-width: 40.063em) {
+  #header nav {
+    padding-top: 10px; }
+  #header nav li {
+    margin-right: 15px; }
+  #header nav.mainmenu li[data-nav=rates] a,
+  #header nav.mainmenu li[data-nav=about-us] a,
+  #header nav.mainmenu li[data-nav=about-us] a,
+  #header nav.mainmenu li[data-nav=contact-us] a,
+  #header nav.mainmenu li[data-nav=privacy] a,
+  #header nav.mainmenu li[data-nav=enotices] a {
+    font-size: 16px; }
+  body.account #header nav.mainmenu li[data-nav=rates] a,
+  body.account #header nav.mainmenu li[data-nav=about-us] a,
+  body.account #header nav.mainmenu li[data-nav=about-us] a,
+  body.account #header nav.mainmenu li[data-nav=contact-us] a,
+  body.account #header nav.mainmenu li[data-nav=privacy] a,
+  body.account #header nav.mainmenu li[data-nav=enotices] a {
+    font-size: 16px; }
+  body.apply #header nav.mainmenu li[data-nav=rates] a,
+  body.apply #header nav.mainmenu li[data-nav=about-us] a,
+  body.apply #header nav.mainmenu li[data-nav=about-us] a,
+  body.apply #header nav.mainmenu li[data-nav=contact-us] a,
+  body.apply #header nav.mainmenu li[data-nav=privacy] a,
+  body.apply #header nav.mainmenu li[data-nav=enotices] a {
+    font-size: 16px; }
+  #header nav.mainmenu li[data-nav=apply] {
+    background-color: #FCD100;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 0px; }
+  #header nav.mainmenu li[data-nav=apply] a {
+    color: #002642;
+    font-weight: bold; }
+  #header nav.mainmenu li[data-nav=sign-in],
+  #header nav.mainmenu li[data-nav=sign-out] {
+    background-color: #DAF0EE;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 10px; }
+  #header nav.mainmenu li[data-nav=sign-in] a,
+  #header nav.mainmenu li[data-nav=sign-out] a {
+    color: #002642;
+    font-weight: bold; }
+  body.sign-in #header {
+    overflow: visible; } }
+
+/* This small section here is to compenstate for the odd
+    screen size where it is not exactly medium, but it is not 
+    large either.
+*/
+@media screen and (max-width: 45.33em) {
+  /* This is to override the "medium-9 columns" behavior to
+        force the columns to expand across the screen */
+  #header .medium-9 {
+    width: 100%; }
+  #header nav.mainmenu li[data-nav=apply],
+  #header nav.mainmenu li[data-nav=sign-in],
+  #header nav.mainmenu li[data-nav=sign-out] {
+    background-color: #fff; }
+  #header nav.mainmenu li[data-nav=apply] a,
+  #header nav.mainmenu li[data-nav=sign-in] a,
+  #header nav.mainmenu li[data-nav=sign-out] a {
+    font-weight: normal; }
+  #header nav ul.hide-for-small-only li {
+    visibility: hidden;
+    display: none; } }
+
+/* End override */
+@media screen and (max-width: 67.5em) {
+  #header h1 a {
+    width: 220px;
+    height: 65px; } }
+
+@media screen and (max-width: 61.5em) {
+  #header nav ul.hide-for-small-only li {
+    line-height: 1;
+    margin-left: 2px;
+    margin-right: 10px; } }
+
+@media screen and (max-width: 941px) {
+  #header nav ul.hide-for-small-only li span {
+    font-size: 14px; } }
+
+@media screen and (max-width: 780px) {
+  #header nav ul.hide-for-small-only li span {
+    font-size: 13px; } }
+
+@media screen and (max-width: 725px) {
+  /* This is to reset back to what is in styles.css */
+  #header h1 a {
+    width: inherit;
+    height: inherit; } }
+
+@media screen and (max-width: 53em) {
+  #header nav li span, #header nav li span ul li a {
+    /*font-size: inherit;*/ } }
+
+@media screen and (max-width: 50em) {
+  #header nav li {
+    font-size: 0.75rem; } }
+
+/* This is to override the above menu styling to its original form for
+ * certain templates */
+#header.rpo1 nav.mainmenu li[data-nav=sign-in],
+#header.rpo1 nav.mainmenu li[data-nav=sign-out],
+#header.rpo1 nav.mainmenu li[data-nav=apply] {
+  background-color: inherit;
+  border-radius: inherit;
+  padding-left: inherit;
+  padding-right: inherit; }
+
+#header.rpo1 nav.mainmenu li[data-nav=sign-in] a,
+#header.rpo1 nav.mainmenu li[data-nav=sign-out] a,
+#header.rpo1 nav.mainmenu li[data-nav=apply] a {
+  font-weight: inherit;
+  text-transform: inherit; }
+
+@media screen and (min-width: 768px) {
+  body.apply #header .headerbar {
+    height: 80px; } }
+
+body.home #header {
+  height: auto;
+  margin-bottom: -30px; }
+
+body.home #header img.banner {
+  height: auto; }
+
+#header, section#guarantee {
+  max-width: 120.063rem; }
+
+@media screen and (max-width: 1700px) {
+  .heroaction h3.ratepercentage {
+    font-size: 50px; }
+  .heroaction .rate-match-image {
+    width: 50%; } }
+
+@media screen and (max-width: 1600px) {
+  .heroaction .button {
+    padding: 5px 25px; }
+  .heroaction .rate-match-image {
+    margin: 7px auto 0px auto; } }
+
+div#guaranteedropdown.row {
+  padding: 0 25% 2% 25%; }
+
+@media screen and (max-width: 3804px) {
+  body.home #header .headline {
+    left: 435px; } }
+
+/*@media screen and (max-width: 1920px) {
+
+    body.home #header .headline {
+        left: 20%;
+    }
+}*/
+@media screen and (max-width: 1441px) {
+  body.home #header img.banner {
+    min-width: 1490px; } }
+
+@media screen and (max-width: 641px) {
+  body.home #header {
+    margin-bottom: 0px; }
+  .home #header .rates-container .rates-link {
+    font-size: 0.7rem;
+    font-weight: 700; } }
+
+@media screen and (min-width: 641px) and (max-width: 641px) {
+  .home #header .rates-container {
+    text-align: center; }
+  body.home #header .headline {
+    position: relative;
+    top: 0;
+    margin: 0;
+    padding: 0 10px; }
+  .home #header .rates-container .rates-details {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0;
+    color: #1f5587;
+    line-height: 1.3; }
+  .home #header .rates-container .rates-percentage {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 45px;
+    color: #1f5587; }
+  .home #header .rates-container .rates-link {
+    font-size: 0.7rem;
+    font-weight: 700; }
+  .home #header .rates-container .rates-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1f5587;
+    position: absolute;
+    top: 1rem;
+    left: 1rem; }
+  .home #header .rates-container .button {
+    font-size: 16px;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    position: absolute;
+    top: 1.5rem; }
+  .home #header .rates.row {
+    background-color: #d9eeff;
+    padding: 10px; }
+  .row.rates.show-for-small-only {
+    padding: 123px 0px 0px 0px; }
+  body.home #header .headline h2 {
+    text-shadow: none;
+    color: #00467e;
+    margin: 0;
+    padding: 0;
+    font-size: 34px;
+    line-height: 36px;
+    font-weight: 700; } }
+
+@media screen and (max-width: 1000px) {
+  body.home #header img.banner {
+    position: relative;
+    min-width: 1190px; }
+  body.home #header .headline {
+    left: 0px; } }
+
+@media screen and (max-width: 725px) {
+  body.home #header img.banner {
+    position: relative;
+    left: 0px;
+    min-width: 753px; } }
+
+@media screen and (max-width: 475px) {
+  div#guaranteedropdown.row {
+    padding: 0 5% 2% 5%; }
+  .headertoggle_reveal p {
+    letter-spacing: 0.05em; } }
+
+/*//////////////////////////////////// PBI20071 End ////////////////////////////////////*/
+/*//////////////////////////////////// PBI20071 End ////////////////////////////////////*/

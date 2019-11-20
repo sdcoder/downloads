@@ -1,0 +1,95 @@
+﻿@model LightStreamWeb.Models.SignIn.ConfirmEmailAddressModel
+@{
+    ViewBag.Title = "Confirm Email Address";
+    Layout = "~/Views/Layouts/_Base.cshtml";
+}
+
+@section styles {
+    <style type="text/css">
+        form p {
+            padding-bottom: 0;
+        }
+    </style>
+}
+@section header {
+    <div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+    <div class="web-component">
+        <lswc-legal-banner></lswc-legal-banner>
+    </div>
+
+    <header id="header" class="row">
+        <div class="large-12 columns">
+
+            <div class="row darktint headerbar">
+                <div class="small-9 medium-4 columns">
+                    <h1><a href="@Url.Action("Index")"><img src="@Model.CdnBaseUrl/lightstream-logo.png" alt="logo_2x" /></a></h1>
+                </div>
+
+                <a href="javascript:void(0);" class="small-2 columns navtoggle" id="show_menu"><i class="fa fa-bars"></i></a>
+
+                <div class="medium-8 columns">
+                    <nav class="mainmenu">
+                        <ul>
+                            <li data-nav="sign-out"><a href="/signin/logout" class="sign-out">Sign Out</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </header>
+}
+
+
+<section class="row ruled">
+    <div class="large-10 columns medium-push-1">
+        <h1>Email Address Information</h1>
+
+        <p>@Model.ApplicantNamesText,</p>
+        <p>@Model.Introduction</p>
+        <form class="signin" action="/signin/confirmemailaddress" name="ConfirmEmailForm" novalidate method="post" ls-validate-on-submit ng-app="ConfirmEmailModule" ng-controller="ConfirmEmailController">
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="formalert" tabindex="0">
+                    <p>@Model.ErrorMessage</p>
+                </div>
+            }
+
+            @if (Model.ApplicantEmailIsUnconfirmed)
+            {
+                <div class="row">
+                    <div class="medium-6 columns medium-push-1">
+                        <p>Email Address for @Model.ApplicantName <label>@Model.OriginalApplicantEmail</label></p>
+                        <input type="email" name="ApplicantEmail" ng-model="ApplicantEmail" autofocus="autofocus" value="@Model.ApplicantEmail" required="required" />
+                    </div>
+                </div>
+            }
+
+            @if (Model.CoApplicantEmailIsUnconfirmed)
+            {
+                <div class="row">
+                    <div class="medium-6 columns medium-push-1">
+                        <p>Email Address for @Model.CoApplicantName <label>@Model.OriginalCoApplicantEmail</label></p>
+                        <input type="email" name="CoApplicantEmail" ng-model="CoApplicantEmail" value="@Model.CoApplicantEmail" required="required" />
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="medium-6 columns medium-push-1">
+                    <input type="submit" value="Submit" class="button" />
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+@section scripts {
+    <script type="text/javascript">
+        angular.module('ConfirmEmailModule', []).controller('ConfirmEmailController', function ($scope) {
+        });
+
+        // omniture
+        SC.main.signIn();
+    </script>
+}

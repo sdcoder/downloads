@@ -1,0 +1,34 @@
+﻿@model LightStreamWeb.Models.Apply.BaseInProcessAppPageModel
+
+<section class="row" ng-cloak="" ng-show="LoanApp.ErrorMessage">
+    <div class="large-12 columns panel formalert" tabindex="0">
+        <p><strong>There was an error loading your loan application:</strong></p>
+        <p>{{LoanApp.ErrorMessage}}</p>
+    </div>
+</section>
+
+<section class="row">
+    <div class="medium-12 columns">
+        @Html.Partial("~/Views/Partials/_TempDataAlert.cshtml")
+
+        @Html.ValidationSummary()
+
+        @LoanApplicationForm.StartFormWithInit("submitLoanApp('" + @Url.Action("Submit") + "', '" + @Url.Action("ThankYou") + "', 3)", "nextStep('" + @Url.Action("ThankYou") + "', 3)")
+            @Html.AntiForgeryToken()
+
+        <div class="row" ng-show="Loading !== false">
+            <div class="large-12 columns">
+                <p>Please wait a few moments to make sure we receive your information.</p>
+            </div>
+        </div>
+        <div class="row" ng-show="Loading !== false">
+            <div class="large-12 columns">
+                {{LoanApp.Loading}}
+                <p><img src="/Content/images/processing.gif" alt="processing..." /></p>
+            </div>
+        </div>
+        </fieldset>
+        </form>
+    </div>
+</section>
+

@@ -1,0 +1,58 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.InReviewPageModel
+
+<section class="row panel introrow">
+    <div class="medium-12 columns">
+        <h2>Loan Application in Process</h2>
+    </div>
+
+    <div class="medium-12 columns">
+        <h3>@Model.ApplicantNamesText,</h3>
+
+        <p>Your recent application updates are currently under review by our credit department.</p>
+
+        <p>Thank you.</p>
+    </div>
+
+    <div class="medium-12 columns">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+</section>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+        (function () {
+            var handleStatusCheckResponse = function (response) {
+
+                if (response.DoRedirect) {
+                    document.location = '/appstatus/refresh';
+                    return;
+                }
+
+                setTimeout(statusCheck, 30 * 1000);
+            };
+
+            var statusCheck = function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/appstatus/inreviewstatuscheck');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        handleStatusCheckResponse(response);
+                    }
+                };
+                xhr.send(JSON.stringify({
+                    ApplicationId: @Model.ApplicationId,
+                    CurrentStatus: '@Model.CurrentStatus'
+                }));
+            };
+
+    @*first check *@
+            setTimeout(statusCheck, 30 * 1000);
+        })();
+    </script>
+}
+

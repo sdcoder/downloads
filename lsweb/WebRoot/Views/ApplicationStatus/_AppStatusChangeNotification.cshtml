@@ -1,0 +1,57 @@
+﻿<script type="text/javascript">
+@*Ping the server to detect application status changes. If found, redirect to new status*@
+    (function () {
+        var handleStatusCheckResponse = function (response) {
+
+            if (response.IsSignOut) {
+                document.location = '/appstatus/logoutstatuschange';
+                return;
+            }
+            if (response.DoRedirect) {
+                document.location = '/appstatus/refresh';
+                return;
+            }
+
+            if (response.Success) {
+                setTimeout(statusCheck, (response.NextStatusCheckSeconds || 30) * 1000);
+            } else {
+                setTimeout(statusCheck, 30 * 1000);
+            }
+        };
+
+        var statusCheck = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/appstatus/statuscheck');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function () {
+                if (xhr.getResponseHeader("X-In-Maintenance-Mode") === 'true') {
+                    document.location.href = '/customer-sign-in';
+                }
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    handleStatusCheckResponse(response);
+                }
+            };
+            xhr.send(JSON.stringify({
+                ApplicationId: @Model.ApplicationId,
+                CurrentStatus: '@Model.CurrentStatus'
+            }));
+        };
+
+    @*first check *@
+        setTimeout(statusCheck, 30 * 1000);
+
+    @* handle change in status between multiple tabs / windows *@
+        if (localStorage) {
+            if (window.addEventListener) {
+                window.addEventListener('storage', function (e) {
+                    if (localStorage.getItem('CurrentStatus' + @Model.ApplicationId) !== '@Model.CurrentStatus') {
+                        window.location.href = '/appstatus/refresh';
+                    }
+                }, false);
+            }
+
+            localStorage.setItem('CurrentStatus' + @Model.ApplicationId, '@Model.CurrentStatus');
+        }
+    })();
+</script>

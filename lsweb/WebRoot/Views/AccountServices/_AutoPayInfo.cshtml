@@ -1,0 +1,254 @@
+﻿@using FirstAgain.Common;
+@model LightStreamWeb.Models.AccountServices.AccountServicesHomePageModel
+
+@Html.Partial("_AccordianStart")
+
+    <div ng-show="account.AccountStatus == 'Closed'">
+        <h2 class="brand">Payment Information</h2>
+        <p class="notice">Payment information cannot be updated for this account; the account has been closed.</p>
+    </div>
+
+    <div ng-show="account.AccountStatus != 'Closed'">
+        @*Invoice - Switch to AutoPay*@
+        <div ng-show="account.PaymentType == 'Invoice'">
+            <form name="SwitchToAutoPayForm{{$index}}" ls-validate-on-submit on-success="switchToAutoPay(account)" >
+                <fieldset ng-disabled="account.AutoPayInfoWaiting">
+                    <div class="formwarning">
+                        <p>Switch to AutoPay and save time!</p>
+                    </div>
+                    <p class="notice">Switch to our AutoPay option and save yourself time each month, not to mention the cost of postage and envelopes. 
+                With the AutoPay option, your monthly loan payments will be conveniently deducted from your designated account.</p>
+                    <p class="notice">If you wish to switch to AutoPay, please complete and submit the following information.</p>
+                    <h2 class="brand">Account Information</h2>
+
+                    @Html.Partial("_AccountInfo")
+
+                    <div class="row" ng-cloak>
+                        <div class="medium-12 columns">
+                            <div class="row" ng-cloak>
+                                <div class="medium-12 columns">
+
+                                    <label for="AutoPayAgreement" class="checkbox">
+                                        <input type="checkbox" ng-model="account.AutoPayAgreement" id="AutoPayAgreement" required />
+                                        <span ng-show="!account.IsJoint">
+                                            @Html.Raw(Resources.FAMessages.AutoPayAuthorizationInd.Replace("[LenderName]", "{{account.CompanyLegalName}}").Replace("[EmailAddress]", "<a href='mailto:customerservice@lightstream.com'>customerservice@lightstream.com</a>"))
+                                        </span>
+                                        <span ng-show="account.IsJoint">
+                                            @Html.Raw(Resources.FAMessages.AutoPayAuthorizationJoint.Replace("[LenderName]", "{{account.CompanyLegalName}}").Replace("[EmailAddress]", "<a href='mailto:customerservice@lightstream.com'>customerservice@lightstream.com</a>"))
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row" ng-cloak>
+                                <div class="medium-12 columns">
+                                    <input type="submit" class="button button-small" value="Submit "/>
+                                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="account.AutoPayInfoWaiting" />
+
+                                    <div ng-show="account.AutoPayInfoError" class="formalert" tabindex="0" ng-cloak>
+                                        <p>{{account.AutoPayInfoError}}</p>
+                                    </div>
+                                    <div ng-show="account.AutoPayInfoMessage" class="forminfo" ng-cloak>
+                                        <p>{{account.AutoPayInfoMessage}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+        </div>
+
+        @*AutoPay Information*@
+        <div ng-show="account.PaymentType == 'AutoPay'">
+            <div ng-switch="account.AutoPayCurrentStep">
+                @*Auto pay - choose an action*@
+                <div ng-switch-default>
+                    <form name="AutoPayInfoForm{{$index}}" ls-validate-on-submit on-success="account.AutoPayCurrentStep = account.AutoPayNextStep">
+                        <div ng-show="account.AutoPayInfoMessage" class="forminfo" ng-cloak>
+                            <p>{{account.AutoPayInfoMessage}} <br> 
+                                {{account.AutoPayInfoDate}}</p>
+                        </div>
+
+                        <h2 class="brand">AutoPay Information</h2>
+                        <p class="notice">
+                            Your present monthly payment is {{account.MonthlyPayment | currency }} and is being debited from your
+                            AutoPay account that we have on file ending in {{account.MaskedDebitAccountNumber}} on the {{account.PaymentDayOfMonth | lsPaymentDayOfMonth}} day of every month.
+                            <span ng-show="account.QueuedMonthlyPaymentAmount" ng-cloak>
+                                Effective with your {{account.QueuedMonthlyPaymentDate | date: 'longDate'}} payment, your monthly payment
+                                will be {{account.QueuedMonthlyPaymentAmount | currency}}.
+                            </span>
+                        </p>
+
+                        <p class="notice">
+                            To change your monthly payment amount or to change your account information, select the appropriate box below. Thank you.
+                        </p>
+
+                        <fieldset ng-disabled="account.AutoPayInfoWaiting">
+                            <ul>
+                                <li>
+                                    <input type="radio" name="actions" ng-model="account.AutoPayNextStep" id="RadioChangePaymentAmount{{$index}}" value="ChangeMonthlyPayment" ng-disabled="!account.CanViewMonthlyPayment" required />
+                                    <label class="alt" for="RadioChangePaymentAmount{{$index}}">
+                                        Change my monthly payment amount
+                                    </label>
+                                    <div class="infobox" ng-if="!account.CanViewMonthlyPayment">This feature is unavailable until the next business day due to system maintenance. We apologize for the inconvenience.</div>
+                                </li>
+                                <li>
+                                    <input type="radio" name="actions" ng-model="account.AutoPayNextStep" id="RadioChangeBankAccountInfo{{$index}}" value="ChangeBankAccountInfo" required />
+                                    <label class="alt" for="RadioChangeBankAccountInfo{{$index}}">
+                                        Change my bank account information
+                                    </label>
+                                </li>
+                            </ul>
+                        </fieldset>
+
+                        <input type="submit" name="next" value="Next" class="button button-small" />
+                    </form>
+                </div>
+
+                @*AutoPay - Change Payment Amount *@
+                <div ng-switch-when="ChangeMonthlyPayment">
+                    <h2 class="brand">AutoPay Information - Change My Monthly Payment Amount</h2>
+
+                    <form name="AutoPayChangeAmountForm{{$index}}" ls-validate-on-submit on-success="updateMonthlyPayment(account)">
+                        <fieldset ng-disabled="account.AutoPayInfoWaiting">
+
+                            <div class="row" ng-cloak>
+                                <div class="medium-12 columns">
+                                    <p>Please enter your desired monthly payment below.</p>
+                                    <p>This must be greater than or equal to {{account.MinimumMonthlyPaymentAmount | currency}} and less than or equal to {{account.MaximumMonthlyPaymentAmount | currency}}.</p>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-cloak>
+                                <div class="medium-6 columns">
+                                    <input type="text"
+                                           ls-currency-only
+                                           ls-track-visited
+                                           required
+                                           name="NewMonthlyPaymentAmount"
+                                           ng-model="account.NewMonthlyPaymentAmount" placeholder="$"
+                                           min="{{account.MinimumMonthlyPaymentAmount}}"
+                                           max="{{account.MaximumMonthlyPaymentAmount}}" />
+
+                                </div>
+                                <div class="medium-6 columns">
+                                    <a class="button button-tiny no-track"
+                                       ng-cloak
+                                       ng-show="account.EligibleToViewAmortizationSchedule"
+                                       ng-disabled="!AutoPayChangeAmountForm{{$index}}.$valid && !account.AutoPayInfoWaiting"
+                                       ng-click="displayMonthlyPaymentAmortizationSchedule(account)">View Loan Amortization Schedule</a>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-cloak>
+                                <div class="medium-12 columns">
+                                    <p class="notice" ng-show="AutoPayChangeAmountForm{{$index}}.$valid">
+                                        Changes submitted by the end of business on @DateTime.Today.ToLongDateString(), will be effective with your monthly
+                                        payment due 
+                                        <span ng-show="account.NewMonthlyPaymentAmount < account.MinPaymentForReamortization">{{account.DecreasedMonthlyPaymentEffectiveDate | date:'longDate'}}</span>
+                                        <span ng-show="account.NewMonthlyPaymentAmount >= account.MinPaymentForReamortization">{{account.MonthlyPaymentChangeEffectiveDate | date:'longDate'}}</span>
+                                        . Changes made after this time will be effective with your next monthly payment.
+                                    </p>
+                                    <input type="submit" class="button button-small" value="Submit New Monthly Payment" ng-disabled="!AutoPayChangeAmountForm{{$index}}.$valid" />
+                                    <a class="button button-navy button-small" ng-show="!account.AutoPayInfoWaiting" ng-click="account.AutoPayCurrentStep = null;">Cancel</a>
+                                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="account.AutoPayInfoWaiting" />
+                                    <div class="formalert" tabindex="0" ng-show="!AutoPayChangeAmountForm{{$index}}.NewMonthlyPaymentAmount.$error.required && AutoPayChangeAmountForm{{$index}}.NewMonthlyPaymentAmount.$hasVisited && !AutoPayChangeAmountForm{{$index}}.NewMonthlyPaymentAmount.$valid">
+                                        <p>
+                                            Your desired monthly payment amount must be equal to or greater than
+                                            {{account.MinimumMonthlyPaymentAmount | currency}} and less than or equal to {{account.MaximumMonthlyPaymentAmount | currency}}.
+                                        </p>
+                                    </div>
+                                    <div ng-show="account.AutoPayInfoError" class="formalert" tabindex="0" ng-cloak>
+                                        <p>{{account.AutoPayInfoError}}</p>
+                                    </div>
+                                    <div ng-show="account.AutoPayInfoMessage && !account.AutoPayInfoWaiting" class="forminfo" ng-cloak>
+                                        <p>{{account.AutoPayInfoMessage}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                    </form>
+                </div>
+
+                @*AutoPay - Change Bank Account *@
+                <div ng-switch-when="ChangeBankAccountInfo">
+                    <div ng-show="account.AutoPayInfoMessage" class="forminfo" ng-cloak>
+                        <p>{{account.SwitchedMessage}}</p>
+                    </div>
+
+                    <h2 class="brand">AutoPay Information - Change My Bank Account Information</h2>
+                    <p class="notice" ng-bind-html="account.PaymentAccountMessage"></p>
+
+                    <form name="AutoPayChangeAccount{{$index}}" ls-validate-on-submit on-success="updatePaymentAccount(account)">
+                        <fieldset ng-disabled="account.AutoPayInfoWaiting">
+                            @Html.Partial("_AccountInfo")
+
+                            <div class="row" ng-cloak ng-if="isExceptionAndIsSameAccount(account)">
+                                <div class="formwarning">
+                                    <p>
+                                        The account information you have entered is the same as the information we have on file.
+                                        Do you want us to proceed and debit your scheduled monthly payment from this account?
+                                    </p>
+
+                                    <label for="ConfirmSameAccount" class="checkbox">
+                                        <input type="checkbox" ng-model="account.ConfirmSameAccount" id="ConfirmSameAccount" required />
+                                        Yes, proceed with the same account information.
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div class="row" ng-cloak>
+                                <div class="medium-12 columns">
+                                    <div class="row" ng-cloak>
+                                        <div class="medium-12 columns">
+                                            <input type="submit" class="button button-small" value="Submit " />
+                                            <a class="button button-navy button-small" ng-click="canelUpdateAccount(account);">Cancel</a>
+                                            <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="account.AutoPayInfoWaiting" />
+
+                                            <div ng-show="account.AutoPayInfoError" class="formalert" tabindex="0" ng-cloak>
+                                                <p>{{account.AutoPayInfoError}}</p>
+                                            </div>
+                                            <div ng-show="account.AutoPayInfoMessage" class="forminfo" ng-cloak>
+                                                <p>{{account.AutoPayInfoMessage}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </form>
+                </div>
+
+                @*AutoPay - Thank You*@
+                <div ng-switch-when="ThankYou">
+                    <h2 class="brand">AutoPay Information - Change Bank Account Information</h2>
+
+                    <p class="notice">{{account.AutoPayInfoMessage}}</p>
+
+                    <a class="button button-navy button-small" ng-click="account.AutoPayCurrentStep = null; account.AutoPayInfoMessage = null;">Return to Previous Page</a>
+                </div>
+
+                @*AutoPay - Thank You*@
+                <div ng-switch-when="MonthlyPaymentThankYou">
+                    <h2 class="brand">AutoPay Information - Change Monthly Payment</h2>
+
+                    <p class="notice">{{account.AutoPayInfoMessage}}</p>
+
+                    <a class="button button-navy button-small" ng-click="account.AutoPayCurrentStep = null; account.AutoPayInfoMessage = null;">Return to Previous Page</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+@Html.Partial("_AccordianEnd")

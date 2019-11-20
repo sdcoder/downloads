@@ -1,0 +1,63 @@
+﻿    <div class="row">
+    	<div class="medium-3 small-12 columns medium-push-1">
+            <h3 class="brand">New Loan Terms Request</h3>
+            <a data-open="RatesModal" class="hideie8 show-for-small-only">View @((Model.PurposeOfLoanIsSecured()) ? "Secured Auto" : "") Rates / Terms</a>
+        </div>
+    	<div class="medium-4 small-12 medium-pull-4 columns hide-for-small-only showie8">
+            <a data-open="RatesModal" class="right no-track">View @((Model.PurposeOfLoanIsSecured()) ? "Secured Auto" : "") Rates / Terms</a>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="medium-7 small-12 columns offerTermsTable">
+            
+            <div class="grid-x">
+                <div class="cell small-6 coltitle brand hide-for-small-only">Loan Terms</div>
+                <div class="cell small-6 coltitle-last brand hide-for-small-only">New Request</div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-6 brand">Loan Amount</div>
+                <div class="cell small-6 col-last">
+                    <span class="show-for-small-only">Present</span> {{LoanAcceptance.ChangeLoanTerms.LoanAmountMinusFees | currency }}
+                    <super ng-show="LoanAcceptance.ChangeLoanTerms.FloridaDocStampTax"><a href="" data-flash="Confirm_FloridaDocStampDisclosure">**</a></super>
+                </div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-6 brand">Loan Term</div>
+                <div class="cell small-6 col-last"><span class="show-for-small-only">Present</span>{{LoanAcceptance.ChangeLoanTerms.LoanTerm }} months</div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-6 brand">Payment method</div>
+                <div class="cell small-6 col-last"><span class="show-for-small-only">Present</span> {{LoanAcceptance.ChangeLoanTerms.PaymentMethod}}</div>
+
+            </div>
+            <div class="grid-x">
+                <div class="cell small-6 brand">Interest Rate/APR</div>
+                <div class="cell small-6 col-last"><span class="show-for-small-only">Present</span> {{LoanAcceptance.ChangeLoanTerms.InterestRate | number:2}}%</div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-6 brand">Monthly Payment</div>
+                <div class="cell small-6 col-last"><span class="show-for-small-only">Present</span> {{LoanAcceptance.ChangeLoanTerms.MonthlyPayment | currency}}</div>
+            </div>
+	    </div>
+        <div class="medium-4 columns loannotes" id="Confirm_FloridaDocStampDisclosure" ng-show="LoanAcceptance.ChangeLoanTerms.FloridaDocStampTax">
+            <p></p>
+	        <p><super>**</super> 
+                A Florida <a href="/partial/florida-doc-stamp-info" data-open="AjaxModal" data-reveal-ajax="true">documentary stamp tax</a>
+                <span ng-show="LoanAcceptance.ChangeLoanTerms.FloridaDocStampTax" >, in the amount of {{LoanAcceptance.ChangeLoanTerms.FloridaDocStampTax | currency }}</span>  
+                will be added to your loan amount then transmitted for payment on your behalf. Stamp tax is <span style="text-decoration:underline;">not</span> included when determining loan interest rate.
+	        </p>
+	    </div>
+
+    </div>
+    <div class="row">
+        <div class="medium-6 columns medium-push-1">
+            <a class="button button-medium button-navy" href="#/ChangeLoanTerms">Back</a>
+            <a class="button button-medium" ng-click="confirmLoanTermsChangeRequest()" >Submit Request</a>
+            <img src="@Model.CdnBaseUrl/ajax-loader.gif" ng-show="Waiting" alt="waiting" />
+        </div>
+    </div>
+    <div class="row" ng-show="ErrorMessage" ng-cloak>
+        <div class="medium-6 columns medium-push-1" >
+            <div class="formalert" ng-cloak ><p>{{ErrorMessage}}</p></div>
+        </div>
+    </div>

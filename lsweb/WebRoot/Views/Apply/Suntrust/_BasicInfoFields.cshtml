@@ -1,0 +1,11 @@
+﻿@model LightStreamWeb.Models.Apply.SunTrustApplyPageModel
+
+@if (Model.DisplayMode == LightStreamWeb.Models.Apply.SunTrustApplyPageModel.IntroPageDisplayMode.PremierBanking) 
+{
+    Html.RenderPartial("~/Views/Apply/Suntrust/_EmployeeIdFields.cshtml");
+}
+@if (Model.DisplayMode == LightStreamWeb.Models.Apply.SunTrustApplyPageModel.IntroPageDisplayMode.PrivateWealth)
+{
+    Html.RenderPartial("~/Views/Apply/Suntrust/_OfficerIdFields.cshtml");
+}
+

@@ -1,0 +1,170 @@
+﻿@using FirstAgain.Domain.Common
+@using FirstAgain.Domain.Lookups.FirstLook
+@model LightStreamWeb.Models.Components.EnvironmentModel
+
+@if (BusinessConstants.Instance.Environment == EnvironmentLookup.Environment.Development
+    || BusinessConstants.Instance.Environment == EnvironmentLookup.Environment.QA
+    || BusinessConstants.Instance.Environment == EnvironmentLookup.Environment.QA2
+    || BusinessConstants.Instance.Environment == EnvironmentLookup.Environment.Staging)
+{
+    <div id="Environment" class="darktint" style="overflow: hidden; white-space: nowrap; width: 230px" aria-hidden="true" tabindex="-1">
+        <a href="#" id="CloseEnvironmentTab"> x </a>
+        <i class="fa fa-minus pull-right" id="envshrink" 
+           aria-hidden="true" 
+           style="color: white; cursor: pointer" 
+           onclick="$('#Environment').css('height', '40px'); $(this).hide(); $('#envgrow').show();"></i>
+        <i class="fa fa-plus pull-right" id="envgrow" 
+           aria-hidden="true" 
+           style="color: white; cursor: pointer" 
+           onclick="$('#Environment').css('height', 'auto').css('height', 'initial'); $(this).hide(); $('#envshrink').show();"></i>
+        <h3>This is @Model.EnvironmentName</h3>
+        <h4>Version @Model.VersionNumber</h4>
+        <ul>
+            <li>
+                IP: @Model.IPAddress [<a href="#" id="MockIPAddress">override</a>]
+                <div id="MockIPAddressForm" style="display:none;">
+                    <form>
+                        <input type="text" name="IP" id="NewIPAddress" />
+                        <input type="button" id="SubmitMockIP" value="Submit" />
+                    </form>
+                </div>
+            </li>
+            <li>Brute Force Count: @LightStreamWeb.App_State.BruteForceCounter.Get()</li>
+            <li>Failed Login Count: @LightStreamWeb.App_State.FailedLoginCounter.Get()</li>
+            <li><a id="ShowCMSContent" href="#">Show CMS Content</a></li>
+            <li><a id="ShowCookies" href="#">Show Cookies</a><a id="HideCookies" href="#" style="display:none">Hide Cookies</a></li>
+            
+            @if (new LightStreamWeb.App_State.CurrentUser().ApplicationId.HasValue)
+            {
+                <li>ApplicationId: @(new LightStreamWeb.App_State.CurrentUser().ApplicationId.Value)</li>
+                <li>
+                    Session ApplicationId: @LightStreamWeb.ServerState.SessionUtility.ActiveApplicationId <br /><a href="#" id="MockSessionId">override</a>
+                    <div id="MockSessionIdForm" style="display:none;">
+                        <form>
+                            <input type="text" name="IP" id="NewSessionId" />
+                            <input type="button" id="SubmitNewSessionId" value="Submit" />
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        <div>
+            <h4>Test &amp; Target</h4>
+            <ul>
+                <li><a id="TNTId" href="#">Test &amp; Target Id: @Model.TNTId</a></li>
+                <li><a href="javascript:void(window.open('','dp_debugger','width=600,height=600,location=0,menubar=0,status=1,toolbar=0,resizable=1,scrollbars=1').document.write('<script language=JavaScript id=dbg src=https://www.adobetag.com/d1/digitalpulsedebugger/live/DPD.js></script>'));">Adobe Debugger</a></li>
+            </ul>
+        </div>
+        <div class="show-if-apply">
+            <h4>Application Testing</h4>
+            <ul>
+                <li><a id="ClearBrowserSession" href="#">Clear App Session</a></li>
+                <li><a ng-click="testExport()">Export JSON</a></li>
+                <li><a ng-click="testImport()">Import JSON</a></li>
+                <li>Rate Lock Date: {{LoanApp.RateLockDate}}</li>
+                <li>Rate: {{LoanApp.InterestRate}}</li>
+                <li>Referral ID: {{LoanApp.TeammateReferralId}}</li>
+                <li>PoL: {{LoanApp.PurposeOfLoan.Type}}</li>
+                <li><a id="AMLBypass" href="#">AML Bypass</a></li>
+
+            </ul>
+
+            <div class="reveal" id="LoanAppImportExportModal" data-reveal>
+                <textarea id="LoanAppJSON" rows="20"></textarea> <br />
+                <a href="#" ng-click="testImportFromJSON()" id="LoanAppJSONImportButton">Import!</a>
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true" class="close-reveal-modal">&times;</span>
+                </button>
+            </div>
+
+        </div>
+        <div id="Cookies">
+            <p>Click the 'x' next to any cookie to delete it.</p>
+            <ul></ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#MockIPAddress').click(function () {
+                $('#MockIPAddressForm').show();
+        });
+            $('#SubmitMockIP').click(function () {
+                $.post('/Test/MockIp', { NewIPAddress: $('#NewIPAddress').val() }).done(function (result) {
+                alert('Reload the page or navigate to a new page to view changes.');
+            }).fail(function () {
+                alert('Error....');
+            });
+        });
+            $('#MockSessionId').click(function () {
+                $('#MockSessionIdForm').show();
+        });
+            $('#SubmitNewSessionId').click(function () {
+                $.post('/Test/MockSessionId', { MockSessionId: $('#NewSessionId').val() }).done(function (result) {
+                    $('#MockSessionId').text($('#NewSessionId').val());
+                    $('#MockSessionIdForm').hide();
+            }).fail(function () {
+                alert('Error....');
+            });
+        });
+            $('#ShowCMSContent').click(function () {
+                $('.cms').css('background', 'rgba(255, 105, 180, .5)');
+                $('img.cms').css('border', '1px solid pink');
+            return false;
+        });
+
+            $('#ShowCookies').click(function () {
+                $.each(document.cookie.split(/; */), function () {
+                var splitCookie = this.split('=');
+                    $('#Cookies ul').append('<li><a href="#" data-name="' + splitCookie[0] + '">x</a>: ' + splitCookie[0] + ': ' + splitCookie[1] + '</li>');
+            });
+                $('#ShowCookies').hide();
+                $('#Cookies').show();
+                $('#HideCookies').show();
+        });
+
+            $('#HideCookies').click(function () {
+                $('#Cookies ul').html('');
+                $('#ShowCookies').show();
+                $('#HideCookies').hide();
+                $('#Cookies').hide();
+        });
+
+            $('#ClearBrowserSession').click(function () {
+            sessionStorage.clear();
+            document.location.reload();
+        });
+
+            $('#Cookies').on('click', 'a', function () {
+                $.removeCookie($(this).data('name'), { path: '/' });
+                $(this).parent().hide();
+        });
+
+            $('#CloseEnvironmentTab').on('click', function () {
+                $('#Environment').hide();
+        });
+
+            $('.inject-recipe').on('click', function () {
+            var url = $(this).attr('href') + '?r=' + new Date().getTime();
+                $.get(url, function (data) {
+                    $('body').append(data);
+            });
+            return false;
+        });
+            $('#AMLBypass').click(function () {
+                $.post('/Test/AMLBypass').done(function (result) {
+                    $('#AMLBypass').content('ok');
+            }).fail(function () {
+                alert('Error....');
+            });
+        });
+
+
+    });
+
+        $(document).ready(function () {
+            $('#envgrow').hide();
+    });
+    </script>
+}

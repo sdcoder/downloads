@@ -1,0 +1,77 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.ApprovedPageModel
+@using FirstAgain.Domain.Lookups.FirstLook
+
+<section class="row">
+	<div class="large-2 columns">
+        <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img alt="Paperless Loan Documents" height="70" width="105" src="/content/images/logo_paperless_loan_docs.gif"></a>
+	</div>
+	<div class="large-10 columns" id="onlineDisclosureNotes">
+        <p>Below is your @if (Model.GetPurposeOfLoan().IsSecured()) { <text>Secured Auto</text> } Note and Security Agreement.  Please carefully review the terms and conditions of this agreement,
+        @if (Model.ShowApplicantAcknowledgement) {<span style="color:red;">check the box(es) immediately next to the Truth in Lending Act Disclosures,</span> } 
+        and then electronically sign the agreement in the signature area below and click "Submit Signature."</p>
+        <p>After signing, you may download or print a copy of this document for your files. You may also go to the Accounts menu within online Account Services to access this document in the future.</p>
+	</div>
+</section>
+
+<section class="row">
+<form name="LoanAgreementForm">
+	<div class="large-12 columns" id="LoanAgreementContainer">
+
+        @if (Model.HasSignedLoanAgreement)
+        {
+            <div class="row">
+                <div class="large-12 columns">
+                    @Html.Raw(Model.LoanAgreementHtml())
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="large-12 columns">
+                    <a href="#/Account" class="button no-track">Continue to Account Setup</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="large-12 columns">
+                    @Html.Raw(Model.PreSignatureLoanAgreementHtml())
+                </div>
+            </div>
+
+            <span id="Signatures"></span>
+            foreach (var signature in Model.GetSignatureModels())
+            {
+                Html.RenderPartial("~/Views/ApplicationStatus/Approved/_Signature.cshtml", signature);
+            }
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <input ng-show="!LoanAcceptance.IsSigned"
+                           type="button"
+                           class="button"
+                           id="SubmitSignatures"
+                           value="{{LoanAcceptance.IsJoint ? 'Submit Signatures' : 'Submit Signature'}}"
+                           ng-disabled="allSignaturesAreEmpty() || Waiting"
+                           ng-click="submitSignatures()" />
+                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="" ng-show="Waiting" />
+                    <a ng-show="LoanAcceptance.IsSigned" href="#/Account" class="button no-track" id="ContinueToAccountSetup">Continue to Account Setup</a>
+                </div>
+            </div>
+            <div class="row" ng-show="ErrorMessage">
+                <div class="large-12 columns formalert">
+                    <p ng-bind-html="ErrorMessage">{ErrorMessage}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    @Html.Raw(Model.PostSignatureLoanAgreementHtml())
+                </div>
+            </div>
+        }
+
+	</div>
+</form>
+</section>
+

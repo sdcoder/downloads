@@ -1,0 +1,153 @@
+﻿@model LightStreamWeb.Models.PublicSite.RedesignPageModel
+@using FirstAgain.Domain.SharedTypes.ContentManagement
+@using LightStreamWeb.Helpers
+
+@{
+    Layout = "~/Views/Layouts/_RedesignBase.cshtml";
+    LightStreamWeb.Models.Components.RateCalculatorModel calculator =
+        new LightStreamWeb.Models.Components.RateCalculatorModel()
+        {
+            DisplayCalculator = true,
+            FirstAgainCodeTrackingId = Model.FirstAgainCodeTrackingId,
+            PurposeOfLoan = FirstAgain.Domain.Lookups.FirstLook.PurposeOfLoanLookup.PurposeOfLoan.NotSelected,
+            DisplayItsEasyToFindYourRate = true
+        };
+
+    var underwriteSectionData = new Tuple<List<FeatureBullet>, FeatureBulletSectionCustomizations>
+        (Model.FeatureBullets, Model.FeatureBulletSectionCustomizations);
+}
+
+@Styles.Render("~/bundles/redesign-page-styles")
+
+@if (!string.IsNullOrWhiteSpace(Model.CustomCSS))
+{
+    <style>
+        @Html.Raw(Model.CustomCSSMinified)
+    </style>
+}
+
+<div ng-app="LightStreamApp" id="lsAppDiv">
+    @section hero {
+        <div class="banner-container" aria-hidden="true">
+            <img src="@Model.Banner.ToImageUrl()" alt="@Model.Banner.Image.Alt" class="banner cms" id="heroBanner" style="visibility: hidden">
+            <img src="@Model.BannerMobile.ToImageUrl()" alt="@Model.BannerMobile.Image.Alt" class="mobileBanner cms" id="mobileHeroBanner" style="visibility: hidden">
+        </div>
+
+        <div class="headline hide-for-small-only home3Headline" style="text-align: center; padding-left: 0; padding-right: 0; left: 0 !important; visibility: hidden">
+            <div class="row">
+                <div class="columns medium-12" style="text-align: center">
+                    <h2 class="cms" tabindex="0">@Html.Raw(Model.PageTitle)</h2>
+                </div>
+            </div>
+
+            <div tabindex="0">
+                <h3 style="color: white" class="cms">@Html.Raw(Model.RateTitle)</h3>
+                <h2 style="margin-top: 10px !important; font-size: 60px" class="cms">@Model.DisplayRate.RateRangePretty<sup>*</sup></h2>
+                <h3 style="color: white; font-size: medium" class="cms">@Html.Raw(Model.RateSubTitle)</h3>
+            </div>
+            <br />
+            <div class="row">
+                <div class="columns medium-12" style="text-align: center">
+                    <form method="post" action="/apply" class="bannerButton">
+                        <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()" tabindex="0" />
+                    </form>
+                    <input type="button"
+                           id="ratesAndTerms"
+                           value="See Rates & Terms"
+                           class="transparentButtonWhiteBorder hundredHeightBold bannerButton ghostButton"
+                           style="margin-left: 20px !important;"
+                           onclick="SC.main.banner.ratesAndTerms()"
+                           onmouseenter="doHover(true)"
+                           onmouseout="doHover(false)"
+                           tabindex="-1"
+                           aria-hidden="true" />
+                </div>
+            </div>
+        </div>
+
+        <div class="headline show-for-small-only" style="text-align: center; height: 100%; margin-top: 0 !important; visibility: hidden">
+            <div>
+                <h2 class="small-12 columns cms" style="text-align: center; margin-bottom: 1vw !important">@Html.Raw(Model.PageTitle)</h2>
+                <span class="mobileSpan cms">@Html.Raw(Model.RateTitle)</span>
+                <h2 style="margin-top: 10px; text-align: center;  font-weight: 800;" class="cms">@Model.DisplayRate.RateRangePretty<sup>*</sup></h2>
+                <span class="mobileSpan cms">@Html.Raw(Model.RateSubTitle)</span>
+                <div style="text-align: center; height: 40px; margin-top: 10px">
+                    <a href="/apply" class="button bannerButtonMobile" id="applyNowMobile" onclick="SC.main.banner.applyNow()">Apply Now</a>
+                    <input type="button"
+                           id="ratesAndTermsMobile"
+                           value="See Rates & Terms"
+                           class="transparentButtonWhiteBorder hundredHeightBold bannerButton bannerButtonMobile ghostButton"
+                           style="margin-left: 12px !important;"
+                           onclick="SC.main.banner.ratesAndTerms()"
+                           onmouseenter="doHover(true)"
+                           onmouseout="doHover(false)" />
+                </div>
+            </div>
+        </div>
+    }
+
+    @Html.Partial("~/Views/PublicSite/Partials/_CTABar.cshtml", Model.CTABar)
+
+    @Html.Partial("~/Views/PublicSite/Partials/_CTABarMobile.cshtml", Model.CTABar)
+
+    @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "isOneClickDisclosure", true } })
+
+    @Html.Partial("~/Views/Components/_Carousel.cshtml")
+
+    <div style="margin-top: 20px">
+        @Html.Partial("~/Views/Components/RateCalculator.cshtml", calculator)
+    </div>
+
+    @if (Model.DisplayApplyInMinutes)
+    {
+        @Html.Partial("~/Views/PublicSite/Partials/_ApplyInMinutes.cshtml")
+        @Html.Partial("~/Views/PublicSite/Partials/_ApplyInMinutesMobile.cshtml")
+    }
+
+    @Html.Partial("~/Views/Redesign/_UnderwriteSection.cshtml", underwriteSectionData)
+
+    <div class="ratings-reviews-component-container web-component">
+        <lswc-section section-headline="Our customers love us. Find out why.">
+            <lswc-ratings-reviews reviews-url="/reviews-ratings"></lswc-ratings-reviews>
+        </lswc-section>
+    </div>
+
+    @Html.Partial("~/Views/Components/_LightStreamExperience.cshtml", Model)
+
+    @Html.Partial("~/Views/PublicSite/Partials/_LendingUncomplicated.cshtml")
+
+    @section APRDisclosure1 {
+        @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "showPaymentExample", true } })
+        <br />
+    }
+
+    @section APRDisclosure {
+        @Html.Raw(Model.DisclosureCopy)
+    }
+
+    @Html.Partial("~/Views/PublicSite/Modals/VideoModal.cshtml", String.IsNullOrWhiteSpace(Model.VideoUrl) ? "https://www.youtube.com/embed/YYuxezlgMIg" : Model.VideoUrl)
+
+    <section class="row ruled homeloanuses">
+        @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+    </section>
+</div>
+
+<div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+
+
+@section webComponents{
+    <script src="~/Scripts/webcomponents/components.js?cachebust=@(Model.GetFileHash("scripts/webcomponents/components.js"))"></script>
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/redesign-scripts")
+
+    <script type="text/javascript">
+        SC.main.homeRedesign();
+    </script>
+}
+
+
+<img height='1' width='1' alt='' src='//trk.tidaltv.com/ILogger.aspx?Event=Action&apid=5652&rand=RANDOM' />
+<img height='1' width='1' alt='' src='//set.tidaltv.com/Pong.ashx?tids=2897528%7c2400' />

@@ -1,0 +1,116 @@
+﻿@model LightStreamWeb.Models.SignIn.UpdateEmailPageModel
+
+
+@if (TempData["Alert"] != null)
+{
+    <div class="row">
+        <div class="small-12 columns panel" id="alertPanel" role="alert" tabindex="0">
+            @TempData["Alert"]
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="small-12 columns">
+        <h2 class="pageTitle">
+            Customer Sign In > <span class="subTitle">AccountLock > Update Email Address</span>
+        </h2>
+    </div>
+</div>
+
+<section class="row ruled">
+    <div class="small-12 columns">
+        <div class="row">
+            <div class="small-12 columns">
+                <p>Please provide us with the following information in order to update your email address. We will then email you a temporary passcode allowing you one-time access to your account.</p>
+            </div>
+        </div>
+
+        <form action="@Url.Action("UpdateEmail", "SignIn")" name="updateEmailForm" novalidate method="post" ng-app="UpdateEmail" ng-controller="UpdateEmailController" ls-validate-on-submit>
+            <div class="row">
+                <div class="medium-6 columns">
+                    <label>Security Answer</label>
+                    <input id="SecurityAnswer" name="SecurityAnswer"
+                           type="text" maxlength="50"
+                           ng-model="SecurityAnswer"
+                           ng-pattern="/^[A-Za-z0-9!&amp;$,-._ ]+$/"
+                           required="required"
+                           ng-focus="securityAnswerGainedFocus = true"
+                           ls-track-visited
+                           tabindex="1" />
+                    <div class="formalert" tabindex="0" ng-cloak ng-show="updateEmailForm.SecurityAnswer.$hasVisited && (updateEmailForm.SecurityAnswer.$error.required || updateEmailForm.SecurityAnswer.$error.pattern)">
+                        <p>Please enter a security answer.</p>
+                    </div>
+                </div>
+                <div class="medium-6 columns" ng-show="securityAnswerGainedFocus" ng-cloak="">
+                    <div class="forminfo aside">
+                        <p>
+                            The response you provided to a security question at the time of your loan application. The following security questions were provided:
+                            <ul class="passwordHint">
+                                <li>First and last name of best childhood friend</li>
+                                <li>Name of favorite pet</li>
+                                <li>First and last name of favorite school teacher</li>
+                                <li>Name of street you grew up on</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="small-12 medium-6 columns">
+                    <label>Old Email Address</label>
+                    <input id="OldEmailAddress" name="OldEmailAddress"
+                           type="email" maxlength="50"
+                           ng-model="OldEmailAddress"
+                           ng-pattern="/^[a-z0-9_\-\.\+]{2,}&#64;[a-z0-9_\-\.]{2,}\.[a-z]{2,}$/i"
+                           required="required"
+                           tabindex="2"
+                           ls-track-visited />
+                    <div class="formalert" tabindex="0" ng-cloak ng-show="updateEmailForm.OldEmailAddress.$hasVisited && (updateEmailForm.OldEmailAddress.$error.required || updateEmailForm.OldEmailAddress.$error.pattern)">
+                        <p>Please enter a valid email address.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="small-12 medium-6 columns">
+                    <label>New Email Address</label>
+                    <input id="NewEmailAddress" name="NewEmailAddress"
+                           type="email" maxlength="50"
+                           ng-model="NewEmailAddress"
+                           ng-pattern="/^[a-z0-9_\-\.\+]{2,}&#64;[a-z0-9_\-\.]{2,}\.[a-z]{2,}$/i"
+                           required="required"
+                           tabindex="3"
+                           ls-track-visited />
+                    <div class="formalert" tabindex="0" ng-cloak ng-show="updateEmailForm.NewEmailAddress.$hasVisited && (updateEmailForm.NewEmailAddress.$error.required || updateEmailForm.NewEmailAddress.$error.pattern)">
+                        <p>Please enter a valid email address.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-12 columns">
+                    <input type="submit" id="AccountLockSubmit" class="button" value="Submit" tabindex="4" />
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+@section scripts {
+    <script type="text/javascript">
+        angular.module('UpdateEmail', []).controller('UpdateEmailController', function ($scope) {
+        });
+
+        $(function () {
+            if ($("#alertPanel").length) {
+                setTimeout(function () { $("#alertPanel").focus(); }, 800);
+            }
+        });
+    </script>
+}

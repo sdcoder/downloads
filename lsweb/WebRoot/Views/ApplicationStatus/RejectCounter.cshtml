@@ -1,0 +1,29 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.CounterPageModel
+@using FirstAgain.Domain.Lookups.FirstLook
+@using FirstAgain.Domain.Common
+
+<section class="row panel">
+    <div class="medium-12 columns ">
+        <h2 class="brand">Review Counter Offer Terms</h2>
+
+        <h3>@Model.ApplicantNamesText,</h3>        
+
+        <p>
+            @if (Model.Counter.Offered.PurposeOfLoan.IsSecured())
+            {
+                <text> This confirms that you have chosen not to accept this counter offer of our Secured Auto loan, so it has been cancelled. </text>
+            } else {
+                <text> This confirms that you have chosen not to accept this counter offer, so it has been cancelled. </text>
+            }
+        </p>
+                
+        <p>For the specific reasons we declined your original request, please read the <a href="#" data-href="/enotices/modal"  data-popup="true">decline notice</a>.</p>
+                
+        <p>If you have questions, please contact us at <a href="tel:@BusinessConstants.Instance.PhoneNumberUnderwriting">@BusinessConstants.Instance.PhoneNumberUnderwriting</a>.</p>                
+    </div>
+</section>
+
+@Html.Partial("~/Views/ApplicationStatus/_DeclineReferralOptIn.cshtml")                
+                
+
+

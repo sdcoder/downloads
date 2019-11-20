@@ -1,0 +1,12 @@
+﻿@model LightStreamWeb.Models.PublicSite.PrivacySecurityModel
+
+@Html.Partial("~/Views/PublicSite/_BasicAccordianPage.cshtml", Model)
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            SC.acctServices.privacySecurity();
+        });
+    </script>
+}

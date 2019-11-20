@@ -1,0 +1,41 @@
+﻿@model LightStreamWeb.Models.AccountServices.AccountServicesHomePageModel
+
+<style>
+    #gotoApp {
+        width: 100%;
+        font-size: 12px;
+        margin-bottom: 10px;
+        border-radius: 6px !important;
+        background: #ff8e02;
+        box-shadow: inset 0px 0px 12px 8px #c77403 !important;
+        color: white !important;
+    }
+</style>
+
+@{
+    foreach (var app in Model.GetOtherApplications())
+    {
+        <div class="row currentApplicationRow" style="margin: 0 15px 0 15px;">
+            <div class="medium-12 columns">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <h2 class="brand" style="font-size: 18px; padding: 0; border: 0; margin: 0">@Model.GetOtherApplicationDisplayText(app.CurrentStatus) - Reference #@app.ApplicationId</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-4 columns" style="margin-top: 5px">
+                        Application Date: @app.SubmittedDate.ToString("M/dd/yyyy")
+                    </div>
+                    <div class="medium-4 columns" style="margin-top: 5px">
+                        Loan Amount @app.LoanAmount.ToString("$#,##0.00")
+                    </div>
+                    <div class="medium-4 columns">
+                        <a href="/account/goto/@(app.ApplicationId)" id="gotoApp" class="button">GO TO APPLICATION</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+}
+

@@ -1,0 +1,46 @@
+﻿@model LightStreamWeb.Models.Apply.BaseInProcessAppPageModel
+
+<section class="row">
+    <div class="medium-12 columns">
+        @Html.Partial("~/Views/Partials/_TempDataAlert.cshtml")
+
+        @Html.ValidationSummary()
+
+        <form name="LoanApplicationForm" action="@Url.Action("SecurityInfo")" method="post" novalidate ls-validate-on-submit>
+            @Html.AntiForgeryToken()
+
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <h2 class="steps"><span>Step 2.</span> Security Information</h2>
+                    </div>
+                </div>
+
+                <div class="row" >
+                    <div class="large-12 columns">
+                        <p>For security purposes (yours and ours), we ask that you create your personal LightStream user ID and password and select a security question and answer. </p>
+                        <p>Your "new" user ID and password will be required to access your account going forward. The security question and answer will be used, in certain situations, for additional verification.</p>
+                    <p>Please remember and secure this information!</p>
+                    </div>
+                </div>
+
+        @Html.Partial("~/Views/Apply/Partials/_UserCredentials.cshtml")
+
+                <div class="row ruled">
+                    <div class="medium-12 columns">
+                        <input type="submit" id="Continue" class="button" value="Finish" />
+                        <img src="@Model.CdnBaseUrl/ajax-loader.gif" style="display:none" id="LoadingImage" />
+                    </div>            
+                </div>
+
+@section scripts {
+<script type="text/javascript">
+    if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, 'Last Page', '/appstatus/refresh');
+    }
+
+    $('form').on('submit', function () {
+        $('#LoadingImage').show();
+        $('#Continue').prop('disabled', 'disabled');
+    });
+</script>
+}

@@ -1,0 +1,35 @@
+﻿@model LightStreamWeb.Models.Components.TestimonialModel
+
+<div>
+    <a class="large-view" href="/customer-testimonials" role="link">
+        <img src="@Model.TestimonialGraphicUrl" class="experienceImage cms" alt="What our customers are saying about LightStream" />
+    </a>
+    <a class="mobile-view" href="/customer-testimonials" role="link" aria-hidden="true">
+        <img src="@Model.MobileTestimonialGraphicUrl" class="experienceImage cms" alt="What our customers are saying about LightStream" />
+    </a>
+</div>
+<h3 class="thatBlueFontTho characteristicTitle" tabindex="0">Unsolicited customer comments</h3>
+<div id="@Model.OwlCarouselId" class="owl-carousel owl-theme" aria-hidden="true">
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="cms">
+            <p class="characteristicDescription">@ADAHelper.PreventMultipleBRsRepeatingBlank(@comment.Comment)</p>
+            <div class="customerLocation">— @comment.CustomerName @(String.IsNullOrEmpty(@comment.FromLocation) ? "" : String.Format(" from {0}", comment.FromLocation))</div>
+        </div>
+    }
+</div>
+
+<ul class="screen-reader-only">
+    @{int i = 0;}
+    @foreach (var comment in Model.Comments)
+    {
+        i++;
+    <li>
+        <div>Comment @i of @Model.Comments.Count()</div>
+        <p>@ADAHelper.PreventMultipleBRsRepeatingBlank(@comment.Comment)</p>
+        <div>— @comment.CustomerName @(String.IsNullOrEmpty(@comment.FromLocation) ? "" : String.Format(" from {0}", comment.FromLocation))</div>
+    </li>
+    }
+</ul>
+
+<a href="/customer-testimonials" class="readmore">Read more...</a>

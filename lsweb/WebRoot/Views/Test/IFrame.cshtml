@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+    string domain = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lightstream - Test iFrame</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Page previewer</h1>
+            <p>Preview pages in an iFrame</p>
+        </div>
+        <div class="row">
+            <form>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">@domain/</div>
+                            <input type="text" class="form-control" name="SiteURL" id="SiteURL" placeholder="Page URL" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-inline form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="FramemWidth">Frame Width</label>
+                            <div class="input-group-addon">Width</div>
+                            <input type="number" class="form-control" name="FrameWidth" id="FrameWidth" value="1000" />
+                            <div class="input-group-addon">px</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-inline form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="FramemHeight">Frame Height</label>
+                            <div class="input-group-addon">Height</div>
+                            <input type="number" class="form-control" name="FrameHeight" id="FrameHeight" value="600" />
+                            <div class="input-group-addon">px</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" id="iFrameBtn">Load page</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <div class="row" style="background-color: rgb(245,245,245); padding:2em;">
+            <iframe id="preview" src="@ViewBag.iFrameURL" scrolling="auto"></iframe>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $("#iFrameBtn").on("click", function () {
+            "use strict";
+            let url = /*$("#DomainURL").val()*/ "@domain/" + $("#SiteURL").val();
+            console.log(url);
+            let height = $("#FrameHeight").val();
+            let width = $("#FrameWidth").val();
+            $("#preview").attr("height", height).attr("width", width).attr("src", url);
+        });
+    </script>
+</body>
+</html>

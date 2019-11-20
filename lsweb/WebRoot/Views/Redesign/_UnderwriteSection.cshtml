@@ -1,0 +1,77 @@
+﻿@using FirstAgain.Domain.SharedTypes.ContentManagement
+@model  Tuple<List<FeatureBullet>, FeatureBulletSectionCustomizations>
+@{
+    var bullets = Model.Item1;
+    var customizations = Model.Item2;
+    var theme = Model.Item2 != null ? Model.Item2.FeatureBulletSectionTheme : null;
+}
+
+@if (theme != null)
+{
+    <style>
+   #feature-bullets  .row {
+        background-color: @theme.BackgroundColor  !important;
+    }
+
+    #feature-bullets > div > h2 {
+        color: @theme.SectionSubheaderTextColor  !important;
+    }
+
+    #feature-bullets > div > div > div > div > h3 {
+        color: @theme.FeatureBulletCaptionTextColor  !important;
+    }
+
+    #feature-bullets > div > div > div > div > h6 {
+        color: @theme.FeatureBulletTextColor !important;
+    }
+    </style>
+}
+
+@if (bullets != null && bullets.Count > 0)
+{
+    <div class="row cms" id="rewardsYourCredit">
+        @if (!string.IsNullOrWhiteSpace(customizations.FeatureBulletsSectionHeader)
+            || !string.IsNullOrWhiteSpace(customizations.FeatureBulletsSectionSubheader))
+        {
+            <div class="row">
+                <div class="columns medium-12">
+                    @if (!string.IsNullOrWhiteSpace(customizations.FeatureBulletsSectionHeader))
+                    {
+                        <h2 class="thatBlueFontTho sectionHeader" tabindex="0">@Html.Raw(customizations.FeatureBulletsSectionHeader)</h2>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(customizations.FeatureBulletsSectionSubheader))
+                    {
+                        <div id="feature-bullet-sub-header">
+                            <div tabindex="0">@Html.Raw(customizations.FeatureBulletsSectionSubheader)</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        <div class="row" style="text-align: center" id="redesign-bullets-desktop">
+            @foreach (var bullet in bullets)
+            {
+                <div class="columns medium-3">
+                    <img src="@bullet.Graphic.DefaultGraphic.ToImageUrl()" alt="" tabindex="-1" aria-hidden="true" role="img" />
+                    <h3 class="thatBlueFontTho characteristicTitle" tabindex="0">@bullet.Text</h3>
+                    <p class="characteristicDescription" tabindex="0">
+                        @bullet.SubText
+                    </p>
+                </div>
+            }
+        </div>
+
+        <div class="row" style="text-align: center" id="redesign-bullets-mobile">
+            @foreach (var bullet in bullets)
+            {
+                <div class="columns large-12">
+                    <img src="@bullet.Graphic.DefaultGraphic.ToImageUrl()" alt="" tabindex="-1" aria-hidden="true" role="presentation" />
+                    <h3 class="thatBlueFontTho characteristicTitle">@bullet.Text</h3>
+                    <p class="characteristicDescription">
+                        @bullet.SubText
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+}

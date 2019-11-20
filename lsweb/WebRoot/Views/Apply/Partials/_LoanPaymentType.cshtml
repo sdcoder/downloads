@@ -1,0 +1,18 @@
+﻿<div class="row">
+    <div class="medium-6 columns">
+	<label for="PaymentMethod"><sup>*</sup>Payment Method</label>
+        @(Html.NgDropDownEnumList(
+            "LoanApp.LoanPaymentType",
+            "LoanPaymentType",
+            "Select payment method. If invoice is chosen your rate will be 0.50 points higher than AutoPay.  AutoPay, Invoice.",
+            FirstAgain.Domain.Lookups.FirstLook.PaymentTypeLookup.BindingSource,
+            true))
+	</div>
+    <div class="medium-6 columns">	
+        <div class="forminfo aside down" tabindex="0" ng-cloak ng-show="LoanApp.Discount != 'SuntrustPrivateWealth' && LoanApp.Discount != 'SuntrustPremierBanking'">
+            <p>{{rateDisclaimer}}</p>
+        </div>
+    </div>
+</div>
+
+		

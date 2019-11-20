@@ -1,0 +1,22 @@
+﻿@model LightStreamWeb.Models.Apply.ProgressBarModel
+
+
+<section class="row">
+	<div class="large-12 columns">
+		<h2>Progress</h2>
+        <div class="pb" ng-init="currentTabNumber = @Model.Step">
+            <div class="step @((Model.Step == 1) ? "active" : "") first" ng-click="saveAndCheckValidity(@Model.Step, '@Url.Action("Index")')"><a href="@Url.Action("Index")" ng-click="saveAndCheckValidity(@Model.Step)" class="loan-info">Loan Information</a></div><!--
+        --><div class="step @((Model.Step == 2) ? "active" : "") @((Model.Step == 1) ? "transition" : "")" ng-click="saveAndCheckValidity(@Model.Step, '@Url.Action("PersonalInfo")')"><a href="@Url.Action("PersonalInfo")" ng-click="saveAndCheckValidity(@Model.Step)" class="personal-info">Personal Information</a></div><!--
+        --><div class="step @((Model.Step == 3) ? "active" : "") @((Model.Step == 2) ? "transition" : "")" ng-click="saveAndCheckValidity(@Model.Step, '@Url.Action("SecurityInfo")')"><a href="@Url.Action("SecurityInfo")" ng-click="saveAndCheckValidity(@Model.Step)" class="security-info">Security Information</a></div><!--
+        --><div class="step @((Model.Step == 4) ? "active" : "") @((Model.Step == 3) ? "transition" : "")" ng-click="saveAndCheckValidity(@Model.Step, '@Url.Action("Confirm")')"><a href="@Url.Action("Confirm")" ng-click="saveAndCheckValidity(@Model.Step)" class="confirm">Confirm and Submit</a></div><!--
+        --><div class="end @((Model.Step >= 4) ? "completed" : "")"><span></span></div>
+        </div>
+	</div>
+</section>
+
+<section id="ErrorMessage" class="row" ng-cloak="" ng-show="!!LoanApp.ErrorMessage">
+    <div class="large-12 columns panel formalert" tabindex="0">
+        <p><strong>There was an error with your submission:</strong></p>
+        <p>{{LoanApp.ErrorMessage}}</p>
+    </div>
+</section>

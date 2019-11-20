@@ -1,0 +1,50 @@
+﻿@model LightStreamWeb.Models.Shared.LoanTermsModel
+
+@*loan terms popup - single "requested" terms, not counter vs requested table*@
+<div class="offerTermsTable reveal small" id="OfferTermsTable" data-reveal>
+    <button class="close-button" data-close aria-label="Close modal" type="button" style="z-index: 10"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+	<h2 class="brand large-12 column">Requested Loan Terms:</h2>
+	
+	<div class="medium-12 columns ">
+        <div class="grid-x">
+            <div class="cell small-6 coltitle brand hide-for-small-only">Loan Terms</div>
+            <div class="cell small-6 coltitle coltitle-last brand hide-for-small-only">Requested</div>
+        </div>
+        <div class="grid-x">
+            <div class="cell small-6 brand">Loan Amount</div>
+            <div class="cell small-6">
+                @Model.LoanAmount.ToString("C")  @if (Model.FloridaDocStampTax.HasValue)
+                { @:<super><a href="" data-flash="FloridaDocStampDisclosure">**</a></super>
+                        }
+            </div>
+        </div>
+        <div class="grid-x">
+            <div class="cell small-6 brand">Loan Term</div>
+            <div class="cell small-6">@Model.LoanTerm months</div>
+        </div>
+        <div class="grid-x">
+            <div class="cell small-6 brand">Interest Rate/APR</div>
+            <div class="cell small-6">@Model.InterestRate</div>
+        </div>
+        <div class="grid-x">
+            <div class="cell small-6 brand">Monthly Payment</div>
+            <div class="cell small-6">@Model.MonthlyPayment</div>
+        </div>
+        <div class="grid-x">
+            <div class="cell small-6 brand">Payment method</div>
+            <div class="cell small-6">@Model.PaymentMethod</div>
+        </div>
+
+
+	
+        <div class="disclaimer" tabindex="0">@Html.Raw(Model.LoanOfferDisclaimer)</div>
+	
+	</div>
+
+    <div class="medium-12 columns loannotes" tabindex="0" id="FloridaDocStampDisclosure">
+    @if (Model.FloridaDocStampTax.HasValue)
+    {
+	    <p><super>**</super> @Html.Raw(string.Format(Resources.FAMessages.FloridaDocStampDisclosure, "/partial/florida-doc-stamp-info", Model.FloridaDocStampTax.Value))</p>
+    }
+	</div>
+</div>

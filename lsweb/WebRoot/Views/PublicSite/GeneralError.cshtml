@@ -1,0 +1,28 @@
+﻿@model LightStreamWeb.Models.PublicSite.BasePublicSiteModel
+
+<div class="main row">
+
+    <div class="medium-10 columns medium-push-1 panel">
+        <h3>Process Error</h3>
+        <p>
+            We are sorry but an error has occurred and we are unable to process your request. Please try again.
+        </p>
+
+        <p>If you receive another error, please <a href="/contact-us#ContactUsForm">contact us</a>. </p>
+
+        <p>Thank you.</p>
+    </div>
+
+</div>
+
+@section scripts {
+<script type="text/javascript">
+    SC.appStatus.fundingError();
+</script>
+}
+
+
+
+
+
+

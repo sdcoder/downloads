@@ -1,0 +1,28 @@
+﻿@model FirstAgain.Domain.Lookups.FirstLook.ApplicantTypeLookup.ApplicantType
+@{
+    int index = 0;
+    string idPrefix = "Applicant";
+    if (Model == FirstAgain.Domain.Lookups.FirstLook.ApplicantTypeLookup.ApplicantType.Secondary)
+    {
+        index = 1;
+        idPrefix = "CoApplicant";
+    }
+}
+
+<section class="row">
+    <div class="large-12 columns">
+        @if (Model != FirstAgain.Domain.Lookups.FirstLook.ApplicantTypeLookup.ApplicantType.Secondary) {
+		    <h3>Applicant</h3>
+        } else {
+		    <h3>Co-Applicant</h3>
+        }
+        <p class="teammate-alert" ng-show="LoanApp.ApplicationTakenOverPhone">
+            <label>
+                If the client does not wish to furnish the following information then check this box:
+                <input type="checkbox" id="@(idPrefix)HMDA-NotSubmitted" ng-model="LoanApp.ApplicantHmdaData[@index].NotSubmitted" />
+            </label>
+        </p>
+    </div>
+</section>
+
+@Html.Partial("~/Views/Apply/Partials/_HMDA_Questions.cshtml", Model)

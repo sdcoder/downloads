@@ -1,0 +1,52 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.CancelledPageModel
+
+<section class="row panel introrow">
+    <div class="medium-12 columns">
+        <h2>Cancelled Loan Application</h2>
+    </div>
+
+    <div class="medium-12 columns">
+        <h3>@Model.ApplicantNamesText,</h3>        
+
+        @foreach (var statement in Model.Statements)
+        {
+            <p>@Html.Raw(statement)</p>
+        }
+
+        @if (Model.EnableContactUs) 
+        {
+            <style type="text/css">
+                #ContactUsForm .description { display:none; }
+                #ContactUsForm h3 { display:none; }
+            </style>
+            <div id="ContactUsForm">
+                @Html.Partial("~/Views/AccountServices/Modals/ContactUs.cshtml", Model.GetContactUsModel())
+            </div>
+        }
+    </div>
+
+    <div class="medium-12 columns">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+</section>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+        (function () {
+            @if (Model.IsDisplucateAppCancelled) 
+            {
+                @:SC.appStatus.dupeAppCancelled();
+            }
+            else
+            {
+                @:SC.appStatus.cancelled();
+            }
+
+            @Html.Partial("_AppStatusChangeNotification", Model)
+        }());
+    </script>
+}
+

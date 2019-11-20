@@ -1,0 +1,74 @@
+﻿
+<section class="row ruled">
+	<div class="large-12 columns">
+        <h2 class="brand">Cancel Loan Application</h2>
+    </div>
+</section>
+
+<form method="post" action="/appstatus/prefunding/cancel" novalidate ls-validate-on-submit="ls-validate-on-submit" name="CancelLoanForm">
+    <section class="row" ng-controller="CancelController">
+        <div class="row">
+	        <div class="large-10 columns large-push-1">
+                <div class="formwarning">
+                <p><strong>Please note that if you cancel this loan application, and then change your mind, you will need to reapply.</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <fieldset ng-disabled="Waiting">
+	            <div class="large-10 columns  large-push-1">
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <p>To cancel your loan application, please select a cancel reason: </p>                    
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <label><sup>*</sup>Cancel Reason</label>
+                                @(Html.NgDropDownDefinitionList(
+                                        "WithdrawReason", 
+                                        "WithdrawReason", 
+                                        "select a reason",
+                                        FirstAgain.Domain.Lookups.FirstLook.WithdrawReasonTypeLookup.BindingSource,
+                                        required: true))
+                            </div>
+                        </div>
+            
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <label>If other is selected or if you have additional comments, please provide them below. Thank you. </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <textarea name="WithdrawReasonDescription"></textarea>
+                            </div>
+                        </div>
+
+            
+                        <div class="row" style="margin-top: 20px">
+                            <div class="medium-6 columns">
+                                <a class="button button-medium button-navy" href="/appstatus/prefunding">Return to Previous Page</a>
+                                <input type="submit" class="button button-medium " value="Cancel Loan" />
+                            </div>
+                        </div>
+                </div>
+            </fieldset>
+        </div>
+    </section>
+</form>
+
+<section class="row ruled">
+
+</section>
+
+@section scripts {
+<script type="text/javascript">
+    angular.module('ApplicationStatusModule')
+        .controller('CancelController', function ($scope) {
+        });
+
+    SC.prefunding.cancelPendingLoan();
+</script>
+}

@@ -1,0 +1,76 @@
+﻿@model LightStreamWeb.Models.Apply.SunTrustApplyPageModel
+
+
+@{Html.RegisterScriptFile("~/scripts/app/loan-application.js");}
+
+<div ng-app="LoanAppModule" ng-controller="LoanApplicationController" ng-init="initSuntrustApp()" >
+    @Html.Partial("~/Views/Apply/Suntrust/_ProgressBar.cshtml", new LightStreamWeb.Models.Apply.ProgressBarModel(4))
+
+
+    @LoanApplicationForm.StartFormWithInit("initSuntrustApp();", "submitLoanApp('" + Url.Action("Submit") + "', '" + Url.Action("ThankYou") + "');")
+
+    @Html.Partial("~/Views/Apply/Partials/_ConfirmSubmitReviewRow.cshtml")
+
+    <div class="row">
+	    <div class="large-12 columns panel">
+        <div class="teammate-alert">
+            <p><i class="fa fa-comment"></i> Please Read to Client:</p>
+        </div>
+
+        <div>
+		    <p>By clicking "Submit" below, the Applicant(s)</p>
+            <p>(1) acknowledge that the above application is submitted for the purpose of obtaining credit,</p>
+            <p>(2) certify that all information herein is true, complete, and correct, </p>
+            <p>(3) acknowledge that @Model.ParentCompanyName may require verification of certain application information in a form and substance satisfactory to @Model.ParentCompanyName, in its sole discretion, </p>
+            <p>(4) acknowledge receipt of LightStream’s <a href="/modals/privacy" data-popup="true">Privacy Policy</a> and agree to receive the Privacy Policy notices by accessing the link on LightStream’s website at any time, </p>
+            <p>
+                (5) with respect to each phone number you provide, you consent to @Model.ParentCompanyName and affiliates, agents, and assignees contacting you
+                (by any method, including automated dialing equipment or prerecorded messages) at each respective phone number by calling, texting,
+                or other electronic communication for any reason about your accounts with @Model.ParentCompanyName and affiliates, and
+            </p>
+            <p>
+                (6) authorize @Model.ParentCompanyName to make whatever credit inquiries it deems necessary in connection with the credit application or in
+                the course of review or collection of any credit extended in reliance on this application. I/We authorize and instruct any person,
+                including but not limited to, all local, state or federal government agencies or consumer reporting agencies, to complete and furnish
+                @Model.ParentCompanyName any information it may have or obtain in response to such credit inquiries and agree that such information, along with
+                this application, shall remain @Model.ParentCompanyName's property whether or not credit is extended.
+            </p>
+            <p>(7) I authorize my wireless operator (AT&amp;T, Sprint, T-Mobile, US Cellular, Verizon, or any other branded wireless operator)
+                to use my mobile number, name, address, email, network status, customer type, customer role, billing type, mobile device
+                identifiers (IMSI and IMEI) and other subscriber status details, if available solely, to allow verification of my identity and to
+                compare information I have provided to LightStream with my wireless operator account profile information for the duration
+                of the business relationship.  I understand LightStream's <a href="/modals/privacy" data-popup="true">Privacy Policy</a> explains for how you treat my data.</p>
+            <p>Lastly, please remember the application is not complete until you sign in and agree to accept electronic records and use e-signature.</p>
+        </div>
+
+        <div>
+            @Html.Partial("~/Views/Apply/Partials/_ConfirmStateDisclosures.cshtml")
+        </div>
+
+        <div class="teammate-alert">
+            <p>Teammate Please Complete:</p>
+        </div>
+        <div>
+            <label for="ElectronicDisclosures" class="checkbox">
+                <input type="checkbox" id="ElectronicDisclosures" name="ElectronicDisclosures" ng-model="LoanApp.ElectronicDisclosures" required>
+                I have read all applicable disclosures to the client and have clearly communicated that this loan application is considered incomplete 
+                until the client signs in and agrees to accept electronic records and e-signature.
+            </label>
+        </div>
+
+        <div class="formalert" tabindex="0" ng-show="LoanApplication.ElectronicDisclosures.$dirty && !LoanApp.ElectronicDisclosures" ng-cloak>	
+            <p>
+                In order to apply for a loan with LightStream, you need to check the box above, acknowledging receipt of our 
+                <a href="/partial/cms/electronic-disclosures" data-popup="true">Statement on the Use of Electronic Records</a>
+                and agree to receive electronic records and to use electronic signatures in any loan transaction. Thank you.
+            </p>
+        </div>
+
+
+</div>
+    </div>
+    @Html.Partial("~/Views/Apply/Partials/_SubmitApplicationButton.cshtml")
+
+    </fieldset> @*close the fieldset after the button, so you can't submit*@
+    </form>
+</div>

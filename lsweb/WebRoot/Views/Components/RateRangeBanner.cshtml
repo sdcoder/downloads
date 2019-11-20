@@ -1,0 +1,59 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+
+<div class="headline hide-for-small-only home3Headline" style="text-align: center; padding-left: 0; padding-right: 0; left: 0 !important; visibility: hidden">
+    <div class="row">
+        <div class="columns medium-12" style="text-align: center">
+            <h2 class="cms" tabindex="0">@Html.Raw(Model.PageTitle)</h2>
+        </div>
+    </div>
+
+    <div tabindex="0">
+        <h2 class="cms" style="text-align: center; margin-bottom: 1vw !important; margin-top: 15px !important">@Html.Raw(Model.Content.PageTitle)</h2>
+        <h3 style="color: white" class="cms">@Html.Raw(Model.Content.RateTitle)</h3>
+        @if (Model.DisplayRate.IsDiscountedRate && Model.DisplayRate.PurposeOfLoan.ToString() != "HomeImprovement")
+        {
+            <strike><span class="discounted-rate">@Model.DisplayRate.BaseRate.ToString("0.00##%")</span></strike><sup class="discounted-rate" style="font-size: .7em">*</sup>} @if (Model.DisplayRate.IsDiscountedRate && Model.DisplayRate.PurposeOfLoan.ToString()
+== "HomeImprovement")
+        {
+            <strike><span class="discounted-rate">@Model.DisplayRate.Base144Rate.ToString("0.00##%")</span></strike><sup class="discounted-rate" style="font-size: .7em">*</sup>}
+            <h2 style="margin-top: 10px !important; font-size: 60px; display: inline-block;" class="cms">@Model.DisplayRate.OverallRateRangePretty<sup>*</sup></h2><br />
+            <h3 style="color: white; font-size: medium" class="cms">@Html.Raw(Model.Content.RateSubtitle)</h3>
+            @if (!string.IsNullOrWhiteSpace(Model.DisplayRate.DiscountDescription))
+            {
+                <h4 class="banner-rate-subtext cms banner-text">and @Model.DisplayRate.DiscountDescription discount.</h4>
+            }
+        </div>
+        <br />
+        <div class="row">
+            <div class="columns medium-12" style="text-align: center">
+                <form method="post" action="/apply" class="bannerButton">
+                    <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()" tabindex="0" />
+                </form>
+                <input type="button" id="ratesAndTerms" value="See Rates & Terms" class="transparentButtonWhiteBorder hundredHeightBold bannerButton ghostButton" style="margin-left: 20px !important;" onclick="SC.main.banner.ratesAndTerms()" onmouseenter="doHover(true)"
+                       onmouseout="doHover(false)" tabindex="-1" aria-hidden="true" />
+            </div>
+        </div>
+    </div>
+
+    <div class="headline show-for-small-only" style="text-align: center; height: 100%; margin-top: 0 !important; visibility: hidden">
+        <div>
+            <h2 class="small-12 columns cms" style="text-align: center; margin-bottom: 1vw !important">@Html.Raw(Model.Content.PageTitle)</h2>
+            <span class="mobileSpan cms">@Html.Raw(Model.Content.RateTitle)</span> @if (Model.DisplayRate.IsDiscountedRate && Model.DisplayRate.PurposeOfLoan.ToString() != "HomeImprovement")
+            {
+                <strike><span class="discounted-rate">@Model.DisplayRate.BaseRate.ToString("0.00##%")</span></strike><sup class="discounted-rate" style="font-size: .7em">*</sup>} @if (Model.DisplayRate.IsDiscountedRate && Model.DisplayRate.PurposeOfLoan.ToString()
+== "HomeImprovement")
+            {
+                <strike><span class="discounted-rate">@Model.DisplayRate.Base144Rate.ToString("0.00##%")</span></strike><sup class="discounted-rate" style="font-size: .7em">*</sup>}
+                <h2 style="margin-top: 10px; text-align: center;  font-weight: 800; display: inline-block;" class="cms">@Model.DisplayRate.OverallRateRangePretty<sup>*</sup></h2><br />
+                <span class="mobileSpan cms">@Html.Raw(Model.Content.RateSubtitle)</span> @if (!string.IsNullOrWhiteSpace(Model.DisplayRate.DiscountDescription))
+                {
+                    <h4 class="banner-rate-subtext cms banner-text">and @Model.DisplayRate.DiscountDescription discount.</h4>
+                }
+                <div style="text-align: center; height: 40px; margin-top: 10px">
+                    <a href="/apply" class="button bannerButtonMobile" id="applyNowMobile" onclick="SC.main.banner.applyNow()">Apply Now</a>
+                    <input type="button" id="ratesAndTermsMobile" value="See Rates & Terms" class="transparentButtonWhiteBorder hundredHeightBold bannerButton bannerButtonMobile ghostButton" style="margin-left: 12px !important;" onclick="SC.main.banner.ratesAndTerms()" onmouseenter="doHover(true)"
+                           onmouseout="doHover(false)" />
+                </div>
+            </div>
+        </div>

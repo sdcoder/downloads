@@ -1,0 +1,39 @@
+﻿@model LightStreamWeb.Shared.Rates.DisplayRateModel
+
+<div class="rate-banner-mobile rates">
+    <div class="row">
+        <div class="small-6 columns cms rates-container">
+            @if (!@Model.IsDiscountedRate)
+            {
+                <p class="rates-details">Fixed rates from</p>
+                        <h3 class="rates-percentage">@Html.FormatRateWithDataAttributes(@Model, true)</h3>
+                        <p class="rates-details">APR with AutoPay</p>
+            }
+            else
+            {
+                <p class="rates-details discounted-rate">
+                    Fixed rates from
+                    <span class="strikethrough-red-slanted">@Model.BaseRate.ToString("0.00##%")<span>*APR</span></span>
+                </p>
+                        <h3 class="rates-percentage">@Html.FormatRateWithDataAttributes(@Model, true)</h3>
+                        <p class="rates-details discounted-rate">
+                            APR with AutoPay
+                            @if (!string.IsNullOrWhiteSpace(@Model.DiscountDescription))
+                            {
+                                <span class="rates-details discounted-rate">and @Model.DiscountDescription discount.</span>
+                            }
+                        </p>
+
+            }
+        </div>
+        <div class="small-6 columns cms rates-container">
+            <a href="/apply" class="button" onclick="SC.main.banner.applyNow()" ng-click="applyFor('@Model.PurposeOfLoan'); ">Apply Now</a>
+            <a href="#rates" target="_self" class="rates-link" onclick="SC.main.banner.ratesAndTerms()">
+                See Rates &amp; Terms &raquo;
+            </a>
+            <a class="rate-match" href="/partials/rate-match" data-open="AjaxModal" data-reveal-ajax="true" onclick="SC.main.rateCalculator.rateBeat()">
+                <img class="rate-match-image" src="/Content/images/rates/ratebeat_white.png" alt="rate beat offer">
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@using FirstAgain.Common.Extensions
+@model LightStreamWeb.Models.Apply.ApplyPageModel
+
+@{Html.RegisterScriptFile("~/scripts/app/loan-application.js");}
+
+@section ThankYouPix {
+
+    <img height="1" width="1" alt="" src="@Url.Content(String.Format("https://trk.tidaltv.com/ILogger.aspx?Event=Action&apid=5651&rand=RANDOM&pd1={0}", ViewBag.SessionApplyCookie))" />
+
+}
+@section styles {
+
+}
+<section class="row ruled">
+    <div class="large-10 columns large-push-1">
+        <h1>Thank You!</h1>
+
+        <p class="panel">
+            Your application has been received. We will email you @DateUtility.CustomerResponseTimeFrameText
+            regarding our credit decision or questions that we may have.
+        <p>&nbsp;</p>
+        </p>
+    </div>
+</section>
+
+<section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+@section scripts {
+    <script type="text/javascript">
+        SC.apply.thankYou("@ViewBag.SessionApplyCookie");
+        
+        $.cookie('ApplicationCompleted', 'true', { expires: 30 });
+    </script>
+
+    <!-- Impact Radius Conversion Code -->
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ImpactRadiusJsFilePath))
+    {
+        <script type="text/javascript" src="@ViewBag.ImpactRadiusJsFilePath"></script>
+
+        <script type="text/javascript">
+            irEvent.setOrderId("@ViewBag.SessionApplyCookie");
+            irEvent.setCustomerId("@ViewBag.SessionApplyCookie");
+            irEvent.fire();
+        </script>
+    }
+    @if (!string.IsNullOrEmpty(ViewBag.SessionApplyLoanAmount))
+    {
+        <script type="text/javascript">
+            mboxCreate('orderConfirmPage', 'productPurchaseId=@ViewBag.SessionApplyPurposeOfLoan', 'orderTotal=@ViewBag.SessionApplyLoanAmount', 'orderId=@ViewBag.SessionApplyCookie');
+
+            adobe.target.trackEvent({
+                'mbox': 'orderConfirmPage',
+                'params': {
+                'orderId': '@ViewBag.SessionApplyCookie',
+                'orderTotal': '@ViewBag.SessionApplyLoanAmount',
+                'productPurchasedId': '@ViewBag.SessionApplyPurposeOfLoan' }
+            });
+        </script>
+    }
+}

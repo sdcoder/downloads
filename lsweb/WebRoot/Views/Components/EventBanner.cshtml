@@ -1,0 +1,43 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+@using FirstAgain.Domain.SharedTypes.ContentManagement
+
+@{
+    var isComponentTemplate = Model.Content.TemplateType == LandingPageContent.VerticalMarketTemplateType.ComponentTemplate;
+}
+
+@if (isComponentTemplate)
+{
+    <div id="cms-youtube-id" style="display:none;">@Model.YouTubeId</div>
+}
+
+<!-- Headline -->
+<div class="widget widget-headline row rate-banner-container event-banner">
+    <div class="widget-header">
+        <h2 class="widget-headline-title banner-text">@Html.Raw(Model.Content.PageTitle)</h2>
+        @if (Model.Content.TemplateType == LandingPageContent.VerticalMarketTemplateType.ComponentTemplate)
+        {
+            <h3 class="widget-headline-subtitle banner-text">@Html.Raw(Model.Content.PageSubTitle)</h3>
+        }
+    </div>
+
+    @if ((isComponentTemplate && !string.IsNullOrWhiteSpace(Model.Content.VideoUrl)) || !isComponentTemplate)
+    {
+        <div class="widget-body">
+            <div class="row">
+                <div class="small-12 columns widget-headline-actions" tabindex="-1">
+                    <i id="headlinePlayButtonDesktop" class="ls ls-play ls-play-1x desktop-only"></i>
+                    <i id="headlinePlayButtonMobile" class="ls ls-play ls-play-1x mobile-only" onclick="$('#headlineVideoModal').foundation('open'); event.stopPropagation();"></i>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<!-- /Headline -->
+<!-- Modals -->
+<div class="reveal small" id="headlineVideoModal" data-options="closeOnClick:false" data-reveal>
+    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+    <div class="medium-12 columns ">
+        <div id="lightstreamVideoMobile"></div>
+    </div>
+</div>
+<!-- /Modals -->

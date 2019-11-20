@@ -1,0 +1,33 @@
+﻿@model  LightStreamWeb.Models.Components.BlogModel
+
+
+<div class="widget row" ng-controller="BlogController as bc" ng-init="bc.init({
+     config: {
+        rssUrl: '@(@Model.BlogTestUrl ?? String.Format("{0}category/{1}/feed/", Model.BlogHostName, Model.Urn))',
+        limit: 2
+     }
+    })" ng-hide="bc.isHidden" id="blog-component">
+    <div class="widget-header">
+        <h2 tabindex="0">The LightStream Blog</h2>
+    </div>
+    <div class="widget-body">
+        <div ng-repeat="blogPost in bc.posts" @*ng-init="$last && bc.onPostsLoaded()"*@ class="widget-blog row">
+            <div class="large-3 medium-4 small-12 columns blogpost-image">
+                <img ng-src="{{blogPost.imageUrl}}" ls-image-loaded="onImageLoaded" alt="" role="presentation"/>
+            </div >
+            <div class="large-9 medium-8 small-12 columns blogpost-content">
+                <div class="row">
+                    <div class="large-12">
+                        <div class="blogpost-title">
+                            <h2 tabindex="0">{{blogPost.title}}</h2>
+                        </div>
+                        <div dynamic="blogPost.summary" data-blog-origtext="{{blogPost.summary}}" class="blogpost-summary" tabindex="0"></div>
+                        <div class="blogpost-readmore">
+                            <a class="readmore" ng-href="{{blogPost.blogPostUrl}}" target="_blank" aria-label="Blog article page will open a new window">Read more...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

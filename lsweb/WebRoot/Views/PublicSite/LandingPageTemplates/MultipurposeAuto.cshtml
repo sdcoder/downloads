@@ -1,0 +1,210 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+@using LightStreamWeb.Helpers
+@using LightStreamWeb.Models.PublicSite
+
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+@{
+    Layout = "~/Views/Layouts/_RedesignBase.cshtml";
+    Model.NavClass = "bluetint";
+    Model.NavAutoLabel = "Auto";
+    Model.Content.TypeOfRateTableCalculator = FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.RateTableCalculatorType.Auto;
+    LightStreamWeb.Models.Components.RateCalculatorModel calculator =
+new LightStreamWeb.Models.Components.RateCalculatorModel()
+{
+    DisplayCalculator = true,
+    FirstAgainCodeTrackingId = Model.FirstAgainCodeTrackingId,
+    PurposeOfLoan = FirstAgain.Domain.Lookups.FirstLook.PurposeOfLoanLookup.PurposeOfLoan.NotSelected,
+    DisplayItsEasyToFindYourRate = true
+};
+
+    var ctaBarModel = new CTABarModel()
+    {
+        CTABarDescriptions = Model.Content.CTABarDescriptions,
+        ShowCTAWhyLightStreamLink = Model.Content.ShowCTAWhyLightStreamLink
+    };
+}
+
+@Styles.Render("~/bundles/redesign-landing-page-styles")
+
+@if (Model.FeatureBullets != null && Model.FeatureBullets.Count() == 3)
+{
+    @Styles.Render("~/bundles/three-feature-bullets");
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Content.CustomCSS))
+{
+    <style>
+        @Html.Raw(Model.Content.CustomCSSMinified)
+    </style>
+}
+
+<div ng-app="LightStreamApp" id="lsAppDiv">
+    <div ng-controller="RateCalculator" ng-init="init('@calculator.PurposeOfLoan', '@calculator.Discount.ToString()', @calculator.IsSuntrustApplication.ToString().ToLower(), @Json.Encode(calculator.CustomRateDisclosureContent), 'Auto')" id="rates">
+
+        @section hero {
+            <div class="banner-container" aria-hidden="true">
+                <img src="@Model.Content.CenterGraphic.ToImageUrl()" alt="@Model.Content.CenterGraphic.Alt" class="banner cms" id="heroBanner">
+                <img src="@Model.Content.MobileCenterGraphic.ToImageUrl()" alt="@Model.Content.MobileCenterGraphic.Alt" class="mobile-banner cms">
+            </div>
+
+            <div class="headline hide-for-small-only home3Headline">
+                <div class="row">
+                    <div class="columns medium-12" style="text-align: center">
+                        <h2 style="text-align: center">@Html.Raw(Model.Title)</h2>
+                    </div>
+                </div>
+
+                <h3>@Html.Raw(Model.Content.PageSubTitle)</h3>
+                <br />
+                <form id="autoFormDesktop"></form>
+            </div>
+
+            <div class="headline show-for-small-only" style="text-align: center; height: 100%; margin-top: 0 !important; top: -36px">
+                <div style="text-align: center" class="mobile-banner-text">
+                    <h2 class="small-12 columns cms">@Html.Raw(Model.Title)</h2>
+                </div>
+                <h3>@Html.Raw(Model.Content.PageSubTitle)</h3>
+                <br />
+                <form id="autoFormMobile"></form>
+            </div>
+        }
+        @Html.Partial("~/Views/PublicSite/Partials/_CTABar.cshtml", ctaBarModel)
+
+        @Html.Partial("~/Views/PublicSite/Partials/_CTABarMobile.cshtml", ctaBarModel)
+
+        @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "isOneClickDisclosure", true } })
+
+        <select ng-model="PurposeOfLoan" id="purposeOfLoanDesktop" ng-cloak ng-click="isLoanPurposeBanner(true)">
+            <option ng-repeat="lp in autoLoanPurposes()" value="{{lp.Value}}" title="{{lp.Caption}}"
+                    ng-selected="lp.Value == rates.PurposeOfLoan">
+                {{lp.Value == 'NotSelected' ? '' : lp.Caption}}
+            </option>
+        </select>
+
+        <select ng-model="PurposeOfLoan" id="purposeOfLoanMobile" ng-cloak ng-click="isLoanPurposeBanner(true)">
+            <option ng-repeat="lp in autoLoanPurposes()" value="{{lp.Value}}" title="{{lp.Caption}}"
+                    ng-selected="lp.Value == rates.PurposeOfLoan">
+                {{lp.Value == 'NotSelected' ? '' : lp.Caption}}
+            </option>
+        </select>
+
+        @if (Model.Content.TypeOfRateTableCalculator == FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.RateTableCalculatorType.Auto)
+        {
+            @Html.Partial("~/Views/Components/RateCalculatorAuto.cshtml", calculator)
+        }
+        else
+        {
+            @Html.Partial("~/Views/Components/RateCalculator.cshtml", calculator)
+        }
+
+        @if (Model.Content.DisplayComparativeTable)
+        {
+            @Html.Partial("~/Views/Redesign/_ComparativeTableAuto.cshtml")
+        }
+
+        @if (Model.Content.DisplayApplyInMinutes)
+        {
+            @Html.Partial("~/Views/PublicSite/Partials/_ApplyInMinutes.cshtml");
+            @Html.Partial("~/Views/PublicSite/Partials/_ApplyInMinutesMobile.cshtml");
+        }
+
+        <div ng-controller="RateDataController">
+            @Html.Partial("~/Views/Redesign/_FeatureBullets.cshtml", Model)
+        </div>
+
+        <div class="row">
+            <div class="columns medium-12" style="padding-left: 10px">
+                <h2 class="thatBlueFontTho" tabindex="0">The LightStream experience</h2>
+            </div>
+        </div>
+
+        <div class="row desktop" id="LSExperienceLarge">
+            <div class="columns medium-4" id="videoColumn" style="padding-left: 0">
+                @Html.Partial("/Views/Redesign/_WhyWereDifferent.cshtml", Model.Content.LightStreamExperienceVideoUrl ?? "https://www.youtube.com/embed/YWLqSduuIho")
+            </div>
+            <div class="columns medium-4">
+                @Html.Action("FeaturedTestimonialRedesign", "Components", new
+           {
+               testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+               mobileTestimonialGraphicUrl = Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "customerCommentsCarouselLarge",
+               isMultipurposeAutoTemplate = true
+           })
+            </div>
+            <div class="columns medium-4" id="mediaCoverage">
+                @Html.Action("MediaCoverageRedesign", "Components", new
+           {
+               mediaGraphicUrl = @Model.Content.MediaCoverageGraphic.ToImageUrl(),
+               mobileMediaGraphicUrl = Model.Content.MobileMediaCoverageGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "mediaCarouselLarge",
+               isMultipurposeAutoTemplate = true
+           })
+            </div>
+        </div>
+
+        <div class="row mobile" id="LSExperienceSmall">
+            <div class="columns small-12" id="videoColumn">
+                @Html.Partial("/Views/Redesign/_WhyWereDifferent.cshtml", Model.Content.LightStreamExperienceVideoUrl ?? "https://www.youtube.com/embed/YWLqSduuIho")
+            </div>
+            <div class="columns small-12" id="customerComments">
+                @Html.Action("FeaturedTestimonialRedesign", "Components", new
+           {
+               testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+               mobileTestimonialGraphicUrl = Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "customerCommentsCarouselSmall",
+               isMultipurposeAutoTemplate = true
+           })
+            </div>
+            <div class="columns small-12" id="mediaCoverage">
+                @Html.Action("MediaCoverageRedesign", "Components", new
+           {
+               mediaGraphicUrl = @Model.Content.MobileMediaCoverageGraphic.ToImageUrl(),
+               mobileMediaGraphicUrl = Model.Content.MobileMediaCoverageGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "mediaCarouselSmall",
+               isMultipurposeAutoTemplate = true
+           })
+            </div>
+        </div>
+
+        @Html.Partial("~/Views/PublicSite/Partials/_LendingUncomplicated.cshtml")
+
+        @section APRDisclosure1 {
+            @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "showPaymentExample", true } })
+        }
+
+        @section APRDisclosure {
+            <br />
+            @Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Content.DisclosureCopy))
+            <br />
+        }
+
+        @Html.Partial("~/Views/PublicSite/Modals/VideoModal.cshtml", String.IsNullOrWhiteSpace(Model.VideoUrl) ? "https://www.youtube.com/embed/YYuxezlgMIg" : Model.VideoUrl)
+
+        <section class="row ruled homeloanuses">
+            @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+        </section>
+    </div>
+</div>
+@section scripts {
+    @Scripts.Render("~/bundles/auto-landing-scripts")
+
+    <script type="text/javascript">
+        @if (Model.Content.TemplateType == FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.MultipurposeAuto)
+        {
+            <text>SC._t({ pageName: '@Model.CustomOmniHierarchy', hier1: '@Model.CustomOmniHierarchy', products: ';AnythingLoan', events: 'prodView' });</text>
+        }
+        else
+        {
+            <text>SC._t({ pageName: '@Model.OmniPageName', hier1: '@Model.OmniHierarchy', products: ';AnythingLoan', events: 'prodView'  });</text>
+        }
+    </script>
+
+}

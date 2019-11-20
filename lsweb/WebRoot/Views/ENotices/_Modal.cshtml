@@ -1,0 +1,33 @@
+﻿<div class="reveal medium enotices" data-reveal id="ENoticesModal" ng-controller="ENoticesController">
+    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h2>e-Notices</h2>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="medium-12 columns">
+            <table class="table">
+                <tr ng-repeat="doc in ENotices.Docs">
+                    <td>
+                        <h5><a ng-click="viewEDoc($index)" ng-class="{'active':ActiveENotice == $index}" >{{doc.ENoticeDate}} {{doc.ENoticeTitle}} {{doc.ApplicantName}}</a></h5>
+                    </td>
+                    <td ng-if="doc.HasPDF">
+                        <h5><a ng-click="downloadEDoc($index)"  ng-class="{'active':ActiveENotice == $index}" >Download PDF</a></h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <hr />
+
+    @Html.Partial("~/Views/ENotices/_SecurityPrompt.cshtml")
+
+    <div class="row">
+        <div class="medium-12 columns" >
+            <div id="ENoticesContent" ng-bind-html="ENoticeContent" ng-show="!ENotices.ShowSecurityPrompt"></div>
+        </div>
+    </div>
+</div>

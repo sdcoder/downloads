@@ -1,0 +1,82 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+@section hero {
+
+    <img src="@Model.Content.CenterGraphic.ToImageUrl()" class="banner ls-desktop" alt="@Model.Content.CenterGraphic.Alt" align="right" />
+
+    <div ng-controller="LandingPageController">
+        <div class="row headline ls-desktop">
+            @* desktop out of scope, so leave in tact until there's a pbi to change it. *@
+            <h2 class="cms" tabindex="0">@Html.Raw(Model.Title)</h2>
+            @if (!string.IsNullOrEmpty(Model.Content.PageSubTitle))
+            {
+                <h4 class="cms" tabindex="0">@Html.Raw(Model.Content.PageSubTitle)</h4>
+            }
+
+            <div class="heroaction clearfix">
+                <div class="ratedetails" tabindex="0">
+                    <p>Fixed rates as low as </p>
+                    <h3 class="ratepercentage">@Html.FormatRateWithDataAttributes(Model.DisplayRate)</h3>
+                    <p class="ratenote">APR with AutoPay</p>
+                </div>
+                <a href="/apply" class="button" onclick="SC.main.banner.applyNow()" ng-click="applyFor('@Model.PurposeOfLoan');" tabindex="0">Apply Now</a>
+
+                <p class="seeratesandterms"><a href="#rates" target="_self" onclick="SC.main.banner.ratesAndTerms()" tabindex="0">See Rates & Terms &raquo;</a></p>
+            </div>
+
+        </div>
+
+        <div class="row headline ls-mobile">
+            <p>
+                <span class="heading cms">@Html.Raw(Model.Title)</span>
+            </p>
+
+            @Html.Partial("~/Views/Components/RateBannerMobile.cshtml", Model.DisplayRate)
+        </div>
+
+    </div>
+
+}
+
+@Html.Partial("~/Views/Components/BestLoanExperienceGuaranteeMobile.cshtml")
+@Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "isOneClickDisclosure", true } })
+
+@if (Model.IfAnyFeatureBulletsDefined())
+{
+    @Html.Partial("~/Views/Components/FeatureBulletAccordion.cshtml")
+}
+
+@if (Model.Content.DisplayCustomerTestimonialRow)
+{
+    <div class="ls-desktop">
+        @Html.Action("FeaturedTestimonial", "Components", new { purpose = Model.PurposeOfLoan })
+    </div>
+}
+
+<div class="row page-article">
+    <article class="cms" tabindex="0">
+        @if (!string.IsNullOrEmpty(Model.Content.ArticleTitle))
+        {
+            @:<h1>@Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Content.ArticleTitle))</h1>
+        }
+
+        <span>
+            @Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Content.ArticleText))
+        </span>
+    </article>
+</div>
+
+<article class="rate-calculator">
+    @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+</article>
+
+<section class="small-12 columns zeromargins ls-mobile">
+    <div class="general-ad-mobile">
+        <p>Lending Uncomplicated<sup>&reg;</sup></p>
+        <a class="button" href="/apply">Apply Now</a>
+    </div>
+</section>

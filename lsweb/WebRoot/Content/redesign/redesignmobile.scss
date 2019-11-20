@@ -1,0 +1,282 @@
+﻿@media screen and (max-width: 725px) {
+    body.home #header img.banner {
+        max-height: 100%;
+    }
+
+    body.home #header .headline h2, body.home #header .headline h3.sub {
+        color: white !important;
+        font-size: 11vw !important;
+        font-weight: 600;
+    }
+
+    #mediaCoverage {
+        padding-right: 0.9375rem;
+    }
+
+    .characteristicTitle {
+        margin-top: 0;
+    }
+
+    .characteristicDescription {
+        font-size: 14px;
+    }
+
+    #mediaCoverage, #videoColumn {
+        .characteristicDescription {
+            padding-left: .9375rem;
+            padding-right: .9375rem;
+        }
+    }
+
+    #feature-bullet-sub-header {
+        font-size: 13px;
+        text-align: left !important;
+    }
+
+    #h2Finally {
+        font-size: 18px;
+    }
+
+    #header {
+        height: 107vw !important;
+        min-height: 580px;
+    }
+
+    #mobileHeroBanner {
+        min-height: 750px;
+        min-width: 520px;
+    }
+
+    .bannerButtonMobile {
+        width: 140px;
+        font-size: small !important;
+        display: inline-block;
+    }
+
+    #applyNowMobile {
+        padding: 12px 25px;
+    }
+
+    #ratesAndTermsMobile {
+        height: 100%;
+    }
+
+    #ctaBarMobile {
+        display: block;
+        height: 48px;
+        opacity: .93;
+        position: absolute;
+        bottom: 59px;
+        width: 105%;
+        left: 0;
+        z-index: 10; /*50;*/
+    }
+
+    #header {
+        /*z-index: 1012;*/
+    }
+
+    .experienceImage {
+        height: 102px;
+    }
+
+    #rewardsYourCredit {
+        padding: 15px;
+    }
+
+    .applyInMinutesBig {
+        display: none;
+    }
+
+    .applyInMinutesSmall {
+        display: block;
+    }
+
+    .applyInMinutesSmall > div > h3 {
+        color: white !important;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+
+    .threeStepsImage {
+        width: 100%;
+        margin-left: 10px;
+        margin-top: 0px;
+    }
+
+    #micMobile {
+        color: #1e4f7e;
+        margin-top: 16px;
+        font-size: 24px;
+    }
+
+    body.home #header img.banner {
+        top: 0;
+    }
+
+    #heroBanner {
+        display: none !important;
+    }
+
+    .mobileBanner {
+        display: block;
+        position: relative;
+        z-index: -1;
+        width: 100%;
+        top: -150px;
+        height: 140vw;
+    }
+
+    .banner-container {
+        height: 95px;
+    }
+
+    .bannerButton {
+        height: 44px;
+    }
+
+    #lsAppDiv {
+        z-index: 9;
+    }
+
+    .ghostBoxMobile {
+        position: absolute;
+        background-color: white;
+        opacity: .25;
+        z-index: -1;
+        margin-left: 14px !important;
+        height: 39px;
+        width: 138px;
+    }
+
+    #LSExperienceLarge {
+        display: none;
+    }
+
+    #LSExperienceSmall {
+        display: block;
+
+        .characteristicTitle {
+            padding-top: 20px;
+        }
+    }
+
+
+    @media screen and (max-width: 332px) {
+        .bannerButtonMobile {
+            width: 126px;
+        }
+
+        #ghostBoxMobile {
+            width: 126px;
+        }
+    }
+
+    #header > div.headline.hide-for-small-only.home3Headline {
+        /*top: 60px !important;*/
+        display: none !important;
+    }
+
+    #header > div.headline.show-for-small-only {
+        top: 60px !important;
+        display: block !important;
+    }
+
+    @media only screen and (max-width: 40em) {
+        body.home #header .headline {
+            top: -36px !important;
+        }
+    }
+
+    #header > div.headline.show-for-small-only > h2:nth-child(4) {
+        font-size: 44px;
+    }
+
+    @media screen and (max-width: 366px) {
+        #header > div.headline.show-for-small-only > h2:nth-child(4) {
+            font-size: 10vw;
+        }
+
+        #header > div.headline.show-for-small-only > span:nth-child(2) {
+            font-size: .5em;
+        }
+    }
+
+    #header > div.headline.show-for-small-only > h2.small-12.columns.cms {
+        font-size: 6vw;
+    }
+
+
+    #header > div.headline.show-for-small-only > div:nth-child(1) > h2:nth-child(4) {
+        font-size: 8vw;
+    }
+
+    #header > div.headline.show-for-small-only {
+        margin-left: 0 !important;
+    }
+
+    #lightstreamVideo {
+        display: none;
+    }
+
+    #ctaBar {
+        display: none;
+    }
+
+    .bluetint {
+        background-color: white;
+        opacity: 1;
+    }
+
+    body.home #header img.banner {
+        position: absolute;
+    }
+
+    .mobileSpan {
+        color: white;
+        font-size: 3.1vw;
+        font-weight: bold;
+    }
+
+    @media screen and (max-width: 480px) {
+        table.records td.first:before {
+            content: "+";
+        }
+
+        table.records tr.expanded td.first:before {
+            content: "–";
+        }
+    }
+
+    #RateTable > div:nth-child(2) > div > div {
+        font-size: 14px;
+    }
+
+    /* Rate table switches to mobile at 480 */
+    @media screen and (max-width: 480px) {
+        .loanTermsMonths {
+            display: block;
+        }
+    }
+
+
+    @media screen and (max-width: 400px) {
+        #mobileHeroBanner {
+            left: -80px;
+        }
+    }
+
+    @media screen and (max-width: 366px) {
+        #ludiv {
+            padding-top: 0;
+        }
+    }
+
+    #header > div.headline.show-for-small-only > div.mobile-banner-text > h2 {
+        text-shadow: 1px 1px 20px black;
+    }
+
+    @import "../partials/_carousel.scss";
+    @import "../partials/_flip-cards.scss";
+}

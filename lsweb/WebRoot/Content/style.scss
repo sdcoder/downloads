@@ -1,0 +1,3854 @@
+﻿/*
+Author: Matt Adams - Splinter Creative
+Author URI: http://splintercreative.com/
+Version: 1.0
+
+*/
+
+/*=====================================================
+======================================================*\
+    CONTENTS
+\*=====================================================
+======================================================*/
+/*
+
+COMMON          HTML, BODY, etc.
+GENERIC CLASSES - Reusable classes
+HEADER			Branding and such
+NAVIGATION		Main navigation, drop downs & so on
+HOME			
+PAGES - CORE
+PAGES - SPECIFIC
+FOOTER
+*/
+
+/*=====================================================
+======================================================*\
+    COMMON
+\*=====================================================
+======================================================*/
+
+@import 'partials/global-variables';
+
+html, body {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 100%/1.25;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+}
+
+@media screen and (max-width: 330px) {
+    body {
+        width: 320px !important;
+        overflow-x: hidden !important;
+    }
+}
+
+/* Set box sizing to eliminate math in the padding */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*Common Formatting =====================================================
+======================================================------------ */
+
+a, a:focus {
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+}
+
+h1 {
+    padding: 10px 0 25px 0;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+    font-size: 40px;
+    line-height: 45px;
+    color: #1f5587;
+    font-weight: 600;
+}
+
+h2 {
+    padding: 10px 0;
+    font-size: 24px;
+    line-height: 28px;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+    color: #1f5587;
+    font-weight: 600;
+}
+
+h1 a, h2 a {
+    color: #1f5587;
+    padding: 0;
+}
+
+
+h3, h3 a {
+    font-size: 18px;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+    font-weight: 600;
+    color: #666666;
+}
+
+p, ul, ol {
+    margin: 0;
+    padding: 0 0 18px 0;
+    font-weight: 500;
+    color: #666666;
+}
+
+ul.tabs {
+    padding-bottom: 0px;
+}
+
+div.reveal .tabs-title > a {
+    font-size: 1.2rem;
+}
+
+p.lead {
+    color: #666666;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 600;
+}
+
+p a {
+    font-weight: bold;
+    color: #1f5586;
+}
+
+p a:hover {
+    color: #1f5586;
+    text-decoration: underline;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+/* Light */
+
+p.light {
+    font-weight: 400 !important;
+}
+
+/* Small Subtext */
+
+em.small {
+    font-style: normal;
+}
+
+
+ul, ol {
+    list-style: none;
+    padding: 0 0 18px 20px;
+}
+
+article ul,
+.content ul,
+#LoanAppFieldset ul {
+    list-style: disc;
+    margin-left: 25px;
+    margin-right: 20px;
+}
+
+.content .ullabel {
+    padding-bottom: 10px;
+}
+
+article li .content li {
+    color: #666;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+blockquote {
+    color: #666;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0;
+    margin: 0 0 3px 0;
+    border: 0px;
+}
+
+cite {
+    color: #1f5586;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 2px 0 0;
+    display: block;
+    font-weight: bold;
+    font-style: normal;
+}
+
+form {
+    margin: 0;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+ul li form ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li form ul li {
+    margin: 0;
+    padding: 0;
+}
+
+form dl,
+form dl dt,
+form dl dd {
+    margin: 0;
+}
+
+textarea {
+    min-height: 142px;
+}
+
+form ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+form ul li {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-input-placeholder {
+    color: #088888;
+    font-family: 'proxima-nova', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+:-moz-placeholder {
+    color: #088888;
+    font-family: 'proxima-nova', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+::-moz-placeholder {
+    color: #088888;
+    font-family: 'proxima-nova', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+:-ms-input-placeholder {
+    color: #088888;
+    font-family: 'proxima-nova', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+small {
+    font-size: 0.85em;
+}
+
+img {
+    border: 0;
+}
+
+sup {
+    position: relative;
+    bottom: 0.3em;
+    vertical-align: baseline;
+}
+
+sub {
+    position: relative;
+    bottom: -0.2em;
+    vertical-align: baseline;
+}
+
+acronym, abbr {
+    cursor: help;
+    letter-spacing: 1px;
+    border-bottom: 1px dashed;
+}
+
+/*Links =====================================================
+======================================================------------ */
+
+a, a:visited {
+    text-decoration: none;
+}
+
+a.info {
+    background: url(/content/images/icon_i_small.png) no-repeat left center;
+    display: block;
+    line-height: 20px;
+    margin-top: 2px;
+    padding-left: 26px;
+}
+
+a.small {
+    display: block;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+/* Forms =====================================================
+======================================================------------ */
+
+form {
+    margin: 0;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+ul li form ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li form ul li {
+    margin: 0;
+    padding: 0;
+}
+
+form dl,
+form dl dt,
+form dl dd {
+    margin: 0;
+}
+
+form label {
+    padding: 10px 0 0;
+    font-size: 16px;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+    color: #1f5586;
+    font-weight: 700;
+}
+
+form p.description {
+    font-size: 14px;
+    font-family: "proxima-nova", arial, helvetica, sans-serif;
+}
+
+form select,
+form input,
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+.ui-form-select,
+textarea {
+    color: #088888; //if set !important will overwrite the color of placeholder in IE
+    font-weight: 600;
+    border: 1px solid #cccccc;
+    background-color: #fff;
+    background: -moz-linear-gradient(top, #fff 0%, #eee 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#eee)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #fff 0%,#eee 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #fff 0%,#eee 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #fff 0%,#eee 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #fff 0%,#eee 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#eee',GradientType=0 ); /* IE6-9 */
+}
+
+form select,
+.ui-form-select,
+.ui-form-select:hover form select:hover {
+    background: url("#{$image-url-base}/select.jpg") no-repeat right center;
+    -moz-appearance: none;
+}
+
+form input::-webkit-outer-spin-button,
+form input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+form .forminfo, .forminfo {
+    background: url(#{$image-url-base}/icon-information.png) no-repeat top left;
+    background-size: 25px 25px;
+    padding: 0 0 10px 32px;
+    margin: 10px 0;
+}
+
+form .forminfo p, .forminfo p {
+    color: #088888;
+
+    &.smaller {
+        font-size: 0.8rem;
+    }
+
+    &.black {
+        color: #000;
+    }
+
+    a, a:visited {
+        color: #1f5587;
+    }
+}
+
+form .formalert {
+    background: url("#{$image-url-base}/icon-alert.png") no-repeat top left; background-size: 25px 25px;
+    padding: 0 0 10px 32px;
+    margin: 10px 0;
+}
+
+form .formalert p {
+    color: #e9292c;
+    a {
+        color: inherit;
+        text-decoration: initial !important;
+        &:focus {
+            text-decoration: underline !important;
+        }
+    }
+}
+
+form p.calculated {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: bold;
+    color: #00467e;
+}
+
+form .button,
+form .button:hover,
+form a.button,
+form a.button:hover {
+    font-size: 18px;
+}
+
+.reveal-modal {
+    z-index: 999999;
+}
+
+
+/*Utility Classes =====================================================
+======================================================------------ */
+
+.clear {
+    clear: both;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+/* start commented backslash hack \*/
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+/* close commented backslash hack */
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.img-left, .align-left {
+    float: left;
+    margin: 4px 10px 4px 0;
+}
+
+.img-right, .align-right {
+    float: right;
+    margin: 4px 0 4px 10px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.zeroleft {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.zeroright {
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+.zeromargins {
+    margin: 0;
+    padding: 0;
+}
+
+.showie8 {
+    display: none;
+}
+
+.darktint {
+    background: url("#{$image-url-base}/black-tint.png") repeat;
+}
+
+.strikethrough-red-slanted {
+    position: relative;
+    display: inline-block;
+}
+
+.strikethrough-red-slanted::before, .strikethrough-red-slanted::after {
+    content: '';
+    width: 30%;
+    position: absolute;
+    right: 0;
+    top: 40%;
+    left: 5px;
+}
+
+.strikethrough-red-slanted::before {
+    border-bottom: 2px solid red;
+    -webkit-transform: skewY(-45deg);
+    transform: skewY(-45deg);
+}
+
+iframe {
+    height: auto;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.fluidMedia {
+    position: relative;
+    padding-bottom: 56.25%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.fluidMedia iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media all and (min-width: 768px) {
+    .medium-fifth {
+        width: 20%;
+    }
+}
+
+@media all and (max-width: 568px) {
+    .columns.full-mobile {
+        padding: 0;
+    }
+
+    select {
+        padding-right: 2rem;
+    }
+}
+
+/* Buttons =====================================================
+======================================================------------ */
+
+.button,
+a.button {
+    border: 0px;
+    background: #fed406;
+    color: #00416f !important;
+    font-weight: 700 !important;
+    font-size: 24px;
+    box-shadow: inset 0px 0px 12px 8px #f6a537;
+    padding: 10px 25px;
+    border-radius: 0 0 0 0 !important;
+}
+
+.button:hover,
+a.button:hover,
+.button:focus,
+a.button:focus {
+    background: #f6a537;
+    color: #00416f;
+    box-shadow: inset 0px 0px 12px 8px #db8206;
+}
+
+.button-navy:focus {
+    text-decoration: underline !important;
+}
+
+.button-medium,
+a.button-medium,
+.button-medium:hover,
+a.button-medium:hover {
+    font-size: 16px;
+    padding: 8px 15px;
+}
+
+.fa {
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .2s ease-in;
+    -ms-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.fa .fa-rotate-180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/*=====================================================
+======================================================*\
+    GENERIC CLASSES
+\*=====================================================
+======================================================*/
+
+.brand {
+    color: #00467e !important;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    float: left;
+}
+
+.lower {
+    text-transform: none;
+}
+
+.right {
+    float: right;
+}
+
+.strong {
+    font-weight: 700;
+}
+
+.tight-m {
+    margin: 0 !important;
+}
+
+.tight-p {
+    padding: 0 !important;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.tight-p-left {
+    padding-left: 0;
+}
+
+.tight-p-right {
+    padding-right: 0;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Accordion */
+
+ul.accordian {
+    margin: 0;
+    padding: 0;
+}
+
+ul.accordian > li {
+    margin-bottom: 18px;
+}
+
+ul.accordian li .content {
+    display: none;
+    padding: 20px 0;
+}
+
+ul.accordian li .content.active {
+    display: block;
+}
+
+/* Ads */
+
+div.ad {
+    color: #666;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 28px auto 56px;
+}
+
+div.ad:first-of-type {
+    margin-top: 0;
+}
+
+div.ad .message {
+    display: block;
+}
+
+/* Ad - Apply Now */
+
+div.ad.apply {
+    background: url(/content/images/about/ad-apply.jpg) no-repeat center;
+    background-size: cover;
+    display: block;
+    padding: 20px 20px 20px 50%;
+}
+
+.home div.ad.apply {
+    max-height: 228px;
+}
+
+div.ad.apply .message {
+    color: #fff;
+    float: right;
+    margin: 6px 0 96px;
+    text-align: right;
+    width: 180px;
+}
+
+div.ad.apply .button {
+    margin-bottom: 10px;
+}
+
+div.ad.apply .small {
+    clear: both;
+}
+
+/* Ad - News */
+
+div.ad.news {
+    background: #fff url("#{$image-url-base}/about/ad-news.jpg") no-repeat bottom right; border-top: 5px solid #00467e;
+    border-bottom: 5px solid #00467e;
+    color: #666;
+    padding: 10px 8px 90px 8px;
+}
+
+/* Ad - Comments */
+
+div.ad.comments {
+    max-width: 350px;
+}
+
+div.ad.comments .quote {
+    display: block;
+    margin-top: 30px;
+}
+
+div.ad.comments .quote a {
+    color: #666;
+    display: block;
+    margin-top: 16px;
+}
+
+div.ad.comments .quote a:hover {
+    color: #00467e;
+}
+
+/* Bubble (Comments) */
+
+.bubble {
+    display: block;
+    line-height: 16px;
+    max-width: 350px;
+    position: relative;
+    text-align: center;
+}
+
+.bubble .text {
+    color: #fff;
+    display: block;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    position: relative;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.bubble img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    position: relative;
+    z-index: 0;
+}
+
+/* Grid */
+
+@media all and (min-width: 768px) {
+    .medium-fifth {
+        width: 20%;
+    }
+}
+
+@media all and (max-width: 568px) {
+    .columns.full-mobile {
+        padding: 0;
+    }
+}
+
+/* Help (Double Talk Bubble 226) */
+
+div.help {
+    min-height: 88px;
+}
+
+div.help img {
+    display: block;
+}
+
+div.help h2 {
+    margin: 0;
+}
+
+div.help p {
+    color: #666;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Help - Responsiveness */
+
+@media all and (min-width: 569px) {
+
+    div.help {
+        padding-left: 242px;
+    }
+
+    div.help img {
+        float: left;
+        margin-left: -242px;
+    }
+
+    div.help h2 {
+        padding-top: 6px;
+    }
+}
+
+@media all and (max-width: 568px) {
+
+    div.help img {
+        margin-bottom: 20px;
+    }
+}
+
+/* Info */
+
+a.info {
+    background: url(/content/images/icon_i_small.png) no-repeat left center;
+    display: block;
+    line-height: 20px;
+    margin-top: 2px;
+    padding-left: 26px;
+}
+
+/* Light */
+
+p.light {
+    font-weight: 400 !important;
+}
+
+/* Main Content =====================================================
+======================================================------------ */
+
+div.main {
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+}
+
+div.main h2 {
+    color: #00467e;
+    font-size: 40px;
+    line-height: 44px;
+    margin: 20px 0 16px;
+}
+
+div.main h3 {
+    color: #00467e;
+    font-size: 20px;
+}
+
+@media all and (min-width: 1000px) {
+    h3.sub {
+        width: 440px;
+    }
+}
+
+/* Records Table =====================================================
+======================================================------------ */
+table {
+    border: 0px;
+}
+
+table.records {
+    background: transparent;
+    margin: 0 0 20px 0;
+    width: 100%;
+    border: 0px;
+}
+
+.rateTableHeaderRow, .loanTermsMonths {
+    display: none;
+}
+
+
+table.records tr td:first-of-type span.rate-range-large,
+table.records tr.expanded td span.rate-range-large {
+    display: block;
+}
+
+@media all and (max-width: 480px) {
+
+    table.records thead {
+        background: #b9deff;
+    }
+
+    table.records th,
+    table.records tr td {
+        font-size: 12px !important;
+        position: relative;
+        text-align: center;
+        color: #666;
+        font-weight: bold;
+    }
+
+    table.records th,
+    table.records tr td:first-of-type {
+        color: #00467e !important;
+    }
+
+    table.records tr.even,
+    table.records tr.alt,
+    table.records tr:nth-of-type(even) {
+        background: #b9deff;
+    }
+
+    table.records tbody tr {
+        border-top: 1px solid #7b7b7b;
+    }
+
+    table.records, table.records thead, table.records tbody, table.records th, table.records td, table.records tr {
+        background: transparent;
+        display: block;
+    }
+
+    table.records {
+        margin: 0;
+        width: 100%;
+    }
+
+    table.records thead tr {
+        left: -9999px;
+        position: absolute;
+        top: -9999px;
+    }
+
+    table.records thead tr,
+    table.records tbody tr {
+        border: 0;
+    }
+
+    table.records tr td {
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.025);
+        cursor: pointer;
+        display: none;
+        position: relative;
+        text-align: right;
+    }
+
+    table.records tr td:first-of-type,
+    table.records tr.expanded td {
+        display: block;
+        border-right: 1px solid #8ab6dc !important;
+        border-left: 1px solid #8ab6dc !important;
+    }
+
+    table.records tr td:first-of-type span.rate-range-large,
+    table.records tr.expanded td span.rate-range-large {
+        display: none;
+    }
+
+    table.records tr td:first-of-type {
+        background: #d8edfe;
+        font-size: 16px !important;
+        padding-left: 18px;
+    }
+
+    table.records tr td:before {
+        position: absolute;
+        top: 9px;
+        left: 18px;
+        white-space: nowrap;
+    }
+}
+
+/* Small Subtext */
+
+em.small {
+    font-style: normal;
+}
+
+/* Small Link */
+
+a.small {
+    display: block;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+/* Supporting Content =====================================================
+======================================================------------ */
+
+div.supporting {
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+}
+
+div.supporting h2 {
+    margin: 0 0 24px;
+    padding: 0;
+}
+
+/* Testimonials (In Our Customers Words) =====================================================
+======================================================------------ */
+
+ul.testimonials {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.testimonials li {
+    border-bottom: 2px solid #ccc;
+    padding: 28px 0;
+}
+
+ul.testimonials li:first-child {
+    padding-top: 0;
+}
+
+/* Toggle Tools =====================================================
+======================================================------------ */
+
+a.toggle {
+    background: #003367;
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00467e', endColorstr='#002150');*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#00467e), to(#002150));
+    background: -moz-linear-gradient(top, #00467e, #002150);
+    color: #fff;
+    display: block;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 12px;
+    position: relative;
+}
+
+a.toggle:after {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: 14px solid #fff;
+    content: '';
+    display: block;
+    height: 0;
+    right: 12px;
+    position: absolute;
+    top: 9px;
+    width: 0;
+}
+
+a.toggle.active:after,
+.active .toggle:after {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 14px solid #fff;
+    border-top: 0;
+    top: 11px;
+}
+
+.accordian .content ul {
+    /*list-style-type: none;*/
+    padding-left: 10px;
+}
+
+/*
+
+a.toggle:after {
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;  
+  border-left: 14px solid #fff;
+  content: '';
+  display: block;
+  height: 0;
+  right: 12px;
+  position: absolute;
+  top: 9px;
+  width: 0; 
+}
+
+a.toggle.active:after, .active .toggle:after {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;  
+  border-top: 12px solid #fff;
+  border-bottom: 0;
+  top: 11px;
+}
+
+*/
+
+/*=====================================================
+======================================================*\
+    HEADER
+\*=====================================================
+======================================================*/
+
+#header {
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.widerow {
+    padding: 0;
+}
+
+#header h1,
+#header h1 a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-indent: -5000px;
+    width: 303px;
+    height: 55px;
+}
+
+#header h1 {
+    margin: 14px 0 0;
+}
+
+#header h1 a {
+    background: url("#{$image-url-base}/lightstream-logo.png") no-repeat left center 303px 55px;
+    background-size: contain;
+    background-image: url("#{$image-url-base}/lightstream-logo.png"); // obscure safari bug
+}
+
+.apply #header h1 a {
+    background: none;
+}
+
+@media screen and (max-width: 1000px) {
+
+    #header {
+        height: auto;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    #header {
+        height: auto;
+    }
+
+    #header h1,
+    #header h1 a {
+        width: 220px;
+        height: 65px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .navbar {
+        min-height: 60px;
+    }
+
+    #header h1,
+    #header h1 a {
+        left: -10px;
+        position: relative;
+        top: 2px;
+    }
+}
+
+.navtoggle {
+    display: none;
+}
+
+#header h3.tagline {
+    color: #f9a93a;
+    font-size: 22px;
+    margin: 28px 10px 0;
+    padding: 0;
+    font-weight: 700;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+#header h3.tagline span {
+    color: #fff;
+}
+
+@media screen and (min-width: 500px) and (max-width: 725px) {
+    #header .medium-3 {
+        width: 58.33333% !important;
+    }
+}
+
+@media screen and (max-width: 725px) {
+    #header h1,
+    #header h1 a {
+        width: auto !important;
+        height: auto !important;
+        margin-top: 4px;
+    }
+
+    #header h1 a {
+        background: url("#{$image-url-base}/lightstream-logo-color.jpg") no-repeat center;
+        background-size: contain;
+    }
+
+    #header .branding {
+        left: 10px;
+    }
+
+    .navtoggle,
+    .navtoggle:hover {
+        display: block;
+        float: right;
+        font-size: 18px;
+        margin-top: 14px;
+        float: left;
+        left: -5px;
+        top: -5px;
+    }
+
+    .headerbar h3 {
+        text-align: left;
+        padding-bottom: 5px;
+        margin-top: 10px;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    #header h3.tagline {
+        display: none;
+    }
+
+    #header .mini-columns {
+        float: right;
+        width: 50px;
+    }
+
+    #header .mini-columns .label {
+        font-size: 9px;
+        font-weight: bold;
+        margin-top: 20px;
+        border-radius: 5px;
+        background-color: #fed406;
+    }
+
+    #header .mini-columns .label.apply-now {
+        left: -15px;
+        background-color: #e8bf0b;
+        color: #16436c;
+    }
+
+    #header .mini-columns .label.signin {
+        background-color: #daedfb;
+        color: #16436c;
+    }
+
+    #header h1 {
+        margin: 0;
+    }
+
+    body.home.partner #header h1 {
+        display: block !important;
+    }
+
+    .partner_detail h4 {
+        padding-right: 15px;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .navtoggle,
+    .navtoggle:hover {
+        font-size: 30px;
+        left: 0px;
+        top: -5px;
+    }
+
+    #header .branding {
+        top: 10px;
+    }
+}
+
+@media screen and (min-width: 500) {
+    #header .branding {
+        top: -10px;
+    }
+
+    #header .medium-3 {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 726px) {
+    #header .mini-columns {
+        display: none;
+    }
+
+    #header .branding {
+        top: 0;
+    }
+
+    .apply #header .branding {
+        left: 10px;
+    }
+}
+
+/*=====================================================
+======================================================*\
+    NAVIGATION
+\*=====================================================
+======================================================*/
+
+.navbar {
+    padding: 0 0px;
+    z-index: 999;
+}
+
+.headerbar {
+    padding: 0 15px;
+}
+
+#header nav {
+    display: block;
+    padding-top: 55px;
+    z-index: 999;
+    margin: 0;
+}
+
+#header nav ul {
+    margin: 0 0 10px;
+    padding: 0;
+    text-align: right;
+}
+
+#header nav li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 9px;
+    padding: 0 0px 0;
+}
+
+#header nav li.current_page a {
+    border-bottom: 3px solid #f9a93a;
+}
+
+#header nav li a {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: block;
+}
+
+#header nav li a:hover {
+    color: #f9a93a;
+}
+
+@media screen and (max-width: 941px) {
+    #header nav li {
+        margin: 0 5px;
+    }
+
+    #header nav li a,
+    #header nav li span {
+        color: #fff;
+        font-size: 13px;
+    }
+
+    #header nav li #ApplyNavLink,
+    #header nav li #SignInNavLink {
+        min-height: 25px;
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width: 725px) {
+
+    .darktint.headerbar {
+        background: #fff !important;
+    }
+
+    #header nav {
+        display: none;
+        position: relative;
+        width: 100%;
+        z-index: 999 !important;
+        border-top: 1px solid #00467e;
+        margin-top: 5px;
+        padding: 0;
+    }
+
+    #header nav li {
+        margin: 0 7px;
+        padding: 5px 0 0;
+        display: block;
+        width: 98%;
+        text-align: left;
+        border-bottom: 1px solid #00467e;
+    }
+
+    #header nav li a,
+    #header nav li span,
+    #header nav li a:visited {
+        font-size: 15px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 8px 5px;
+        color: #00467e;
+    }
+}
+
+#header nav li.current_page {
+    border-bottom: 0px;
+}
+
+#header nav li.current_page a {
+    color: #f9a93a;
+}
+
+/* General Headers =====================================================
+======================================================------------ */
+
+body.sub #header {
+    overflow: hidden;
+    height: 600px;
+}
+
+body.sub #header h2 {
+    color: #fff;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 34px;
+}
+
+body.sub #header h3.sub {
+    color: #fff;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 34px;
+}
+
+/*=====================================================
+======================================================*\
+    HOME
+\*=====================================================
+======================================================*/
+
+.home .ad {
+    height: 228px;
+    margin: 0;
+}
+
+body.home #header {
+    height: 560px;
+    margin-bottom: 0px;
+}
+
+body.home #header img.banner {
+    width: 100%;
+    padding: 0;
+    position: relative;
+    display: block;
+    z-index: -1;
+    top: -100px;
+    left: 0px;
+    margin-bottom: -70px;
+}
+
+body.home #header .headline {
+    position: absolute;
+    z-index: 100;
+    top: 100px;
+    padding: 0 30px;
+    max-width: 90%;
+}
+
+body.home #header .headline h2 {
+    font-size: 48px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin: 15px 0 15px;
+    padding: 0;
+}
+
+body.home #header .subtitle {
+    font-size: 28px;
+    color: #fff;
+    margin: -28px 0 15px;
+}
+
+body.home #header .headline h2 span {
+    font-size: 28px;
+    line-height: 28px;
+}
+
+@media screen and (max-width: 40em) {
+    .home .homepromotions .ad.recentnews {
+        width: initial;
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    body.home #header {
+        height: auto;
+        margin-bottom: -30px;
+    }
+
+    body.home #header .headline {
+        max-width: 95%;
+        top: 62px;
+    }
+
+    body.home #header .headline h2 {
+        font-size: 40px;
+        line-height: 32px;
+        margin: 40px 0 15px;
+    }
+
+    body.home #header .subtitle {
+        font-size: 24px;
+        margin: -15px 0 10px;
+    }
+}
+
+@media screen and (max-width: 725px) {
+    body.home #header {
+        height: auto;
+        margin-bottom: 0px;
+    }
+
+    body.home #header img.banner {
+        top: 0px;
+        margin-bottom: 0px;
+    }
+
+    body.home #header .headline {
+        max-width: 100%;
+        top: 50px;
+    }
+
+
+    body.home #header .headline h2 {
+        font-size: 50px;
+    }
+}
+
+@media screen and (max-width: 641px) {
+
+    body.home #header .headline {
+        margin: 0;
+    }
+
+
+    body.home #header .headline h2 {
+        font-size: 50px;
+    }
+
+    body.home #header h3.sub {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    body.home #header img.banner {
+        top: 0px;
+        margin-bottom: 30px;
+        max-height: 250px;
+        width: 100%;
+        overflow-x: hidden;
+        z-index: -1;
+    }
+
+
+    body.home #header .headline {
+        position: relative;
+        top: 0px;
+        max-width: 85%;
+        margin: 20px 0;
+        z-index: 1;
+    }
+
+    body.home #header .headline h2,
+    body.home #header .headline h3.sub {
+        color: #00467e !important;
+    }
+}
+
+/* Home Hero =====================================================
+======================================================------------ */
+
+.heroaction {
+    background: url("#{$image-url-base}/black-tint.png") repeat;
+    width: 230px;
+    padding: 5px;
+}
+
+.heroaction p, .heroaction p a {
+    color: #fff;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.heroaction h3.ratepercentage {
+    font-size: 68px;
+    line-height: 60px;
+    padding: 0;
+    color: #fff;
+    margin: 15px 0 0;
+    text-align: center;
+}
+
+.heroaction h3.ratepercentage span {
+    font-size: 30px;
+    font-weight: 500;
+    position: relative;
+    top: -25px;
+}
+
+.heroaction .button {
+    display: block;
+    width: 90%;
+    margin: 5px auto 5px;
+    font-weight: 900 !important;
+}
+
+.heroaction .rate-match-image {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Rate Match Page =====================================================
+======================================================------------ */
+.rate-match-content .rate-match-content-title {
+    font-size: 1.875rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.rate-match-features h4 {
+    font-size: 1.4375rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #666;
+}
+
+@media screen and (max-width: 1000px) {
+
+    #header h3.tagline {
+        margin: 3px 0;
+        padding: 0;
+    }
+
+    #header .headline h2 {
+        font-size: 44px;
+        font-weight: 600;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .heroaction:not(.no-header) {
+        width: 170px;
+        height: auto;
+    }
+
+    .heroaction:not(.no-header) .ratedetails p,
+    p.seeratesandterms,
+    p.seeratesandterms a {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .heroaction:not(.no-header) .ratedetails h3.ratepercentage {
+        font-size: 44px;
+        line-height: 34px;
+    }
+
+    .heroaction:not(.no-header) h3.ratepercentage span {
+        font-size: 25px;
+        font-weight: 500;
+        position: relative;
+        top: -10px;
+    }
+
+    .heroaction:not(.no-header) a.button {
+        font-size: 15px;
+        margin-top: 11px;
+        padding: 2px 5px;
+        width: 126px;
+    }
+
+    .heroaction .ratenote {
+        margin-top: -12px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    #header h3.tagline {
+        margin: 3px 0;
+        padding: 0;
+    }
+
+    #header .headline h2 {
+        font-size: 39px;
+        font-weight: 600;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .heroaction {
+        width: 170px;
+        height: auto;
+    }
+
+    .heroaction .ratedetails p,
+    p.seeratesandterms,
+    p.seeratesandterms a {
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .heroaction .ratedetails h3.ratepercentage {
+        font-size: 38px;
+        line-height: 30px;
+    }
+
+    .heroaction h3.ratepercentage span {
+        font-size: 20px;
+        font-weight: 500;
+        position: relative;
+        top: -9px;
+    }
+
+    .heroaction a.button {
+        font-size: 15px;
+        padding: 10px 5px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    header {
+        overflow-x: hidden;
+    }
+
+    #header h1,
+    #header h1 a {
+        padding: 0;
+        margin: 0;
+    }
+
+    body.home #header .headline {
+        max-width: 100%;
+        display: block;
+        padding: 10px;
+        position: relative;
+        left: 0px;
+        top: -30px;
+        margin-bottom: -30px;
+        background: none;
+    }
+
+    body.home #header .headline h2 {
+        font-size: 34px;
+        font-weight: 700;
+        padding: 0px 0 0 0px !important;
+        text-align: left;
+        margin: 0 0 0 0 !important;
+        color: #00467e;
+    }
+
+    body.home #header h3.tagline {
+        font-size: 14px;
+        text-align: center;
+        margin: 3px 0 0;
+        color: #00467e;
+        padding: 0;
+    }
+
+    .heroaction, .heroaction:not(.no-header) {
+        width: 100%;
+        background: none;
+    }
+
+    .heroaction .ratedetails {
+        float: left;
+        overflow-x: hidden;
+        color: #00467e;
+        padding-left: 0px;
+        width: 55%;
+    }
+
+    .heroaction .ratedetails p {
+        font-size: 15px;
+        line-height: 24px;
+        color: #00467e;
+        margin: 0;
+        padding: 0 0 8px;
+    }
+
+    .heroaction .ratedetails h3.ratepercentage {
+        font-size: 60px;
+        line-height: 30px;
+        color: #00467e;
+        margin: 0;
+        padding: 5px 0;
+    }
+
+    .heroaction h3.ratepercentage span {
+        font-size: 20px;
+        font-weight: 500;
+        position: relative;
+        color: #00467e;
+        top: -20px;
+    }
+
+    .heroaction a.button {
+        display: block;
+        float: right;
+        font-size: 15px;
+        width: 42%;
+        padding: 10px 5px;
+        margin-top: 1px;
+    }
+
+    .seeratesandterms {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .heroaction:not(.no-header) {
+        width: 100%;
+    }
+}
+
+@media (min-width: 40.063em) and (max-width: 768px) {
+    body.home #header .headline h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    body.home #header .subtitle {
+        font-size: 14px;
+        font-weight: 700;
+        text-shadow: 1px 1px 2px #2e2e2e;
+    }
+
+    .rate-match-content .rate-match-content-title {
+        font-size: 1.6875rem;
+        line-height: 1.4rem;
+    }
+
+    .rate-match-content h4 {
+        font-size: 1.125rem;
+    }
+}
+
+@media only screen and (max-width: 40em) {
+    body.home #header .headline {
+        position: relative;
+        top: 0;
+        margin: 0;
+        padding: 0 10px;
+    }
+
+    body.home #header .headline h2 {
+        text-shadow: none;
+        color: #00467e;
+        margin: 0;
+        padding: 0;
+        font-size: 34px;
+        line-height: 36px;
+        font-weight: 700;
+    }
+
+    body.home #header .subtitle {
+        color: #00467e;
+        font-size: 14px;
+        margin: 0 0 10px;
+    }
+
+    .home #header .rates.row {
+        background-color: #d9eeff;
+        padding: 10px;
+    }
+
+    .home #header .rates-container {
+        text-align: center;
+    }
+
+    /*.home #header .rates-container .rates-details {
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0;
+            color: #1f5587;
+            line-height: 1.3;
+        }
+
+        .home #header .rates-container .rates-percentage {
+            font-size: 45px;
+            font-weight: 700;
+            line-height: 45px;
+            color: #1f5587;
+        }*/
+
+    .home #header .rates-container .button {
+        font-size: 16px;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+        display: block;
+        position: absolute;
+        top: 1.5rem;
+        left: -1rem;
+    }
+
+    .home #header .rates-container .rates-link {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #1f5587;
+        position: absolute;
+        top: 1rem;
+        left: -1rem;
+    }
+
+    .home.landing-page.responsive-partner-option-1-page #header .rates-container .rates-link {
+        font-size: 0.7rem;
+    }
+
+    .home .homefeatures h3 {
+        margin: 0 10px 20px;
+    }
+
+    .home .homefeatures ul {
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-left: 0.9375rem;
+        color: #00467e;
+        font-weight: 700;
+    }
+
+    .home .homefeatures a {
+        display: block;
+    }
+
+    .home .homefeatures p {
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    .home .homepromotions .recentnews {
+        background-size: 208px;
+    }
+
+    .home .homepromotions .recentnews p {
+        line-height: 1.1;
+        font-size: 18px;
+        padding: 5px 37% 5px 5px;
+    }
+
+    .home .featured_testimonial blockquote {
+        line-height: 1.1;
+        font-size: 24px;
+    }
+}
+
+@media only screen and (max-width: 40em) and (orientation: landscape) {
+    .home .homefeatures p {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 40em) and (orientation: portrait) {
+    .home .homepromotions .recentnews {
+        position: relative;
+        padding: 10px;
+        margin: 3px 1%;
+        background-size: 150px;
+        width: inherit;
+    }
+
+    .home .homepromotions .recentnews p {
+        padding: 0 40% 0 0;
+        font-size: 16px;
+    }
+
+    .home .homepromotions .recentnews cite {
+        padding: 0;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+}
+
+
+/* Partner Headers =====================================================
+======================================================------------ */
+
+.partner_disclaimer {
+    text-align: center;
+    font-size: 12px;
+    padding: 4px;
+    border-bottom: 2px solid #00467e;
+}
+
+
+.partner_light .partner_disclaimer p {
+    color: #222;
+    font-weight: light;
+    font-size: 12px;
+    padding: 0;
+}
+
+.partner_light .partner_disclaimer p a,
+.partner_light .partner_disclaimer p a:visited {
+    text-decoration: underline;
+    color: #222;
+    font-weight: lighter;
+}
+
+body.home.partner #header h1 a {
+    background: url("#{$image-url-base}/lightstream-logo-color.jpg") no-repeat left center;
+    background-size: contain;
+}
+
+.partner_detail h4 {
+    text-align: right;
+    text-transform: uppercase;
+    color: #f9a93a;
+    font-size: 14px;
+    vertical-align: bottom;
+    margin: 0;
+    padding: 20px 5px 0;
+}
+
+.partner_detail img {
+    text-align: right;
+    max-width: 71px;
+    padding: 10px 0;
+    position: inherit !important;
+}
+
+.partner #header nav {
+    clear: right;
+    padding-top: 0;
+}
+
+body.home.partner #header img.banner {
+    width: 100%;
+    padding: 0;
+    position: relative;
+    display: block;
+    z-index: -1;
+    top: 0px;
+    margin-bottom: 0px;
+}
+
+body.home.partner #header nav li a,
+body.home.partner #header nav li span {
+    color: #00467e;
+}
+
+body.home.partner.responsive-partner-option-1-page #header .headline.show-for-small-only .partner-logo-container {
+    top: 1em;
+    float: right;
+}
+
+@media screen and (max-width: 1000px) {
+    body.home.partner #header {
+        height: auto;
+        padding-bottom: 50px;
+        margin-bottom: -30px;
+    }
+
+    body.home.partner #header img {
+        top: -70px;
+        margin-bottom: -70px;
+    }
+
+    body.home.partner.responsive-partner-option-1-page #header img {
+        top: auto;
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 641px) {
+
+    .partner #header {
+        overflow-x: hidden;
+        height: auto;
+        padding-bottom: 30px;
+        margin-bottom: 0px !important;
+    }
+
+
+    .partner #header h1,
+    .partner #header h1 a {
+        padding: 0;
+        margin: 0;
+    }
+
+    body.home.partner #header .headline {
+        max-width: 100%;
+        display: block;
+        padding: 10px;
+        position: relative;
+        left: 0px;
+        top: 10px;
+        margin-bottom: 0px;
+        background: none;
+    }
+
+    body.home.partner #header .headline h2 {
+        font-size: 30px;
+        font-weight: 700;
+        padding: 0px 0 0 0px !important;
+        text-align: left;
+        margin: 0 0 0 0 !important;
+        color: #00467e;
+    }
+
+
+    body.home.partner #header h3.tagline {
+        font-size: 14px;
+        text-align: center;
+        margin: 3px 0 0;
+        color: #00467e;
+        padding: 0;
+    }
+
+
+    body.home.partner .heroaction {
+        width: 100%;
+        padding: 0px;
+        background: none;
+    }
+
+    body.home.partner .heroaction .ratedetails {
+        float: left;
+        overflow-x: hidden;
+        color: #00467e;
+        padding-left: 0px;
+        width: 55%;
+    }
+
+    body.home.partner .heroaction .ratedetails p {
+        font-size: 15px;
+        line-height: 24px;
+        color: #00467e;
+        margin: 0;
+        padding: 0 0 8px;
+    }
+
+    body.home.partner .heroaction .ratedetails h3.ratepercentage {
+        font-size: 60px;
+        line-height: 30px;
+        color: #00467e;
+        margin: 0;
+        padding: 5px 0;
+    }
+
+    body.home.partner .heroaction h3.ratepercentage span {
+        font-size: 20px;
+        font-weight: 500;
+        position: relative;
+        color: #00467e;
+        top: -20px;
+    }
+
+    body.home.partner .heroaction a.button {
+        display: block;
+        float: right;
+        font-size: 15px;
+        width: 42%;
+        margin-top: 1px;
+    }
+
+    body.home.partner.no-header .seeratesandterms {
+        display: block;
+    }
+}
+
+
+
+
+
+
+/* Home toggle for the best experience promise =====================================================
+======================================================------------ */
+
+
+.headertoggle {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    background: #00467e;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#00467e), to(#002250));
+    background-image: -webkit-linear-gradient(top, #00467e, #002250);
+    background-image: -moz-linear-gradient(top, #00467e, #002250);
+    background-image: -ms-linear-gradient(top, #00467e, #002250);
+    background-image: -o-linear-gradient(top, #00467e, #002250);
+    box-shadow: 0 3px 5px 0px #777;
+    margin-bottom: 20px;
+    z-index: 9;
+    position: relative;
+    bottom: 0px;
+}
+
+.headertoggle a,
+.headertoggle i {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+
+/* Jquery panel =====================================================
+======================================================------------ */
+
+.headertoggle_reveal {
+    display: none;
+    background: #00467e;
+    z-index: 10;
+    color: #fff;
+    margin: -20px 0 0;
+}
+
+.headertoggle_reveal a {
+    color: #fff;
+}
+
+.headertoggle_reveal h4,
+.headertoggle_reveal p {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 20px;
+}
+
+.headertoggle_reveal h4 {
+    font-size: 25px;
+}
+
+
+@media screen and (max-width: 641px) {
+
+    .headertoggle {
+        box-shadow: 0 0px 0px 0px #777;
+    }
+
+    .headertoggle_reveal {
+        z-index: 10 !important;
+    }
+
+    .headertoggle a {
+        font-size: 14px;
+        white-space: normal;
+    }
+
+    .headertoggle_reveal h4 {
+        text-align: center;
+        margin: 5px;
+    }
+
+    .headertoggle_reveal p {
+        font-size: 12px;
+        margin: 5px 0px;
+        padding: 0 10px;
+    }
+}
+
+
+/* Home 4 products =====================================================
+======================================================------------ */
+
+.homefeatures h3 {
+    text-align: center;
+    color: #f9a93a;
+    font-size: 26px;
+    margin: 40px 10px 20px;
+    font-weight: 700;
+}
+
+.homefeatures .medium-3 {
+    text-align: center;
+    border-right: 2px solid #ccc;
+    height: 200px;
+}
+
+.homefeatures.no-header .medium-3 {
+    height: auto; /* override height for no-header landing page template */
+}
+
+.homefeatures .small-6 {
+    text-align: center;
+    border-right: 2px solid #ccc;
+}
+
+.homefeatures .medium-3:last-child {
+    border-right: none;
+}
+
+.homefeatures .small-6 img {
+    max-width: 150px;
+}
+
+
+.homefeatures .icon_money {
+    padding: 5px 0 8px;
+}
+
+.homefeatures .icon_easy {
+    padding: 0px 0 8px;
+}
+
+.homefeatures p {
+    text-align: center;
+    margin: 10px 20px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #00467e;
+}
+
+
+@media screen and (max-width: 800px) {
+    .homefeatures .medium-3 {
+        height: 250px;
+    }
+}
+
+
+@media screen and (max-width: 640px) {
+
+
+    .homefeatures h3 {
+        font-size: 18px;
+    }
+
+    .homefeatures p {
+        font-size: 12px;
+    }
+
+    .homefeatures .small-6:nth-child(2n+1) {
+        border-right: 0px;
+    }
+
+    .homefeatures .small-6 {
+        height: 260px;
+        padding-top: 25px;
+        padding-bottom: 20px;
+        border: none;
+    }
+
+
+
+    .homefeatures .small-6:last-child,
+    .homefeatures .small-6:nth-child(3n+1),
+    .homefeatures .small-6:nth-child(4n+1) {
+        border-bottom: none;
+    }
+}
+
+@media screen and (max-width: 441px) {
+    .homefeatures .small-6 {
+        height: 212px;
+    }
+}
+
+
+
+/* How it Works Modal Styles =====================================================
+======================================================------------ */
+
+.howitworks .row {
+    min-height: 100px;
+}
+
+.howitworks .row.step3 {
+    padding: 0px 0;
+}
+
+.howitworks .small-3 {
+    display: table-cell;
+    padding: 10px;
+    text-align: center;
+}
+
+.howitworks .step3 h4,
+.howitworks .step2 h4 {
+    margin-top: 18px;
+}
+
+
+.howitworks h4 {
+    font-weight: bold;
+    color: #00467e;
+}
+
+.howitworks p {
+    font-weight: bold;
+    color: #666;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.howitworks h3 {
+    font-size: 16px;
+    color: #666;
+    line-height: 18px;
+    margin-bottom: 20px;
+}
+
+.howitworks h3 a {
+    color: #00467e;
+    font-size: 20px;
+}
+
+.howitworks span {
+    color: #00467e;
+}
+
+@media screen and (max-width: 725px) {
+    .close-reveal-modal.close-reveal-X-mobile-view {
+        display: none;
+    }
+}
+
+.rate-match-disclosure, .rate-match-disclosure.modal.panel {
+    background-color: #d9eeff;
+}
+
+.rate-match-disclosure-title {
+    font-weight: bold;
+    color: #1f5587;
+}
+
+.rate-match-features ul, .accordian .rate-match-features ul {
+    list-style-type: disc;
+    list-style-position: outside;
+    margin-left: 0.9375rem;
+}
+
+
+/* Home Testimonials =====================================================
+======================================================------------ */
+
+.featured_testimonial .medium-3 {
+    text-align: center;
+}
+
+.featured_testimonial blockquote {
+    padding: 20px 120px 0 0;
+    text-align: left;
+}
+
+.featured_testimonial a {
+    font-weight: bold;
+    color: #666;
+    display: block;
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+.featured_testimonial a:hover {
+    text-decoration: underline;
+}
+
+.featured_testimonial .testimonial-image-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 641px) {
+    .featured_testimonial blockquote {
+        padding: 20px 10px 0 0;
+    }
+
+    .featured_testimonial a {
+        display: inline;
+        padding-top: 0;
+    }
+
+    .featured_testimonial .quote {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .featured_testimonial .testimonial-image-link img {
+        display: inline-block;
+    }
+}
+
+
+/* Home Promo Ads =====================================================
+======================================================------------ */
+
+.homepromotions div:first-child {
+    padding-right: 5px;
+}
+
+.homepromotions div:last-child img {
+    padding-left: 5px;
+}
+
+.homepromotions .recentnews {
+    background: #fff url(/content/images/home/newspapers.jpg) no-repeat bottom right;
+    border: 7px solid #00457c;
+    border-left: 0px;
+    border-right: 0px;
+    min-height: 223px;
+}
+
+.homepromotions .recentnews p {
+    color: #666;
+    font-weight: bold;
+    padding: 15px 50% 15px 5px;
+    font-size: 16px;
+}
+
+.homepromotions .recentnews cite {
+    font-weight: bold;
+    padding: 15px 200px 15px 5px;
+    display: inline-block;
+    font-style: normal;
+    font-size: 16px;
+    color: #00457c;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .homepromotions .recentnews {
+        background: #fff url(/content/images/home/newspapers.jpg) no-repeat bottom right;
+        background-size: 35%;
+    }
+
+    .homepromotions .recentnews p {
+        padding: 10px 30% 10px 5px;
+    }
+
+    .homepromotions .recentnews cite {
+        padding: 15px 35% 15px 5px;
+    }
+}
+
+
+@media screen and (max-width: 641px) {
+
+    .homepromotions .recentnews {
+        margin: 3px 1.25%;
+        width: 97%;
+        background: #fff url(/content/images/home/newspapers.jpg) no-repeat bottom right;
+        background-size: 100px;
+    }
+
+    .homepromotions .recentnews p,
+    .homepromotions .recentnews cite {
+        padding-right: 50px;
+    }
+
+    .homepromotions div:first-child img,
+    .homepromotions div:last-child img {
+        padding: 5px;
+        float: none;
+        width: 100%;
+    }
+}
+
+
+/* home loan uses =====================================================
+======================================================------------ */
+
+.homeloanuses .medium-12 {
+    padding: 0 2%;
+    width: 100%;
+}
+
+.homeloanuses h2 {
+    margin: 10px 0 10px 0;
+    padding-left: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f5586;
+}
+
+.homeloanuses [class*="block-grid-"] {
+    margin-left: 0;
+}
+
+.homeloanuses li,
+.homeloanuses li a {
+    color: #666;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 4px 0;
+    line-height: 16px;
+}
+
+.homeloanuses li a:hover {
+    text-decoration: underline;
+}
+
+.homeloanuses ul ul {
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+.homeloanuses ul ul li.title {
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* Fine tune the foundation block grid visually */
+@media screen and (min-width: 800px) {
+    .homeloanuses li.home_list1,
+    .homeloanuses li.home_list4 {
+        width: 18%;
+    }
+
+    .homeloanuses li.home_list2 {
+        width: 24%;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    .homeloanuses {
+        width: 95%;
+    }
+
+    .homeloanuses .medium-12 {
+        padding: 0 22px;
+    }
+
+    .homeloanuses h2 {
+        font-size: 15px;
+    }
+
+    .homeloanuses li {
+        margin-bottom: 0;
+    }
+
+    .homeloanuses [class*='block-grid-'] > li {
+        display: list-item;
+        float: none;
+        padding: 0;
+    }
+
+    .homeloanuses ul ul li.title {
+        background-color: #d8edfe;
+        display: list-item;
+        position: relative;
+        line-height: 30px;
+    }
+
+    .homeloanuses ul ul li {
+        display: none;
+        padding: 0 0 0 12px;
+    }
+
+    .homeloanuses ul ul li:nth-child(n+2) {
+        margin: 10px 0;
+    }
+
+    .homeloanuses ul ul li.title:before {
+        content: "\f0dd";
+        display: block;
+        float: right;
+        font-family: FontAwesome;
+        font-size: 20px;
+        -webkit-font-smoothing: antialiased;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        position: absolute;
+        right: 18px;
+        text-align: right;
+        top: 2px;
+        width: auto;
+    }
+
+    .homeloanuses ul ul.expanded li.title:before {
+        content: "\f0de";
+        top: 10px;
+    }
+
+    .homeloanuses ul ul.expanded li {
+        display: list-item;
+    }
+}
+
+
+/*=====================================================
+======================================================*\
+
+    PAGES CORE
+\*=====================================================
+======================================================*/
+
+.ruled {
+    border-bottom: 2px solid #cccccc;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+.row.ruled.homefeatures {
+    padding-bottom: 40px;
+}
+
+.ruled-top {
+    border-top: 2px solid #cccccc;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.ruled-top-thin {
+    border-top: 1px solid #cccccc;
+    margin-top: 10px;
+    padding-top: 10px;
+    &.noRule {
+        border-top: none;
+    }
+}
+
+.panel {
+    background: #d9eeff;
+    border: 1px solid #ccc;
+    padding: 20px 20px 10px;
+    margin-bottom: 1rem;
+}
+
+.panel h2 {
+    padding: 5px 0;
+}
+
+.panel p {
+    font-weight: 700;
+    color: #666;
+}
+
+.panel p a,
+.panel p a:visited {
+    color: #1f5587;
+}
+
+.toggle {
+    display: none;
+}
+
+.mobileonlytoggle {
+    display: block;
+}
+
+@media screen and (max-width: 641px) {
+    .toggle {
+        display: block;
+    }
+
+    .mobileonlytoggle {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 40.063em) {
+    .homeloanuses .accordian .toggle {
+        display: block;
+    }
+
+    .homeloanuses .accordian .toggle .title {
+        margin-bottom: 8px;
+    }
+}
+
+/* Sub Page Headers =====================================================
+======================================================------------ */
+
+
+body.sub #header img.banner {
+    width: 100%;
+    padding: 0;
+    position: relative;
+    display: block;
+    z-index: -1;
+    top: -100px;
+    margin-bottom: -100px;
+}
+
+
+body.sub #header .headline {
+    position: absolute;
+    z-index: 100;
+    top: 100px;
+    padding: 0 30px;
+    max-width: 65%;
+}
+
+@media all and (max-width: 765px) {
+
+    body.sub #header h2 {
+        font-size: 39px;
+    }
+
+    body.sub #header h3.sub {
+        font-size: 24px;
+        line-height: 30px;
+    }
+}
+
+@media screen and (max-width: 641px) {
+
+    body.sub #header img.banner {
+        top: 0px;
+        margin-bottom: 30px;
+    }
+
+    body.sub #header .headline {
+        position: relative;
+        z-index: 1;
+        top: 0;
+        padding: 0 0.9375rem;
+        max-width: inherit;
+    }
+
+    body.sub #header h2 {
+        font-size: 30px;
+    }
+
+    body.sub #header h3.sub {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    body.sub #header img.banner {
+        height: 110%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    body.sub #header img.banner {
+        top: 0px;
+        margin-bottom: 30px;
+        max-height: 250px;
+        width: 100%;
+        overflow-x: hidden;
+        z-index: -1;
+    }
+
+    body.sub #header .headline h2,
+    body.sub #header .headline h3.sub {
+        color: #00467e !important;
+    }
+}
+
+@media screen and (max-width: 40em) {
+    body.sub #header .headline h2,
+    body.sub #header .headline h3.sub {
+        color: #00467e !important;
+    }
+
+    body.sub #header h2, .rate-match-content-title {
+        font-size: 30px;
+        line-height: 34px;
+    }
+}
+
+
+/*=====================================================
+======================================================*\
+    SPECIFIC PAGES
+\*=====================================================
+======================================================*/
+
+
+
+
+/* Application Pages =====================================================
+======================================================------------ */
+
+
+.progressbar {
+    margin-left: 3px;
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+.progressbar_total {
+    background: url(/content/images/progress_empty.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 11px;
+    top: 30px;
+}
+
+.progressbar_current {
+    background: url(/content/images/progress_filled.png) no-repeat;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.progressbar_current.loaded_0 {
+    width: 1%;
+}
+
+.progressbar_current.loaded_25 {
+    width: 25%;
+}
+
+.progressbar_current.loaded_50 {
+    width: 50%;
+}
+
+.progressbar_current.loaded_75 {
+    width: 75%;
+}
+
+.progressbar_current.loaded_100 {
+    width: 100%;
+}
+
+.progressbar .position {
+    display: block;
+    height: 27px;
+    width: 27px;
+    margin-left: -14px;
+    position: absolute;
+    top: 22px;
+    padding: 0;
+    text-align: center;
+    background: url(/content/images/progress_marker_2x.png) top center no-repeat;
+    background-size: contain;
+}
+
+.progressbar .position .label {
+    background: none;
+    color: #00467e;
+    display: block;
+    font-size: 12px;
+    margin: 32px 0 0 -18px;
+    padding: 0;
+    text-align: center;
+    width: 63px;
+}
+
+
+.progressbar .position.completed {
+    background: url(/content/images/progress_complete_2x.png) top center no-repeat;
+    background-size: contain;
+}
+
+.progressbar .position_1 {
+    left: 0;
+}
+
+.progressbar .position_2 {
+    left: 25%;
+}
+
+.progressbar .position_3 {
+    left: 50%;
+}
+
+.progressbar .position_4 {
+    left: 75%;
+}
+
+.progressbar .position_5 {
+    right: -7px;
+}
+
+
+.applicationform {
+    margin-bottom: 60px;
+}
+
+@media screen and (max-width: 1100px) {
+    .progressbar {
+        margin-left: 7%;
+        width: 86%;
+    }
+}
+
+@media screen and (max-width: 641px) {
+    .progressbar .position .label {
+        opacity: 0;
+        -webkit-transition: opacity .5s ease;
+        -moz-transition: opacity .5s ease;
+        -o-transition: opacity .5s ease;
+        transition: opacity .5s ease;
+    }
+
+    .progressbar .position.active .label {
+        opacity: 1;
+    }
+}
+
+
+/* Rates Page =====================================================
+======================================================------------ */
+
+
+body.rates #header {
+    display: block;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+body.rates #header .headertoggle {
+    margin-top: -40px;
+}
+
+body.rates time {
+    color: #666;
+    display: inline-block;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+table.loanrates th,
+table.loanrates tr td {
+    font-size: 0.875rem !important;
+}
+
+table.loanrates thead {
+    background: none;
+    border-bottom: 2px solid #cccccc;
+}
+
+table.loanrates thead.theadlabel {
+    border-bottom: 0;
+}
+
+table.loanrates thead th {
+    padding: 10px 5px;
+    text-align: center;
+}
+
+table.loanrates thead th.align-left {
+    text-align: left;
+}
+
+table.loanrates tr:nth-of-type(even) {
+    background: #d5eefe;
+}
+
+table.loanrates td {
+    padding: 20px 5px;
+    color: #666;
+    font-weight: bold;
+    border-right: 1px solid #8ab6dc !important;
+    text-align: center;
+}
+
+table.loanrates td:first-child {
+    text-align: left;
+}
+
+table.loanrates td:last-child {
+    border-right: 0;
+    border-right: 0 !important;
+}
+
+/* Loan Calculator Form */
+.loancalc h2 {
+    font-size: 20px;
+    padding: 0;
+    margin: 0 0 5px;
+    color: #00467e;
+}
+
+.loancalc .calculated_values {
+    padding: 10px 5px;
+}
+
+.loancalc .button {
+    width: 100%;
+}
+
+.rate-actions {
+    padding: 4px 15px;
+}
+
+.rate-actions a {
+    font-weight: 700;
+    display: block;
+    line-height: 20px;
+    font-size: 18px;
+}
+
+.rate-actions .action-link {
+    padding: 10px 20px 0 20px;
+}
+
+@media only screen and (max-width: 40em) {
+    .terms-container {
+        margin-bottom: 24px;
+    }
+}
+
+@media screen and (max-width: 641px) {
+    body.rates #header .headertoggle {
+        margin-top: 0;
+    }
+}
+
+
+
+
+
+
+/* Bubble (Comments) =====================================================
+======================================================------------ */
+
+
+.ad.comments img {
+    text-align: center;
+    margin: 15px auto;
+    display: block;
+}
+
+/* Removed to spreamline display on all browsers. We can delete if its clear we don't leverage this elsewhere - MA 3.31.14
+.bubble {
+  display: block;
+  line-height: 16px;
+  max-width: 350px;
+  position: relative;
+  text-align: center;
+}
+
+.bubble .text {
+  color: #fff;
+  display: block;
+  font-family: 'proxima-nova', arial, helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.bubble img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+
+/* About  Content Main =====================================================
+======================================================------------ */
+
+body.sub .temp-home-improvement-ad#adobject {
+    padding: 10px 10px 10px 10px;
+    text-align: right;
+    position: relative;
+
+    p a {
+        font-size: 16px;
+    }
+
+    .button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px + 22px;
+    }
+
+    .learn-more {
+        position: absolute;
+        right: 10px;
+        bottom: 0;
+    }
+}
+
+html.ie8 body.sub .temp-home-improvement-ad#adobject .button {
+    bottom: 50px;
+}
+
+.about div.main {
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+}
+
+/* About Accordions =====================================================
+======================================================------------ */
+
+.about a.toggle {
+    background: #003367;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00467e', endColorstr='#002150');
+    background: -webkit-gradient(linear, left top, left bottom, from(#00467e), to(#002150));
+    background: -moz-linear-gradient(top, #00467e, #002150);
+    color: #fff;
+    display: block;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 12px;
+    position: relative;
+}
+
+.about a.toggle:after {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: 14px solid #fff;
+    content: '';
+    display: block;
+    height: 0;
+    right: 12px;
+    position: absolute;
+    top: 9px;
+    width: 0;
+}
+
+.about a.toggle.active:after,
+.about .active .toggle:after {
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 14px solid #fff;
+    border-top: 0;
+    top: 11px;
+}
+
+ul.accordian {
+    margin: 0;
+    padding: 0;
+}
+
+ul.accordian > li {
+    margin-bottom: 18px;
+}
+
+ul.accordian li .content {
+    display: none;
+    padding: 20px 0;
+}
+
+@media all and (max-width: 641px) {
+    .about a.toggle,
+    .home a.toggle {
+        font-size: 14px;
+        padding-right: 30px;
+    }
+}
+
+/* About Testimonials (In Our Customers Words) =====================================================
+======================================================------------ */
+
+ul.testimonials {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.testimonials li {
+    border-bottom: 2px solid #ccc;
+    padding: 28px 0;
+}
+
+ul.testimonials li:first-child {
+    padding-top: 0;
+}
+
+/* About Ads =====================================================
+======================================================------------ */
+.sidebar-ad div.ad {
+    color: #666;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 28px auto 56px;
+}
+
+.sidebar-ad div.ad:first-of-type {
+    margin-top: 0;
+}
+
+.sidebar-ad div.ad .message {
+    display: block;
+}
+
+/* About Ad - Apply Now =====================================================
+======================================================------------ */
+.sidebar-ad div.ad.apply {
+    background: url("#{$image-url-base}/about/ad-apply.jpg") no-repeat;
+    max-width: 341px;
+    padding: 12px;
+}
+
+.sidebar-ad div.ad.apply .message {
+    color: #fff;
+    float: right;
+    margin: 6px 0 96px;
+    text-align: right;
+    width: 180px;
+}
+
+.sidebar-ad div.ad.apply .button {
+    margin-bottom: 10px;
+}
+
+.sidebar-ad div.ad.apply .small {
+    clear: both;
+}
+
+div.ad.apply a.learnmore,
+div.ad.apply a.learnmore:visited {
+    color: #fff;
+}
+
+/* About Ad - News =====================================================
+======================================================------------ */
+
+.sidebar-ad div.ad.news {
+    background: #fff url("#{$image-url-base}/about/ad-news.jpg") no-repeat bottom right;
+    border-top: 5px solid #00467e;
+    border-bottom: 5px solid #00467e;
+    color: #666;
+    padding: 10px 8px 90px 8px;
+}
+
+.sidebar-ad div.ad.recentnews {
+    background: #fff url("#{$image-url-base}/about/ad-news.jpg") no-repeat bottom right; border-top: 5px solid #00467e;
+    border-bottom: 5px solid #00467e;
+    color: #666;
+    padding: 10px 8px 90px 8px;
+}
+
+.sidebar-ad div.ad.recentnews cite,
+.sidebar-ad div.ad.recentnews p {
+    padding: 0;
+    font-size: 14px;
+}
+
+.sidebar-ad div.ad.recentnews p {
+    display: block;
+}
+
+.sidebar-ad div.ad.recentnews cite {
+}
+
+/* About Ad - Comments =====================================================
+======================================================------------ */
+
+.sidebar-ad div.ad.comments {
+    max-width: 350px;
+}
+
+.sidebar-ad div.ad.comments .quote {
+    display: block;
+    margin-top: 30px;
+}
+
+.sidebar-ad div.ad.comments .quote a {
+    color: #666;
+    display: block;
+    margin-top: 16px;
+}
+
+.sidebar-ad div.ad.comments .quote a:hover {
+    color: #00467e;
+}
+
+
+/* About Content_Supporting =====================================================
+======================================================------------ */
+
+div.supporting {
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+}
+
+div.supporting h2 {
+    margin: 0 0 24px;
+    padding: 0;
+}
+
+ul.list li {
+    color: #666;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+ul.list li:first-child {
+    font-weight: 700;
+}
+
+/* About Help (Double Talk Bubble 226) =====================================================
+======================================================------------ */
+
+div.help {
+    min-height: 88px;
+}
+
+div.help img {
+    display: block;
+}
+
+div.help h2 {
+    margin: 0;
+}
+
+div.help p {
+    color: #666;
+    font-family: 'proxima-nova', arial, helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+/* About Help - Responsiveness =====================================================
+======================================================------------ */
+
+@media all and (min-width: 569px) {
+
+    div.help {
+        padding-left: 242px;
+    }
+
+    div.help img {
+        float: left;
+        margin-left: -242px;
+    }
+
+    div.help h2 {
+        padding-top: 6px;
+    }
+}
+
+@media all and (max-width: 568px) {
+
+    div.help img {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+
+/*=====================================================
+======================================================*\
+    FOOTER
+\*=====================================================
+======================================================*/
+
+footer nav {
+    padding-top: 0;
+    margin-top: 0px;
+}
+
+
+footer nav.show-for-small ul {
+    margin: 0px 0 20px;
+    padding: 0;
+}
+
+footer nav.hide-for-small ul {
+    margin: 0px 0 20px;
+}
+
+footer nav li {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px 0 0;
+}
+
+footer nav li a {
+    color: #164e81;
+    font-size: 15px;
+    line-height: 10px;
+    padding: 0;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+footer .social a .fa {
+    display: block;
+    text-align: center;
+    font-size: 35px;
+    margin-right: 4px;
+    float: right;
+}
+
+footer .social a .ls {
+    float: none;
+    padding-right: 1px;
+}
+
+footer .social a .ls:active {
+    outline: 2px solid #ddf1f0 !important;    
+}
+
+footer .social a:focus {
+    .ls {
+        outline: 2px solid #ddf1f0 !important;
+    }
+}
+
+footer div.social {
+    text-align: right;
+    padding-right: 3px;
+}
+
+footer .social a[href=''], footer .social a:not([href]) {
+    display: none;
+}
+
+footer .social a .fa-facebook-square {
+    color: #3a5a9b;
+}
+
+footer .social a .fa-twitter-square {
+    color: #28aae1;
+}
+
+footer .social a .fa-youtube-square {
+    color: #bb0000;
+}
+
+footer .social a .fa-google-plus-square {
+    color: #dd4b39;
+}
+
+footer .medium-10.social-icon-wfix {
+    width: 84.33333%;
+}
+
+footer .medium-2.social-icon-wfix {
+    width: 15.66667%;
+}
+
+@media screen and (max-width: 641px) {
+
+    footer .small-4.social-icon-wfix {
+        width: 33.33333%;
+    }
+}
+
+@media screen and (max-width: 320px)
+{
+    .small-4.columns.social.tight-p-left.tight-p-right.social-icon-wfix {
+        padding-left: 0px
+    }
+}
+
+.legalcopy p,
+p.legalcopy,
+.ada-container {
+    font-size: 12px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.ada-container, .legalcopy .ada-container p, footer .legalcopy p {
+    padding-bottom: 0;
+}
+
+.multipurpose-auto-page {
+    .ada-container-last {
+        margin-bottom: 20px;
+    }
+}
+
+.calculated_values p.legalcopy-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #00467e;
+}
+
+.footer_images img {
+    margin: 5px 15px 25px 0;
+}
+
+
+@media screen and (max-width: 641px) {
+    footer nav li a {
+        font-size: 12px;
+        line-height: 13px;
+    }
+
+    footer .social a .fa {
+        height: 20px;
+        width: 20px;
+        font-size: 14px;
+        padding-top: 4px;
+    }
+}
+
+
+
+
+/*=====================================================
+======================================================*\
+    MISC
+\*=====================================================
+======================================================*/
+
+.subTitle {
+    font-size: 16px;
+}
+
+/* Fix for height caused by google*/
+iframe[name='google_conversion_frame'] {
+    height: 0 !important;
+    width: 0 !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+    margin-top: -13px;
+    float: left;
+}
+
+p:empty {
+    display: none;
+}
+
+
+/*=====================================================
+======================================================*\
+Foundation 6 upgrade fixes 
+
+    (╯°□°）╯︵ ┻━┻) 
+\*=====================================================
+======================================================*/
+.reveal .button {
+    margin-bottom: 1rem;
+}
+
+#videoColumn > div > iframe {
+    background-color: black;
+}
+
+#lightstreamVideo > iframe {
+    background-color: black;
+}
+
+span.prefix, label.prefix {
+    background: #f2f2f2;
+    border-right: none;
+    color: #333;
+    border-color: #ccc;
+}
+
+span.postfix, label.postfix {
+    background: #f2f2f2;
+    border-left: none;
+    color: #333;
+    border-color: #ccc;
+}
+
+.prefix, .postfix {
+    display: block;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    font-size: .875rem;
+    height: 2.4225rem;
+    line-height: 2.3125rem;
+}
+
+.column, .columns {
+    padding-left: .9375rem;
+    padding-right: .9375rem;
+    position: relative;
+}
+
+button:not([role="menuitem"]), .button {
+    font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+}
+
+.reveal {
+    min-height: initial;
+    height: initial;
+}
+
+#video-modal {
+    top: 0 !important;
+}
+
+body.pre-funding .row.panel .row {
+    margin-left: 0.625rem;
+}
+
+.f-dropdown:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 6px;
+    border-color: transparent transparent #fff transparent;
+    border-bottom-style: solid;
+    position: absolute;
+    top: -12px;
+    left: 60px;
+    z-index: 89;
+}
+
+.f-dropdown:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 7px;
+    border-color: transparent transparent #ccc transparent;
+    border-bottom-style: solid;
+    position: absolute;
+    top: -14px;
+    left: 59px;
+    z-index: 88
+}
+
+.dropdown-pane {
+    top: 4rem;
+    left: 40%;
+    width: 95%;
+}
+
+.reveal-modal .close-reveal-modal, dialog .close-reveal-modal {
+    font-size: 2.5rem;
+    line-height: 1;
+    position: absolute;
+    top: .5rem;
+    right: .6875rem;
+    color: #aaa;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.loan-aggregator-page {
+    p {
+        padding-bottom: 0
+    }
+}
+
+.loan-aggregator-page p.legalcopy {
+    padding: 0 0 18px 0; 
+}

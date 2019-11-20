@@ -1,0 +1,214 @@
+﻿.ls {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: no-repeat;
+}
+
+.ls-lg {
+    width: 1.33333333rem;
+    height: 1.33333333rem;
+    line-height: 0.75rem;
+    vertical-align: -15%;
+}
+
+.ls-1x {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.ls-navbar-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    cursor: pointer;
+}
+
+.ls-2x {
+    width: 2rem;
+    height: 2em;
+}
+
+.home .ls-1x-logo {
+    width: 9.375rem;
+    height: 1.68rem;
+}
+
+.ls-1x-logo {
+    width: 10.250rem;
+    height: 2rem;
+}
+
+.ls-play-1x {
+    width: 61px;
+    height: 61px;
+}
+
+/*positioning*/
+
+.ls-pull-left {
+    float: left;
+}
+
+.ls-pull-right {
+    float: right;
+}
+
+.fa.ls-pull-left {
+    margin-right: .3rem;
+}
+
+.fa.ls-pull-right {
+    margin-left: .3rem;
+}
+
+/*images*/
+.video_icon {
+    height: 30px;
+    width: 30px;
+}
+
+.ls-comment {
+    background-image: url('/content/images/navbar/icon-comment.png');
+    background-image: url('/content/images/navbar/icon-comment.svg'), none;
+}
+
+.ls-facebook {
+    background-image: url('#{$image-url-base}/nav-bar/icon-facebook.png?2');
+    background-image: url('#{$image-url-base}/nav-bar/icon-facebook.svg?2'), none;
+}
+
+.ls-blogger {
+    background-image: url('#{$image-url-base}/nav-bar/icon-blogger.png');
+    background-image: url('#{$image-url-base}/nav-bar/icon-blogger.svg'), none;
+}
+
+.ls-youtube {
+    background-image: url('#{$image-url-base}/nav-bar/icon-youtube.png');
+    background-image: url('#{$image-url-base}/nav-bar/icon-youtube.svg'), none;
+}
+
+.ls-family {
+    background-image: url('/content/images/navbar/icon-family.png');
+    background-image: url('/content/images/navbar/icon-family.svg'), none;
+}
+
+.ls-home-improvement {
+    background-image: url('/content/images/navbar/icon-home-improvement.png');
+    background-image: url('/content/images/navbar/icon-home-improvement.svg'), none;
+}
+
+.ls-jet-ski {
+    background-image: url('/content/images/navbar/icon-jet-ski.png');
+    background-image: url('/content/images/navbar/icon-jet-ski.svg'), none;
+}
+
+.ls-lightstream {
+    background-image: url('/content/images/navbar/icon-lightstream.png');
+    background-image: url('/content/images/navbar/icon-lightstream.svg'), none;
+}
+
+.ls-loan {
+    background-image: url('/content/images/navbar/icon-loan.png');
+    background-image: url('/content/images/navbar/icon-loan.svg'), none;
+}
+
+.ls-app-lock {
+    background-image: url('/content/images/navbar/icon-app-lock.png');
+    background-image: url('/content/images/navbar/icon-app-lock.svg'), none;
+}
+
+.ls-stuffed-wallet {
+    background-image: url('/content/images/navbar/icon-stuffed-wallet.png');
+    background-image: url('/content/images/navbar/icon-stuffed-wallet.svg'), none;
+}
+
+.ls-stuffed-wallet {
+    background-image: url('/content/images/navbar/icon-stuffed-wallet.png');
+    background-image: url('/content/images/navbar/icon-stuffed-wallet.svg'), none;
+}
+
+.ls-twitter {
+    background-image: url('#{$image-url-base}/nav-bar/icon-twitter.png');
+    background-image: url('#{$image-url-base}/nav-bar/icon-twitter.svg'), none;
+}
+
+.ls-car {
+    background-image: url('/content/images/navbar/icon-car.png');
+    background-image: url('/content/images/navbar/icon-car.svg'), none;
+}
+
+.ls-rate {
+    background-image: url('/content/images/navbar/icon-rate.png');
+    background-image: url('/content/images/navbar/icon-rate.svg'), none;
+}
+
+.ls-logo {
+    background-image: url('/content/images/navbar/icon-logo.png');
+    background-image: url('/content/images/navbar/icon-logo.svg'), none;
+}
+
+.ls-logo-blue {
+    background-image: url('/content/images/navbar/icon-logo-blue.png');
+    background-image: url('/content/images/navbar/icon-logo-blue.svg');
+}
+
+.ls-user {
+    background-image: url('/content/images/navbar/icon-user.svg'), none;
+}
+
+.ls-checklist {
+    background-image: url('/content/images/navbar/icon-checklist.svg'), none;
+}
+
+.ls-easy-1-2-3 {
+    background-image: url('/content/images/icon_easy.svg'), none;
+}
+
+.ls-money-in-your-hands {
+    background-image: url('/content/images/icon_money.svg'), none;
+}
+
+.ls-clock {
+    background-image: url('/content/images/icon_clock.svg'), none;
+}
+
+.ls-cert {
+    background-image: url('/content/images/icon_loans.svg'), none;
+}
+
+.ls-play {
+    background-image: url('/content/images/play.png');
+    background-image: url('/content/images/play.svg'), none;
+}
+
+.ls-tree {
+    background-image: url('/content/images/tree-white.svg'), none;
+    width: 40px;
+    height: 40px;
+}
+
+.ls-expander:before {
+    display: block;
+    float: right;
+    font-family: FontAwesome;
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 1;
+    position: absolute;
+    right: 18px;
+    text-align: right;
+    width: auto !important;
+}
+
+.ls-plus:before {
+    content: '+';
+}
+
+.ls-minus:before {
+    content: '\2013';
+}

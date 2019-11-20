@@ -1,0 +1,83 @@
+﻿@model BaseLightstreamPageModel
+<div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+<div class="web-component">
+    <lswc-legal-banner></lswc-legal-banner>
+</div>
+
+<!-- Backdrop -->
+<div class="backdrop mobile-menu-backdrop"></div>
+<!-- /Backdrop -->
+
+<a href="#skiptocontent" id="skiptocontentlink" class="screen-reader-only" tabindex="0">Skip to content</a>
+
+<!-- Nav Container -->
+<div class="nav-container">
+    <div class="row">
+        <!-- Desktop Nav-->
+        <div class="large-12 columns desktop-nav navbar navbar-faded affix bg-biscaygradiant @Model.NavClass">
+            <!-- Navbar Inner -->
+            <div class="navbar-inner">
+                <!-- Navbar Container -->
+                <div class="navbar-container">
+                    <div class="row">
+                        <div class="large-12 columns columns-fluid">
+                            <!-- Navbar Brand Container -->
+                            <div class="navbar-brand-container pull-left">
+                                <!-- Navbar Brand -->
+                                <h1 class="navbar-brand">
+                                    <a itemprop="url" href="@Model.LogoUrl" title="To LightStream, A Division of SunTrust Bank">
+                                        <img src="@Model.CdnBaseUrl/lightstream-logo.png" alt="LightStream, A Division of SunTrust Bank">
+                                    </a>
+                                </h1>
+                                <!-- /Navbar Brand -->
+                            </div>
+                            <!-- /Navbar Brand Container -->
+                            <!-- Navigation Container -->
+                            <div class="navbar-navigation-container pull-right">
+                                <!-- Navigation -->
+                                <div class="navbar-navigation">
+                                    <!-- Navigation Header -->
+                                    <div class="navbar-navigation-header">
+                                        <div class="row ">
+                                            <div class="large-12">
+                                                <nav class="pull-right">
+                                                    <ul>
+                                                        <!-- Navigation Header Links -->
+                                                        <li class="navbar-navigation-header-links">
+                                                            <ul>
+                                                                <li><a class="btn btn-small btn-link" href="/rates-loan-calculator" tabindex="0">Rates</a></li>
+                                                                <li><a class="btn btn-small btn-link" href="/who-we-are" tabindex="0">About</a></li>
+                                                                <li><a class="btn btn-small btn-link" href="/contact-us" tabindex="0">Questions</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <!-- /Navigation Header Links -->
+                                                        <!-- Navigation Header Actions -->
+                                                        <li class="navbar-navigation-header-actions">
+                                                            <ul>
+                                                                <li class="apply-now-action"><a class="btn btn-small btn-fancy btn-darkyellow" href="/apply" onclick="SC.main.navbar.applyNow()" role="button">APPLY NOW</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <!-- /Navigation Header Actions -->
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Navigation Header -->
+                                </div>
+                                <!-- /Navigation -->
+                            </div>
+                            <!-- /Navigation Container -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /Navbar Container -->
+            </div>
+            <!-- /Navbar Inner -->
+        </div>
+        <!-- /Desktop Nav-->
+    </div>
+</div>
+<!-- /Nav Container -->
+
+<div id="skiptocontent"></div>

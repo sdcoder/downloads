@@ -1,0 +1,96 @@
+﻿<div class="row">
+    <div class="medium-12 columns full-mobile">
+        <h2>Change Security Question and Answer</h2>
+    </div>
+</div>
+
+<section ng-if="Model.Applications" ng-cloak>
+    <div class="row" ng-show="Model.alert" ng-cloak>
+        <div class="medium-11 small-centered columns alert-box" ng-class="Model.alert.type">
+            <span>{{Model.alert.message}}</span>
+            <a class="close" ng-click="closeAlertMessage()">×</a>
+        </div>
+    </div>
+
+    <form name="securityQuestionForm" novalidate>
+        <div class="row">
+            <div class="medium-6 columns">
+                <label>Password</label>
+                <input type="password"
+                       autocomplete="off"
+                       id="Password"
+                       name="Password"
+                       ng-pattern="/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!&\$,-._ ]{8,20}$/"
+                       ng-model="Model.SecurityInformation.Password"
+                       ls-track-visited
+                       required="required" maxlength="20" minlength="8">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="medium-6 columns">
+                <label>"New" Security Question</label>
+                <select id="SecurityQuestionType"
+                        ng-model="Model.SecurityInformation.SecurityQuestionType"
+                        ng-options="type.Value as type.Text for type in Model.SecurityQuestionTypes"
+                        ng-disabled="false"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-6 columns">
+                <label>"New" Security Answer</label>
+                <input type="text" id="SecurityQuestionAnswer"
+                       name="SecurityQuestionAnswer"
+                       ng-model="Model.SecurityInformation.SecurityQuestionAnswer"
+                       minlength="1"
+                       maxlength="50"
+                       ng-pattern="/^[A-Za-z0-9!&amp;$,-._ ]+$/"
+                       ls-restrict-to-pattern
+                       ng-focus="Model.SecurityAnswerGainedFocus = true"
+                       required="required">
+            </div>
+            <div class="medium-6 columns" ng-show="Model.SecurityAnswerGainedFocus" ng-cloak="">
+                <div class="forminfo aside">
+                    <p ng-bind-html="getSecurityHint()"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="medium-6 columns">
+                <label>Re-enter "New" Security Answer</label>
+                <input type="text" id="ConfirmSecurityQuestionAnswer"
+                       name="ConfirmSecurityQuestionAnswer"
+                       ng-model="Model.SecurityInformation.SecurityQuestionAnswerConfirm"
+                       minlength="1"
+                       maxlength="50"
+                       ng-pattern="/^[A-Za-z0-9!&amp;$,-._ ]+$/"
+                       ls-restrict-to-pattern
+                       ls-password-match="Model.SecurityInformation.SecurityQuestionAnswer"
+                       ls-track-visited
+                       required="required">
+                <div ng-show="securityQuestionForm.ConfirmSecurityQuestionAnswer.$error.match && securityQuestionForm.ConfirmSecurityQuestionAnswer.$hasVisited && !securityQuestionForm.ConfirmSecurityQuestionAnswer.$error.pattern" ng-cloak="">
+                    <div class="formalert hide-no-js">
+                        <p>The answers entered do not match. Please re-enter your answers. Thank you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row preference-actions">
+            <div class="medium-6 columns">
+                <input type="submit" id="SecurityQuestionSubmit" class="button" value="Save" ng-disabled="securityQuestionForm.$invalid || waiting" ng-click="saveSecurityQuestion(securityQuestionForm, Model.UserId, Model.SecurityInformation)" />
+                <button type="button" class="button" ng-click="cancel(securityQuestionForm)">Cancel</button>
+                <img src="/content/images/ajax-loader.gif" ng-cloak ng-show="waiting" />
+            </div>
+        </div>
+    </form>
+</section>
+
+<section ng-if="!Model.Applications" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <p>Unable to get Security Information data from server.</p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,161 @@
+﻿@import 'global-variables';
+@import "_mixins";
+
+$blue: #183560;
+
+#ctaBar, #cta-bar-mobile {
+    background-color: $blue;
+    max-width: 120.063rem;
+    font-weight: bold;
+    font-size: small;
+    display: none;
+    max-width: 100%;
+    color: white;
+    font-style: italic;
+    height: 50px;
+    cursor: pointer;
+    max-width: 120.063rem;
+    z-index: 10;
+
+    @include mq('ls-desktop') {
+        display: block;
+    }
+
+    .cta-outer-container {
+        text-align: center;
+        height: 100%;
+        padding: 0;
+
+        .cta-inner-container {
+            display: table;
+            height: 100%;
+            margin: 0 auto;
+
+            .cta-icon-container {
+                display: table-cell;
+                vertical-align: middle;
+
+                .cta-ls {
+                    background-image: url('#{$image-url-base}/icon-lightstream.png');
+                    background-image: url('#{$image-url-base}/icon-lightstream.svg'), none;
+                }
+
+                .cta-dollar {
+                    background-image: url('#{$image-url-base}/icon-dollar-sign.png');
+                    background-image: url('#{$image-url-base}/icon-dollar-sign.svg'), none;
+                }
+
+                .cta-check {
+                    background-image: url('#{$image-url-base}/icon-checkmark.png');
+                    background-image: url('#{$image-url-base}/icon-checkmark.svg'), none;
+                }
+
+                .ctaIcon {
+                    width: 35px;
+                    height: 35px;
+                    background-repeat: no-repeat;
+                    margin: 0 10px;
+                }
+            }
+
+            .cta-item-container {
+                display: table-cell;
+                vertical-align: middle;
+
+                .cta-item-left {
+                    float: left;
+                }
+
+                .cta-item-text-left {
+                    text-align: left;
+
+                    #watchVideo {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .cta-item-text {
+                display: table-cell;
+                vertical-align: middle;
+                line-height: 110%;
+                text-align: left;
+            }
+        }
+
+        .verticalLine {
+            border-left: 1px solid white;
+            height: 30px;
+            margin-top: 10px;
+            position: absolute;
+        }
+    }
+}
+
+
+@media all and (max-width: 863px) {
+    #ctaBar, #cta-bar-mobile {
+        .cta-outer-container {
+            .cta-inner-container {
+                margin: 0 5%;
+            }
+        }
+    }
+}
+
+#cta-bar-mobile {
+    display: block;
+
+    @include mq('ls-desktop') {
+        display: none;
+    }
+
+    .cta-outer-container {
+        background-color: $blue;
+        padding: 10px;
+        border-bottom: 1px solid white;
+
+        .cta-inner-container {
+            margin: inherit;
+            width: 100%;
+
+            .cta-icon-container {
+                width: 10px;
+            }
+
+            .pull-right::before {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 1.5em;
+                content: '+';
+            }
+        }
+
+
+        .cta-description {
+            text-align: left;
+            font-style: normal;
+            font-weight: normal;
+            display: none;
+            margin-top: 12px;
+        }
+    }
+
+    .cta-outer-container.expanded {
+        .cta-inner-container {
+            .pull-right::before {
+                content: '-';
+            }
+        }
+
+        .cta-description {
+            display: block;
+        }
+    }
+
+
+    .cta-outer-container.last {
+        border-bottom: none;
+    }
+}

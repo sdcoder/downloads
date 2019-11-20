@@ -1,0 +1,39 @@
+﻿@model LightStreamWeb.Models.Apply.BaseInProcessAppPageModel
+
+
+<section class="row ruled">
+    <div class="large-10 columns medium-push-1">
+        <h1>Thank You!</h1>
+
+        <p class="panel">
+            Your application is now complete. We will email you @DateUtility.CustomerResponseTimeFrameText
+            regarding our credit decision or questions that we may have.
+        <p>&nbsp;</p>
+        </p>
+
+        <p>Please remember!</p>
+        <p>In order to access your account going forward you will need to use your "newly" created LightStream user ID and password when you Sign In.</p>
+
+    </div>
+</section>
+
+
+<section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+@section scripts {
+    @if (@Model.Amount > 0M)
+    {
+        <script type="text/javascript">
+
+            adobe.target.trackEvent({
+                'mbox': 'orderConfirmPage',
+                'params': {
+                    'orderId': '@Model.SessionApplyCookie',
+                    'orderTotal': '@Model.Amount',
+                    'productPurchasedId': '@Model.PurposeOfLoanCaption' }
+            });
+        </script>
+    }
+}

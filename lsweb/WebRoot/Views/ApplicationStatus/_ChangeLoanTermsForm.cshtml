@@ -1,0 +1,175 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.IChangeLoanTermsModel
+
+@using FirstAgain.Domain.Common
+
+<form name="ChangeLoanTermsForm" ls-validate-on-submit on-success="submitChangeLoanTermsRequest()">
+    <fieldset ng-disabled="Waiting">
+        <div class="row">
+            <div class="medium-3 small-12 columns medium-push-1">
+                <h3 class="brand">New Loan Terms Request</h3>
+                <a href="" data-open="RatesModal" class="show-for-small-only hideie8">View @((Model.PurposeOfLoanIsSecured()) ? "Secured Auto" : "") Rates / Terms</a>
+            </div>
+            <div class="medium-4 small-12 medium-pull-4 columns hide-for-small-only showie8">
+
+                <a href="#" data-open="RatesModal" class="right no-track" target="_self">View @((Model.PurposeOfLoanIsSecured()) ? "Secured Auto" : "") Rates / Terms</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-12 small-12 columns medium-push-1 offerTermsTable">
+
+                <div class="grid-x">
+                    <div class="cell small-3 coltitle brand hide-for-small-only">Loan Terms</div>
+                    <div class="cell small-3 coltitle brand hide-for-small-only">Present</div>
+                    <div class="cell small-4 coltitle-last brand hide-for-small-only">New Request</div>
+                </div>
+
+                @if (Model.PurposeOfLoanIsSecured())
+                {
+                    <div class="grid-x">
+                        <div class="cell small-3 brand product-row">Product</div>
+                        <div class="cell small-3">@Model.LoanTerms.ProductName</div>
+                        <div class="cell small-4">@Model.LoanTerms.ProductName</div>
+                    </div>
+                }
+
+                <div class="grid-x">
+                    <div class="cell small-3 brand">Loan Amount</div>
+                    <div class="cell small-3 ">
+                        <span class="show-for-small-only">Present</span> @Model.LoanTerms.LoanAmountMinusFees.ToString("C")  @if (Model.LoanTerms.FloridaDocStampTax.HasValue)
+                        {@:<super><a href="" data-flash="FloridaDocStampDisclosure">**</a></super>
+                        }
+                    </div>
+                    <div class="cell small-4  col-last">
+                        <span class="show-for-small-only">New Request</span>
+                        @LSForm.Currency(nameAndId: "LoanAmount",
+                     ariaLabel: "Enter loan ammount.",
+                     ngModel: "LoanAcceptance.ChangeLoanTerms.LoanAmountMinusFees",
+                     ngMin: "{{LoanTermRates.MinLoanAmount}}",
+                     ngMax: "{{LoanOffer.LoanAmount || LoanTermRates.MaxLoanAmount}}",
+                     maxLength: 11)
+
+                        @if (Model.LoanTerms.IsCreditCardConsolidation())
+                        {
+                            <div class="forminfo" tabindex="0" ng-show="LoanAcceptance.ChangeLoanTerms.LoanAmountMinusFees > 50000" ng-cloak>
+                                <p>Please note: Credit Card/Debt Consolidation loan amounts greater than $50,000 are only available for <a href="/partial/cms/excellent-credit" data-popup="true">excellent-credit applicants.</a></p>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+                <div class="grid-x medium">
+                    <div class="cell small-3  brand">Loan Term</div>
+                    <div class="cell small-3 "><span class="show-for-small-only">Present</span> @Model.LoanTerms.LoanTerm months</div>
+                    <div class="cell small-4 ">
+                        <span class="show-for-small-only">New Request</span>
+                        @LSForm.Number(nameAndId: "LoanTerm",
+ariaLabel: "Enter loan term.",
+ngModel: "LoanAcceptance.ChangeLoanTerms.LoanTerm",
+required: true,
+minLength: 2,
+maxLength: 3,
+ngMin: "{{LoanTermRates.MinTerm}}",
+ngMax: "{{LoanOffer.TermMonths || LoanTermRates.MaxTerm || rates.MaxTerm}}")
+                        @if (Model.LoanTerms.IsCreditCardConsolidation())
+                        {
+                            <div class="forminfo" tabindex="0" ng-show="LoanAcceptance.ChangeLoanTerms.LoanTerm > 60 && LoanAcceptance.ChangeLoanTerms.LoanAmountMinusFees < 25000 && LoanAcceptance.ChangeLoanTerms.LoanAmountMinusFees > 0 " ng-cloak>
+                                <p>Please note: Credit Card/Debt Consolidation loan terms greater than 60 months with a loan amount of less than $25,000 are only available for <a href="/partial/cms/excellent-credit" data-popup="true">excellent-credit applicants.</a></p>
+                            </div>
+                        }
+
+
+                        @* @if (Model.LoanTerms.IsHomeImprovement())
+                            {
+                                        <div class="forminfo" tabindex="0" ng-show="LoanAcceptance.ChangeLoanTerms.LoanTerm > 84 && LoanAcceptance.ChangeLoanTerms.LoanTerm<= 144 && LoanAcceptance.ChangeLoanTerms.LoanAmountMinusFees >= 25000" ng-cloak>
+                                            Please note: Home Improvement terms between 85 and 144 months are only available for <a href="/partial/cms/excellent-credit" data-popup="true">excellent credit applicants.</a>
+                                        </div>
+                            }*@
+                    </div>
+
+
+                </div>
+                <div class="grid-x">
+                    <div class="cell small-3 brand">Payment method</div>
+                    <div class="cell small-3 "><span class="show-for-small-only">Present</span> @Model.LoanTerms.PaymentMethod</div>
+                    <div class="cell small-4 col-last">
+                        <span class="show-for-small-only">New Request</span>
+                        @(Html.NgDropDownEnumList(
+                                            "LoanAcceptance.ChangeLoanTerms.PaymentMethod",
+                                            "PaymentMethod",
+                                            "Select payment method.",
+                                            FirstAgain.Domain.Lookups.FirstLook.PaymentTypeLookup.BindingSource,
+                                            true))
+
+                    </div>
+                </div>
+                <div class="grid-x">
+                    <div class="cell small-3 brand">Interest Rate/APR</div>
+                    <div class="cell small-3"><span class="show-for-small-only">Present</span> @Model.LoanTerms.InterestRate</div>
+                    <div class="cell small-4 col-last"><span class="show-for-small-only">New Request</span>&nbsp;<span ng-cloak ng-show="ChangeLoanTermsForm.$valid && LoanAcceptance.ChangeLoanTerms.InterestRate">{{LoanAcceptance.ChangeLoanTerms.InterestRate| number:2}} %</span></div>
+                </div>
+
+                <div class="grid-x">
+                    <div class="cell small-3 brand">Monthly Payment</div>
+                    <div class="cell small-3"><span class="show-for-small-only">Present</span> @Model.LoanTerms.MonthlyPayment</div>
+                    <div class="cell small-4 col-last"><span class="show-for-small-only">New Request</span>&nbsp;<span ng-cloak ng-show="ChangeLoanTermsForm.$valid">{{LoanAcceptance.ChangeLoanTerms.MonthlyPayment | currency}}</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="medium-7 columns medium-push-1">
+                <a class="button button-medium button-navy" href="#/Review" ng-disabled="Waiting" ng-click="goBack()">Return to Previous Page</a>
+                <input type="submit" class="button button-medium" ng-disabled="Waiting || ChangeLoanTermsForm.$invalid || changeLoanTermsHasInFactNotChanged()" ng-mouseover="ChangeLoanTermsMouseOver = true" ng-mouseleave="ChangeLoanTermsMouseOver = false" value="Submit" />
+                <img src="@Model.CdnBaseUrl/ajax-loader.gif" ng-show="Waiting" alt="waiting" ng-cloak />
+                <div class="forminfo" ng-show="changeLoanTermsHasInFactNotChanged()" ng-cloak>
+                    <p>If you wish to submit a change, please modify your existing terms. </p>
+                </div>
+
+                <div class="formalert" ng-show='ChangeLoanTermsForm.LoanAmount.$hasVisited && (ChangeLoanTermsForm.LoanAmount.$error.min ||ChangeLoanTermsForm.LoanAmount.$error.max) && !ChangeLoanTermsError' ng-cloak="">
+                    <p>Please enter an amount between {{LoanTermRates.MinLoanAmount | currency}} and {{LoanOffer.LoanAmount || LoanTermRates.MaxLoanAmount | currency}}</p>
+                </div>
+
+                <div class="formalert" ng-show='(ChangeLoanTermsForm.LoanAmount.$hasVisited || ChangeLoanTermsForm.LoanTerm.$hasVisited) && (ChangeLoanTermsForm.LoanTerm.$error.min || ChangeLoanTermsForm.LoanTerm.$error.max) && !ChangeLoanTermsError' ng-cloak="">
+                    <p>Please enter a term between {{LoanTermRates.MinTerm}} and {{LoanOffer.TermMonths || LoanTermRates.MaxTerm || LoanTermRates.MaxTerm}}</p>
+                </div>
+                <div class="formalert" ng-show='ChangeLoanTermsError' ng-cloak="">
+                    <p ng-bind-html="ChangeLoanTermsError">{{ChangeLoanTermsError}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="ErrorMessage" ng-cloak>
+            <div class="medium-6 columns medium-push-1">
+                <div class="formalert" ng-cloak><p>{{ErrorMessage}}</p></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-8 columns medium-push-1" style="min-height:3rem;" ng-cloak>
+                <div class="formalert" ng-cloak ng-show="changeLoanTermsHasInFactNotChanged() && ChangeLoanTermsMouseOver"><p>If you wish to submit a change, please modify your existing terms. Thank You.</p></div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.LoanTerms.LoanOfferDisclaimer))
+        {
+            <div class="medium-11 columns" style="min-height:3rem;" ng-cloak>
+                <div class="disclaimer">@Html.Raw(Model.LoanTerms.LoanOfferDisclaimer)</div>
+            </div>
+        }
+
+
+        @if (Model.LoanTerms.FloridaDocStampTax.HasValue)
+        {
+            <div class="row" id="FloridaDocStampDisclosure">
+                <div class="medium-7 small-12 columns medium-push-1">
+                    <p>
+                        <super>**</super>
+                        A Florida <a href="/partial/florida-doc-stamp-info" data-open="AjaxModal" data-reveal-ajax="true">documentary stamp tax</a>
+                        <span ng-show="LoanAcceptance.ChangeLoanTerms.FloridaDocStampTax">, in the amount of {{LoanAcceptance.ChangeLoanTerms.FloridaDocStampTax | currency }}</span>
+                        will be added to your loan amount then transmitted for payment on your behalf. Stamp tax is <span style="text-decoration:underline;">not</span> included when determining loan interest rate.
+                    </p>
+                </div>
+            </div>
+        }
+
+    </fieldset>
+</form>

@@ -1,0 +1,55 @@
+﻿
+@using FirstAgain.Domain.Common
+
+<div class="row">
+    <div class="medium-3 columns">
+        <label for="LoanAmount"><sup>*</sup>Loan Amount</label>
+        @LSForm.Currency(nameAndId: "LoanAmount",
+                                          ngModel: "LoanApp.LoanAmount",
+                                          ariaLabel: "Enter your loan amount.",
+                                          ngMin: "{{rates.MinLoanAmount}}",
+                                          ngMax: "{{rates.MaxLoanAmount}}",
+                                          maxLength: 12)
+
+        <div class="formalert" tabindex="0" ng-cloak ng-show='LoanApplication.LoanAmount.$hasVisited && (!LoanApplication.LoanAmount.$error.required && (LoanApplication.LoanAmount.$error.min || LoanApplication.LoanAmount.$error.max))' ng-cloak="">
+            <p>Please enter an amount between {{LoanAppRates.MinLoanAmountHint || rates.MinLoanAmountHint | currency}} and {{LoanAppRates.MaxLoanAmountHint || rates.MaxLoanAmountHint | currency}}</p>
+        </div>
+
+        <div class="formalert" tabindex="0" ng-cloak ng-show="LoanApplication.LoanAmount.$hasVisited && (LoanApplication.LoanAmount.$error.max && LoanApplication.LoanAmount.$error.min && LoanApp.PurposeOfLoan.Type === 'NotSelected')" ng-cloak="">
+            <p>Please select a loan purpose</p>
+        </div>
+        <div class="forminfo aside down" tabindex="0" ng-show="LoanApp.PurposeOfLoan.Type == 'CreditCardConsolidation' && LoanApp.LoanAmount > 50000" ng-cloak="">
+            <p>Please note: Credit Card/Debt Consolidation loan amounts greater than $50,000 are only available for <a href="/partial/cms/excellent-credit" data-popup="true">excellent-credit applicants.</a></p>
+        </div>
+    </div>
+
+    <div class="medium-3 columns">
+        <label for="LoanTermMonths"><sup>*</sup>Loan Term (months)</label>
+        @LSForm.Number(nameAndId: "LoanTermMonths",
+                           ngModel: "LoanApp.LoanTermMonths",
+                           ariaLabel: "Enter your loan term in number of months.",
+                           required: true,
+                           minLength: 2,
+                           maxLength: 3,
+                           ngMin: "{{rates.MinTerm}}",
+                           ngMax: "{{LoanAppRates.MaxTerm || rates.MaxTerm}}")
+
+        <div class="formalert" tabindex="0" ng-show='LoanApplication.LoanTermMonths.$hasVisited && (LoanApplication.LoanTermMonths.$error.min ||LoanApplication.LoanTermMonths.$error.max)' ng-cloak="">
+            <p>Please enter a term between {{rates.MinTerm}} and {{rates.MaxTerm}} months</p>
+        </div>
+
+    </div>
+
+    <div class="medium-6 columns">
+        <div class="forminfo aside down" tabindex="0" ng-show="LoanApp.PurposeOfLoan.Type == 'NewAutoPurchase' || LoanApp.PurposeOfLoan.Type == 'UsedAutoPurchase' || LoanApp.PurposeOfLoan.Type == 'PrivatePartyPurchase' || LoanApp.PurposeOfLoan.Type == 'AutoRefinancing' || LoanApp.PurposeOfLoan.Type == 'LeaseBuyOut'" ng-cloak="">
+            <p>Please remember to include any additional tax, titling, or registration fees in your requested loan amount.</p>
+        </div>
+        <div class="forminfo aside down" tabindex="0" ng-show="LoanApp.PurposeOfLoan.Type == 'CreditCardConsolidation' && LoanApp.LoanAmount < 25000  && LoanApp.LoanAmount > 0 && LoanApp.LoanTermMonths > 60" ng-cloak="">
+            <p>Please note: Credit Card/Debt Consolidation loan terms greater than 60 months with a loan amount of less than $25,000 are only available for <a href="/partial/cms/excellent-credit" data-popup="true">excellent-credit applicants.</a></p>
+        </div>
+        @* <div class="forminfo aside down" tabindex="0" ng-show="LoanApp.PurposeOfLoan.Type == 'HomeImprovement' && LoanApp.LoanAmount >= 25000  && LoanApp.LoanTermMonths > 84 && LoanApp.LoanTermMonths <= rates.MaxTerm " ng-cloak="" >
+                <p>Please note: Home Improvement terms between 85 and 144 months are only available for <a href="/partial/cms/excellent-credit" data-popup="true">excellent credit applicants.</a></p>
+            </div>*@
+    </div>
+
+</div>

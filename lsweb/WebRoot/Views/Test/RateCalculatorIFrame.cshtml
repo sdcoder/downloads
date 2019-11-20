@@ -1,0 +1,95 @@
+﻿@using FirstAgain.Domain.Lookups.FirstLook
+@model List<Tuple<string, int>>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RateCalculatorIFrame</title>
+    <style>
+        body {
+            background-color: #e6e6e6;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.2em;
+            margin: 2em;
+        }
+
+        form {
+            margin-bottom: 1em;
+        }
+
+        #Widget {
+            max-width: 1000px;
+            border: 0;
+        }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">window.jQuery || document.write('<script src="/scripts/jquery-3.4.1.min.js"><\/script>')</script>
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/main-page")
+    <script type="text/javascript">
+        angular.module('LightStreamApp', [])
+            .controller('IFrameController', ['$scope', '$sce',
+                function ($scope, $sce) {
+                    $scope.$watchCollection('[PurposeOfLoan, FACT, LCID]', function () {
+                        $scope.URL = function () {
+                            var url = '/rates/widget?purposeOfLoan=' + $scope.PurposeOfLoan;
+
+                            if ($scope.FACT) {
+                                url += '&fact=' + $scope.FACT;
+                            }
+
+                            if ($scope.LCID) {
+                                url += '&lcid=' + $scope.LCID;
+                            }
+
+                            return url;
+                        }();
+
+                        $('#Widget').attr('src', $scope.URL);
+                    });
+                }]);
+
+    </script>
+</head>
+<body>
+    <form ng-app="LightStreamApp" ng-controller="IFrameController" ng-init="PurposeOfLoan = 'NewAutoSecured'">
+        <p>
+            <label>
+                Loan Purpose: @(Html.NgDropDownEnumList(
+            "PurposeOfLoan",
+            "PurposeOfLoan",
+            "Select loan purpose.",
+            PurposeOfLoanLookup.GetFilteredList(PurposeOfLoanLookup.FilterType.Public),
+            true))
+            </label>
+        </p>
+        <p>
+            <label>
+                FACT:
+                <select name="FACT" ng-model="FACT">
+                    @foreach (var fact in Model)
+                    {
+                        <option value="@fact.Item2">@fact.Item1 @fact.Item2</option>
+                    }
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>LCID:
+                <input type="text" ng-model="LCID" />
+            </label>
+        </p>
+
+        <p>{{URL}}</p>
+    </form>
+    <div> 
+        <iframe src="/rates/widget?purposeOfLoan=@ViewBag.purposeOfLoan&fact=@ViewBag.fact" id="Widget"
+                style="height: 1000px; width: 709.313px; padding: 20px;"></iframe>
+    </div>
+</body>
+</html>

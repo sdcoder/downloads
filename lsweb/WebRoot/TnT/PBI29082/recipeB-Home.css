@@ -1,0 +1,1300 @@
+﻿/* CAROUSEL */
+
+/* Slider */
+.slick-slider
+{
+    position: relative;
+
+    display: block;
+    box-sizing: border-box;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+        touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list
+{
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+}
+.slick-list:focus
+{
+    outline: none;
+}
+.slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: block;
+}
+.slick-track:before,
+.slick-track:after
+{
+    display: table;
+
+    content: '';
+}
+.slick-track:after
+{
+    clear: both;
+}
+.slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+.slick-slide
+{
+    display: none;
+    float: left;
+
+    height: 100%;
+    min-height: 1px;
+}
+[dir='rtl'] .slick-slide
+{
+    float: right;
+}
+.slick-slide img
+{
+    display: block;
+}
+.slick-slide.slick-loading img
+{
+    display: none;
+}
+.slick-slide.dragging img
+{
+    pointer-events: none;
+}
+.slick-initialized .slick-slide
+{
+    display: block;
+}
+.slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+.slick-vertical .slick-slide
+{
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
+ /* TILE FLIP */
+
+/*.jumbotron{
+	margin-bottom: 0px;
+}*/
+
+/*.jumbotron .logo {
+	width: 15%;
+	margin-top: -1.5%;
+	float: left;
+}*/
+
+/*.download {
+	text-align: center;
+}*/
+
+/*.download span {
+  margin: 0 4px;
+}*/
+
+/*footer {
+	padding: 20px;
+	margin-top: 30px;
+	background-color: #eee;
+	color: #333;
+	border-top: 1px #ccc solid;
+}*/
+
+/*.card {
+	width: 100%;
+	height: 300px;
+}*/
+
+.card-grid {
+  width: 100px;
+  height: 100px;
+  margin: 6px;
+  display: inline-block;
+}
+
+.card-grid {
+  perspective: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+
+}
+
+.card-grid .front, .card-grid .back {
+  /*padding: 10px;*/
+  text-align: center;
+  border: 1px #333 solid;
+}
+
+.card-grid .front {
+  /*background-color: rgb(19,72,125);*/
+}
+
+.card-grid .front {
+  backface-visibility: hidden; 
+  transform-style: preserve-3d; 
+  position: absolute; 
+  z-index: 1; 
+  height: 100%; 
+  width: 100%;
+  transition: all 0.5s ease-out; 
+  transform: rotateY(0deg);
+
+}
+
+.card-grid .front img {
+  margin: 0;
+}
+
+.card-grid .back p{
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(19,72,125);
+  color: white;
+}
+
+.card-grid .back p {
+  font-size: 14px;
+}
+
+.card-grid .back {
+  transform: rotateY(-180deg); 
+  z-index: 0; 
+  backface-visibility: hidden; 
+  transform-style: preserve-3d; 
+  position: absolute; 
+  height: 100%; 
+  width: 100%; 
+  transition: all 0.5s ease-out;
+}
+
+.card-grid .back a {
+   background-color: rgb(19,72,125); 
+   border-radius: 10px !important;
+}
+
+/*.card .front{
+	text-align: center;
+	font-size: 30px;
+	font-weight: 200;
+}*/
+
+/*.card .back{
+	text-align: center;
+	font-size: 12px;
+	font-weight: 200;
+	background-color: #eee;
+}*/
+
+/*.download{
+	background-color: #252525;
+	padding: 20px;
+}*/
+
+.card img{
+	width: 100%;
+	height: 100%;
+}
+.card > .back{
+	word-wrap: break-word;
+}
+/*.margin-top{
+	margin-top: 10px;
+}*/
+
+/*.col-md-6 button.btn-primary {
+  float: left;
+  width: 35%;
+  margin: 2px 8px 0 0;
+}*/
+/*.table-wrapper{
+	overflow-x: scroll; 
+}*/
+
+
+ /* TILE FLIP */
+
+ /* HEADER */
+    #header h1, #header h1 a { /**/
+        /*position: relative;
+        top: 0px;
+        left: 0px;
+        background: url(/content/images/logo_tm_color.jpg) no-repeat left center;
+        background-size: contain;*/
+    }
+
+    .navbar {
+        /*opacity: 0;
+        background-color: white;*/
+    }
+
+        .navbar ul.hide-for-small-only {
+            /*display: none !important;*/
+        }
+
+    #SignInNavLink, #RatesTermsNavLink, #HomeLink, #AboutNavLink, #QuestionsNavLink, #PrivacySecurityNavLink {
+        /*display: none;*/
+    }
+
+    #header nav li[data-nav="apply"] {
+        /*position: inherit;*/
+    }
+
+    .row .headerbar {
+        /*border-bottom: 4px solid #20406E;
+        margin-bottom: 0em;*/
+    }
+
+    .excellent-credit { /**/
+        /*color: #20406E;
+        font-style: italic;
+        width: 100%;
+        text-align: right;
+        font-weight: 700;
+        overflow: visible;*/
+    }
+
+    /* HERO */
+    body.home #header img.banner {
+        /*min-width: 1763px;*/
+    }
+
+    header img.hide-for-small.banner {
+        /*opacity: 0;
+        content: url('/content/tnt/29086/desktop-header-wide.jpg');
+        background-size: contain;*/
+    }
+
+    .heroaction {
+        /*width: 320px;
+        text-align: left;*/
+    }
+
+        .heroaction.clearfix {
+            /*display: none;
+            margin-top: 1em;*/
+        }
+
+    body.home #header .headline h2 {
+        /*color: #ABE2F7;
+        font-size: 2.2rem;
+        margin: 0;
+        font-weight: 600;
+        line-height: 1em;*/
+    }
+
+    div.ratedetails {
+        /*padding-left: 0.5rem;*/
+    }
+
+    div.ratedetails, .heroaction .ratedetails h3.ratepercentage, .heroaction p {
+        /*text-align: left;*/
+    }
+
+    .heroaction .ratedetails p {
+        /*font-size: 1.1rem;
+        font-weight: bold;*/
+    }
+
+
+
+    .heroaction .ratedetails h3.ratepercentage {
+        /*color: #ABE2F7;
+        font-size: 74px;*/
+    }
+
+    h3.ratepercentage {
+        /*float: left;*/
+    }
+
+    p.ratenote {
+        /*float: left;
+        width: 5rem;
+        padding-left: 0.4rem;
+        padding-top: 0.1rem;*/
+    }
+
+    div.heroaction a.button {
+        /*text-transform: uppercase;
+        clear: both;
+        width: 11em;*/
+    }
+
+    .seeratesandterms {
+        /*display: none;*/
+    }
+
+    /* MAIN */
+
+    div.large-12.headertoggle {
+        /*display: none;*/
+    }
+
+    div.benefits-bar {
+        /*background-color: rgb(14, 65, 107);
+        color: white;
+        padding: 17px 10px 27px 10px;*/
+    }
+
+        div.benefits-bar img {
+            /*margin-left: 1em;
+            float: left;
+            vertical-align: middle;
+            height: 75px;
+            width: 70px;
+            padding-bottom;*/
+        }
+
+            div.benefits-bar img.bank {
+                /*height: 70px;
+                        width: 70px;*/
+                /*padding-top: 3px;*/
+            }
+
+            div.benefits-bar img.nofees {
+                /*height: 70px;
+                        width: 70px;*/
+                /*padding-top: 3px;*/
+            }
+
+            div.benefits-bar img.ratebeat {
+                /*height: 70px;
+                        width: 70px;*/
+                /*padding-top: 3px;*/
+            }
+
+        div.benefits-bar p {
+            /*color: white;
+            height: 70px;
+            padding-top: 15px;
+            padding-left: 100px;*/
+        }
+
+    form .button:focus, form a.button:focus {
+        /*font-size: 24px;*/
+    }
+
+    /* FOOTER */
+    footer nav, .social {
+        /*display: none;*/
+    }
+
+
+    section.row.ruled.homefeatures {
+        /*display: none;*/
+    }
+
+    section.row.ruled.featured_testimonial {
+        /*display: none;*/
+    }
+
+    div.row.page-article {
+        /*display: none;*/
+    }
+
+    article.rate-calculator div.row div.medium-4.medium-push-8.columns.panel {
+        /*display: none;*/
+    }
+
+    .rate-match {
+        /*display:none;*/
+    }
+
+    #RateTablePurposeOfLoan {
+        /*display: none;*/
+    }
+
+    time {
+        /*top:-70px;
+            position:relative;
+            left:675px;*/
+    }
+
+    #RateTable .legalcopy:not(.loan-term-disclosures) {
+        /*margin-top: -45px;*/
+    }
+
+    .row.ruled.homeloanuses {
+        /*display: none;*/
+    }
+
+    a[href="/partial/cms/excellent-credit"] {
+        /*color: rgb(26, 26, 26);
+        font-weight: 500;*/
+    }
+
+        a[href="/partial/cms/excellent-credit"]:hover {
+            /*text-decoration: none;
+            cursor: default;*/
+        }
+
+    div.terms-container ul {
+        /*list-style: disc;*/
+    }
+
+    #SameDayFundingDisclosure {
+        /*display: none !important;
+        opacity: 0;*/
+    }
+
+    form .button:focus, form a.button:focus {
+        /*font-size: 24px;*/
+    }
+
+    a.rate-match {
+        /*position: relative;
+        top: 1.430em;
+        left: -1em;*/
+    }
+    
+    .applyinminutes {
+        background-color: rgb(19,72,125);
+    }
+
+    .mainvideo {
+
+    }
+
+    .thelightstreamexperience {
+
+    }
+
+    .getstarted {
+        width: 1000px;
+        background: url('/content/tnt/29082/sky.jpg') no-repeat left center;
+        /*background-size: contain;*/
+    }
+
+    /*MIN-WIDTH*/
+    @media (min-width: 768px) { /* TODO: CONSOLIDATE */
+        body.landing-page #header {
+            /*height: 640px;*/
+        }
+
+        body.home #header img.banner {
+            /*top: -15px;*/
+        }
+
+        /*div.heroaction a.button {
+        width: 15em;
+    }*/
+    }
+
+    @media only screen and (min-width: 641px) { /* TODO: CONSOLIDATE */
+        #header nav li[data-nav="apply"] {
+            /*position: relative;
+                    left: 50px;*/
+            /*border: 1px solid #20406E;
+            margin: 5px;*/
+        }
+    }
+
+    /*MAX-WIDTH*/
+
+    @media screen and (max-width: 2560px) {
+        body.home #header img.banner {
+            /*position: relative;
+            left: -500px;
+            height: 100%;
+            min-height: 0;
+            margin-bottom: -1.500em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: 1em;
+            height: 242px;
+            width: 318px;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+        .heroaction .ratedetails p {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span {
+            }
+
+        .heroaction .ratedetails p.ratenote {
+        }
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage span { /**/
+            /*top: -42px;
+            font-size: 19px;
+            color: #ABE2F7;*/
+        }
+    }
+
+    @media screen and (max-width: 1920px) {
+
+
+        .heroaction.clearfix { /**/
+            /*margin-top: 1em;
+            height: 242px;
+            width: 318px;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+        .heroaction .ratedetails p {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span {
+            }
+
+        .heroaction .ratedetails p.ratenote {
+        }
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+    }
+
+    @media screen and (max-width: 1919px) and (min-width: 1441px) {
+    }
+
+    @media screen and (max-width: 1440px) {
+        body.home #header img.banner { /**/
+            /*position: relative;
+            left: -76px;
+            width: 128%;
+            min-width: 128%;
+            min-height: 0;
+            margin-bottom: -1.500em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: 1em;
+            height: 242px;
+            width: 318px;*/
+        }
+
+
+
+        .heroaction .ratedetails h3.ratepercentage span { /**/
+            /*top: -42px;
+            font-size: 19px;
+            color: #ABE2F7;*/
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .excellent-credit {
+            /*position: relative;
+            top: -0.95em;
+            font-size: 1em;*/
+        }
+
+        .heroaction.clearfix {
+            /*margin-top: 1em;
+            height: 231px;
+            width: 318px;*/
+        }
+
+        .heroaction .ratedetails h3.ratepercentage span {
+            /*top: -41px;
+            font-size: 18px;
+            color: #ABE2F7;*/
+        }
+
+
+        form .button[href="/apply"],
+        form .button[href="/apply"]:link,
+        form .button[href="/apply"]:visited,
+        form .button[href="/apply"]:hover,
+        form .button[href="/apply"]:focus,
+        form .button[href="/apply"]:active,
+        form a.button[href="/apply"],
+        form a.button[href="/apply"]:link,
+        form a.button[href="/apply"]:visited,
+        form a.button[href="/apply"]:hover,
+        form a.button[href="/apply"]:focus,
+        form a.button[href="/apply"]:active {
+            /*margin-left: 14px;
+            font-size: 24px;*/
+        }
+    }
+
+    @media screen and (max-width: 1023px) and (min-width: 769px) {
+    }
+
+    @media screen and (max-width: 1000px) and (min-width: 768px) { /* TODO: CONSOLIDATE */
+        .home.landing-page #header {
+            /*height: 520px;*/
+        }
+
+
+
+        body.home #header .headline {
+            /*top: 100px;*/
+        }
+
+            body.home #header .headline h2 {
+                /*margin-top: 0px;
+                margin-right: 0px;
+                margin-bottom: 0px;
+                margin-left: 0px;*/
+            }
+
+        .heroaction .ratedetails p {
+            /*font-size: 1.1rem;
+            font-weight: bold;*/
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+            /*color: #ABE2F7;
+            font-size: 72px;
+            margin-top: 12px;*/
+        }
+
+        .heroaction .ratedetails p, p.seeratesandterms, p.seeratesandterms a {
+            /*font-size: 18px;
+            line-height: 22px;*/
+        }
+
+        time {
+            /*left:505px;
+                top: -40px;*/
+        }
+
+        body.rates h1 {
+            /*font-size: 24px;*/
+        }
+
+        div.terms-container {
+            /*margin-top: 60px;*/
+        }
+
+        div.benefits-bar img {
+            /*margin-left: 0.4em;*/
+        }
+
+        div.benefits-bar p {
+            /*padding-left: 100px;
+            font-size: 0.75rem;*/
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        .excellent-credit { /**/
+            /*position: relative;
+            top: -0.95em;
+            font-size: 1em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: 1em;
+            height: 231px;
+            width: 306px;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+        .heroaction .ratedetails p {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span {
+            }
+
+        .heroaction .ratedetails p.ratenote {
+        }
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage span { /**/
+            /*top: -39px;
+            font-size: 16px;
+            color: #ABE2F7;*/
+        }
+
+        .heroaction .ratedetails p.ratenote { /**/
+            /*width: 55px;
+            padding-top: 1px;
+            padding-left: 4px;
+            line-height: 1em;*/
+        }
+
+        form .button[href="/apply"],
+        form .button[href="/apply"]:link,
+        form .button[href="/apply"]:visited,
+        form .button[href="/apply"]:hover,
+        form .button[href="/apply"]:focus,
+        form .button[href="/apply"]:active,
+        form a.button[href="/apply"],
+        form a.button[href="/apply"]:link,
+        form a.button[href="/apply"]:visited,
+        form a.button[href="/apply"]:hover,
+        form a.button[href="/apply"]:focus,
+        form a.button[href="/apply"]:active {
+            /*margin-left: 14px;
+            font-size: 18px;*/
+        }
+
+        a.rate-match {
+            /*position: relative;
+            top: 22px;
+            left: 1em;*/
+        }
+
+        time {
+            /*font-size: 0.76em;*/
+        }
+    }
+
+    @media screen and (max-width: 767px) and (min-width: 641px) {
+
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+
+        a.rate-match {
+            /*position: relative;
+            top: 1.905em;*/
+        }
+    }
+
+    @media screen and (max-width: 641px) { /* TODO: CONSOLIDATE */
+        div.benefits-bar p br {
+            /*display: none;*/
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        #header h1, #header h1 a { /**/
+            /*width: 220px;*/
+        }
+
+        .excellent-credit { /**/
+            /*position: relative;
+            top: -1.55em;
+            font-size: 1em;*/
+        }
+
+        body.home #header img.banner { /**/
+            /*position: relative;
+            left: -178px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;
+            margin-bottom: -1.500em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: -24em;
+            height: 203px;
+            width: 269px;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+        .heroaction .ratedetails p {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span {
+            }
+
+        .heroaction .ratedetails p.ratenote {
+        }
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage span { /**/
+            /*top: -27px;
+            font-size: 13px;
+            color: #ABE2F7;*/
+        }
+
+        div.benefits-bar img { /**/
+            /*margin-left: 7em;
+            height: auto;
+            width: 52px;*/
+        }
+
+        div.benefits-bar p { /**/
+            /*height: 39px;
+            padding-top: 1em;
+            padding-left: 11em;
+            font-size: 1rem;*/
+        }
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+
+        a.rate-match {
+            /*left: -1em;*/
+        }
+    }
+
+    @media screen and (max-width: 639px) and (min-width: 426px) {
+        body.home #header img.banner {
+            /*position: relative;
+            left: -254px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+        .heroaction .ratedetails p {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span {
+            }
+
+        .heroaction .ratedetails p.ratenote {
+        }
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+
+        a.rate-match {
+            /*position: relative;
+            top: 1.905em;*/
+        }
+    }
+
+    @media screen and (max-width: 500px) { /* TODO: CONSOLIDATE */
+        .heroaction {
+            /*background: url(/content/images/blacktint.png) repeat;*/
+        }
+
+            .heroaction.clearfix {
+                /*margin-top: -12em;
+                height: 175px;
+                width: 140px;*/
+            }
+
+            .heroaction .ratedetails h3.ratepercentage {
+                /*margin-top: 4px;
+                font-size: 42px;
+                line-height: 32px;*/
+            }
+
+        .home.landing-page #header {
+            /*height: 392px;*/
+        }
+
+        .home.landing-page #header {
+            /*height: 280px;*/
+        }
+
+        .heroaction .ratedetails {
+            /*float: none;
+            overflow-x: hidden;
+            color: #ABE2F7;
+            padding: 5px;
+            padding-bottom: 0px;
+            width: 100%;*/
+        }
+
+        .heroaction a.button {
+            /*float: none;
+            margin-top: 1px;
+            width: 80%;
+            padding-top: 3px;
+            padding-bottom: 3px;*/
+        }
+
+        .heroaction p.seeratesandterms {
+            /*display: none;*/
+        }
+
+        body.home #header .headline h2 {
+            /*color: #ABE2F7 !important;
+            font-size: 16px;
+            margin: 0;
+            font-weight: 600;*/
+        }
+
+        .heroaction .ratedetails p {
+            /*color: #ABE2F7;*/
+            /*color: #FFFFFF;
+            line-height: 10px;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 12px;
+            padding-bottom: 5px;*/
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+            /*color: #ABE2F7;*/
+        }
+
+        body.home #header .subtitle {
+            /*color: #ABE2F7;
+            font-size: 14px;
+            font-weight: 500;
+            font-style: italic;
+            line-height: 15px;*/
+        }
+
+        div.benefits-bar {
+            /*padding: 7px 10px 8px 10px;*/
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        table.records tr td:first-of-type,
+        table.records tr.expanded td {
+            /*display: block;
+            border-right: 0px solid #8ab6dc !important;
+            border-left: 0px solid #8ab6dc !important;*/
+        }
+    }
+
+    @media screen and (max-width: 425px) {
+        #header h1, #header h1 a { /**/
+            /*width: 160px;*/
+        }
+
+        .excellent-credit { /**/
+            /*position: relative;
+            top: -2.15em;
+            font-size: 0.7em;*/
+        }
+
+        body.home #header img.banner { /**/
+            /*position: relative;
+            left: -178px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;
+            margin-bottom: -1.500em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: -12em;
+            height: 124px;
+            width: 214px;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+        .heroaction .ratedetails p {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage {
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span {
+            }
+
+        .heroaction .ratedetails p.ratenote {
+        }
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+
+        .heroaction .ratedetails h3.ratepercentage span { /**/
+            /*top: -21px;
+            font-size: 11px;
+            color: #ABE2F7;*/
+        }
+
+        div.benefits-bar img { /**/
+            /*margin-left: 5em;
+            width: 40px;
+            height: auto;*/
+        }
+
+        div.benefits-bar p { /**/
+            /*height: 39px;
+            padding-top: 1em;
+            padding-left: 11em;
+            font-size: 0.75rem;*/
+        }
+
+        .heroaction .ratedetails p.ratenote {
+            /*width: 55px;
+            padding-top: 1px;
+            padding-left: 4px;
+            line-height: 1em;*/
+        }
+
+        /*body.home #header img.banner {
+        position: relative;
+        left: -254px;
+        width: 193%;
+        height: auto;
+        min-width: 193%;
+        min-height: 0;
+    }*/
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+    }
+
+    @media screen and (max-width: 424px) and (min-width: 376px) {
+        body.home #header img.banner {
+            /*position: relative;
+            left: -254px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;*/
+        }
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+
+        a.rate-match {
+            /*position: relative;
+            top: 1.905em;*/
+        }
+    }
+
+    @media screen and (max-width: 375px) {
+
+        .excellent-credit { /**/
+            /*position: relative;
+            top: -2.35em;
+            font-size: 0.6em;*/
+        }
+
+        body.home #header img.banner { /**/
+            /*position: relative;
+            left: -122px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;
+            margin-bottom: -1.500em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: -12em;
+            height: 124px;
+            width: 212px;*/
+        }
+
+        body.home #header .headline h2 {
+        }
+
+
+        div.heroaction a.button {
+        }
+
+        .seeratesandterms {
+        }
+
+        div.benefits-bar img { /**/
+            /*margin-left: 3em;
+            width: 40px;
+            height: auto;*/
+        }
+
+        div.benefits-bar p { /**/
+            /*height: 39px;
+            padding-top: 1em;
+            padding-left: 8em;*/
+        }
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+
+        a.rate-match { /**/
+            /*position: relative;
+            top: 25px;
+            left: -15px;*/
+        }
+    }
+
+    @media screen and (max-width: 374px) and (min-width: 321px) {
+        body.home #header img.banner {
+            /*position: relative;
+            left: -254px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;*/
+        }
+
+
+        div.apply-button .button {
+            /*margin-left: 15px;*/
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .row .headerbar { /**/
+            /*margin-bottom: 0em;*/
+        }
+
+        .excellent-credit { /**/
+            /*position: relative;
+            top: -2.700em;
+            font-size: 0.44em;*/
+        }
+
+        body.home #header img.banner { /**/
+            /*position: relative;
+            left: -106px;
+            width: 193%;
+            height: auto;
+            min-width: 193%;
+            min-height: 0;
+            margin-bottom: -1.500em;*/
+        }
+
+        .heroaction.clearfix { /**/
+            /*margin-top: -11em;
+            height: 124px;
+            width: 147px;*/
+        }
+
+
+        .heroaction .ratedetails p {
+            /*color: #ffffff;
+            font-size: 10px;*/
+        }
+
+        .heroaction .ratedetails h3.ratepercentage { /**/
+            /*font-size: 28px;
+            font-weight: 700;
+            line-height: 20px;*/
+        }
+
+            .heroaction .ratedetails h3.ratepercentage span { /**/
+                /*top: -15px;
+                font-size: 10px;
+                color: #ABE2F7;*/
+            }
+
+        .heroaction .ratedetails p.ratenote { /**/
+            /*width: 50px;
+            padding-top: 1px;
+            padding-left: 4px;
+            line-height: 1em;*/
+        }
+
+        div.heroaction a.button { /**/
+            /*margin-top: 7px;
+            font-size: 12px;*/
+        }
+
+        .seeratesandterms { /**/
+        }
+
+        div.benefits-bar img { /**/
+            /*margin-left: 1em;
+            width: 40px;
+            height: auto;*/
+        }
+
+        div.benefits-bar p { /**/
+            /*height: 39px;
+            padding-top: 1em;
+            padding-left: 6em;*/
+        }
+
+        .terms-container {
+            /*margin-top: 1em;*/
+        }
+
+        a.rate-match { /**/
+            /*position: relative;
+            top: 31px;*/
+        }
+
+    }

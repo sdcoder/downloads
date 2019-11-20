@@ -1,0 +1,48 @@
+﻿                <section ng-if="account.PaymentType == 'Invoice'">
+                    <div class="row" >
+                        <div class="medium-12 columns">
+                            <strong>Account Information</strong>
+                            
+                            <label ng-if="account.HasPaymentAccount">
+                                <input type="radio" name="PaymentAccountSelection" ng-model="account.PaymentAccountSelection" value="PaymentAccount" />
+                                Use account information on file
+                            </label>
+                            <label ng-if="!account.HasPaymentAccount">
+                                <input type="radio" name="PaymentAccountSelection" ng-model="account.PaymentAccountSelection" value="DepositAccount" />
+                                Use account information provided for the deposit of my loan proceeds
+                            </label>
+                            <label>
+                                <input type="radio" name="PaymentAccountSelection" ng-model="account.PaymentAccountSelection" value="NewAccount" />
+                                Enter new account information
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-if="account.PaymentAccountSelection == 'NewAccount'">
+                        <div class="medium-12 columns">
+                            @Html.Partial("_AccountInfo")
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <br />
+                            <strong> One-Time Payment Authorization Agreement</strong> <br/>
+                            <label for="AutoPayAgreement" class="checkbox">
+                                <input type="checkbox" ng-model="account.AutoPayAgreement" id="AutoPayAgreement" required />
+                                <span ng-show="!account.IsJoint">
+                                    @Html.Raw(Resources.FAMessages.ACHPaymentInvoiceAuthorizationInd.Replace("[LenderName]", "{{account.CompanyLegalName}}"))
+                                </span>
+                                <span ng-show="account.IsJoint">
+                                    @Html.Raw(Resources.FAMessages.ACHPaymentInvoiceAuthorizationJoint.Replace("[LenderName]", "{{account.CompanyLegalName}}"))
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <br />
+                        </div>
+                    </div>
+
+                </section>

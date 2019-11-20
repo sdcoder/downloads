@@ -1,0 +1,142 @@
+﻿<style>
+    #rates h1 br {
+        content: ' ';
+        display: inline;
+        clear: none;
+    }
+
+    #RateTablePurposeOfLoanRow div.text-right, #RateTablePurposeOfLoanRow select, #RateTableCurrentAPRRow, #RateTableRateBeatLogo {
+        display: none !important;
+    }
+
+    #RateTable div.table {
+        background-color: white;
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+    }
+
+    #RateTable table.loanrates tr:nth-of-type(even) {
+        background-color: #ededed;
+    }
+
+    #LoanCalculator h2 {
+        display: none;
+    }
+
+    form p.calculated span {
+        font-size: 24px;
+    }
+
+    form p.calculated {
+        line-height: 24px;
+    }
+
+    .calculated_values p.legalcopy-title {
+        font-weight: 400;
+        font-size: 12px;
+        color: rgb(102, 102, 102);
+    }
+
+    .records br {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+$(function() {
+    var allRates = null;
+    var ratesGathered = 0;
+    var ratesToGather = 10;
+
+    if (!allRates && $('body').attr('ng-app') != 'LandingPage') {
+        // initialize to new auto
+        $.post('/Services/Rates', { PurposeOfLoan: 'NewAutoPurchase' }, function (data) {
+            allRates = data;
+            allRates.PurposeOfLoan = 'NotSelected';
+            ratesToGather = allRates.LoanPurposes.length;
+
+            // then find lowest and highest
+            for (var i = 0; i < allRates.LoanPurposes.length; i++) {
+                var lp = allRates.LoanPurposes[i];
+
+                $.post('/Services/Rates', { PurposeOfLoan: lp.Value }, function (data) {
+                    ratesGathered++;
+
+                    for (var la = 0; la < data.RateTable.length; la++) {
+                        for (var r = 0; r < data.RateTable[la].Rates.length; r++) {
+                            if (data.RateTable[la].Rates[r] && allRates.RateTable[la].Rates[r]) {
+                                if (!allRates.RateTable[la].Rates[r].Min || data.RateTable[la].Rates[r].Min < allRates.RateTable[la].Rates[r].Min) {
+                                    allRates.RateTable[la].Rates[r].Min = data.RateTable[la].Rates[r].Min;
+                                }
+                                if (!allRates.RateTable[la].Rates[r].Max || data.RateTable[la].Rates[r].Max > allRates.RateTable[la].Rates[r].Max) {
+                                    allRates.RateTable[la].Rates[r].Max = data.RateTable[la].Rates[r].Max;
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // then initialize the data
+            var $rateCalculatorScope = angular.element(document.querySelector('[ng-controller=RateCalculator]')).scope();
+
+            var interval = setInterval(function () {
+                if (ratesToGather && ratesGathered >= ratesToGather) {
+                    clearInterval(interval);
+                    $rateCalculatorScope.$apply(function () {
+                        $rateCalculatorScope.rates = allRates;
+                        $rateCalculatorScope.PurposeOfLoan = 'NotSelected';
+                    });
+
+                }
+            }, 100);
+
+
+            $rateCalculatorScope.$watch('rates', function (rates, o) {
+                console.log(rates);
+
+                if (rates.PurposeOfLoan == 'NotSelected') {
+                    $rateCalculatorScope.rates = allRates;
+                }
+            });
+
+        });
+
+    }
+
+    if (!$('body').data('mboxed')) {
+        $('body').data('mboxed', true);
+        $('#rates > div.medium-4.medium-push-8.columns.panel').removeClass('medium-push-8').removeClass('medium-4').addClass('medium-12').removeClass('panel');
+        $('#rates > div.medium-8.medium-pull-4.columns').removeClass('medium-8').removeClass('medium-pull-4').addClass('medium-12');
+        $('div[ng-controller=RateCalculator]').addClass('panel').prependTo('ack');
+        $('#LoanCalculator div.input-values').addClass('medium-8 columns');
+        $('#LoanCalculator div.input-values-row').addClass('row');
+        $('#LoanCalculator div.calculated_values').addClass('medium-4 columns');
+
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var d = new Date();
+        var today = monthNames[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        $('div[ng-controller=RateCalculator]').before('<div class="row"><div class="medium-9 columns"><h1>Annual Percentage Rates (APR)</h1></div><div class="medium-3 columns text-right"><time>' + today + '</time></div></div>');
+
+        $('#LoanCalculator div[data-field="LoanPurpose"]').addClass('medium-12 columns');
+
+        $('#LoanCalculator div[data-field="LoanTerm"]').addClass('medium-4 columns');
+        $('#LoanCalculator div[data-field="LoanAmount"]').addClass('medium-4 columns');
+        $('#LoanCalculator div[data-field="PaymentMethod"]').addClass('medium-4 columns');
+
+        $('label[for=PurposeOfLoan]').text('For Rates, Select Loan Purpose');
+        var $rateBeat = $('#RateTableRateBeatLogo').detach();
+        $('div.terms-container').removeClass('medium-12').addClass('medium-9').after('<div class="medium-3 columns"><a class="rate-match" href="/partials/rate-match" data-reveal-id="AjaxModal" data-reveal-ajax="true"><img src="/Content/images/rates/ratebeat_blue.png" alt="rate beat offer"></a></div>');
+    }
+
+
+});
+
+</script>
+<script language="javascript">
+$(function () {
+    $.cookie('TntId', 'RedesignRatesAndTerms', {
+        path: '/'
+   });
+});
+</script>

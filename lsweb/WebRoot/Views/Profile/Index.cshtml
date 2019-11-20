@@ -1,0 +1,71 @@
+﻿@model LightStreamWeb.Models.AccountServices.ProfilePageModel
+
+<div data-ng-app="accountPreferences" id="ng-app" ng-controller="accountPreferencesController">
+    <div class="row">
+
+        <div class="medium-12 columns full-mobile">
+            <p>Here you may view, update or change your account information as needed. Simply click on any of the icons below.</p>
+        </div>
+
+    </div>
+    
+    <div class="row account-preferences-navigation">
+        <div class="small-6 medium-3 columns navigation-button-container" style="">
+            <button type="button" class="navigation-button ng-class: { active: isCurrentRoute('contactInformation')};" ng-click="navigate('/contactInformation')">
+                <img class="hideie8" src="@Url.Content("~/content/images/contact-information.svg")" alt="Contact Information">
+                <img class="showie8" src="@Url.Content("~/content/images/contact-information.png")" alt="Contact Information">
+                <p class="title">Contact Information</p>
+            </button>
+        </div>
+        <div class="small-6 medium-3 columns navigation-button-container">
+            <button class="navigation-button ng-class: { active: isCurrentRoute('accountLock')};" ng-click="navigate('/accountLock')">
+                <img class="hideie8" src="@Url.Content("~/content/images/account-lock.svg")" alt="AccountLock">
+                <img class="showie8" src="@Url.Content("~/content/images/account-lock.png")" alt="AccountLock">
+                <p class="title ">AccountLock</p>
+            </button>
+        </div>
+        <div class="small-6 medium-3 columns navigation-button-container">
+            <button class="navigation-button ng-class: { active: isCurrentRoute('privacyPreferences')};" ng-click="navigate('/privacyPreferences')">
+                <img class="hideie8" src="@Url.Content(string.Format("~/content/images/privacy-{0}.svg", Model.HasCoApplicant ? "double" : "single"))" alt="Privacy Preferences">
+                <img class="showie8" src="@Url.Content(string.Format("~/content/images/privacy-{0}.png", Model.HasCoApplicant ? "double" : "single"))" alt="Privacy Preferences">
+                <p class="title">Privacy & Other Preferences</p>
+            </button>
+        </div>
+        <div class="small-6 medium-3 columns navigation-button-container">
+            <button class="navigation-button ng-class: { active: isCurrentRoute('securityInformation')};" ng-click="navigate('/securityInformation')">
+                <img class="hideie8" src="@Url.Content("~/content/images/privacy-preference.svg")" alt="Security Information">
+                <img class="showie8" src="@Url.Content("~/content/images/privacy-preference.png")" alt="Security Information">
+                <p class="title">Security Information</p>
+            </button>
+        </div>
+    </div>
+
+    <section class="account-preferences-container">
+        <div ng-view autoscroll="false"></div>
+    </section>
+    
+    <div id="CustomerTestimonialModal" class="reveal small" data-reveal>
+        <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+        <h2>LightStream Customer Testimonial Program</h2>
+        <p>As a member of our customer testimonial program we may ask if you’d like to participate in specific media interviews or other promotional opportunities.</p>
+        <p>Please know that your participation is totally optional, and that</p>
+        <ul class="testimonial-list">
+            <li>we will ALWAYS speak with you directly and get your permission to move forward, prior to setting up any media interview or other promotional opportunity</li>
+            <li>we will NEVER provide your name, contact information or any personal background without your knowledge and approval.</li>
+        </ul>
+        <p>Thank you for your consideration.</p>
+        
+        <a href="" class="button button-medium button-navy" data-close>Close</a>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/scripts-account-preferences")
+
+    <script type="text/javascript">
+    $(function () {
+        SC.acctServices.prefHome();
+    });
+    </script>
+}

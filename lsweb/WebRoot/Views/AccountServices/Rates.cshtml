@@ -1,0 +1,33 @@
+﻿@model LightStreamWeb.Models.PublicSite.RatesPageModel
+
+@section bodyTag {
+    <body class="account sub @Model.BodyClass" ng-app="LightStreamApp">
+} 
+
+<div class="hide-for-small-only">
+@Html.Partial("~/Views/Components/BestLoanExperienceGuaranteeRow.cshtml")
+</div>
+<article>
+    @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+
+    @Html.Action("FeaturedTestimonial", "Components", new { purpose = Model.Calculator.PurposeOfLoan})
+</article>
+
+<section class="row ruled homeloanuses">
+@Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+@section APRDisclosure {
+    <p>* Payment Example:  Monthly payments for a $20,000 used auto loan at 2.5% APR for a term of 5 years would result in 60 monthly payments of $354.95. 
+    Subject to credit approval. Conditions and limitations apply. Advertised rates and terms are subject to change without notice.</p>
+}
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            //SC.main.rates();
+            SC.acctServices.rates();
+        });
+    </script>
+}

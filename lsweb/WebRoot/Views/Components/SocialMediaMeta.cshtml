@@ -1,0 +1,32 @@
+﻿@model BaseLightstreamPageModel
+@using FirstAgain.Domain.Common
+
+@if (Model != null && !String.IsNullOrEmpty(Model.MetaImage))
+{
+    if (!Model.MetaImage.StartsWith("http")){
+        Model.MetaImage = BusinessConstants.Instance.HomePage + Model.MetaImage;
+    }
+}
+else  {
+    Model.MetaImage = BusinessConstants.Instance.HomePage + "/content/images/sun_LS.PNG";
+}
+
+<!-- Schema.org for Google -->
+<meta itemprop="name" content="@(Model.HeadTitle ?? Model.Title)">
+<meta itemprop="description" content="@(Model.MetaDescription ?? "LightStream online lending offers unsecured personal loans for auto, home improvement and practically anything else, at low rates for those with good credit.")">
+<meta itemprop="image" content="@(Model.MetaImage)">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="@(Model.HeadTitle ?? Model.Title)">
+<meta name="twitter:description" content="@(Model.MetaDescription ?? "LightStream online lending offers unsecured personal loans for auto, home improvement and practically anything else, at low rates for those with good credit.")">
+<meta name="twitter:creator" content="@("@LS_Loans")">
+<meta name="twitter:image:src" content="@(Model.MetaImage)">
+
+<!-- Open Graph general (Facebook, Pinterest & Google+) -->
+<meta name="og:title" content="@(Model.HeadTitle ?? Model.Title)">
+<meta name="og:description" content="@(Model.MetaDescription ?? "LightStream online lending offers unsecured personal loans for auto, home improvement and practically anything else, at low rates for those with good credit.")">
+<meta name="og:image" content="@(Model.MetaImage)">
+<meta name="og:site_name" content="LightStream - Loans for Practically Anything">
+<meta name="og:url" content="@(Model.Canonical ?? BusinessConstants.Instance.HomePage)">
+<meta name="og:type" content="website">

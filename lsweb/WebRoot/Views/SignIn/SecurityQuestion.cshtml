@@ -1,0 +1,71 @@
+﻿@model LightStreamWeb.Models.SignIn.SecurityQuestionModel
+@{
+    ViewBag.Title = "Recover User ID";
+    Layout = "~/Views/Layouts/_Base.cshtml";
+}
+
+<section class="row ruled">
+
+    <div class="ls-no-js panel">
+        For security purposes (yours and ours), we recommend you need to enable javascript in order to sign in.  Thank you.
+    </div>
+
+    @if (TempData["Alert"] != null)
+    {
+        <div class="panel" id="alertPanel" role="alert" tabindex="0">
+            @TempData["Alert"]
+        </div>
+    }
+
+	<div class="large-10 columns medium-push-1">
+	    <h1>@Model.PageHeader</h1>
+        Your user ID has the following security question. Please enter your security answer below.
+
+        <form class="signin" action="/customer-sign-in/securityanswer" name="SecurityAnswerForm" novalidate method="post" ng-app="SecurityQuestion" ng-controller="SecurityQuestionCtrl" ls-validate-on-submit="ls-validate-on-submit">
+            @Html.ValidationSummary()
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="ChangePasswordRequired" value="@Model.ChangePasswordRequired.ToString()" />
+            <div class="row">
+	            <div class="medium-6 columns medium-push-1">
+                    <label>Security Question</label>
+                    <input type="text" value="@Model.SecurityQuestion" disabled="disabled" />
+	            </div>
+            </div>
+            <div class="row">
+	            <div class="medium-6 columns medium-push-1">
+                    <label>Security Answer</label>
+                    <input type="text" id="SecurityAnswer" name="SecurityAnswer" ng-model="SecurityAnswer" ng-required="true"/>
+	            </div>
+            </div>
+            <div class="row">
+	            <div class="medium-6 columns medium-push-1">
+	                <input type="submit" value="Next" class="button"/>
+	            </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+@section scripts {
+    <script type="text/javascript">
+        angular.module('SecurityQuestion', []).controller('SecurityQuestionCtrl', function ($scope) { });
+
+        // omniture
+        SC.main.signIn();
+
+        $(function () {
+            if ($("#alertPanel").length) {
+                setTimeout(function () { $("#alertPanel").focus(); }, 800);
+            }
+        });
+
+        $('form').on('submit', function () {
+            return true;
+        });
+    </script>
+}
+

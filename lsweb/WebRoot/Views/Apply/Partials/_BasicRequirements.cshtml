@@ -1,0 +1,26 @@
+﻿@model LightStreamWeb.Models.Apply.IBasicRequirementsModel
+
+<section class="row">
+    <div class="large-12 columns panel">
+        <h2 tabindex="0"><a href="#" class="expand_hide">Basic Requirements  <i class="fa fa-caret-down"></i></a></h2>
+        <div class="mobileonlytoggle cms">
+            @foreach (var r in Model.LoanPurposeBasedBasicRequirements)
+            {
+                switch(r.ShowOrHideWhen)
+                {
+                    case FirstAgain.Domain.SharedTypes.ContentManagement.ApplyPage.BasicDynamicRequirement.DisplayCondition.Always:
+                    <p class="cms" tabindex="0">@Html.Raw(r.RequirementText)</p>
+                break;
+                    case FirstAgain.Domain.SharedTypes.ContentManagement.ApplyPage.BasicDynamicRequirement.DisplayCondition.Equals:
+                    <p class="cms" ng-cloak ng-show="LoanApp.PurposeOfLoan.Type === '@r.PurposeOfLoan'" tabindex="0">@Html.Raw(r.RequirementText)</p>
+                break;
+                    case FirstAgain.Domain.SharedTypes.ContentManagement.ApplyPage.BasicDynamicRequirement.DisplayCondition.NotEquals:
+                    <p class="cms" ng-cloak ng-show="LoanApp.PurposeOfLoan.Type !== '@r.PurposeOfLoan'" tabindex="0">@Html.Raw(r.RequirementText)</p>
+                break;
+                }
+            }
+
+        </div>
+    </div>
+</section>
+

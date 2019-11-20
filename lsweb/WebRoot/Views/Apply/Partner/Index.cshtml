@@ -1,0 +1,65 @@
+﻿@model LightStreamWeb.Models.Apply.PartnerApplicationPageModel
+
+@{
+    ViewBag.IgnoreLoanTermMonths = true;
+
+    var containsQueryString = Request.UrlReferrer != null && Request.UrlReferrer.PathAndQuery != null ? true : false;
+
+    if (Model.Partner != null &&
+        Model.Partner.ReturnOffers &&
+        containsQueryString &&
+        HttpUtility.ParseQueryString(Request.UrlReferrer.PathAndQuery)["LoanTermMonths"] != null)
+    {
+        ViewBag.IgnoreLoanTermMonths = false;
+    }
+ }
+
+    @if (Model.HasDisclaimer)
+    {
+        <div class="row">
+
+            <div class="medium-12 columns" tabindex="0">
+                @Html.Raw(Model.Disclaimer)
+            </div>
+        </div>
+    }
+
+    @Html.Partial("~/Views/Apply/Partials/_ProgressBar_Partner.cshtml", new LightStreamWeb.Models.Apply.ProgressBarModel(1))
+
+    <section class="row">
+        <div class="large-12 columns">
+            <h2>Loan Information</h2>
+            <p class="note"><sup>*</sup>indicates required field</p>
+        </div>
+    </section>
+
+    @Html.Partial("~/Views/Apply/Partials/_BasicRequirements.cshtml")
+
+    @LoanApplicationForm.StartFormWithInit("loadInProgressApp('" + Url.Action("LoadApp") + "', " + ViewBag.IgnoreLoanTermMonths.ToString().ToLower() + ", true)", "nextStep('" + Url.Action("PersonalInfo") + "', 1)", "ng-submitted")
+
+    @Html.Partial("~/Views/Apply/Partials/_ApplicationType.cshtml")
+
+    @Html.Partial("~/Views/Apply/Partials/_PurposeOfLoan.cshtml")
+
+    @Html.Partial("~/Views/Apply/Partials/_ZipAndState.cshtml")
+
+    @Html.Partial("~/Views/Apply/Partials/_LoanAmountAndTerm.cshtml")
+
+    @Html.Partial("~/Views/Apply/Partials/_LoanPaymentType.cshtml")
+
+    @Html.Partial("~/Views/Apply/Partials/_RateAndEstimatedMonthlyPayment.cshtml")
+
+    @LoanApplicationForm.EndForm()
+
+    @section scripts {
+        <script type="text/javascript">
+            $(function () {
+                SC.apply.loanInfo();
+
+                $('form').on('submit', function () {
+                    SC.apply.loanInfo(true);
+                });
+            });
+        </script>
+        <script src="~/scripts/app/mouse-leave-window-popup.js" type="text/javascript"></script>
+    }

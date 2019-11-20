@@ -1,0 +1,71 @@
+﻿<style type="text/css">
+    @media only screen and (min-width: 40.063em) {
+        #header nav {
+            padding-top: 10px;
+        }
+
+            #header nav li {
+                margin-right: 25px;
+            }
+
+            #header nav.mainmenu li[data-nav=apply] {
+                background-color: #FCD100;
+                border-radius: 2px;
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-right: 0px;
+            }
+
+                #header nav.mainmenu li[data-nav=apply] a {
+                    color: #002642;
+                    font-weight: bold;
+                }
+
+            #header nav.mainmenu li[data-nav=sign-in] {
+                background-color: #DAF0EE;
+                border-radius: 2px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+                #header nav.mainmenu li[data-nav=sign-in] a {
+                    color: #002642;
+                    font-weight: bold;
+                }
+    }
+</style>
+<div class="medium-9 columns">
+    <nav class="mainmenu">
+        <ul>
+            <li data-nav="apply"><a id="ApplyNavLink" href="/apply">APPLY NOW</a></li>
+            <li data-nav="sign-in"><a id="SignInNavLink" href="/customer-sign-in">Sign in</a></li>
+        </ul>
+        <ul>
+            <li data-nav="home" class="show-for-small-only"><a id="HomeLink" href="/">Home</a></li>
+            <li class="menu-container-item hide-for-small-only">
+                <span>Loan Purpose</span>
+                <ul class="m-dropdown">
+                    <li><a id="VehicleLoansNavLink" href="/vehicle-loans">Vehicle Loans</a></li>
+                    <li class="row-break-item"><span class="row-break">&nbsp;</span></li>
+                    <li><a id="HomeImprovementLoansNavLink" href="/improvement-remodel-loan">Home Improvement Loans</a></li>
+                    <li class="row-break-item"><span class="row-break">&nbsp;</span></li>
+                    <li><a id="RecreationLoansNavLink" href="/recreation-loan">Recreation Loans</a></li>
+                    <li class="row-break-item"><span class="row-break">&nbsp;</span></li>
+                    <li><a id="MostAnythingElseNavLink" href="/other-loan">Most Anything Else</a></li>
+                </ul>
+            </li>
+            <li data-nav="about-us"><a id="AboutNavLink" href="/who-we-are">About</a></li>
+            <li data-nav="rates"><a id="RatesTermsNavLink" href="/rates-loan-calculator">Rates</a></li>
+            <li data-nav="privacy"><a id="PrivacySecurityNavLink" href="/privacy-security">Security</a></li>
+            <li data-nav="contact-us"><a id="QuestionsNavLink" href="/contact-us">Questions</a></li>
+        </ul>
+    </nav>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $.cookie('TntId', 'TwoTierNav', {
+            path: '/'
+        });
+    });
+</script>

@@ -1,0 +1,438 @@
+﻿@model LightStreamWeb.Models.AccountServices.AccountServicesHomePageModel
+
+@Html.Partial("_AccordianStart", Model, new ViewDataDictionary {
+{ "ControllerName", "AccountServicesAccountWatchController" },
+{ "IsExtraPaymentTab", true }
+})
+
+<h2 class="brand">
+    <span ng-show="account.PaymentType == 'Invoice'">Payments and Payoffs</span>
+    <span ng-show="account.PaymentType == 'AutoPay'">Extra Payments and Payoffs</span>
+</h2>
+
+@*If the account is closed..... nothing to do here...*@
+<div ng-show="account.AccountStatus == 'Closed'">
+    <p class="notice">No extra payments can be scheduled for this account; the account has been closed.</p>
+</div>
+<div ng-show="account.AccountStatus != 'Closed' && account.CurrentPayoffAmount <= 0">
+    <p class="notice">No extra payments can be scheduled for this account; the current account balance is zero.</p>
+</div>
+
+@*Account is not closed and a payoff amount is possible...*@
+<div ng-show="account.AccountStatus != 'Closed' && account.CurrentPayoffAmount > 0">
+    <form>
+        <div ng-show="account.ExtraPaymentInfoMessage" class="forminfo" ng-cloak>
+            <p>{{account.ExtraPaymentInfoMessage}}</p>
+        </div>
+        <div ng-show="account.ExtraPaymentErrorMessage" class="formalert" tabindex="0" ng-cloak>
+            <p>{{account.ExtraPaymentErrorMessage}}</p>
+        </div>
+    </form>
+
+    <div ng-switch="account.ExtraPaymentCurrentStep">
+
+        @*if there has been an error posting a payment recently*@
+        <div ng-switch-when="HasACHPaymentException">
+            <div ng-show="account.ReturnCodeType == 'R020304'">
+                <p class="notice">
+                    Unfortunately, you cannot schedule an extra payment or payoff at this time since our records indicate
+                    that your recent scheduled monthly payment failed because your {{account.ReturnCodeText}}.
+                </p>
+                <p class="notice">
+                    Please work with your financial institution to correct this situation. Then go to <a href="javascript:$('a[href=#AccountAutoPayInfo]').trigger('click');">Auto Pay Info</a>
+                    and update or confirm your banking information so that we may debit your scheduled monthly payment. Once you have done so, you
+                    will be able to schedule an extra payment or payoff.
+                </p>
+            </div>
+            <div ng-show="account.ReturnCodeType == 'R05Plus'">
+                <p class="notice">
+                    Unfortunately, you cannot schedule an extra payment or payoff at this time since our records indicate
+                    that your recent scheduled monthly payment failed because of a problem with your account information.
+                </p>
+
+                <p class="notice">
+                    <b>
+                        We strongly recommend that you contact your financial institution in order to correct this situation. Inform them that
+                        error code they sent LightStream was {{account.ReturnCodeText}}.
+                    </b>
+                </p>
+
+                <p class="notice">
+                    After you have resolved the problem please update and confirm your <a href="javascript:$('a[href=#AccountAutoPayInfo]').trigger('click');">Auto Pay Info</a>
+                    for its accuracy so that we may debit your scheduled monthly payment. Once you have done so, you
+                    will be able to schedule an extra payment or payoff.
+                </p>
+            </div>
+        </div>
+
+        @*if an extra payment is scheduled*@
+        <div ng-switch-when="HasScheduledPayment">
+            @{
+                const string thankYouMessage1 = "Once the above payment clears ({{account.ReamortizationDate | date: 'longDate'}}), your new minimum required monthly payment can be reduced and, if you desire, you will be able to change your monthly payment to {{account.ProjectedMinimumMonthlyPaymentAmount | currency}}.";
+                const string thankYouMessage2 = "If you adjust your payment amount on {{account.ReamortizationDate | date: 'longDate'}}, the new payment amount would be effective for the billing date of {{account.DecreasedMonthlyPaymentEffectiveDate | date: 'longDate'}}.";
+            }
+            <div ng-show="account.IsOkToCancelScheduledPayment">
+                <p class="notice">A payment of {{account.ScheduledPaymentAmount | currency}} will be deducted from your designated account on {{account.ScheduledPaymentDate | date:'longDate'}}. </p>
+
+                <p class="notice" ng-show="account.MayBeEligibleForReamortization && account.IsThankYouMessage">@thankYouMessage1</p>
+                <p class="notice" ng-show="account.MayBeEligibleForReamortization && account.IsThankYouMessage">@thankYouMessage2</p>
+
+                <p class="notice" ng-show="account.LastDayToCancelScheduledPayment">You may cancel or reschedule this payment at any time prior to {{account.LastDayToCancelScheduledPayment | date:'longDate'}}. Thank you. </p>
+
+                <a class="button button-small" ng-click="cancelExtraPayment(account)">Cancel or Reschedule<span ng-show="account.PaymentType == 'AutoPay'"> Extra</span> Payment</a>
+            </div>
+            <div ng-show="!account.IsOkToCancelScheduledPayment">
+                <p class="notice">Your loan payment of {{account.ScheduledPaymentAmount | currency}} is in process and will be deducted from your AutoPay account on {{account.ScheduledPaymentDate | date:'longDate'}}. </p>
+                <p class="notice" ng-show="account.MayBeEligibleForReamortization && account.IsThankYouMessage">@thankYouMessage1</p>
+                <p class="notice" ng-show="account.MayBeEligibleForReamortization && account.IsThankYouMessage">@thankYouMessage2</p>
+            </div>
+            @if (FirstAgain.Domain.Common.BusinessConstants.Instance.Environment == FirstAgain.Domain.Lookups.FirstLook.EnvironmentLookup.Environment.QA)
+            {
+                <p ng-show="{{account.MayBeEligibleForReamortization && !account.IsThankYouMessage}}">
+                    <a ng-click="account.IsThankYouMessage = true">QA Only - show thank you message</a>
+                </p>
+            }
+        </div>
+
+        @*if a payoff by ACH is scheduled *@
+        <div ng-switch-when="HasScheduledPayoff">
+            <form>
+                <div ng-show="account.IsOkToCancelScheduledPayment">
+                    <p>Your payoff is scheduled for <strong>{{account.ScheduledPaymentDate | date: 'longDate'}}</strong> </p>
+                    <p>Your payoff amount will be <strong>{{account.ScheduledPaymentAmount | currency}}</strong> </p>
+                    <div ng-show="account.PayOffIncludedACHPayment" class="formalert" tabindex="0">
+                        <p>
+                            In addition to the payoff amount above, your monthly payment of {{account.PayOffIncludedACHPayment | currency}} will be deducted on
+                            {{account.PayOffIncludedACHPaymentDate}}. The debits will post as two separate transactions on your bank statement.
+                            The combined total will pay the loan in full.
+                        </p>
+                    </div>
+                    <p>You may cancel or reschedule your payoff at any time up to 3:00 a.m. Eastern time on {{account.LastDayToCancelScheduledPayment | date: 'longDate'}}. Thank you.</p>
+                    <a class="button button-small" ng-click="cancelPayoff(account)">Cancel or Reschedule Payoff</a>
+                    <img src="/content/images/ajax-loader-blue.gif" alt="" ng-show="account.ExtraPaymentWaiting" />
+                </div>
+                <div ng-show="!account.IsOkToCancelScheduledPayment">
+                    <p>
+                        Your loan has been scheduled for payoff on <strong>{{account.ScheduledPaymentDate | date: 'longDate'}}</strong>
+                        Ten business days after this date, assuming there are no problems with the payoff, we will close your account and notify you by email.
+                    </p>
+
+                    <p>We hope your experience with LightStream has been an outstanding one.</p>
+                </div>
+            </form>
+        </div>
+
+        @*no extra payment scheduled*@
+        <div ng-switch-default>
+            <form>
+                <div ng-show="account.PaymentType == 'AutoPay'">
+                    <p class="notice">To <span ng-show="account.CurrentPayoffAmount >= 100">make an extra payment ($100 minimum) or </span>pay off your loan, select the appropriate box below.</p>
+                </div>
+                <div ng-show="account.PaymentType == 'Invoice'">
+                    <p class="notice">
+                        Your scheduled monthly payment is {{account.MonthlyPayment | currency}}.
+                        <span ng-show="account.EInvoicePayDaysEnabled">An invoice for this amount is currently emailed to you each month 15 days prior to your due date.</span>
+                    </p>
+                    <p class="notice">You may get a copy of the most current invoice by selecting the Documents tab above.</p>
+                    <p class="notice">
+                        <span ng-show="account.CurrentPayoffAmount >= 100">
+                            If you wish to make your scheduled monthly payment with our one-time payment feature (the payment will be debited directly from your designated account),
+                            or make any other payment on
+                        </span><span ng-show="account.CurrentPayoffAmount < 100">To pay off </span>your loan, please select the appropriate option below.
+                    </p>
+                </div>
+
+                <fieldset>
+                    <ul ng-if="account.PaymentType == 'AutoPay'">
+                        <li ng-show="account.CurrentPayoffAmount >= 100"><label class="checkbox alt"><input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PaymentByACH" /> Make an extra payment on my loan</label></li>
+                        <li><label class="checkbox alt"><input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PayOffByACH" /> Pay off my loan using AutoPay</label></li>
+                        <li>
+                            <label class="checkbox alt">
+                                <input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PayOffAutoPayByMail" />
+                                Pay off my loan using a mail-in check
+                            </label>
+                        </li>
+                    </ul>
+                    <ul ng-if="account.PaymentType == 'Invoice'">
+                        <li ng-show="account.CurrentPayoffAmount >= 100">
+                            <label class="checkbox alt">
+                                <input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PaymentByACH" />
+                                Make a scheduled monthly payment or an extra payment
+                                using the one-time payment feature ($100 minimum amount)
+                            </label>
+                        </li>
+                        <li ng-show="account.CurrentPayoffAmount >= 100">
+                            <label class="checkbox alt">
+                                <input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PaymentByInvoice" />
+                                Make an extra payment using an invoice
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox alt">
+                                <input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PayOffByACH" />
+                                Pay off my loan using the one-time payment feature
+                            </label>
+                        </li>
+                        <li>
+                            <label class="checkbox alt">
+                                <input type="radio" name="actions" ng-model="account.ExtraPaymentNextStep" value="PayOffByInvoice" />
+                                Pay off my loan using an invoice
+                            </label>
+                        </li>
+                    </ul>
+                    <a class="button button-small" ng-click="extraPaymentNextStep(account)">Next</a>
+                </fieldset>
+            </form>
+        </div>
+
+        @*PaymentByACH*@
+        <div ng-switch-when="PaymentByACH">
+            <form name="PaymentByACHForm{{$index}}" ls-validate-on-submit on-success="paymentByACH(account)">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p ng-show="account.PaymentType == 'Invoice'">
+                            In order to use the one-time payment feature to make a monthly payment or an extra payment,
+                            please select a date from the calendar, enter the amount of your payment and provide
+                            the account information requested.
+                        </p>
+                        <p ng-show="account.PaymentType == 'AutoPay'">
+                            In order to make an extra payment, please select a date from the calendar, enter the amount of your
+                            payment and select the Submit button. On the date you schedule, we will automatically deduct the amount from the
+                            AutoPay account we have on file. You will be able to cancel or reschedule your extra payment as indicated.
+                        </p>
+
+                        <div class="row date-range clearfix" ng-class="">
+                            <div class="datepicker" required="required" ui-date="autoPayDateOptions" name="ScheduledPaymentDate" ui-date-format="DD, MM d, yy"
+                                 ng-model="account.ScheduledPaymentDate"></div>
+                        </div>
+
+                        <p ng-show="account.PaymentType == 'AutoPay'">
+                            Your selected payment date is: <strong>{{account.ScheduledPaymentDate}}</strong>
+                        </p>
+                        <p ng-show="account.PaymentType == 'Invoice'">
+                            Your selected payment date is: <strong>{{account.ScheduledPaymentDate}}</strong><br />
+                            In order for the one-time payment to be applied towards your monthly payment, please schedule
+                            the payment to occur within 18 days of your payment due date.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p>Amount of<span ng-show="account.PaymentType == 'AutoPay'"> extra</span> payment ($100 minimum): </p>
+                        <div ng-cloak ng-show="!PaymentByACHForm{{$index}}.ScheduledPaymentAmount.$error.required && !PaymentByACHForm{{$index}}.ScheduledPaymentAmount.$error.min && PaymentByACHForm{{$index}}.ScheduledPaymentAmount.$error.max" class="formalert" tabindex="0">
+                            <p>The extra payment amount must be less than {{account.PayOffQuote || account.CurrentPayoffAmount | currency}}</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-4 columns">
+                        <input type="text"
+                               ls-currency-only
+                               ls-track-visited
+                               required
+                               name="ScheduledPaymentAmount"
+                               ng-model="account.ScheduledPaymentAmount" placeholder="$"
+                               min="100"
+                               max="{{account.PayOffQuote || account.CurrentPayoffAmount}}" />
+                    </div>
+                    <div class="medium-8 columns">
+                        <a class="button button-tiny no-track"
+                           ng-cloak
+                           ng-show="account.EligibleToViewAmortizationSchedule"
+                           ng-disabled="!PaymentByACHForm{{$index}}.$valid || account.ExtraPaymentWaiting"
+                           ng-click="displayExtraPaymentAmortizationSchedule(account)">View Loan Amortization Schedule</a>
+                    </div>
+                </div>
+
+                @Html.Partial("_ACHPaymentInvoiceAccount")
+                <input type="submit" class="button button-small" ng-disabled="account.ExtraPaymentWaiting" value="Submit Payment" />
+                <input type="button" class="button button-navy button-small" ng-click="account.ExtraPaymentCurrentStep = null; account.ScheduledPaymentDate = null;" ng-show="!account.ExtraPaymentWaiting" value="Cancel" />
+                <img src="/content/images/ajax-loader-blue.gif" alt="" ng-show="account.ExtraPaymentWaiting" />
+            </form>
+        </div>
+
+        @*PayOffByACH*@
+        <div ng-switch-when="PayOffByACH">
+            <form name="PayOffByACHForm{{$index}}" ls-validate-on-submit on-success="payOffByACH(account)">
+
+                <p ng-show="account.PaymentType == 'Invoice'">To receive a payoff quote using one-time payment feature, select a date from the calendar.</p>
+                <p ng-show="account.PaymentType == 'AutoPay'">
+                    To receive a payoff quote using AutoPay, select a date from the calendar.
+                    The payoff quote assumes all regular monthly payments, due <i><b>on or before</b></i> the payoff date, have been or will be received as scheduled.
+                </p>
+
+                <div class="date-range clearfix" ng-class="">
+                    <div class="datepicker" required="required" ui-date="autoPayDateOptions" name="PayOffByAutoPayDate" ng-model="account.PayOffByAutoPayDate" ui-date-format="DD, MM d, yy"></div>
+                </div>
+
+                <div>
+                    <p>Your selected payoff date is: <strong>{{account.PayOffByAutoPayDate}}</strong> </p>
+                    <p>Your payoff amount will be: <strong>{{account.PayOffQuote | currency}}</strong> </p>
+
+                    <div ng-show="account.PayOffIncludedACHPayment" class="formalert" tabindex="0" >
+                        <p>
+                            In addition to the payoff amount above, your monthly payment of {{account.PayOffIncludedACHPayment | currency}} will be deducted on
+                            {{account.PayOffIncludedACHPaymentDate}}. The debits will post as two separate transactions on your bank statement.
+                            The combined total will pay the loan in full.
+                        </p>
+                    </div>
+                    <p>
+                        If you would like to proceed with paying off your loan on the selected payoff date above,
+                        please complete the information below and click 'Submit'. We will automatically deduct
+                        your final payment on your selected payoff date from the one-time payment account we have on file.
+                    </p>
+                </div>
+
+                @Html.Partial("_ACHPaymentInvoiceAccount")
+
+                <div class="row" style="margin-bottom: 20px">
+                    <div class="medium-12 columns" style="padding-left: 0">
+                        <p><strong>Please select a reason why you are paying off your loan.</strong></p>
+                    </div>
+                    <div class="medium-9 columns medium-pull-3" style="padding-left: 0">
+                        <p>@Html.NgDropDownEnumList("account.PayOffReason", "PayOffReason", "Please select a reason why you are paying off your loan.", FirstAgain.Domain.Lookups.ShawData.PayoffReasonLookup.BindingSource)</p>
+                        <p>If Other selected, or if you have additional comments, please provide them below. Thank you.</p>
+                        <textarea ng-model="account.PayOffComments"></textarea>
+                    </div>
+                </div>
+
+                <input type="submit" class="button button-small" ng-disabled="account.ExtraPaymentWaiting" value="Submit" />
+                <input type="button" class="button button-navy button-small" ng-click="account.ExtraPaymentCurrentStep = null" ng-show="!account.ExtraPaymentWaiting" value="Cancel" />
+                <img src="/content/images/ajax-loader-blue.gif" alt="" ng-show="account.ExtraPaymentWaiting" />
+            </form>
+        </div>
+
+        @*PayOffAutoPayByMail*@
+        <div ng-switch-when="PayOffAutoPayByMail">
+            <form name="PayOffAutoPayByMailForm{{$index}}" ls-validate-on-submit>
+                <p>
+                    In order to receive a payoff quote using a mail-in check, select a date from the calendar.
+                    We will then quote you a payoff amount that will be good so long as we receive your
+                    final mail-in check payment within 10 days of that date.
+                </p>
+
+                <div class="date-range clearfix" ng-class="">
+                    <div class="datepicker" required="required" ui-date="invoiceDateOptions" name="PayOffByInvoiceDate" ng-model="account.PayOffByInvoiceDate" ui-date-format="DD, MM d, yy"></div>
+                </div>
+
+                <div>
+                    <p>Your selected payoff date is: <strong>{{account.PayOffByInvoiceDate}}</strong> </p>
+                    <p>Your payoff quote is: <strong>{{account.PayOffQuote | currency}}</strong> </p>
+                    <p>
+                        If you would like to proceed with paying off your loan using the selected payoff date and quote above,
+                        please print an invoice and mail it along with your payoff check to the address on the invoice. We will
+                        refund you any over payment amount if such amount is $1.00 or more. Thank you.
+                    </p>
+                </div>
+
+                <div>
+                    <button ng-click="displayPayOffInvoice(account)"
+                            class="button button-small" ng-disabled="!PayOffAutoPayByMailForm{{$index}}.$valid" target="_new">
+                        Print Invoice
+                    </button>
+
+                    <a class="button button-navy button-small" ng-click="account.ExtraPaymentCurrentStep = null">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+        @*to make an extra payment via an invoice*@
+        <div ng-switch-when="PaymentByInvoice">
+            <form name="PaymentByInvoiceForm{{$index}}" ls-validate-on-submit>
+                <div class="row" ng-cloak ng-show="!PaymentByInvoiceForm{{$index}}.ExtraInvoicePaymentAmount.$error.required && PaymentByInvoiceForm{{$index}}.ExtraInvoicePaymentAmount.$error.max">
+                    <div class="medium-12 columns formalert" tabindex="0" >
+                        <p>
+                            The amount entered exceeds the payoff amount for your loan. If you would like to payoff your loan,
+                            please go to <a ng-click="account.ExtraPaymentCurrentStep = 'PayOffByInvoice'">Payoff my loan</a>,
+                            otherwise please re-enter your extra payment amount.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <p>Enter Extra Payment Amount: </p>
+                        <input type="text"
+                               ls-currency-only
+                               ls-track-visited
+                               required
+                               name="ExtraInvoicePaymentAmount"
+                               ng-model="account.ExtraInvoicePaymentAmount" placeholder="$"
+                               min="1"
+                               max="{{account.CurrentPayoffAmount}}" />
+                    </div>
+                    <div class="medium-6 columns">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+
+                        <p>Select "Print Invoice" to print your invoice. </p>
+
+                        <a ng-href="/account/displayextrapaymentinvoice?Ctx={{account.Ctx}}&PaymentType=Extra&Amount={{account.ExtraInvoicePaymentAmount}}"
+                           class="button button-small" ng-disabled="!PaymentByInvoiceForm{{$index}}.$valid" href="#" target="_new">Print Invoice</a>
+                        <a class="button button-navy button-small" ng-click="account.ExtraPaymentCurrentStep = null">Cancel</a>
+
+                        <p>In order to properly process your extra payment, mail the invoice along with your check to the address printed on the invoice. Thank you.</p>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        @*PayOffByInvoice*@
+        <div ng-switch-when="PayOffByInvoice">
+            <form name="PayOffByInvoiceForm{{$index}}" ls-validate-on-submit>
+                <p>
+                    In order to pay off your loan, select the date below that you intend to mail your payoff payment.
+                    We will then quote you a payoff amount that will be good so long as we receive your payment within 10 days from that date.
+                    We will refund you any over payment amount if such amount is $1.00 or more.
+                </p>
+
+                <div class="date-range clearfix" ng-class="">
+                    <div class="datepicker" required="required" ui-date="invoiceDateOptions" name="PayOffByInvoiceDate" ng-model="account.PayOffByInvoiceDate" ui-date-format="DD, MM d, yy"></div>
+                </div>
+
+                <div>
+                    <p>You intend to mail your payoff on: <strong>{{account.PayOffByInvoiceDate}}</strong> </p>
+                    <p>Your payoff quote is: <strong>{{account.PayOffQuote | currency}}</strong> </p>
+                </div>
+
+                <div>
+                    <a ng-href="/account/displaypayoffinvoice?Ctx={{account.Ctx}}&SelectedDate={{account.PayOffByInvoiceDate}}"
+                       class="button button-small" ng-disabled="!PayOffByInvoiceForm{{$index}}.$valid" href="#" target="_new">Print Invoice</a>
+
+                    <a class="button button-navy button-small" ng-click="account.ExtraPaymentCurrentStep = null">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+    </div> @* <div ng-switch="account.ExtraPaymentCurrentStep">*@
+</div>
+
+
+@Html.Partial("_AccordianEnd")
+
+
+<div id="CancelExtraPaymentModal" class="reveal small" data-reveal>
+    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+    <h2>Cancel Extra Payment?</h2>
+    <p>Are you sure that you want to cancel or reschedule your extra payment?</p>
+    <fieldset ng-disabled="CancelExtraPaymentWaiting">
+        <a href="#" class="button button-medium button-navy" data-close ng-show="!CancelExtraPaymentWaiting">No</a>
+        <a href="#" class="button button-medium " ng-click="confirmCancelExtraPayment()" ng-show="!CancelExtraPaymentWaiting">Yes</a>
+    </fieldset>
+    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="CancelExtraPaymentWaiting" />
+</div>
+<div id="CancelPayoffModal" class="reveal small" data-reveal>
+    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+    <h2>Cancel Payoff?</h2>
+    <p>Are you sure that you want to cancel or reschedule your payoff?</p>
+    <fieldset ng-disabled="CancelPayoffWaiting">
+        <a href="#" class="button button-medium button-navy" data-close ng-show="!CancelPayoffWaiting">No</a>
+        <a href="#" class="button button-medium " ng-click="confirmCancelPayoff()" ng-show="!CancelPayoffWaiting">Yes</a>
+    </fieldset>
+
+    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="CancelPayoffWaiting" />
+</div>

@@ -1,0 +1,149 @@
+﻿@model LightStreamWeb.Models.AccountServices.AccountServicesHomePageModel
+
+
+<div class="row">
+    <div class="medium-12 columns">
+        <h2 class="brand">Welcome @Model.GetApplicantNames()</h2>
+        <p>@Html.Raw(Model.GetEmailsGreeting())</p>
+        @if (Model.GetDisplayCreditBureauAccountServicesMessage()) 
+        {
+        <p style="font-weight:bold">FYI: LightStream is now reporting to the major credit bureaus</p>
+        <p>We are now reporting all of our customer data to Experian, Equifax and TransUnion. 
+        For those who monitor their credit reports, your LightStream loan will show up as a SunTrust account; LightStream is a division of SunTrust Bank.</p>
+        }
+    </div>
+</div>
+<div class="main row" ng-app="AccountServicesModule" ng-controller="AccountServicesController" >
+
+    <div class="medium-12 columns full-mobile">
+
+        <ul class="tabs" data-tabs id="AccountServicesTabs" ng-cloak>
+            <li class="tabs-title is-active" data-sc="LScom|Customer|AccountServices|Summary"><a data-tabs-target="AccountSummary" class="no-track">Summary</a></li>
+            <li class="tabs-title" data-sc="LScom|Customer|AccountServices|History"><a data-tabs-target="AccountHistory" class="no-track">History</a></li>
+            <li class="tabs-title" data-sc="LScom|Customer|AccountServices|AutoPayInfo"><a data-tabs-target="AccountAutoPayInfo" class="no-track"><span 
+                        ng-show="allAccountsAreInvoice()">Switch to AutoPay and save time!</span><span 
+                            ng-show="!allAccountsAreInvoice() || Loading">AutoPay Info</span></a></li>
+            <li class="tabs-title" data-sc="LScom|Customer|AccountServices|ExtraPmnt&Payoffs"><a data-tabs-target="AccountExtraPayments"
+                    class="no-track"><span 
+                        ng-show="anyAccountsAreInvoice()">Payments and Payoffs</span><span 
+                            ng-show="!anyAccountsAreInvoice() || Loading">Extra Payments and Payoffs</span></a></li>
+            <li class="tabs-title" data-sc="LScom|Customer|AccountServices|Enotices"><a data-tabs-target="AccountENotices" class="no-track">eNotices</a></li>
+            <li class="tabs-title" data-sc="LScom|Customer|AccountServices|Documents"><a data-tabs-target="AccountDocuments" class="no-track">Documents</a></li>
+        </ul>
+
+        <div class="tabs-content" data-tabs-content="AccountServicesTabs" ng-cloak ng-show="!Loading">
+            <div class="tabs-panel is-active tab" id="AccountSummary">
+            @Html.Partial("_Summary")
+            </div>
+            <div class="tabs-panel tab" id="AccountHistory">
+            @Html.Partial("_History")
+            </div>
+            <div class="tabs-panel tab" id="AccountAutoPayInfo">
+            @Html.Partial("_AutoPayInfo")
+            </div>
+            <div class="tabs-panel tab" id="AccountExtraPayments">
+            @Html.Partial("_ExtraPayments")
+            </div>
+            <div class="tabs-panel tab" id="AccountENotices">
+            @Html.Partial("_ENotices")
+            </div>
+            <div class="tabs-panel tab" id="AccountDocuments">
+            @Html.Partial("_Documents")
+            </div>
+        </div>
+        <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="" ng-show="Loading" />
+
+    </div>
+
+
+    <div id="PrintAmortizationScheduleModal" class="reveal small" data-reveal>
+        <p class="showie8">&nbsp;</p>
+        <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+
+        <p>You may view, save, or print your amortization schedule in either html or pdf format. The
+        pdf provides a "clean" version of your loan agreement (no HTML headers or footers)
+        but requires an Adobe Reader, version 9.0 or later.</p>
+
+        <ul>
+            <li><a data-format="html" class="button button-medium button-navy" target="_new">View Amortization Schedule in HTML</a></li>
+            <li><a data-format="pdf" class="button button-medium button-navy" target="_new">View Amortization Schedule PDF</a></li>
+            <li><a href="https://get.adobe.com/reader/" data-jump="true"><img src="/content/images/logo_get_adobe_reader.gif" alt=""></a></li>
+        </ul>
+    </div>
+
+    <div id="EditNicknameModal" class="reveal small" data-reveal>
+        <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+        <h2>Nickname Account</h2>
+        
+        <form>
+            <div class="formalert" ng-show="NicknameErrorMessage">
+                <p>{{NicknameErrorMessage}}</p>
+            </div>
+            <div class="row">
+                <div class="medium-6 columns">
+                    <p ng-show="NicknameEditMode == 'Create'">Create new account nickname</p>
+                    <p ng-show="NicknameEditMode != 'Create'">Edit account nickname</p>
+                    <input type="text" required maxlength="30" ng-model="NewNickname" id="NewNickname" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-12 columns">
+                    <a href="#" class="button button-medium button-navy" data-close ng-click="NicknameErrorMessage = ''">Cancel</a>
+                    <a href="#" class="button button-medium " ng-click="submitNickname()">Submit</a>
+                    <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="NicknameWaiting" />
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    <div id="AmortizationScheduleModal"  class="reveal small" data-reveal></div>
+</div>
+
+
+@*@Html.Partial("_OtherApplications", Model.GetOtherApplications())*@
+
+<!-- Supporting Content -->
+
+<div class="supporting row">
+    <div class="medium-12 columns">
+        <div class="help">
+            <img src="@Model.CdnBaseUrl/account-services/double-bubble.png" alt="Talk Bubbles" />
+            <h2>How are we doing?</h2>
+            <p>The LightStream team is committed to delivering the best loan experience, anywhere.  Let us know if we’re doing things right! Or, if there’s an opportunity to improve, let us know that too!</p>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+<script type="text/javascript">
+    $(function () {
+        // SiteCatalyst / Omniture (Adobe marketing)
+        $('#AccountServicesTabs').data('last-sc-page', 'LScom|Customer|AccountServices|Summary'); // Summary
+        $('#AccountServicesTabs').on('change.zf.tabs', function (event, tab) {
+            if (tab.data('sc') !== $('#AccountServicesTabs').data('last-sc-page')) {
+                $('#AccountServicesTabs').data('last-sc-page', tab.data('sc'));
+                SC._t({
+                    pageName: tab.data('sc'),
+                    hier1: 'LScom|Customer|AccountServices'
+                });
+
+                if (history && history.pushState) {
+                    history.pushState({}, '', '#' + tab.attr('id'));
+                }
+            }
+        });
+        SC.acctServices.summary(); // on page load
+        if (history && history.pushState) {
+            history.pushState({}, '', '#AccountSummary');
+        }
+
+        $(window).on("popstate", function (event) {
+            if (location.hash) {
+                $('a[href=' + location.hash + ']').trigger('click');
+            }
+        });
+    });
+</script>
+}

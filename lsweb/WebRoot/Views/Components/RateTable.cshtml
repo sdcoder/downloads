@@ -1,0 +1,15 @@
+﻿@using FirstAgain.Domain.SharedTypes.ContentManagement;
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+@{
+    Html.RegisterScriptFile("~/bundles/scripts-rate-calculator");
+}
+<script type="text/javascript">
+    Foundation.global.namespace = '';
+</script>
+<div class="row ruled" ng-app="LightStreamApp"  ng-controller="RateCalculator" ng-init="init('@ViewBag.PurposeOfLoan', '')" id="rates">
+    <div class="medium-8 columns">        
+        @Html.Partial("~/Views/Components/_RateTable.cshtml", LandingPageContent.RateTableCalculatorDisplayType.Default.ToString())
+    </div>
+</div>
+

@@ -1,0 +1,43 @@
+﻿@model LightStreamWeb.Models.AccountServices.AccountServicesHomePageModel
+    
+@Html.Partial("_AccordianStart")
+
+    <h2 class="brand">eNotices</h2>
+    <p ng-show="account.IsClosed">Your account is currently closed, so your email options may no longer be updated.</p>
+    <p ng-show="!account.IsClosed">We will notify you each month of certain account activity.  
+    Let us know if you would like to receive the following emails from us.
+    To update your options, mark any changes and select submit.</p>
+
+    <form>
+        <fieldset ng-disabled="account.IsClosed || account.EnoticesWaiting">
+
+            <ul ng-repeat="p in account.EmailPreferences">
+                <li><h5 class="brand">{{p.Caption}}</h5></li>
+                <li><input 
+                        type="radio" 
+                        ng-model="p.IsSelected" 
+                        ng-value="true" 
+                        id="{{p.Enumeration}}" />
+                    <label for="{{p.Enumeration}}" class="alt"> Yes</label></li>
+                <li><input 
+                        type="radio" 
+                        ng-model="p.IsSelected" 
+                        ng-value="false" 
+                        id="p.Enumeration" /> 
+                    <label for="{{p.Enumeration}}" class="alt"> No</label></li>
+
+            </ul>
+                    
+            <input ng-show="!account.IsClosed" type="submit" name="next" value="Submit" class="button" ng-click="submitENotices(account)" ng-disabled="account.EnoticesWaiting"/>
+            <img src="@Model.CdnBaseUrl/ajax-loader.gif" alt="waiting..." ng-cloak ng-show="account.EnoticesWaiting" />
+
+            <div ng-show="account.EnoticesError" class="formalert" tabindex="0" ng-cloak>
+                <p>{{account.EnoticesError}}</p>
+            </div>
+            <div ng-show="account.EnoticesMessage" class="forminfo" ng-cloak>
+                <p>{{account.EnoticesMessage}}</p>
+            </div>
+        </fieldset>
+    </form>
+
+@Html.Partial("_AccordianEnd")

@@ -1,0 +1,49 @@
+﻿@using LightStreamWeb.Helpers
+@model LightStreamWeb.Models.Apply.PWMCollateralPageModel
+
+@section styles {
+    <style type="text/css">
+        #header nav li[data-nav='rates'] {
+            display: none;
+        }
+
+        #rates input[type=submit] {
+            display: none;
+        }
+    </style>
+}
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#header nav ul').prepend('<li><a href="/pwm" data-nav="pwm">PWM Landing Page</li>');
+        });
+    </script>
+}
+
+@{Html.RegisterScriptFile("~/scripts/app/loan-application.js");}
+
+
+<div class="row">
+    <h1>Collateral Assets Available for Download</h1>
+    <p><i>Click file name to download asset.</i></p>
+    <table>
+        <thead>
+            <tr>
+                <td>Collateral Description</td>
+                <td>File Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asset in Model.Assets)
+            {
+                <tr>
+                    <td>@asset.Title</td>
+                    <td><a href="@asset.ToFileUrl()" target="_blank">@asset.FileName</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+

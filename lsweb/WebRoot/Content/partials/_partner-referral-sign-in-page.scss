@@ -1,0 +1,224 @@
+﻿@import "_mixins.scss";
+
+
+/*--------CO-BRAND PAGE--------*/
+/* co-brand */
+.co-brand-body {
+    background: linear-gradient(to bottom, #D4EEFC 35%, white 35%, white);
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    margin-top: 3vh;
+    line-height: 2em;
+    /* partner sign in logo*/
+    .nav-logo {
+        display: table;
+        width: 100%;
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .thumb {
+            display: table-cell;
+            max-width: 80%;
+            max-width: 10em;
+        }
+
+        .thumb-small {
+            max-width: 50%;
+        }
+
+        .user-profile img {
+            outline: none;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .filling {
+            display: table-cell;
+            width: auto;
+        }
+    }
+    /* partner sign in container*/
+    #partner-ref-sign-in-container {
+        margin: 2em 0 1em 0;
+
+        @media (min-width: 1025px) {
+            margin: 5em 0 1em 0;
+        }
+
+        .partner-greeting-title {
+            color: #000006;
+            font-weight: bold;
+            font-size: 7vw;
+            line-height: 8vw;
+            text-align: center;
+        }
+
+        .partner-greeting-subtitle {
+            color: #666666;
+            font-size: 5vw;
+            line-height: 8vw;
+            text-align: center;
+        }
+
+        .partner-sign-in-margin {
+            margin: 1em;
+        }
+
+        .partner-sign-in-border {
+            background-color: #EEEEEE;
+            border-style: groove;
+            border-width: 2px;
+            padding: 1em;
+        }
+
+        .long-button {
+            width: 60%;
+            min-width: 150px;
+            margin-top: 1em;
+            height: 2.6em;
+        }
+
+        .sign-in-input {
+            height: 2.5em;
+            background-color: #FFFFFF;
+        }
+
+        .feature-images {
+            padding: 1em 0 3em 0;
+            color: #666666;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .feature-image-column {
+            padding-top: 2em;
+            padding-bottom: 2em;
+            display: block;
+        }
+
+        .small-footer {
+            text-align: left;
+            color: #666666;
+            padding-bottom: 4em;
+        }
+
+        .partner-footer-images {
+            padding-bottom: 2em;
+            text-align: center;
+
+            img:last-child {
+                padding-left: 3em;
+            }
+        }
+
+        @media (min-width: 480px) {
+
+            .partner-greeting-title {
+                font-size: 8.8vw;
+                line-height: 12vw;
+            }
+
+            .partner-greeting-subtitle {
+                font-size: 4vw;
+                line-height: 6vw;
+            }
+
+            .partner-sign-in-border {
+                padding: 2em;
+            }
+        }
+
+        @media (min-width: 640px) {
+            .partner-greeting-title {
+                font-size: 6.2vw;
+                line-height: 10vw;
+            }
+
+            .partner-greeting-subtitle {
+                font-size: 3vw;
+                line-height: 5vw;
+            }
+
+            .partner-sign-in-border {
+                padding: 1em;
+            }
+
+            .partner-footer-images {
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 875px) {
+            .partner-greeting-title {
+                font-size: 6vw;
+                line-height: 10vw;
+            }
+
+            .partner-greeting-subtitle {
+                font-size: 3vw;
+                line-height: 5vw;
+            }
+
+            .partner-sign-in-border {
+                padding: 2.5em;
+            }
+
+            .partner-sign-in-margin {
+                padding-bottom: 1em;
+            }
+        }
+
+        @media (min-width: 1025px) {
+
+            .partner-greeting-title {
+                font-size: 60px;
+                line-height: 72px;
+            }
+
+            .partner-greeting-subtitle {
+                font-size: 28px;
+                line-height: 38px;
+            }
+        }
+
+        ::-webkit-input-placeholder {
+            color: #cacaca;
+            font-family: 'proxima-nova', sans-serif;
+            font-size: 14px;
+        }
+
+        :-moz-placeholder {
+            color: #cacaca;
+            font-family: 'proxima-nova', sans-serif;
+            font-size: 14px;
+        }
+
+        ::-moz-placeholder {
+            color: #cacaca;
+            font-family: 'proxima-nova', sans-serif;
+            font-size: 14px;
+        }
+
+        :-ms-input-placeholder {
+            color: #cacaca;
+            font-family: 'proxima-nova', sans-serif;
+            font-size: 14px;
+        }
+    }
+
+    @media (min-width: 640px) {
+        background: linear-gradient(to bottom, #D4EEFC 45%, white 45%, white);
+    }
+
+    @media (min-width: 875px) {
+        background: linear-gradient(to bottom, #D4EEFC 50%, white 50%, white);
+    }
+}

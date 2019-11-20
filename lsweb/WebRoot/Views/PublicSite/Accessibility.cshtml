@@ -1,0 +1,159 @@
+﻿@model  LightStreamWeb.Models.PublicSite.AccessibilityPageModel
+
+@{
+    ViewBag.Title = "Accessibility";
+    Layout = "~/Views/Layouts/_RedesignBase.cshtml";
+}
+
+<div class="open-texts-container">
+    @if (Model.cmsContent != null)
+    {
+        if (Model.cmsContent.OpenTexts != null)
+        {
+            if (Model.cmsContent.OpenTexts.Count > 0)
+            {
+                foreach (var opentext in Model.cmsContent.OpenTexts)
+                {
+                    @Html.Partial("~/Views/Components/OpenText.cshtml", opentext)
+                }
+            }
+        }
+    }
+</div>
+
+<section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+</section>
+
+@section footer
+{
+    <!-- Page Footer: cannot use global footer as it has the APR Disclosure on it -->
+    <div class="page-footer">
+
+        <footer class="row">
+
+            <nav class="medium-10 small-8 columns" style="padding-left: 0">
+                <ul>
+                    <li><a href="/who-we-are">About</a></li>
+                    <li><a href="/rates-loan-calculator">Rates/Terms</a></li>
+                    <li><a href="/apply">Apply</a></li>
+                    <li class="rate-match"><a href="/rate-beat">Rate Beat</a></li>
+                    <li><a href="/privacy-security">Privacy/Security</a></li>
+                    <li><a href="/contact-us">Questions</a></li>
+                    <li><a href="/site-map">Site Map</a></li>
+                    <li><a href="/affiliate-program">Affiliate Program</a></li>
+                    <li><a href="@Model.CareersLinkURL">Careers</a></li>
+                    <li><a href="/accessibility">Accessibility</a></li>
+                </ul>
+            </nav>
+
+            <div class="medium-2 small-4 columns social tight-p-left tight-p-right social-icon-wfix">
+                <a itemprop="sameAs" href="@Model.BloggerURL" target="_blank" data-jump="true" data-tracking="e-Journal" aria-label="LightStream Blog"><i class="ls ls-blogger ls-1x"></i></a>
+                <a itemprop="sameAs" href="@Model.YoutubeURL" target="_blank" data-jump="true" data-tracking="YouTube" aria-label="LightStream YouTube"><i class="ls ls-youtube ls-1x"></i></a>
+                <a itemprop="sameAs" href="@Model.FacebookURL" target="_blank" data-jump="true" data-tracking="Facebook" aria-label="LightStream Facebook"><i class="ls ls-facebook ls-1x"></i></a>
+                <a itemprop="sameAs" href="@Model.TwitterURL" target="_blank" data-jump="true" data-tracking="Twitter" aria-label="LightStream Twitter"><i class="ls ls-twitter ls-1x"></i></a>
+            </div>
+
+            <article class="large-12 columns legalcopy">
+                <p class="cms" id="Footer" tabindex="0">@{Html.RenderAction("Footer", "Components");}</p>
+            </article>
+
+            <div class="large-12 columns footer_images">
+                <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img src="@Model.CdnBaseUrl/plant-a-tree-small.png" alt="We plant a tree with every loan" width="106" height="32" class="no-track" /></a>
+                <a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.lightstream.com&lang=en" data-jump="true" data-popup="true" data-name="NortonSecured" data-width="580" data-height="480"><img src="@Model.CdnBaseUrl/norton.png" alt="Norton Security Badge" width="132" height="68" /></a>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /Page Footer -->
+}
+
+<div ng-app="AccessibilityModule" ng-controller="AccessibilityController">
+    <div id="AccessibilityContactUs" role="dialog" class="reveal small" data-reveal>
+        @Html.Partial("~/Views/PublicSite/AccessibilityContactUs.cshtml", new LightStreamWeb.Models.PublicSite.ContactUsModel())
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true" class="close-reveal-modal no-print">&times;</span>
+        </button>
+    </div>
+
+    <div id="ThankYouMessage" role="dialog" class="reveal small" data-reveal>
+        <h3 tabindex="0">Thank You</h3>
+        <p tabindex="0">
+            If a response from us is required, we will email you promptly during our normal business hours.
+        </p>
+        <button class="close-button" data-close aria-label="Close modal" type="button" style="z-index: 10">
+            <span aria-hidden="true" role="presentation" class="close-reveal-modal no-print">&times;</span>
+        </button>
+    </div>
+</div>
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(function () {
+            SC.main.accessibility();
+
+            $(function () {
+                $("input[type=email]").on('keyup', function () {
+                    var regEx = /^(?!.*([\.])\1{1})([0-9a-zA-Z]([-\.\+\w]*[0-9a-zA-Z_])*@@((?!-)[A-Za-z0-9-\.]{1,63}\.){1}[a-zA-Z]{2,9})$/;
+                    
+                    if (this.validity.typeMismatch) {
+                        this.setCustomValidity('');
+                        return false;
+                    }
+                    else if (!regEx.test(this.value)) {
+                        this.setCustomValidity('Please enter valid email address.');
+                        return false;
+                    }
+
+                    this.setCustomValidity('');
+
+                    return true;
+                });
+            });
+        }); 
+
+        angular.module('AccessibilityModule', ['ls.services'])
+            .controller('AccessibilityController', ['$scope', 'contactUsService', function ($scope, contactUsService) {
+                $scope.model = {};
+                $scope.submit = function () {
+                    contactUsService.sendEmail($scope.model).then(function (data) {
+                        if (data.Success) {
+                            SC.main.accessibilityContactUsSubmit();
+                            $('#ThankYouMessage').foundation('open');
+                            $scope.model = {}; //reset data
+                            $scope.contactUsForm.$setPristine(); //for angularJs 1.2, use $setUntouched for 1.3  
+                        }
+                        else {
+                            $scope.model.ErrorMsg = data.ErrorMessage;
+                        }
+                    });
+                }
+            }]);
+
+        /*
+        IE: the abide error markup is still active
+        https://github.com/zurb/foundation-sites/issues/2887
+        */
+        $(document).on('closed.zf.reveal', '[data-reveal]', function () {
+            // Set the modal variable
+            var modal = $(this);
+            // Find the child form
+            var abideForm = $(modal).find('form');
+
+            if (abideForm.length > 0) {
+                // Clear the error classes on divs and labels
+                $(abideForm).children('div').removeClass('error');
+                $(abideForm).children('label').removeClass('error');
+                // Reset form abide validation
+                $(abideForm)[0].reset();
+            }
+        });
+        $(document).on('open.zf.reveal', '[data-reveal]', function () {
+            setTimeout(function () {
+                $('#AccessibilityContactUs').find('[tabindex="0"]')[0].focus();
+            }, 500);
+        });
+
+    </script>
+}

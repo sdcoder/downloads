@@ -1,0 +1,269 @@
+﻿/*------------------------------------*\
+  Mobile Menu
+\*------------------------------------*/
+/*second level menu*/
+/*third level menu*/
+.accordion-title {
+    position: inherit;
+
+    &::before {
+        content: none;
+    }
+}
+
+.accordion-item {
+	padding: 0;
+	margin: 0;
+	a {
+		padding: 0;
+		margin: 0;
+	}
+	span.title {
+		padding: 0;
+		margin: 0;
+	}
+}
+.accordion {
+	.accordion-item {
+		>a {
+			line-height: inherit;
+		}
+	}
+}
+.menu-opened {
+	.mobile-menu {
+		.menu {
+			>div {
+				padding-top: 0;
+			}
+		}
+	}
+}
+.mobile-menu {
+	display: none;
+	z-index: 1030;
+	position: absolute;
+	top: 40px;
+	width: 100%;
+	nav {
+		display: block;
+	}
+	ul {
+		padding: 0;
+	}
+	.menu {
+		>div {
+			background: white;
+			padding-top: 40px;
+			padding-bottom: 0;
+			padding-left: 0;
+			padding-right: 0;
+		}
+		nav {
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	.accordion {
+		border: none;
+		margin: 0;
+		li.accordion-item {
+			margin: 0;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			padding-left: 35px;
+			border-bottom: 1px solid #4daadc;
+			width: 100%;
+			min-height: 31px;
+			a {
+				background-color: white;
+				width: 100%;
+			}
+			&:last-child {
+				border: none;
+				padding-top: 0;
+			}
+			.social {
+				ul {
+					padding-top: 15px;
+					margin-left: 0;
+				}
+				li {
+					float: left;
+					border-bottom: none;
+					width: auto;
+					margin-left: 21px;
+					&:first-child {
+						margin-left: 0;
+					}
+				}
+				i {
+					width: 25px;
+					height: 25px;
+				}
+			}
+			.title {
+				width: auto;
+			}
+			.accordion-content {
+				padding-top: 0;
+				padding-bottom: 0;
+				border: none;
+			}
+		}
+		a {
+			i {
+				height: 22px;
+				width: 22px;
+			}
+			.title {
+				padding-left: 32px;
+				font-size: 16px;
+				font-family: 'proxima-nova', arial, helvetica, sans-serif;
+				font-weight: 600;
+				color: #003d71;
+			}
+			i.fa-plus {
+				padding-left: 0;
+				margin-right: 20px;
+				width: auto;
+				line-height: 3;
+			}
+			i.fa-minus {
+				padding-left: 0;
+				margin-right: 20px;
+				width: auto;
+				line-height: 3;
+			}
+		}
+		>li {
+			&:last-child {
+				height: auto;
+				padding-left: 0;
+				a {
+					border: none;
+				}
+				.social {
+					display: table;
+					margin: 0 auto;
+				}
+			}
+		}
+		.accordion {
+			border: none;
+			margin: 0;
+			min-width: 235px;
+			margin-right: 0;
+			li.accordion-item {
+				margin: 0;
+				padding-top: 0;
+				padding-bottom: 0;
+				padding-left: 12px;
+				border-bottom: none;
+				width: 100%;
+				line-height: 2;
+				.fa-minus {
+					display: none;
+				}
+				a {
+					background-color: white;
+				}
+				.accordion-title {
+					border: none;
+				}
+				a[href^="#"] {
+					height: 20px;
+					display: block;
+				}
+			}
+			li.accordion-item.is-active {
+				.fa-plus {
+					display: none;
+				}
+				.fa-minus {
+					display: block;
+				}
+			}
+			a {
+				i.ls-car {
+					height: 28px;
+				}
+				i.ls-home-improvement {
+					height: 23px;
+				}
+				i.ls-jet-ski {
+					height: 31px;
+				}
+				i.ls-family {
+					height: 25px;
+				}
+				i.ls-stuffed-wallet {
+					height: 26px;
+					height: 26px;
+				}
+				i.fa-plus {
+					font-size: 8px;
+					font-weight: normal;
+					color: #686b6d;
+					height: auto;
+				}
+				i.fa-minus {
+					font-size: 8px;
+					font-weight: normal;
+					color: #686b6d;
+					height: auto;
+				}
+				.title {
+					padding-left: 10px;
+					font-size: 14px;
+					font-weight: 600;
+					color: #686b6d;
+					line-height: 2;
+				}
+			}
+			.accordion {
+				li.accordion-item {
+					min-height: 10px;
+					line-height: 1.4;
+					.title {
+						width: auto;
+					}
+					.accordion-content {
+						padding-top: 0;
+						padding-bottom: 10px;
+					}
+					&:first-child {
+						padding-top: 20px;
+					}
+					a {
+						background-color: white;
+					}
+				}
+				padding-left: 15px;
+				padding-bottom: 5px;
+				a {
+					.title {
+						padding-left: 0;
+						font-size: 12px;
+						font-weight: 600;
+					}
+				}
+			}
+		}
+		.social {
+			border: none;
+		}
+	}
+}
+header {
+	.navbar {
+		.accordion {
+			.accordion {
+				.ls-2x {
+					width: 2.7rem;
+				}
+			}
+		}
+	}
+}

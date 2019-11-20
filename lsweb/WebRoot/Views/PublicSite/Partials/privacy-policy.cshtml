@@ -1,0 +1,84 @@
+﻿@model LightStreamWeb.ContentManager
+
+<style type="text/css">
+/* ---------- begin privacy page ---------- */
+#privacyPolicy ul
+{
+    margin: 0px;
+}
+
+#privacyPolicy li
+{
+    padding: 5px;
+}
+
+#privacyPolicy ul.boring li
+{
+    list-style-type:none;
+    padding: 0;
+    line-height: 1.5em;
+}
+
+#privacyPolicy .underline
+{
+    text-decoration: underline;    
+}
+
+table.privacyPolicy
+{
+    border-collapse:collapse;
+}
+
+table.privacyPolicy td
+{
+    vertical-align:top;
+    padding: 4px;
+    font-family:Arial;
+    border: 1px solid #000000;
+}
+
+table.privacyPolicy td.blackColHeader
+{
+    font-size:14px;
+    font-weight:bold;
+    color:#ffffff;
+    background-color:#000000;
+}
+
+table.privacyPolicy td.blackRowHeader
+{
+    font-size:11px;
+    font-weight:bold;
+}
+
+table.privacyPolicy td.grayHeader
+{
+    font-size:12px;
+    font-weight:bold;
+    color:#ffffff;
+    background-color:#999999;
+    vertical-align:top;
+}
+
+table.privacyPolicy td.weakHeader
+{
+    font-size:12px;
+    font-weight:bold;
+    vertical-align:top;
+}
+
+table.privacyPolicy td.infoParagraph div
+{
+    padding-top:6px;
+}
+
+/* ---------- end privacy page ---------- */
+
+</style>
+@Html.Raw(Model.Get<FirstAgain.Domain.SharedTypes.ContentManagement.PrivacyPolicy>().PrivacyPolicyCopy)
+
+<script type="text/javascript">
+    $(function () {
+        SC.main.privacyPolicy();
+    });
+</script>

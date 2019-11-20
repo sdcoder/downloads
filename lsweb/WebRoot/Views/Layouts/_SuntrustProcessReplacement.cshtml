@@ -1,0 +1,98 @@
+﻿@{ Layout = "~/Views/Layouts/_Apply.cshtml"; }
+
+@model LightStreamWeb.Models.Apply.SunTrustApplyPageModel
+
+@section styles {
+    @RenderSection("styles", required: false)
+    @Styles.Render("~/bundles/css-suntrust-process-replacement")
+}
+
+@section bodyTag {
+    @if (!IsSectionDefined("bodyTag"))
+    {
+        @:<body class="@Model.BodyClass" ng-app="LoanAppModule" ng-controller="LoanApplicationController">
+}
+else
+{
+    @RenderSection("bodyTag", required: false)
+}
+}
+
+@RenderBody()
+
+@section header {
+
+    <header id="header" class="row widerow">
+        <div class="large-12 columns">
+
+            <div class="row darktint headerbar">
+                <div class="small-9 medium-4 columns">
+                    <h1 class="no-bg"><a href="@Url.Action("Index")">LightStream Loan Application</a></h1>
+                </div>
+
+                <a href="javascript:void(0);" class="small-2 columns navtoggle" id="show_menu"><i class="fa fa-bars"></i></a>
+
+                <div class="medium-8 columns">
+                    <h3 class="tagline">@Model.Tagline</h3>
+                    <nav class="mainmenu">
+                        <ul>
+                            @if (Model.DisplayPWMCollateralAssetsLink)
+                            {
+                                <li data-nav="assets"><a href="/pwm/collateral" class="no-track">Collateral Assets</a></li>
+                            }
+                            <li data-nav="rates"><a href="#" data-open="RatesModal" class="no-track">Rates/Terms</a></li>
+                            <li data-nav="privacy"><a href="/modals/privacy" data-popup="true" class="no-track">Privacy/Security</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="row pre-ie8-warning">
+        <p>We have detected that you are either running an older version of Internet Explorer, or are running in 'Compatibility Mode'. </p>
+        <p>
+            If you are running Internet Explorer 8, de-select the 'Compatibility Mode' button next to your browser's address bar, as indicated below: <br />
+            <img src="@Model.CdnBaseUrl/ie-compatibility-warning.png" />
+        </p>
+        <p>&nbsp;</p>
+    </div>
+
+}
+
+@section footer {
+    <section class="row ruled"></section>
+    <footer class="row">
+        <article class="medium-8 columns legalcopy">
+            @RenderSection("APRDisclosure", required: false)
+            <p id="SameDayFundingDisclosure" class="legalcopy" tabindex="0"></p>
+            <p>
+                Business Hours (Eastern Time)
+            </p>
+            <p>
+                Customer Service<br />
+                <span>@Model.BusinessHours</span>
+            </p>
+            <p>
+                Application Processing<br />
+                @foreach (var hour in Model.AppProcessingHours)
+                {
+                    @hour
+                    <br />
+                }
+            </p>
+        </article>
+        <div class="medium-4 columns footer_images">
+            <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img src="@Model.CdnBaseUrl/plant-a-tree-small.png" alt="We plant a tree with every loan" width="106" height="32" class="no-track" /></a>
+            <a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.lightstream.com&lang=en" data-jump="true" data-popup="true" data-name="NortonSecured" data-width="580" data-height="480"><img src="@Model.CdnBaseUrl/norton.png" alt="Norton Security Badge" width="132" height="68" /></a>
+        </div>
+    </footer>
+}
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+
+    @*TODO e3p0 - bundle & minify*@
+    <script type="text/javascript" src="/scripts/app/suntrust-process-replacement.js"></script>
+}

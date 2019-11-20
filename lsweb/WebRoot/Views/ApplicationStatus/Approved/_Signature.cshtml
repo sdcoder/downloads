@@ -1,0 +1,23 @@
+﻿
+@if (Model.Submitted)
+{
+    <div class="signatureBox signed">
+        <div><img src="@LightStreamWeb.SignatureUtility.GetImageUrl(Model.IsCoApplicant);" /></div>
+        <div>@Model.TimeStamp</div>
+    </div>
+}
+else
+{
+    <div ng-show="LoanAcceptance.@(Model.TagName).Submitted" ng-cloak class="signatureBox signed">
+        <div><img ng-src="{{LoanAcceptance.@(Model.TagName).ImageURL}}" /></div>
+        <div>{{LoanAcceptance.@(Model.TagName).TimeStamp}}</div>
+    </div>
+    <div ng-show="!LoanAcceptance.@(Model.TagName).Submitted && !LoanAcceptance.Requires@(Model.TagName)Acknowledgement" ng-cloak>
+        <div id="sig@(Model.TagName)" ls-signature name="@Model.TagName" ng-model="LoanAcceptance.@Model.TagName" required applicant-full-name="@Model.ApplicantFullName"></div>
+    </div>
+    <div ng-show="!LoanAcceptance.@(Model.TagName).Submitted && LoanAcceptance.Requires@(Model.TagName)Acknowledgement" ng-cloak>
+        <div class="formwarning">
+            <p><span>@Model.ApplicantFullName:</span><span style="padding-left: 5px;">To sign the agreement, first check the box next to  the Truth in Lending Act Disclosure above.</span></p>
+        </div>
+    </div>
+}

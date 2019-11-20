@@ -1,0 +1,195 @@
+﻿@{Html.RegisterScriptFile("~/Scripts/redesign/comparative-table.js");}
+
+<section id="comparative-table-section">
+    <div class="row">
+        <div class="columns medium-12">
+            <h2 class="thatBlueFontTho sectionHeader">Compare LightStream with any lender.</h2>
+            <p>When you have good credit, LightStream rewards you with the benefits that are most important to you.</p>
+            <table id="comparative-table">
+                <tbody>
+                    <tr>
+                        <th tabindex="0">Features</th>
+                        <th class="ls-lightblue thead">
+                            Online Lender & Bank
+                            <div class="column-header" tabindex="0" aria-label="Online Lender & Bank, LightStream">LightStream</div>
+                        </th>
+                        <th class="thead">
+                            Bank
+                            <div class="column-header" tabindex="0" aria-label="Bank, CapitolOne Auto">CapitalOne Auto</div>
+                        </th>
+                        <th class="thead">
+                            Credit Union
+                            <div class="column-header" tabindex="0" aria-label="Credit Union, PenFed">PenFed</div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <a href="javascript: $('.rate-match').click(); void 0" tabindex="0">Low Rates, Backed by a Rate Beat Program</a><sup>2</sup>
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">LightStream, yes</div>
+                        </td>
+                        <td><div class="screen-reader-only" tabindex="0">CapitalOne Auto, no</div></td>
+                        <td class="left-border-line"><div class="screen-reader-only" tabindex="0">PenFed, no</div></td>
+                    </tr>
+                    <tr>
+                        <td class="left" tabindex="0">
+                            Same-Day Funding<sup>3</sup> Available
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">LightStream, yes</div>
+                        </td>
+                        <td>
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">CapitalOne Auto, yes</div>
+                        </td>
+                        <td class="left-border-line"><div class="screen-reader-only" tabindex="0">PenFed, no</div></td>
+                    </tr>
+                    <tr>
+                        <td class="left" tabindex="0">
+                            No membership or authorized dealership requirement
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">LightStream, yes</div>
+                        </td>
+                        <td><div class="screen-reader-only" tabindex="0">CapitalOne Auto, no</div></td>
+                        <td class="left-border-line"><div class="screen-reader-only" tabindex="0">PenFed, no</div></td>
+                    </tr>
+                    <tr>
+                        <td class="left" tabindex="0">
+                            Easy Online Process
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">LightStream, yes</div>
+                        </td>
+                        <td>
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">CapitalOne Auto, yes</div>
+                        </td>
+                        <td class="left-border-line">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">PenFed, yes</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left" tabindex="0">
+                            Private Party Option
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">LightStream, yes</div>
+                        </td>
+                        <td><div class="screen-reader-only" tabindex="0">CapitalOne Auto, no</div></td>
+                        <td class="left-border-line">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">PenFed, yes</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left" tabindex="0">
+                            Classic Car
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">LightStream, yes</div>
+                        </td>
+                        <td><div class="screen-reader-only" tabindex="0">CapitalOne Auto, no</div></td>
+                        <td class="left-border-line">
+                            <i class="ls ls-check ls-3x"></i>
+                            <div class="screen-reader-only" tabindex="0">PenFed, yes</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table id="comparative-table-mobile">
+                <thead>
+                    <tr>
+                        <th id="benefit-column">Features</th>
+                        <th id="ls-column" class="ls-lightblue">
+                            Online Lender & Bank
+                            <div class="column-header">LightStream</div>
+                        </th>
+                        <th>
+                            <div>
+                                <span id="competitor-type">Bank</span>
+                                <div class="column-header" id="second-competitor">CapitalOne Auto</div>
+                            </div>
+                            <div id="arrow-container">
+                                <span class="arrow disabled" id="comparative-left-arrow-auto"><</span>
+                                <span class="arrow" id="comparative-right-arrow-auto">></span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="left underline" onclick="$('.rate-match').click()" style="cursor: pointer">
+                            Low Rates, Backed by a Rate Beat Program<sup>2</sup>
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Same-Day Funding<sup>3</sup> Available
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                        <td>
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            No Membership or Authorized Dealership Requirement
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Easy Online Process
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                        <td>
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Private Party Option
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            Classic Car
+                        </td>
+                        <td class="ls-lightblue">
+                            <i class="ls ls-check ls-3x"></i>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <p>Comparison table based on data compiled in May 2019 from company websites.</p>
+        </div>
+    </div>
+</section>

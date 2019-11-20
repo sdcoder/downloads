@@ -1,0 +1,69 @@
+﻿@{
+    string fundingDateModelName = "FundingDate";
+    string isWireModelname = "IsWire";
+    if (ViewData["ngModelName"] != null)
+    {
+        fundingDateModelName = ViewData["ngModelName"].ToString() + ".FundingDate";
+        isWireModelname = ViewData["ngModelName"].ToString() + ".IsWire";
+    }
+}
+
+
+        <div class="row ng-splash" ng-cloak>
+            <div class="large-7 small-12 columns">
+                <div id="FauxCalendar">
+                    <div><img src="@Model.CdnBaseUrl/ajax-loader.gif" /> loading....</div>
+                </div>
+            </div>
+            <div class="large-5 columns">
+                <div class="ach datepicker-example">
+                    <a class="ui-state-default" >&nbsp;</a> = eligible date, no fees 
+                </div>
+                <div class="wire datepicker-example">
+                    <a class="ui-state-default" >&nbsp;</a> = wire transfer required, your financial institution may <span data-tooltip class="has-tip" title="If a fed wire is required to fund your loan, your bank will most likely charge you a fee for accepting this wire transfer into your account.  Your bank may either deduct the fee from your loan proceeds or bill you separately.">charge a fee</span>. 
+
+                    <div id="FedWireFeeModal" data-dropdown class="f-dropdown dropdown-pane" aria-hidden="true" tabindex="-1">
+                    If a fed wire is required to fund your loan, your bank will most likely charge you a fee for accepting this wire transfer into your account.  Your bank may either deduct the fee from your loan proceeds or bill you separately.
+                    </div>
+                </div>
+                <div class="current datepicker-example">
+                    <a class="ui-state-default" >&nbsp;</a> = current funding date
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row" ng-cloak>
+
+            <div class="large-7 small-12 columns offset" >
+                <div class="date-range clearfix" id="FundingDateCalendar" ng-class="" >
+                    <div class="datepicker" required="required" ui-date="dateOptions" name="CalFundingDate" ng-model="@fundingDateModelName" ui-date-format="DD, MM d, yy"></div>
+                    <input type="hidden" name="FundingDate" value="{{@fundingDateModelName}}" />
+                </div>
+            </div>
+
+            <div class="large-5 columns">
+                <div class="ach datepicker-example">
+                    <a class="ui-state-default" >&nbsp;</a> = eligible date, no fees 
+                </div>
+                <div class="wire datepicker-example">
+                    <a class="ui-state-default" >&nbsp;</a> = wire transfer required, your financial institution may <span data-tooltip class="has-tip" title="If a fed wire is required to fund your loan, your bank will most likely charge you a fee for accepting this wire transfer into your account.  Your bank may either deduct the fee from your loan proceeds or bill you separately.">charge a fee</span>. 
+
+                    <div id="FedWireFeeInfo" data-dropdown class="f-dropdown dropdown-pane" aria-hidden="true" tabindex="-1">
+                    If a fed wire is required to fund your loan, your bank will most likely charge you a fee for accepting this wire transfer into your account.  Your bank may either deduct the fee from your                     loan proceeds or bill you separately.
+                    </div>
+                </div>
+                <div class="current datepicker-example">
+                    <a class="ui-state-default" >&nbsp;</a> = current funding date
+                </div>
+
+            </div>
+            <div  class="large-12 columns" ng-cloak>
+                Date Selected: <strong>{{@fundingDateModelName}}</strong> <span ng-cloak ng-show="@isWireModelname">Your financial institution may <span data-tooltip class="has-tip" title="If a fed wire is required to fund your loan, your bank will most likely charge you a fee for accepting this wire transfer into your account.  Your bank may either deduct the fee from your loan proceeds or bill you separately.">charge a fee</span>. </span>
+                <div class="formalert" ng-cloak ng-show="RescheduleFundingDateForm.$submitted && !@fundingDateModelName">
+                    <p>Please select a funding date.</p>
+                </div>
+            </div>
+
+        </div>

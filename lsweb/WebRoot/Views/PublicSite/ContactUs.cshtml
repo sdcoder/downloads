@@ -1,0 +1,99 @@
+﻿@model LightStreamWeb.Models.PublicSite.ContactUsModel
+
+@section bodyTag {
+    <body class="@Model.BodyClass"
+          @if (!string.IsNullOrWhiteSpace(Model.NgApp)) { @: ng-app="@Model.NgApp"
+                          @: id="ng-app"
+                       }>
+}
+
+@section styles {
+    <style type="text/css">
+        #ContactUsForm {
+            border-top: 5px solid #00467e;
+            margin-top: 1em;
+            padding-top: 1em;
+        }
+    </style>
+}
+@section hero {
+    <img src="@Model.Banner.ToImageUrl()" alt="@Model.Banner.Image.Alt" align="right" class="banner hide-for-small-only cms" />
+    <div class="small-12 columns headline">
+        <h2 tabindex="0">@Model.PageTitle</h2>
+        <h3 class="cms sub" tabindex="0">@Model.SubTitle</h3>
+    </div>
+}
+
+<div class="main row">
+
+    <div class="medium-8 columns">
+
+        @Html.Partial("~/Views/PublicSite/Partials/faq.cshtml", Model.ContentManager)
+
+        <h3 id="ContactUsForm" tabindex="0">Get in Touch</h3>
+
+        <p class="description" tabindex="0">
+            If you have any questions, please check out our FAQs above where we have answers to commonly asked topics. For any other questions or comments,
+            you may email us using the form below.
+            We will respond promptly during our normal business hours, @FirstAgain.Domain.Common.BusinessConstants.Instance.BusinessHours.ToString(FirstAgain.Common.TimeZoneUS.EasternStandardTime).
+        </p>
+
+        <h3 tabindex="0">Contact Us</h3>
+
+        @if (Model.MessageSent)
+        {
+            <p class="description">Thank you. If a response from us is required, we will email you promptly during our normal business hours.</p>
+        }
+        else
+        {
+            if (Model.GenericExeption != null)
+            {
+                <p class="error-message">We are sorry but an error has occurred and we are unable to process your request. Please try again. </p>
+            }
+            <form method="post" action="/contact-us">
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary()
+                <fieldset>
+                    <ul>
+                        <li><label for="Name">Name:</label> @Html.EditorFor(x => x.Name)</li>
+                        <li><label for="EmailAddress">Email Address:</label> @Html.EditorFor(x => x.EmailAddress)</li>
+                        <li><label for="Message">Message:</label>@Html.EditorFor(x => x.Message)</li>
+                    </ul>
+                </fieldset>
+                <p class="description" tabindex="0">Please review your email address before submitting. Thank you.</p>
+                <input type="submit" name="submit" value="Send" class="button" />
+            </form>
+        }
+
+    </div>
+
+    @Html.Partial("_RightColumnWithAdObjects", Model)
+
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            SC.main.contactUs();
+
+            $("input[type=email]").on('keyup', function () {
+                var regEx = /^(?!.*([\.])\1{1})([0-9a-zA-Z]([-\.\+\w]*[0-9a-zA-Z_])*@@((?!-)[A-Za-z0-9-\.]{1,63}\.){1}[a-zA-Z]{2,9})$/;
+        
+                if (this.validity.typeMismatch) {
+                    this.setCustomValidity('');
+                    return false;
+                }
+                else if (!regEx.test(this.value)) {
+                    this.setCustomValidity('Please enter valid email address.');
+                    return false;
+                }
+                else {
+                    this.setCustomValidity('');
+                }
+
+                return true;
+            });
+        });
+    </script>
+}

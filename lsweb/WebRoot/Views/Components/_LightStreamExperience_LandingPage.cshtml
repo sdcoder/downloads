@@ -1,0 +1,55 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+<div class="row ls-experience-header">
+    <div class="columns medium-12" style="padding-left: 10px">
+        <h2 class="thatBlueFontTho" tabindex="0">The LightStream experience</h2>
+    </div>
+</div>
+
+<div class="row desktop" id="LSExperienceLarge">
+    <div class="columns medium-4" id="videoColumn" style="padding-left: 0">
+        @Html.Partial("/Views/Redesign/_WhyWereDifferent.cshtml", Model.Content.LightStreamExperienceVideoUrl ?? "https://www.youtube.com/embed/YWLqSduuIho")
+    </div>
+    <div class="columns medium-4">
+        @Html.Action("FeaturedTestimonialRedesign", "Components", new
+           {
+               testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+               mobileTestimonialGraphicUrl = Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "customerCommentsCarouselLarge",
+           })
+    </div>
+    <div class="columns medium-4" id="mediaCoverage">
+        @Html.Action("MediaCoverageRedesign", "Components", new
+           {
+               mediaGraphicUrl = @Model.Content.MediaCoverageGraphic.ToImageUrl(),
+               mobileMediaGraphicUrl = Model.Content.MobileMediaCoverageGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "mediaCarouselLarge",
+           })
+    </div>
+</div>
+
+<div class="row mobile" id="LSExperienceSmall">
+    <div class="columns small-12" id="videoColumn">
+        @Html.Partial("/Views/Redesign/_WhyWereDifferent.cshtml", Model.Content.LightStreamExperienceVideoUrl ?? "https://www.youtube.com/embed/YWLqSduuIho")
+    </div>
+    <div class="columns small-12" id="customerComments">
+        @Html.Action("FeaturedTestimonialRedesign", "Components", new
+           {
+               testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+               mobileTestimonialGraphicUrl = Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "customerCommentsCarouselSmall",
+           })
+    </div>
+    <div class="columns small-12" id="mediaCoverage">
+        @Html.Action("MediaCoverageRedesign", "Components", new
+           {
+               mediaGraphicUrl = @Model.Content.MobileMediaCoverageGraphic.ToImageUrl(),
+               mobileMediaGraphicUrl = Model.Content.MobileMediaCoverageGraphic.ToImageUrl(),
+               purpose = Model.PurposeOfLoan,
+               owlCarouselId = "mediaCarouselSmall",
+           })
+    </div>
+</div>

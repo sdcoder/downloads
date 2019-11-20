@@ -1,0 +1,35 @@
+﻿@model FirstAgain.Domain.SharedTypes.ContentManagement.CustomerExperienceGuarantee
+
+@if (Model.Version != FirstAgain.Domain.SharedTypes.ContentManagement.CMSVersion.Responsive) {
+    <div class="row">
+        <div class="medium-12 columns" tabindex="0">
+	        <h4>We guarantee you a better experience.</h4>
+        </div>
+    </div>
+		
+    <div class="row">
+        <div class="medium-6 columns" tabindex="0">
+	        <p>After receiving your loan from us, if you are not completely satisfied with your experience, please contact us. We will email you a questionnaire so we can improve our services. When we receive your completed questionnaire, we will send you $100.</p>
+        </div>
+		
+        <div class="medium-6 columns" tabindex="0">
+	        <p>Our guarantee expires 30 days after you receive your loan. We reserve the right to change or discontinue our guarantee at any time. Limited to one $100 payment per funded loan.</p>
+        </div>
+    </div>
+} else {
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4>@Model.Heading</h4>
+        </div>
+    </div>
+		
+    <div class="row" id="guaranteedropdown">
+        <div class="medium-6 columns" tabindex="0">
+            <p>@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Column1Copy)</p>
+        </div>
+		
+        <div class="medium-6 columns" tabindex="0">
+            <p>@ADAHelper.PreventMultipleBRsRepeatingBlank(@Model.Column2Copy)</p>
+        </div>
+    </div>
+}

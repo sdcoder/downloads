@@ -1,0 +1,73 @@
+﻿@model LightStreamWeb.Models.PublicSite.ContactUsModel
+
+@section hero {
+    <img src="/content/images/questions/home_desktop_questions.jpg" class="hide-for-small-only banner" alt="header">
+    <img src="content/images/questions/mobile_questions.jpg" alt="header" class="show-for-small-only banner">
+
+    <div class="row headline">
+        <h2>Questions?</h2>
+        <h3 class="cms sub">@Model.SubTitle</h3>
+      </div>
+}
+
+<div class="main row">
+
+    <div class="medium-8 columns">
+
+        <h3 id="ContactUsForm">Contact Us</h3>
+
+        @if (Model.MessageSent) {
+            <p class="description">Thank you. If a response from us is required, we will email you promptly during our normal business hours.</p>
+        }
+        else
+        {
+           if(Model.GenericExeption != null) {
+                <p class="error-message">We are sorry but an error has occurred and we are unable to process your request. Please try again. </p>
+          }
+          <form method="post" action="/contact-us" >
+              @Html.AntiForgeryToken()
+
+             @Html.ValidationSummary()
+            <fieldset>
+              <ul>
+                <li>@Html.EditorFor(x => x.Name)</li>
+                <li>@Html.EditorFor(x => x.EmailAddress)</li>
+                <li>@Html.EditorFor(x => x.Message)</li>
+              </ul>
+            </fieldset>
+            <p class="description">Please review your email address before submitting. Thank you.</p>
+            <input type="submit" name="submit" value="Send" class="button" />
+          </form>
+        }
+
+    </div>
+
+    @Html.Partial("_RightColumnWithAdObjects", Model)
+
+  </div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            SC.main.contactUs();
+
+            $("input[type=email]").on('keyup', function () {
+                var regEx = /^(?!.*([\.])\1{1})([0-9a-zA-Z]([-\.\+\w]*[0-9a-zA-Z_])*@@((?!-)[A-Za-z0-9-\.]{1,63}\.){1}[a-zA-Z]{2,9})$/;
+        
+                if (this.validity.typeMismatch) {
+                    this.setCustomValidity('');
+                    return false;
+                }
+                else if (!regEx.test(this.value)) {
+                    this.setCustomValidity('Please enter valid email address.');
+                    return false;
+                }
+                else {
+                    this.setCustomValidity('');
+                }
+
+                return true;
+            });
+        });
+    </script>
+}

@@ -1,0 +1,27 @@
+﻿@model LightStreamWeb.Models.Apply.SunTrustApplyPageModel
+
+@{Html.RegisterScriptFile("~/scripts/app/loan-application.js");}
+
+<section class="row">
+	<div class="large-10 columns medium-push-1">
+	    <h1>Thank You!</h1>
+
+        <div class="panel">
+            <div class="teammate-alert">
+                <p><i class="fa fa-comment"></i> Teammate, please let the client know:</p>
+            </div>
+
+            <div >
+                <ul class="bullets">
+                    <li>Your temporary User Name and Password have been emailed to you <b>from LightStream</b>.</li>
+                    <li>In the <b>LightStream</b> email there will be instructions to log in to your online account to complete the application and submit for consideration.</li>
+                    <li>Please complete this process within @FirstAgain.Domain.Common.BusinessConstants.Instance.AutoTerminateDays days, or your application will be considered incomplete and we will be unable to give it further consideration.</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>&nbsp;</p>
+	</div>
+</section>
+
+

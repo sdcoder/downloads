@@ -1,0 +1,194 @@
+﻿@model BaseLightstreamPageModel
+
+<div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+<div class="web-component">
+    <lswc-legal-banner></lswc-legal-banner>
+</div>
+
+<!-- Backdrop -->
+<div class="backdrop mobile-menu-backdrop"></div>
+<!-- /Backdrop -->
+
+<a href="#skiptocontent" id="skiptocontentlink" class="screen-reader-only" tabindex="0">Skip to content</a>
+
+<!-- Nav Container -->
+<div class="nav-container navRebuild">
+    <div class="row">
+        <!-- Desktop Nav-->
+        <div class="large-12 columns desktop-nav navbar navbar-faded affix bg-biscay @Model.NavClass">
+            <!-- Navbar Inner -->
+            <div class="navbar-inner">
+                <!-- Navbar Container -->
+                <div class="navbar-container">
+                    <div class="row">
+                        <div class="large-12 columns columns-fluid">
+                            <!-- Navbar Brand Container -->
+                            <div class="navbar-brand-container pull-left">
+                                <!-- Navbar Brand -->
+                                <h1 class="navbar-brand">
+                                    <a itemprop="url" href="@Model.LogoUrl">
+                                        <img src="@Model.CdnBaseUrl/lightstream-logo.png" alt="LightStream, A Division of SunTrust Bank">
+                                    </a>
+                                </h1>
+                                <!-- /Navbar Brand -->
+                            </div>
+                            <!-- /Navbar Brand Container -->
+                            <!-- Navigation Container -->
+                            <div class="navbar-navigation-container pull-right">
+                                <!-- Navigation -->
+                                <div class="navbar-navigation" tabindex="0" aria-label="Main menu">
+                                    <!-- Navigation Header -->
+                                    <div class="navbar-navigation-header">
+                                        <div class="row ">
+                                            <div class="large-12">
+                                                <nav class="pull-right">
+                                                    <div class="navbar-navigation-header-links">
+                                                        <a class="btn btn-small btn-link" href="/rates-loan-calculator" tabindex="0">Rates</a>
+                                                        <a class="btn btn-small btn-link" href="/who-we-are" tabindex="0">About</a>
+                                                        <a class="btn btn-small btn-link" href="/contact-us" tabindex="0">Questions</a>
+                                                        <a class="btn btn-small btn-link" href="/privacy-security" tabindex="0">Security</a>
+                                                    </div>
+                                                    <div class="navbar-navigation-header-actions">
+                                                        <div class="apply-now-action">
+                                                            <a class="btn btn-small btn-fancy btn-darkyellow" href="/apply" onclick="SC.main.navbar.applyNow()" role="button" tabindex="0">APPLY NOW</a>
+                                                        </div>
+                                                        <div class="sign-in-action">
+                                                            <a class="btn btn-small btn-lightskyblue btn-fancy" href="/customer-sign-in" onclick="SC.main.navbar.signIn()" role="button" tabindex="0">Sign in</a>
+                                                        </div>
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Navigation Header -->
+                                    <!-- Navigation Footer -->
+                                    <div class="navbar-navigation-footer pull-right hide-for-small-only">
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <!-- Menu -->
+                                                <div class="navbar-menu">
+                                                    <nav>
+                                                        <div class="menu-container-item">
+                                                            <button id="autoSubMenuButton" class="unselectable btn btn-small" role="menuitem" aria-haspopup="true">Auto</button>
+                                                            <ul id="autoSubMenu" class="m-dropdown" aria-expanded="false" role="menu" aria-labelledby="autoSubMenuButton">
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/auto-refinance" class="subMenuItem" role="menuitem" tabindex="0">Auto Refinance</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/classic-car-financing" class="subMenuItem" role="menuitem" tabindex="0">Classic Car</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/new-car-loan" class="subMenuItem" role="menuitem" tabindex="0">New Car</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/used-car-loans" class="subMenuItem" role="menuitem" tabindex="0">Used Car</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="menu-container-item">
+                                                            <button id="hiSubMenuButton" class="unselectable btn btn-small" role="menuitem" aria-haspopup="true">Home Improvement</button>
+                                                            <ul id="hiSubMenu" class="m-dropdown" aria-expanded="false" role="menu" aria-labelledby="hiSubMenuButton">
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/home-improvement-loan" class="subMenuItem" role="menuitem" tabindex="0">Home Improvement</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/kitchen-remodel-financing" class="subMenuItem" role="menuitem" tabindex="0">Kitchen & Bath Remodeling</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/landscape-financing" class="subMenuItem" role="menuitem" tabindex="0">Landscaping</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/solar-financing" class="subMenuItem" role="menuitem" tabindex="0">Solar</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/swimming-pool-financing" class="subMenuItem" role="menuitem" tabindex="0">Swimming Pool</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="menu-container-item">
+                                                            <button id="recSubMenuButton" class="unselectable btn btn-small" role="menuitem" aria-haspopup="true">Recreation</button>
+                                                            <ul id="recSubMenu" class="m-dropdown" aria-expanded="false" role="menu" aria-labelledby="recSubMenuButton">
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/aircraft-financing" class="subMenuItem" role="menuitem" tabindex="0">Aircraft Loans & Refinancing</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/boat-loan" class="subMenuItem" role="menuitem" tabindex="0">Boat Loans & Refinancing</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/destination-club-financing" class="subMenuItem" role="menuitem" tabindex="0">Destination Club Financing</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/timeshare-loans" class="subMenuItem" role="menuitem" tabindex="0">Timeshare Loans & Refinancing</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/motorcycle-loan" class="subMenuItem" role="menuitem" tabindex="0">Motorcycle Loans & Refinancing</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/rv-loan" class="subMenuItem" role="menuitem" tabindex="0">RV/Trailer Loans & Refinancing</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="menu-container-item">
+                                                            <button id="famSubMenuButton" class="unselectable btn btn-small" role="menuitem" aria-haspopup="true">Family Life</button>
+                                                            <ul id="famSubMenu" class="m-dropdown" aria-expanded="false" role="menu" aria-labelledby="famSubMenuButton">
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/adoption-financing" class="subMenuItem" role="menuitem" tabindex="0">Adoption</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/k12-student-loans" class="subMenuItem" role="menuitem" tabindex="0">Education (PreK-12 Only)</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/ivf-financing" class="subMenuItem" role="menuitem" tabindex="0">Fertility</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/medical-financing" class="subMenuItem" role="menuitem" tabindex="0">Medical</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/wedding-loan" class="subMenuItem" role="menuitem" tabindex="0">Wedding</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="menu-container-item">
+                                                            <button id="aaeSubMenuButton" class="unselectable btn btn-small" role="menuitem" aria-haspopup="true">Debt Consolidation & Other</button>
+                                                            <ul id="aaeSubMenu" class="m-dropdown" aria-expanded="false" role="menu" aria-labelledby="aaeSubMenuButton">
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/aircraft-financing" class="subMenuItem" role="menuitem" tabindex="0">Aircraft Loans & Refinancing</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/debt-consolidation" class="subMenuItem" role="menuitem" tabindex="0">Credit Card/Debt Consolidation</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/horse-loan" class="subMenuItem" role="menuitem" tabindex="0">Horse</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/medical-financing" class="subMenuItem" role="menuitem" tabindex="0">Medical & Dental</a>
+                                                                </li>
+                                                                <li role="none" class="unselectable">
+                                                                    <a href="/other-loans-refinancing" class="subMenuItem" role="menuitem" tabindex="0">Other</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </nav>
+                                                </div>
+                                                <!-- /Menu -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Navigation Footer -->
+                                </div>
+                                <!-- /Navigation -->
+                            </div>
+                            <!-- /Navigation Container -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /Navbar Container -->
+            </div>
+            <!-- /Navbar Inner -->
+        </div>
+        <!-- /Desktop Nav-->
+    </div>
+</div>
+<!-- /Nav Container -->
+
+<div id="skiptocontent"></div>

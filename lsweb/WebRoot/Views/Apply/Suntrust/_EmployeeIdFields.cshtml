@@ -1,0 +1,105 @@
+﻿<div class="row">
+	<div class="medium-3 columns">
+	    <label><sup>*</sup>Teammate Employee ID</label>
+        @LSForm.NumberString(nameAndId: "TeammateEmployeeId",
+                        minLength: 6,
+                        maxLength: 9,
+                        ngModel: "LoanApp.TeammateEmployeeId",
+                        required: true)
+        <div class="formalert" tabindex="0" ng-show='LoanApplication.TeammateEmployeeId.$hasVisited && LoanApplication.TeammateEmployeeId.$error.minlength' ng-cloak>
+            <p>Please enter at least six digits for your employee ID</p>
+        </div>
+
+	</div>
+	<div class="medium-9 columns">
+        <div class="forminfo aside down">
+            <p>Please enter your Employee ID, not your RACF ID.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-cloak>
+    <div class="medium-12 columns" ng-cloak ng-show="EmployeeLookupWaiting" >
+        <img src="@Model.CdnBaseUrl/ajax-loader.gif" />
+        <p>Please wait while we validate your employee id....</p>
+    </div>
+
+    <div class="medium-6 columns" ng-show="LoanApp.EmployeeVerificationResult && !EmployeeLookupWaiting" ng-cloak>
+        <div ng-cloak ng-if="LoanApp.TeammateEmployeeIdLookupFail || !LoanApp.TeammateEmployeeIdFound">
+            <div class="formalert" tabindex="0" ng-show="LoanApp.TeammateEmployeeIdLookupFail || (!LoanApp.TeammateEmployeeIdLookupFail && !LoanApp.TeammateEmployeeIdFound && !LoanApp.TeammateIsContractorOrTemporary)">
+                <p>Are you a contractor or temporary employee?</p>
+                <div>
+                    <input type="radio" name="TeammateIsContractorOrTemporary" id="TeammateIsContractorOrTemporaryYes" ng-required="true" ng-model="LoanApp.TeammateIsContractorOrTemporary" ng-value="true"><label for="TeammateIsContractorOrTemporaryYes">Yes</label>
+                    <input type="radio" name="TeammateIsContractorOrTemporary" id="TeammateIsContractorOrTemporaryNo" ng-required="true" ng-model="LoanApp.TeammateIsContractorOrTemporary" ng-value="false"><label for="TeammateIsContractorOrTemporaryNo">No</label>
+                </div>
+            </div>
+        </div>
+        <div class="formalert" tabindex="0" ng-if="!LoanApplication.TeammateEmployeeId.$error.minlength && !LoanApp.TeammateEmployeeIdLookupFail && !LoanApp.TeammateEmployeeIdFound && LoanApp.TeammateIsContractorOrTemporary == false" ng-cloak>
+            <p>Please enter a valid employee id</p>
+        </div>
+    </div>
+	<div class="medium-6 columns">
+@*            <p>TeammateEmployeeIdLookupFail = {{LoanApp.TeammateEmployeeIdLookupFail}}</p>
+            <p>TeammateEmployeeIdFound = {{LoanApp.TeammateEmployeeIdFound}}</p>
+            <p>TeammateIsContractorOrTemporary = {{LoanApp.TeammateIsContractorOrTemporary}}</p>*@
+    </div>
+</div>
+
+
+
+<div class="row">
+
+	<div class="medium-3 columns">
+	    <label><sup>*</sup>Branch Cost Center</label>
+        @LSForm.NumberString(nameAndId: "BranchCostCenter",
+                        minLength: 7,
+                        maxLength: 7,
+                        ngModel: "LoanApp.BranchCostCenter",
+                        required: true,
+                        attributes: "ls-branch-cost-center")
+
+        <div class="formalert" tabindex="0" ng-show='LoanApplication.BranchCostCenter.$hasVisited && LoanApplication.BranchCostCenter.$error.minlength' ng-cloak>
+            <p>Please enter the seven digit branch cost center.</p>
+        </div>
+        <div class="formalert" tabindex="0" ng-show="LoanApplication.BranchCostCenter.$hasVisited && !LoanApplication.BranchCostCenter.$error.minlength && LoanApplication.BranchCostCenter.$error.notFound" ng-cloak>
+            <p>Invalid branch cost center. Please try again.</p>
+        </div>
+
+	</div>
+</div>
+
+<div class="row">
+    <div class="medium-6 columns">
+        <label><sup>*</sup>Teammate Email Address</label>
+	    <input 
+            id="TeammateEmailAddress" 
+            name="TeammateEmailAddress" 
+            type="email" maxlength="150" 
+            ng-model="LoanApp.TeammateEmailAddress" 
+            required="required" 
+            ls-track-visited
+            ng-pattern="/@(@"^(?!.*([\.])\1{1})([0-9a-zA-Z]([-\.\+\w]*[0-9a-zA-Z_])*@(lightstream|suntrust)\.com)$/")" /> 
+        <div ng-show="LoanApplication.TeammateEmailAddress.$hasVisited && LoanApplication.TeammateEmailAddress.$error.pattern" ng-cloak>
+            <div class="formalert" tabindex="0">
+                <p>Please enter a valid suntrust.com email address.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-6 columns">
+        <label><sup>*</sup>Teammate Phone (with area code)</label>
+        <input type="text"
+               id="BranchEmployeePhoneNumber"
+               name="BranchEmployeePhoneNumber"
+               ng-model="LoanApp.BranchEmployeePhoneNumber"
+               ls-phone-number
+               ls-track-visited
+               maxlength="14"
+               required pattern="\d*" />
+        <div class="formalert" tabindex="0" ng-show='LoanApplication.BranchEmployeePhoneNumber.$hasVisited && !LoanApplication.BranchEmployeePhoneNumber.$valid' ng-cloak=''>
+            <p>{{LoanApplication.BranchEmployeePhoneNumber.$validationMessage}}</p>
+        </div>
+    </div>
+</div>

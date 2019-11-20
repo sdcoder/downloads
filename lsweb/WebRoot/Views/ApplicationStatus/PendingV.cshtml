@@ -1,0 +1,114 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.PendingVPageModel
+@using FirstAgain.Common.Extensions
+
+<section class="row panel introrow">
+    <div class="medium-9 columns">
+        <div class="row">
+            <div class="medium-12 columns">
+                <h2 class="brand">@Model.Heading</h2>
+
+                <h3>@Model.ApplicantNamesText,</h3>
+            </div>
+        </div>
+
+        @if (Model.AddCoApplicantIsEnabled())
+        {
+            <div class="row">
+                <div class="medium-12 columns">
+                    <p>
+                        To submit a new joint loan application, click on the Submit Joint Application button below.
+                        Please keep in mind your individual loan application will be cancelled when you submit a joint application.
+                    </p>
+                    <p>@Html.Partial("~/Views/Apply/Partials/_AddCoApplicantButton.cshtml", null)</p>
+                </div>
+            </div>
+
+            if (Model.VerificationRequests.Any())
+            {
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <h2>Or</h2>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (Model.VerificationRequests.Any())
+        {
+            <div class="row">
+                <div class="medium-12 columns">
+                    @if (Model.VerificationRequests.AllDocumentsAreInASatisfiedStatus && Model.VerificationRequests.AnyDocumentReceivedWaivedAndSatisfiedWaived)
+                    {
+                        <p>
+                            After further review, the verifications listed below are no longer needed at this time.
+                            You will receive an email notification once we have completed review of your application.
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Please provide the
+                            @Html.Raw(Model.VerificationRequests.Description.FormatWithObject(new { Offer = "#OfferTermsTable", VIN = "#CollateralInformation", KBA = "#IdentityVerification", PropertyAddress = "#ImprovedPropertyAddress", Documents = "#VerificationList" }).Replace("a href", "a class='no-track' href"))
+                            below in order for us to complete the review of your @Model.ProductName. Thank you!
+                        </p>
+                    }
+                </div>
+            </div>
+
+            if (!string.IsNullOrEmpty(Model.VerificationRequests.CustomerInstruction))
+            {
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <p class="customer-note">@Model.VerificationRequests.CustomerInstruction</p>
+                    </div>
+                </div>
+            }
+
+        }
+        else
+        {
+            <div class="row">
+                <div class="medium-12 columns">
+                    <p>@Model.VerificationRequests.GetAllItemsCompletedMessage(). You will receive an email notification once we have completed our review of your information.</p>
+
+                    <p class="hide-for-small-only">&nbsp;</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="medium-3 columns statusdeclinded">
+        <a data-open="OfferTermsTable" class="button button-medium button-navy button-small first">View Your Loan Terms</a>
+    </div>
+</section>
+
+@if (Model.VerificationRequests.Any())
+{
+    Html.RenderPartial("_VerificationRequests", Model.VerificationRequests);
+}
+
+@if (Model.IsNLTR)
+{
+    <section class="row ruled">
+        <div class="large-9 columns">
+            <h2 class="brand">Cancel New Loan Terms Request</h2>
+            <p>To cancel your new loan terms request and continue with your previously approved loan terms you may click the button below.</p>
+
+            @Html.Partial("_CancelNLTRButton")
+
+            <img src="@Model.CdnBaseUrl/ajax-loader.gif" id="LoadingImage" alt="" style="display:none;" />
+        </div>
+    </section>
+}
+
+@Html.Partial("_LoanTermsModal", Model.LoanTerms)
+
+@section scripts {
+    <script type="text/javascript">
+        (function () {
+            // SiteCatalyst
+            SC.prefunding.loanAppInfoRequest();
+        }());
+    </script>
+    @Html.Partial("~/Views/ApplicationStatus/_AppStatusChangeNotification.cshtml", Model)
+}
+

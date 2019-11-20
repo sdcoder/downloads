@@ -1,0 +1,77 @@
+﻿@{ Layout = "~/Views/Layouts/_Base.cshtml"; }
+
+@model LightStreamWeb.Models.Apply.AccountServicesApplyPageModel
+
+@section styles {
+    @RenderSection("styles", required: false)
+}
+
+@section bodyTag {
+    @if (IsSectionDefined("bodyTag"))
+    {
+        @RenderSection("bodyTag", required: false)
+    }
+    else
+    {
+        @:<body class="@Model.BodyClass" id="ng-app" ng-app="LoanAppModule" ng-controller="LoanApplicationController">
+        }
+}
+
+@section header {
+    @if (IsSectionDefined("header"))
+    {
+        @RenderSection("header", required: false)
+    }
+    else
+    {
+        @Html.Partial("~/Views/Components/Navbar/ApplyAccountServicesNav.cshtml")
+    }
+}
+
+@RenderBody()
+
+<div class="reveal small" data-reveal id="RatesModal">
+    <button class="close-button" data-close aria-label="Close modal" type="button"><span aria-hidden="true" class="close-reveal-modal no-print">&times;</span></button>
+    @Html.Partial("~/Views/Components/_RateTableWithPurpose.cshtml")
+</div>
+
+@section footer {
+    @if (!IsSectionDefined("footer"))
+    {
+        <footer class="row">
+
+            <article class="large-12 columns legalcopy">
+                @if (IsSectionDefined("CmsFooter"))
+                {
+                    @RenderSection("CmsFooter", required: false)
+                }
+                else if (Model.HasFundedAccount)
+                {
+                    <p class="cms" id="FundedAccountFooter">@Html.Action("FundedAccountFooter", "Components")</p>
+                }
+                else
+                {
+                    <p class="cms" id="Footer">@{Html.RenderAction("Footer", "Components");}</p>
+                }
+                @RenderSection("APRDisclosure", required: false)
+                <p id="SameDayFundingDisclosure" class="legalcopy" tabindex="0"></p>
+            </article>
+
+            <div class="large-12 columns footer_images">
+                <a href="/misc/plant-a-tree" data-open="PlantATreeModal" onclick="SC.main.plantaTree();"><img src="@Model.CdnBaseUrl/plant-a-tree-small.png" alt="We plant a tree with every loan" width="106" height="32" class="no-track" /></a>
+                <a href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf/splash.fdf&dn=www.lightstream.com&lang=en" data-jump="true" data-popup="true" data-name="NortonSecured" data-width="580" data-height="480"><img src="@Model.CdnBaseUrl/norton.png" alt="Norton Security Badge" width="132" height="68" /></a>
+            </div>
+
+        </footer>
+    }
+    else
+    {
+        @RenderSection("footer", required: false)
+    }
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/scripts-apply")
+    @RenderSection("scripts", required: false)
+}
+

@@ -1,0 +1,81 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.CounterPageModel
+
+<section class="row panel">
+    <div class="medium-9 columns">
+        <div class="row">
+            <div class="medium-12 columns">
+                <h2>Review Counter Offer Terms</h2>
+
+                <h3>@Model.ApplicantNamesText,</h3>
+
+                @foreach (var statement in Model.Statements)
+                {
+                    <p>@Html.Raw(statement.Replace("counter offer, shown below", "counter offer, <a href='#OfferTermsTable'>shown below</a>"))</p>
+                }
+            </div>
+        </div>
+        @if (Model.AddCoApplicantIsEnabled())
+        {
+            <div class="row">
+                <div class="medium-12 columns">
+                    <p>@Html.Partial("~/Views/Apply/Partials/_AddCoApplicantButton.cshtml", null)</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-12 columns">
+                    <h2>Or</h2>
+
+                    <p>If you would like to continue with your individual loan application, please review <a href="#OfferTermsTable">the below information</a> and click the accept button to continue to the funding process.</p>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="medium-3 columns statusdeclinded">
+        <p>For the specific reasons we declined your original request, please read the decline notice below.</p>
+        <a href="#" data-href="/enotices/modal" data-popup="true" class="button button-medium button-navy button-small first">View Your Decline Notice</a>
+    </div>
+</section>
+
+<div id="OfferTermsTable">
+    @Html.Partial("_CounterOfferTable", Model.Counter)
+</div>
+<section class="row ruled">
+    <div class="medium-12 columns ">
+        <a href="/appstatus/acceptcounter?ctx=@Model.Ctx" class="button button-medium first" data-transition="true">Accept Offer</a>
+        @Html.Partial("_RejectCounterButton")
+
+        <img src="@Model.CdnBaseUrl/ajax-loader.gif" id="LoadingImage" alt="" style="display:none;" />
+    </div>
+</section>
+
+
+@section scripts {
+    @Html.Partial("~/Views/ApplicationStatus/_AppStatusChangeNotification.cshtml", Model)
+
+    <script type="text/javascript">
+        (function () {
+            // SiteCatalyst
+            SC.appStatus.counter();
+
+            SC.prefunding.reviewLoanTerms('@Model.Counter.Offered.LoanAmount', '@Model.Counter.Offered.LoanTerm', '@Model.Counter.Offered.PurposeOfLoan', '@Model.ApplicationType');
+
+            $('a[data-transition=true]').on('click', function () {
+                $('#LoadingImage').show();
+
+                $('#AddCoApplicantButton input').css('opacity', '0.60');
+                $('#AddCoApplicantButton input').click(false);
+
+                $('a[data-transition=true]').click(false);
+                $('a[data-transition=true]').css('opacity', '0.60');
+
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState({}, 'Last Page', '/appstatus/refresh');
+                }
+            });
+        }());
+    </script>
+
+}
+

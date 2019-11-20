@@ -1,0 +1,53 @@
+﻿@import "_mixins.scss";
+
+.accessibility-page {
+
+    .open-texts-container {
+        padding-top: 80px;
+        padding-left: 20px;
+        padding-right: 20px;
+
+        @include mq('ls-desktop') {
+            padding-top: 120px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .widget-headline-title {
+            padding-left: 0;
+        }
+
+        p a {
+            text-decoration: underline;
+            font-weight: normal;
+        }
+    }
+
+    ::-webkit-input-placeholder {
+        color: #cacaca;
+        font-family: 'proxima-nova', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    :-moz-placeholder {
+        color: #cacaca;
+        font-family: 'proxima-nova', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    ::-moz-placeholder {
+        color: #cacaca;
+        font-family: 'proxima-nova', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    :-ms-input-placeholder {
+        color: #cacaca;
+        font-family: 'proxima-nova', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}

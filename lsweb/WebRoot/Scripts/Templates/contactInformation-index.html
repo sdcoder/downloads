@@ -1,0 +1,326 @@
+﻿<div class="row">
+    <div class="medium-12 columns full-mobile">
+        <h2>Contact Information</h2>
+    </div>
+</div>
+
+<section ng-if="Model.Applicant && Model.CanUpdate" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns full-mobile">
+            <p>We have the following contact information on file. To make changes, edit the necessary field(s), and then click Save.</p>
+        </div>
+    </div>
+
+    <div class="row" ng-show="alert" ng-cloak>
+        <div class="medium-11 small-centered columns alert-box" ng-class="alert.type">
+            <span>{{alert.message}}</span>
+            <a class="close" ng-click="closeAlertMessage()">×</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="accordion" class="medium-12 columns full-mobile" ls-accordion collapsible="Model.HasCoApplicant">
+            <h3>{{Model.Applicant.ContactInformation.FullName}}</h3>
+            <div>
+                <form name="preferenceForm" novalidate>
+                    <div class="row">
+                        <div class="medium-6 columns">
+                            <label><sup>*</sup>Email Address</label>
+                            <input id="ApplicantEmailAddress" name="ApplicantEmailAddress"
+                                   type="email" maxlength="50"
+                                   ng-model="Model.Applicant.ContactInformation.EmailAddress"
+                                   required="required" ls-track-visited  
+                                   ng-blur="validateEmail(Model.Applicant.ContactInformation.EmailAddress, preferenceForm.ApplicantEmailAddress)" />
+                            <div class="formalert" ng-cloak ng-show="preferenceForm.ApplicantEmailAddress.$hasVisited && (preferenceForm.ApplicantEmailAddress.$error.required || preferenceForm.ApplicantEmailAddress.$error.pattern)">
+                                <p>Please enter a valid email address.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="medium-6 columns">
+                            <label class="left"><sup>*</sup>Home Street Address (no P.O. boxes)</label>
+                            <input id="ApplicantHomeStreetAddress" name="ApplicantHomeStreetAddress"
+                                   type="text" maxlength="50"
+                                   ng-model="Model.Applicant.ContactInformation.Address"
+                                   ng-pattern="/^[\d|r]/i"
+                                   ls-proper-case="true"
+                                   required="required" ls-track-visited />
+                            <div class="formalert" tabindex="0" ng-cloak ng-show="preferenceForm.ApplicantHomeStreetAddress.$hasVisited && (preferenceForm.ApplicantHomeStreetAddress.$error.required || preferenceForm.ApplicantHomeStreetAddress.$error.pattern)">
+                                <p>Please enter a valid home street address.</p>
+                            </div>
+                        </div>
+
+                        <div class="medium-2 columns small-6">
+                            <label>Apt, etc.</label>
+                            <select id="ApplicantHomeAddressSecondaryUnitType"
+                                    ng-model="Model.Applicant.ContactInformation.UnitType"
+                                    ng-options="secondaryUnitType for secondaryUnitType in Model.SecondaryUnitTypes | hideNotSelectedInList"                                    
+                                    ng-disabled="false"></select>
+                        </div>
+
+                        <div class="medium-2 columns small-6 medium-pull-2">
+                            <label>&nbsp;</label>
+                            <input id="ApplicantHomeAddressSecondaryUnitValue" name="ApplicantHomeAddressSecondaryUnitValue"
+                                   type="text" maxlength="10"
+                                   ng-model="Model.Applicant.ContactInformation.UnitValue"
+                                   ng-show="Model.Applicant.ContactInformation.UnitType && Model.Applicant.ContactInformation.UnitType != ''"
+                                   ng-required="Model.Applicant.ContactInformation.UnitType && Model.Applicant.ContactInformation.UnitType != ''"
+                                   ng-disabled="false" />
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="medium-6 columns">
+                            <label><sup>*</sup>City</label>
+                            <input type="text"
+                                   id="ApplicantResidenceAddressCity" name="ApplicantResidenceAddressCity"
+                                   ng-model="Model.Applicant.ContactInformation.City"
+                                   maxlength="50" ls-proper-case="true"
+                                   ng-disabled="false"
+                                   required="required" ls-track-visited>
+                            <div class="formalert" ng-cloak ng-show="preferenceForm.ApplicantResidenceAddressCity.$hasVisited && preferenceForm.ApplicantResidenceAddressCity.$error.required">
+                                <p>Please enter a valid city.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="medium-2 columns">
+                            <label><sup>*</sup>State</label>
+                            <select id="ApplicantResidenceAddressState"
+                                    ng-model="Model.Applicant.ContactInformation.State"
+                                    ng-options="stateOption for stateOption in Model.States"
+                                    ng-disabled="false"></select>
+                        </div>
+
+
+                        <div class="large-2 medium-3 columns medium-pull-1 large-pull-2">
+                            <label><sup>*</sup>Zip Code</label>
+                            <input type="text" ls-zip-code name="ApplicantResidenceAddressZipCode" id="ApplicantResidenceAddressZipCode"
+                                   ng-model="Model.Applicant.ContactInformation.ZipCode"
+                                   required="required"
+                                   ng-disabled="false"
+                                   pattern="\d*" ls-track-visited />
+                            <div class="formalert" ng-cloak ng-show="preferenceForm.ApplicantResidenceAddressZipCode.$hasVisited && preferenceForm.ApplicantResidenceAddressZipCode.$error.required">
+                                <p>Please enter a valid zip code.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="large-4 medium-4 columns">
+                            <label><sup>*</sup>Home Phone (with area code)</label>
+                            <input type="text" id="ApplicantResidencePhoneNumber" name="ApplicantResidencePhoneNumber"
+                                   ng-model="Model.Applicant.ContactInformation.HomePhone"
+                                   ls-phone-number
+                                   ls-track-visited
+                                   maxlength="14"
+                                   required="required" pattern="\d*" />
+                            <div class="formalert" ng-cloak ng-show="preferenceForm.ApplicantResidencePhoneNumber.$hasVisited && preferenceForm.ApplicantResidencePhoneNumber.$error.required">
+                                <p>Please enter a valid home phone.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-4 columns">
+                            <label><sup>*</sup>Work Phone (with area code)</label>
+                            <div class="row collapse">
+                                <div class="medium-7 columns small-6">
+                                    <input type="text" id="ApplicantWorkPhoneNumber" name="ApplicantWorkPhoneNumber"
+                                           ng-model="Model.Applicant.ContactInformation.WorkPhone"
+                                           ls-phone-number
+                                           ls-track-visited
+                                           maxlength="14"
+                                           pattern="\d*" />
+                                </div>
+                                <div class="medium-2 columns small-3">
+                                    <span class="prefix">ext</span>
+                                </div>
+                                <div class="medium-3 columns small-3">
+                                    <input type="text" id="ApplicantWorkPhoneNumberExtension" name="ApplicantWorkPhoneNumberExtension"
+                                           ng-model="Model.Applicant.ContactInformation.WorkPhone.Extension"
+                                           ls-numbers-only
+                                           maxlength="6"
+                                           pattern="\d*" />
+                                </div>
+                            </div>
+                            <div class="formalert" ng-cloak ng-show="preferenceForm.ApplicantWorkPhoneNumber.$hasVisited && preferenceForm.ApplicantWorkPhoneNumber.$error.required">
+                                <p>Please enter a valid work phone.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row preference-actions">
+                        <div class="medium-6 columns">
+                            <input type="submit" id="ApplicantSubmit" class="button" value="Save" ng-disabled="preferenceForm.$pristine || preferenceForm.$invalid || waiting" ng-click="save(preferenceForm, Model.UserId, Model.Applicant)" style="margin: 0 !important" />
+                            <button type="button" class="button" ng-click="cancel(preferenceForm)" style="margin: 0">Cancel</button>
+                            <img src="/content/images/ajax-loader.gif" ng-cloak ng-show="waiting" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <h3 ng-if="Model.CoApplicant" ng-cloak>{{Model.CoApplicant.ContactInformation.FullName}}</h3>
+            <form name="coApplicantPreferenceForm" novalidate ng-if="Model.CoApplicant" ng-cloak>
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <label><sup>*</sup>Email Address</label>
+                        <input id="CoApplicantEmailAddress" name="CoApplicantEmailAddress"
+                               type="email" maxlength="50"
+                               ng-model="Model.CoApplicant.ContactInformation.EmailAddress"
+                               required="required" ls-track-visited
+                               ng-blur="validateEmail(Model.CoApplicant.ContactInformation.EmailAddress, coApplicantPreferenceForm.CoApplicantEmailAddress)" />
+                        <div class="formalert" ng-cloak ng-show="coApplicantPreferenceForm.CoApplicantEmailAddress.$hasVisited && (coApplicantPreferenceForm.CoApplicantEmailAddress.$error.required || coApplicantPreferenceForm.CoApplicantEmailAddress.$error.pattern)">
+                            <p>Please enter a valid email address.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <label class="left"><sup>*</sup>Home Street Address (no P.O. boxes)</label>
+                        <label class="right">
+                            <input type="checkbox" ng-model="Model.CoApplicantSameAddress" /> Same as Applicant
+                        </label>
+                        <input id="CoApplicantHomeStreetAddress" name="CoApplicantHomeStreetAddress"
+                                type="text" maxlength="50"
+                                ng-model="Model.CoApplicant.ContactInformation.Address"
+                                ng-pattern="/^[\d|r]/i"
+                                ls-proper-case="true"
+                                required="required" ls-track-visited
+                                ng-disabled="Model.CoApplicantSameAddress" />
+                        <div class="formalert" tabindex="0" ng-cloak ng-show="coApplicantPreferenceForm.CoApplicantHomeStreetAddress.$hasVisited && (coApplicantPreferenceForm.CoApplicantHomeStreetAddress.$error.required || coApplicantPreferenceForm.CoApplicantHomeStreetAddress.$error.pattern)">
+                            <p>Please enter a valid home street address.</p>
+                        </div>
+                    </div>
+
+                    <div class="medium-2 columns small-6">
+                        <label>Apt, etc.</label>
+                        <select id="CoApplicantHomeAddressSecondaryUnitType"
+                                ng-model="Model.CoApplicant.ContactInformation.UnitType"
+                                ng-options="secondaryUnitType for secondaryUnitType in Model.SecondaryUnitTypes | hideNotSelectedInList"
+                                ng-disabled="Model.CoApplicantSameAddress"></select>
+                    </div>
+
+                    <div class="medium-2 columns small-6 medium-pull-2">
+                        <label>&nbsp;</label>
+                        <input id="CoApplicantHomeAddressSecondaryUnitValue" name="CoApplicantHomeAddressSecondaryUnitValue"
+                                type="text" maxlength="10"
+                                ng-model="Model.CoApplicant.ContactInformation.UnitValue"
+                                ng-show="Model.CoApplicant.ContactInformation.UnitType && Model.CoApplicant.ContactInformation.UnitType != ''"
+                                ng-required="Model.CoApplicant.ContactInformation.UnitType && Model.CoApplicant.ContactInformation.UnitType != ''"
+                                ng-disabled="Model.CoApplicantSameAddress" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns">
+                        <label><sup>*</sup>City</label>
+                        <input type="text"
+                                id="CoApplicantResidenceAddressCity" name="CoApplicantResidenceAddressCity"
+                                ng-model="Model.CoApplicant.ContactInformation.City"
+                                maxlength="50" ls-proper-case="true"
+                                ng-disabled="Model.CoApplicantSameAddress"
+                                required="required" ls-track-visited>
+                        <div class="formalert" ng-cloak ng-show="coApplicantPreferenceForm.ApplicantResidenceAddressCity.$hasVisited && coApplicantPreferenceForm.ApplicantResidenceAddressCity.$error.required">
+                            <p>Please enter a valid city.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="medium-2 columns">
+                        <label><sup>*</sup>State</label>
+                        <select id="CoApplicantResidenceAddressState"
+                                ng-model="Model.CoApplicant.ContactInformation.State"
+                                ng-options="stateOption for stateOption in Model.States"
+                                ng-disabled="Model.CoApplicantSameAddress"></select>
+                    </div>
+
+
+                    <div class="large-2 medium-3 columns medium-pull-1 large-pull-2">
+                        <label><sup>*</sup>Zip Code</label>
+                        <input type="text" ls-zip-code name="CoApplicantResidenceAddressZipCode" id="CoApplicantResidenceAddressZipCode"
+                                ng-model="Model.CoApplicant.ContactInformation.ZipCode"
+                                required="required"
+                                ng-disabled="Model.CoApplicantSameAddress"
+                                pattern="\d*" ls-track-visited />
+                        <div class="formalert" ng-cloak ng-show="coApplicantPreferenceForm.CoApplicantResidenceAddressZipCode.$hasVisited && coApplicantPreferenceForm.CoApplicantResidenceAddressZipCode.$error.required">
+                            <p>Please enter a valid zip code.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="large-4 medium-4 columns">
+                        <label><sup>*</sup>Home Phone (with area code)</label>
+                        <input type="text" id="CoApplicantResidencePhoneNumber" name="CoApplicantResidencePhoneNumber"
+                                ng-model="Model.CoApplicant.ContactInformation.HomePhone"
+                                ls-phone-number ls-track-visited maxlength="14"
+                                required="required" pattern="\d*" />
+                        <div class="formalert" ng-cloak ng-show="coApplicantPreferenceForm.CoApplicantResidencePhoneNumber.$hasVisited && coApplicantPreferenceForm.CoApplicantResidencePhoneNumber.$error.required">
+                            <p>Please enter a valid home phone.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-4 columns">
+                        <label><sup>*</sup>Work Phone (with area code)</label>
+                        <div class="row collapse">
+                            <div class="medium-7 columns small-6">
+                                <input type="text" id="CoApplicantWorkPhoneNumber" name="CoApplicantWorkPhoneNumber"
+                                        ng-model="Model.CoApplicant.ContactInformation.WorkPhone"
+                                        ls-phone-number
+                                        ls-track-visited
+                                        maxlength="14"
+                                        pattern="\d*" />
+                            </div>
+                            <div class="medium-2 columns small-3">
+                                <span class="prefix">ext</span>
+                            </div>
+                            <div class="medium-3 columns small-3">
+                                <input type="text" id="CoApplicantWorkPhoneNumberExtension" name="CoApplicantWorkPhoneNumberExtension"
+                                        ng-model="Model.CoApplicant.ContactInformation.WorkPhone.Extension"
+                                        ls-numbers-only
+                                        maxlength="6"
+                                        pattern="\d*" />
+                            </div>
+                        </div>
+                        <div class="formalert" ng-cloak ng-show="coApplicantPreferenceForm.CoApplicantWorkPhoneNumber.$hasVisited && coApplicantPreferenceForm.CoApplicantWorkPhoneNumber.$error.required">
+                            <p>Please enter a valid work phone.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row preference-actions">
+                    <div class="medium-6 columns">
+                        <input type="submit" id="CoApplicantSubmit" class="button" value="Save" ng-disabled="coApplicantPreferenceForm.$pristine || coApplicantPreferenceForm.$invalid || waiting" ng-click="save(coApplicantPreferenceForm, Model.UserId, Model.CoApplicant)" />
+                        <button type="button" class="button" ng-click="cancel(coApplicantPreferenceForm)">Cancel</button>
+                        <img src="/content/images/ajax-loader.gif" ng-cloak ng-show="waiting" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section ng-if="Model.Applicant && !Model.CanUpdate" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns full-mobile">
+            <p>Because you have a loan application in process, you cannot change your contact information until your outstanding application has been completed. We apologize for the inconvenience.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 columns">
+            <button type="button" class="button" ng-click="navigate('/')">Cancel</button>
+        </div>
+    </div>
+</section>
+
+<section ng-if="!Model.Applicant" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <p>Unable to get Contact Information data from server.</p>
+        </div>
+    </div>
+</section>

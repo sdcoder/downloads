@@ -1,0 +1,21 @@
+﻿{
+  "CodeCoverageIncludes": [ "*\\preferences\\*.js", "*\\accountPreferences.js", "*\\loan-application.js", "*\\LoanAcceptanceController.js" ],
+  "Tests": [
+    {
+      "Path": "specs",
+      "Includes": [ "*.js" ],
+      "ExpandReferenceComments": "true"
+    }
+  ],
+  "References": [
+    {
+      "Path": "specs",
+      "Includes": [ "*.ts" ]
+    }
+  ],
+  "Compile": {
+    "Extensions": [ ".ts" ],
+    "Executable": "%msbuildexe%",
+    "UseSourceMaps": true
+  }
+}

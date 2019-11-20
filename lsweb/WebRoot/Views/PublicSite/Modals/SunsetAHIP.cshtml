@@ -1,0 +1,23 @@
+﻿@using FirstAgain.Domain.Common
+
+@{
+    var ahipDt = BusinessConstants.Instance.AHIPSunsetDate.AddSeconds(-1);
+}
+
+@Styles.Render("~/bundles/sunset-ahip")
+
+<div id="sunsetahip">
+    <div id="ahipmodal" class="reveal long small" data-options="closeOnClick:false;closeOnEsc:false;" data-reveal>
+        <div class="row">
+            <div class="medium-12 columns">
+                <p>
+                    As of @ahipDt.ToString("h:mm tt"), PST, @ahipDt.ToString("MMMM d, yyyy"), we no longer participate in the Affordable Home Improvement Loan Program.
+                    Our home improvement loan is available as an alternate product for your financing needs.
+                </p>
+            </div>
+        </div>
+        <div class="row button-container">
+            <a id="JumpPageModalTarget" href="/homeimprovement" class="button button-small large-5 medium-12 small-12 columns">Go to home improvement loan</a>
+        </div>
+    </div>
+</div>

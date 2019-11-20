@@ -1,0 +1,424 @@
+﻿@charset "UTF-8";
+.ls-logo {
+  width: 18.938em;
+  height: 3.438em; }
+
+.thatBlueTho {
+  background-color: #00467e; }
+
+.home.landing-page #header {
+  height: auto; }
+
+#header > div.headline.show-for-small-only {
+  top: 2vw !important; }
+
+#header > div.headline.hide-for-small-only.home3Headline {
+  top: 7.5em !important; }
+
+#header > div.headline.hide-for-small-only.home3Headline > h2 {
+  margin-top: 0 !important;
+  font-weight: 600;
+  margin-bottom: 0 !important; }
+
+header .headline.hide-for-small-only h2 {
+  padding: 0 !important; }
+
+body.home #header .headline {
+  position: absolute; }
+
+body.home #header .mobile .title h2, body.home #header .mobile h3 {
+  font-weight: 600;
+  font-size: 24px; }
+
+body.home #header .mobile .title h2, body.home #header .mobile h3 span {
+  font-weight: 600; }
+
+.mobile.headline .title {
+  line-height: 1 !important;
+  font-size: 1.5em;
+  font-weight: 700; }
+
+.desktop-nav .button:hover,
+.desktop-nav .button:focus,
+form a.button:focus {
+  font-size: 1.5em; }
+
+.mobile-nav {
+  min-height: 3.125em; }
+
+.mobile-nav .ls-logo {
+  width: 48vw; }
+
+.mobile-nav .bannerButton {
+  width: 7.437em;
+  height: 1.687em; }
+
+.mobile-nav .button {
+  font-weight: 800 !important;
+  padding: 0.125em 0.5em; }
+
+.mobile-nav .button,
+.mobile-nav .button:hover {
+  font-size: .9em; }
+
+.mobile-nav .headerbar {
+  background-color: #fff;
+  width: 100%;
+  display: table;
+  margin: 0; }
+
+.mobile-nav .headerbar .logo {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  text-align: left;
+  padding-top: 0.625em; }
+
+.mobile-nav .headerbar .action-buttons {
+  height: 100%;
+  text-align: right;
+  padding-top: 0.625em; }
+
+.desktop-nav .bannerButton {
+  width: 12em;
+  height: 3em; }
+
+.desktop .break {
+  display: block; }
+
+.desktop-nav .button {
+  font-weight: 800 !important;
+  font-size: 1.5em;
+  padding-top: 0.25em;
+  padding-right: .5em;
+  padding-bottom: 0.25em;
+  padding-left: .5em; }
+
+.desktop-nav .headerbar {
+  background-color: #fff;
+  width: 100%;
+  display: table;
+  margin: 0; }
+
+.row.row-bullets.mobile .bullets, header .row-bullets {
+  margin-left: auto !important;
+  max-width: 62.5rem !important; }
+
+.bullet-container label {
+  cursor: auto; }
+
+.desktop-nav .headerbar .logo {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 5%;
+  text-align: left; }
+
+.desktop-nav .headerbar .action-buttons {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 5%;
+  text-align: right; }
+
+body.home #header .desktop.headline h2 span.sub-title span {
+  font-size: x-large;
+  display: block;
+  line-height: 0;
+  font-weight: 600; }
+
+#LSExperienceLarge, header .headline {
+  text-align: center; }
+
+body.home #header .headline h2 {
+  font-size: 3.2956em;
+  font-weight: 700;
+  max-height: 102px; }
+
+body.home #header .headline h2 span {
+  line-height: 55px; }
+
+body.home #header .headline h2 span:first-child {
+  font-size: 60px;
+  font-weight: 800; }
+
+body.home #header .headline h2 span:first-child sup {
+  font-size: 30px;
+  top: -15px; }
+
+.paid-search-page #header > div.headline.desktop.home3Headline > div:nth-child(2) > div > h2 > span:nth-child(1) > sup {
+  top: -36px; }
+
+body.home #header .headline .sub-title {
+  font-size: 37px !important;
+  margin-left: -10px;
+  font-weight: 600 !important; }
+
+header .headline {
+  padding-left: 0;
+  padding-right: 0;
+  left: 0 !important; }
+
+body.home #header .mobile.headline h2 span {
+  line-height: 1; }
+
+body.home #header .mobile.headline h2 {
+  padding: 0 !important;
+  line-height: 1 !important;
+  font-weight: 700;
+  margin-top: 10px !important; }
+
+.mobile.headline .sub-title {
+  line-height: 1;
+  font-size: large;
+  font-weight: 700;
+  display: block; }
+
+header .row-bullets {
+  display: table;
+  position: relative;
+  margin-right: auto !important; }
+
+header .row-bullets.desktop {
+  top: -6.5em; }
+
+header .row-bullets.mobile {
+  top: -6.062em; }
+
+header .row-bullets img {
+  margin-right: 0.312em; }
+
+header .row-bullets .bullet-container {
+  height: 3.5em;
+  display: table; }
+
+.bullet-container label span:first-child {
+  font-weight: bold; }
+
+.bullet-container label span:last-child {
+  font-weight: 500; }
+
+header .row-bullets .bullet-center {
+  display: table-cell;
+  vertical-align: middle; }
+
+.row.row-bullets.mobile .bullets {
+  display: table;
+  margin-right: auto !important; }
+
+header .row-bullets label {
+  color: #fff;
+  line-height: 1.3;
+  font-size: 1.062em; }
+
+#header div.headline h3 {
+  color: #fff;
+  font-size: x-large; }
+
+.apr-disclosure-row {
+  position: relative !important; }
+  @media only screen and (min-width: 726px) {
+    .apr-disclosure-row {
+      top: -4.125em; } }
+
+.blue-bar {
+  height: 10px;
+  background-color: #1a3560; }
+
+.apr-disclosure-row p {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 75rem;
+  font-size: 0.75em;
+  padding: 0.312em 1.875em 0.625em;
+  font-weight: 300; }
+
+.headline.desktop form .button, .headline.desktop form .hundredHeightBold.button:hover {
+  font-size: 21px; }
+
+.mobile.headline h2 sup {
+  font-size: 25px;
+  top: -15px; }
+
+.headline.show-for-small-only .hundredHeightBold {
+  padding: 0.625em 1.062em; }
+
+.mobile-nav .ls-logo {
+  height: 4vh; }
+
+.thatBlueFontTho {
+  padding-top: 0; }
+
+#videoColumn {
+  padding-left: 0;
+  padding-right: 0; }
+
+#mediaCoverage {
+  padding-left: 0; }
+
+#customerComments {
+  padding-bottom: 10px; }
+
+body.home #header img.banner#heroBanner {
+  height: 100% !important; }
+
+.experienceImage {
+  height: 210px; }
+
+@media screen and (min-width: 6.25em) {
+  header {
+    margin-bottom: -4.875em !important; } }
+
+@media screen and (max-width: 25em) {
+  .navbar {
+    min-height: 3.125em; } }
+
+@media screen and (max-width: 30em) {
+  table.records td.first:before {
+    content: "+"; }
+  table.records tr.expanded td.first:before {
+    content: "–"; } }
+
+@media screen and (max-width: 45.312em) and (orientation: portrait) {
+  .mobile-nav .ls-logo {
+    height: 2.062em; } }
+
+@media screen and (max-width: 45.312em) and (orientation: landscape) {
+  .mobile-nav .ls-logo {
+    width: 48vw;
+    height: 9vh; } }
+
+@media screen and (max-width: 45.313em) {
+  table.records td.first:before {
+    content: "+"; }
+  table.records tr.expanded td.first:before {
+    content: "–"; }
+  .ls-dollar, header .row-bullets .bullet-container {
+    height: 2.5em; }
+  .mobile,
+  .mobile-view {
+    display: block !important; }
+  .mobile .experienceImage {
+    width: atuo;
+    height: 187px;
+    margin-right: auto;
+    margin-left: auto; }
+  .mobile-view.experienceImage {
+    margin-right: auto;
+    margin-left: auto; }
+  .desktop,
+  .large-view {
+    display: none !important; }
+  .ls-dollar {
+    width: 2.5em; }
+  header .row-bullets label {
+    font-size: 0.75em; }
+  body.home #header .headline h2, body.home #header .headline h3.sub {
+    color: #fff !important; }
+  .apr-disclosure-row .apr-disclosure {
+    background-color: #fff; }
+  .apr-disclosure-row .apr-disclosure p {
+    color: #000; }
+  body.home #header img.banner#heroBanner {
+    display: none; }
+  .banner-container {
+    height: 23.625em; }
+  .mobileBanner {
+    display: block;
+    min-height: 100%;
+    min-width: 32.5em;
+    position: relative;
+    z-index: -1;
+    width: 100%; }
+  .bannerButton {
+    width: 9.75em;
+    height: 2.5em; }
+  body.home #header .headline {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: 3em !important;
+    top: 0; }
+  body.home #header .headline h2 {
+    font-weight: 900;
+    font-size: 50px; }
+  body.home #header .headline h2, body.home #header .headline h3 {
+    text-shadow: 0.062em 0.062em 0.125em #2e2e2e;
+    text-align: center; }
+  div.headline.hide-for-small-only.home3Headline {
+    top: 7.5vw !important; } }
+
+@media screen and (min-width: 45.375em) {
+  .mobile,
+  .mobile-view {
+    display: none !important; }
+  .desktop,
+  .large-view {
+    display: block !important; }
+  .apr-disclosure {
+    background-color: #1a3560; }
+  .apr-disclosure p {
+    color: #fff; }
+  #mobileHeroBanner {
+    display: none; }
+  .banner-container {
+    height: 30em !important; }
+  body.home #header img.banner#heroBanner {
+    display: block; }
+  #header > div.headline.hide-for-small-only.home3Headline {
+    top: 7.5em !important; }
+  body.landing-page #header .headline {
+    max-width: 100%;
+    width: 100%; } }
+
+@media screen and (max-width: 960px) {
+  .experienceImage {
+    height: 168px; } }
+
+@media screen and (max-width: 881px) {
+  .experienceImage {
+    height: 159px; } }
+
+@media screen and (max-width: 832px) {
+  .experienceImage {
+    height: 144px; } }
+
+.paid-search-page .hundredHeightBold {
+  margin: 0; }
+
+.paid-search-page #itsEasyToFindYourRate {
+  left: -28px; }
+
+.paid-search-page #paid-search-desktop-disclosure {
+  display: none; }
+  @media only screen and (min-width: 726px) {
+    .paid-search-page #paid-search-desktop-disclosure {
+      display: block; } }
+
+.paid-search-page #paid-search-mobile-disclosure {
+  display: block;
+  position: relative;
+  top: 40px;
+  margin-bottom: 42px; }
+  @media only screen and (min-width: 726px) {
+    .paid-search-page #paid-search-mobile-disclosure {
+      display: none; } }
+
+.paid-search-page img.mobileBanner.cms {
+  max-height: 370px; }
+  @media only screen and (min-width: 726px) {
+    .paid-search-page img.mobileBanner.cms {
+      max-height: none; } }
+
+.paid-search-page #header > div.mobile.row.apr-disclosure-row.blue-bar {
+  top: -48px; }
+
+.paid-search-page .banner-text {
+  font-size: 24px !important; }
+
+.paid-search-page .rate-banner-apr {
+  font-size: 50px !important; }
+
+.paid-search-page #LSExperienceLarge .mobile-view > img {
+  display: block !important; }

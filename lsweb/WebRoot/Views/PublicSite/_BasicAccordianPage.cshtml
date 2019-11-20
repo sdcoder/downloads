@@ -1,0 +1,42 @@
+﻿@model LightStreamWeb.Models.PublicSite.BasePublicPageWithSections
+
+  <div class="main row">
+
+    <div class="medium-8 columns">
+      <ul class="accordian cms">
+        @if (!Model.SingleTabMode) {
+            <li tabindex="0">@Model.IntroParagraph</li>
+        }
+
+          @foreach (var s in Model.GetSections())
+          {
+            <li class="@(s.HREF == "rate-match" ? "rate-match" : "")">
+                @if (!Model.SingleTabMode)
+                {
+                    @:<a href="/@s.HREF" class="toggle no-track @((s.Selected) ? "init" : "")" tabindex="0">@s.Title</a>
+                    <div class="content" tabindex="0">@if (s.Selected)
+                    {
+                        ADAHelper.PreventMultipleBRsRepeatingBlank(Html.Partial("~/Views/PublicSite/Partials/" + s.HREF + ".cshtml", Model.ContentManager).ToString());
+                    }</div>
+                }
+                else
+                {
+                    <article tabindex="0">
+                        @(new HtmlString(ADAHelper.PreventMultipleBRsRepeatingBlank(Html.Partial("~/Views/PublicSite/Partials/" + s.HREF + ".cshtml", Model.ContentManager).ToString())))
+                    </article>
+                }
+
+            </li>
+          }
+      </ul>
+
+    </div>
+
+    @Html.Partial("~/Views/PublicSite/_RightColumnWithAdObjects.cshtml", Model)
+
+  </div>
+
+
+  <section class="row ruled homeloanuses">
+    @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LightStreamWeb.Models.Components.LandingPageLinksModel())
+  </section>

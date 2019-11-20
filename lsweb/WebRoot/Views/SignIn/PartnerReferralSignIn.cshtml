@@ -1,0 +1,99 @@
+﻿@model LightStreamWeb.Models.SignIn.PartnerReferralSignInModel
+@{
+    Layout = "~/Views/Layouts/_CoBrandBase.cshtml";
+}
+
+@section styles {
+    <style type="text/css">
+        @@media (max-width: 700px) {
+            h1 {
+                font-size: 34px;
+                padding-top: 0;
+                padding-bottom: 0.125rem;
+            }
+
+            .ls-no-js {
+                display: none;
+            }
+        }
+
+        /* for in-process (partner) */
+        .show-in-process {
+            display: none;
+        }
+    </style>
+
+}
+
+<div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+<div class="web-component">
+    <lswc-legal-banner></lswc-legal-banner>
+</div>
+
+<div>
+    <div class="ls-no-js panel" ng-cloak>
+        For security purposes (yours and ours), we recommend you need to enable javascript in order to sign in.  Thank you.
+    </div>
+
+    <div class="row pre-ie8-warning">
+        <p>We have detected that you are either running an older version of Internet Explorer, or are running in 'Compatibility Mode'. </p>
+        <p>
+            If you are running Internet Explorer 8, de-select the 'Compatibility Mode' button next to your browser's address bar, as indicated below: <br />
+            <img src="@Model.CdnBaseUrl/ie-compatibility-warning.png" />
+        </p>
+        <p>&nbsp;</p>
+    </div>
+
+    @if (TempData["Alert"] != null)
+    {
+        <div class="panel">
+            @TempData["Alert"]
+        </div>
+    }
+</div>
+
+<div id="partner-ref-sign-in-container" class="medium-10 columns" role="form">
+    <div class="row partner-sign-in-margin">
+        <div class="medium-10 columns">
+            @Html.Raw(Model.GreetingCopy)
+        </div>
+    </div>
+    <div class="row partner-sign-in-margin">
+        <div class="medium-10 columns partner-sign-in-border">
+            @Html.Partial("~/Views/SignIn/Partials/_SignIn.cshtml")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="medium-10 columns">
+            <div class="row feature-images">
+                @for (var i = 0; i < Model.FeatureImages.Count; i++)
+                {
+                    <div class="medium-4 columns">
+                        <span class="feature-image-column">@CMSContentHelper.ToImageTag(Model.FeatureImages.ElementAt(i))</span>
+                        <span style="display:block;">@Html.Raw(@Model.FeatureImageCopy.ElementAt(i))</span>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="medium-10 columns">
+            <p class="cms legalcopy small-footer">
+                @Html.Raw(Model.DisclosureCopy)
+            </p>
+        </div>
+    </div>
+
+    <div id="partner-ref-sign-in-footer-lrg" class="row partner-footer-images">
+        <div class="medium-10 columns">
+            @foreach (var footerImg in Model.FooterImages)
+            {
+                @CMSContentHelper.ToImageTag(footerImg)
+            }
+        </div>
+        <br />
+    </div>
+</div>

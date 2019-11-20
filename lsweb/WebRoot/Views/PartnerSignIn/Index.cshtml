@@ -1,0 +1,63 @@
+﻿@model LightStreamWeb.Models.SignIn.PartnerSignInModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layouts/_Base.cshtml";
+}
+
+<section class="row ruled">
+
+    @if (TempData["Alert"] != null)
+    {
+        <div class="panel" id="alertPanel" role="alert" tabindex="0">
+            @TempData["Alert"]
+        </div>
+    }
+
+    <div class="large-10 columns medium-push-1">
+        <h1>SunTrust Partner Sign In</h1>
+
+        @using (Html.BeginForm("Index", null, FormMethod.Post, new { id = "login-form", @class = "signin" }))
+        {
+                @Html.ValidationSummary()
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="medium-6 columns medium-push-1">
+                        <label>First Name</label>
+                        <input type="text" id="FirstName" name="FirstName" maxlength="50" required autocomplete="off" tabindex="1" pattern="@LSForm.NamePattern" title="50 character (a-z) first name" />
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns medium-push-1">
+                        <label>Last Name</label>
+                        <input type="text" id="LastName" name="LastName" maxlength="50" required autocomplete="off" tabindex="2" pattern="@LSForm.NamePattern" title="50 character (a-z) last name"/>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns medium-push-1">
+                        <label>Email Address</label>
+                        <input type="email" id="EmailAddress" name="EmailAddress" maxlength="50" required autocomplete="off" tabindex="3" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-6 columns medium-push-1">
+                        <input id="SubmitPartnerLogin" type="submit" value="Submit" class="button" tabindex="5" />
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    @section scripts {
+        <script type="text/javascript">
+            $(function () {
+                if ($("#alertPanel").length) {
+                    setTimeout(function () { $("#alertPanel").focus(); }, 800);
+                }
+                else {
+                    $('#FirstName').focus();
+                }
+            });
+        </script>
+}

@@ -1,0 +1,20 @@
+﻿<div class="row">
+    <div class="medium-6 columns">
+        <label for="PaymentMethod"><sup>*</sup>Payment Method</label>
+        @(Html.NgDropDownEnumList(
+            "LoanApp.LoanPaymentType",
+            "LoanPaymentType",
+            "Select payment method.",
+            FirstAgain.Domain.Lookups.FirstLook.PaymentTypeLookup.BindingSource,
+            true))
+    </div>
+    <div class="medium-6 columns">
+        <div class="forminfo aside down" ng-cloak ng-show="LoanApp.LoanPaymentType == 'Invoice'">
+            <p>The rates displayed include the Premier Client discount.</p>
+        </div>
+    </div>
+</div>
+
+
+
+

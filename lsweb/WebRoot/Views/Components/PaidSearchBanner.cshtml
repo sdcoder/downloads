@@ -1,0 +1,90 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@{
+    var bullets = Model.PaidSearchBannerFeatureBullets;
+
+    var mobileBullet = bullets== null || !bullets.Any() ? null : bullets.ToList()[1];
+    var desktopBullets = bullets== null || bullets.Count <= 2 ? null : bullets.Take(3);
+}
+
+<div class="headline desktop home3Headline">
+    <div class="row">
+        <div class="columns medium-12">
+            <h2 class="cms title" tabindex="0">@Html.Raw(Model.TitleRemoveFrom)</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns medium-12">
+            <h2 class="cms" tabindex="0">
+                <span><span class="sub-title">from </span>@Html.FormatRateWithDataAttributes(Model.DisplayRate, true)</span>
+                <span class="sub-title">APR @Html.Raw(Model.Content.PageSubTitle)</span>
+            </h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="columns medium-12">
+            <form method="post" action="/apply" class="bannerButton">
+                <input type="submit" class="button hundredHeightBold" value="APPLY NOW" onclick="SC.main.banner.applyNow()" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="headline mobile">
+    <div class="row title">
+        <div class="columns medium-12">
+            <h2 class="cms title">@Html.Raw(Model.TitleRemoveFrom)</h2>
+        </div>
+    </div>
+    <h2 class="banner-text">
+        from
+        <span class="rate-banner-apr">
+            @Html.FormatRateWithDataAttributes(Model.DisplayRate, true)
+        </span>
+    </h2>
+    <h3>APR @Html.Raw(Model.Content.PageSubTitle)</h3>
+    <div class="row">
+        <div class="columns medium-12" style="text-align: center; margin-top: 10px">
+            <form method="post" action="/apply" class="bannerButton">
+                <input type="submit" class="button hundredHeightBold" value="APPLY NOW" onclick="SC.main.banner.applyNow()" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row row-bullets desktop">
+    @if (desktopBullets != null)
+    {
+        foreach (var b in desktopBullets)
+        {
+            <div class="columns small-4">
+                <img class="ls-pull-left"
+                     alt="@b.AltText"
+                     height="56"
+                     width="56"
+                     src="@VirtualPathUtility.ToAbsolute(FirstAgain.Web.UI.CMSFileHyperLink.GetCMSFileHyperLink(b.Graphic.DefaultGraphic.WebFileContentId))" role="presentation" />
+                <div class="bullet-container">
+                    <div class="bullet-center">
+                        <label tabindex="0">@Html.Raw(b.Text)</label>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<div class="row row-bullets mobile">
+    @if (mobileBullet != null)
+    {
+        <div class="bullets">
+            <img class="ls-pull-left"
+                 alt="@mobileBullet.AltText"
+                 height="40"
+                 width="40"
+                 src="@VirtualPathUtility.ToAbsolute(FirstAgain.Web.UI.CMSFileHyperLink.GetCMSFileHyperLink(mobileBullet.Graphic.DefaultGraphic.WebFileContentId))" />
+            <div class="bullet-container">
+                <div class="bullet-center">
+                    <label>@Html.Raw(@mobileBullet.Text)</label>
+                </div>
+            </div>
+        </div>
+    }
+</div>

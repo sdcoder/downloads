@@ -1,0 +1,9 @@
+﻿@model LightStreamWeb.ContentManager
+
+@Html.Raw(Model.Get<FirstAgain.Domain.SharedTypes.ContentManagement.PrivacyPage>().PrivacySecurityCopy)
+
+<script type="text/javascript">
+    $(function () {
+        SC.main.privacySecurity();
+    });
+</script>

@@ -1,0 +1,18 @@
+﻿@model LightStreamWeb.ContentManager
+@{
+    var content = Model.Get<FirstAgain.Domain.SharedTypes.ContentManagement.CustomerExperienceGuarantee>();
+}
+<h3>@content.SubHeading</h3>
+
+@if (!string.IsNullOrEmpty(content.Column1Copy)) {
+    <p>
+    @Html.Raw(content.Column1Copy)
+    </p>
+
+    <p>
+    @Html.Raw(content.Column2Copy)
+    </p>
+} else {
+    @Html.Raw(content.GuaranteeCopy)
+}
+

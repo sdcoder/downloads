@@ -1,0 +1,46 @@
+﻿<div class="row">
+	<div class="medium-4 columns">
+	    <label for="OccupancyType"><sup>*</sup>Occupancy Type</label>
+	</div>
+</div>
+<div class="row">
+	<div class="medium-4 columns">
+        @(Html.NgDropDownEnumList(
+            "LoanApp.HmdaComplianceProperty.OccupancyType", "HmdaComplianceProperty.OccupancyType", 
+            "Select occupancy type.",
+            FirstAgain.Domain.Lookups.FirstLook.OccupancyTypeLookup.BindingSource,
+            true,
+            new { @ng_focus = "occupancyTypeGainedFocus = true"}
+            ))
+	</div>
+    <div class="medium-8 columns" ng-show="occupancyTypeGainedFocus">
+        <div class="forminfo aside" tabindex="0">
+	         <p>@Html.Raw(Resources.LoanAppErrorMessages.HintOccupancyType)</p>
+	    </div>
+	</div> 
+</div>
+<div class="row">
+	<div class="medium-4 columns">
+	    <label for="PropertyType"><sup>*</sup>Property Type</label>
+	</div>
+</div>
+<div class="row">
+     <div class="medium-4 columns"> 
+        @(Html.NgDropDownEnumList(
+            "LoanApp.HmdaComplianceProperty.PropertyType", "HmdaComplianceProperty.PropertyTypeLookup", 
+            "Select property type.",
+            FirstAgain.Domain.Lookups.FirstLook.PropertyTypeLookup.BindingSource,
+            true,
+            new { @ng_focus = @"propertyTypeGainedFocus = true"}
+            ))   
+	</div>
+    <div class="medium-8 columns" ng-show="propertyTypeGainedFocus">
+        <div class="forminfo aside" tabindex="0">
+            <p>@Html.Raw(Resources.LoanAppErrorMessages.HintPropertyType)</p>
+        </div>
+    </div>
+</div>
+
+
+
+		

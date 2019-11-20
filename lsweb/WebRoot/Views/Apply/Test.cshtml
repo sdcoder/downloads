@@ -1,0 +1,65 @@
+﻿@model LightStreamWeb.Models.Apply.ApplyPageModel
+
+
+@LoanApplicationForm.StartForm("nextStep('/apply/test')")
+
+
+@{
+    var index = 0;
+    var idPrefix = "Applicant";
+}
+    <div class="row">
+	    <div class="medium-3 small-12 columns">
+            <div class="row collapse">
+	        <label><sup>*</sup>Time at current address</label>
+                <div class="medium-2 columns small-2">
+                    <input type="number" 
+                        id="@(idPrefix)ResidenceTimeAtAddressYears" 
+                        name="@(idPrefix)ResidenceTimeAtAddressYears" 
+                        ng-model="LoanApp.Applicants[@index].Residence.TimeAtAddress.Years" 
+                        ls-numbers-only maxlength="2" ng-min="{{(!LoanApp.Applicants[@index].Residence.TimeAtAddress.Months || LoanApp.Applicants[@index].Residence.TimeAtAddress.Months == 0) ? 1 : 0}}" max="99" ng-required="!LoanApp.Applicants[@index].Residence.TimeAtAddress.Months || LoanApp.Applicants[@index].Residence.TimeAtAddress.Months == 0">
+                </div>
+                <div class="medium-3 columns small-3"><span class="postfix">Years</span></div>
+                <div class="medium-2 columns small-2">&nbsp;</div>
+                <div class="medium-2 columns small-2">
+                    <input type="number" 
+                        id="@(idPrefix)ResidenceTimeAtAddressMonths" 
+                        name="@(idPrefix)ResidenceTimeAtAddressMonths" 
+                        ng-model="LoanApp.Applicants[@index].Residence.TimeAtAddress.Months" 
+                        ng-required="!LoanApplication.@(idPrefix)ResidenceTimeAtAddressYears || LoanApplication.@(idPrefix)ResidenceTimeAtAddressYears == 0"
+                        ls-track-visited ls-months ls-numbers-only
+                        max="11" min="0" maxlength="2" ng-required="!LoanApp.Applicants[@index].Residence.TimeAtAddress.Years || LoanApp.Applicants[@index].Residence.TimeAtAddress.Years == 0">
+                </div>
+                <div class="medium-3 columns small-3"><span class="postfix">Months</span></div>
+
+            </div>
+	    </div>
+    </div>
+
+
+<div class="row">
+    <div class="medium-12 columns">
+        Years = {{LoanApp.Applicants[@index].Residence.TimeAtAddress.Years}} <br />
+        Months = {{LoanApp.Applicants[@index].Residence.TimeAtAddress.Months}}<br />
+
+        ResidenceTimeAtAddressYears.$error = {{LoanApplication.@(idPrefix)ResidenceTimeAtAddressYears.$error}} <br />
+        ResidenceTimeAtAddressYears.$required = {{LoanApplication.@(idPrefix)ResidenceTimeAtAddressYears.$required}} <br />
+
+        ResidenceTimeAtAddressMonths.$hasVisited = {{@(idPrefix)ResidenceTimeAtAddressMonths.$hasVisited}} <br />
+        ResidenceTimeAtAddressMonths.$error = {{LoanApplication.@(idPrefix)ResidenceTimeAtAddressMonths.$error}} <br />
+        ResidenceTimeAtAddressMonths.$required = {{LoanApplication.@(idPrefix)ResidenceTimeAtAddressMonths.$required}} <br />
+    </div>
+</div>
+	<div class="row">
+        <div class="medium-6 columns">	
+		    <input type="submit" id="Continue" class="button" value="Continue" />
+		</div>
+	</div>
+
+</form>
+
+@section scripts {
+    <script type="text/javascript">
+        SC.apply.personalInfo();
+    </script>
+}

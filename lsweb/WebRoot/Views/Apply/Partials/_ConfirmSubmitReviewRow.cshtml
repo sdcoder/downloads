@@ -1,0 +1,37 @@
+﻿    <div class="row" tabindex="0">
+        <div class="large-4 medium-4 columns">
+            <strong>Loan Information</strong>
+            <p ng-cloak="">
+                Purpose: <span ls-purpose-of-loan-description purpose-of-loan="LoanApp.PurposeOfLoan.Type"></span><br />
+                Amount: {{LoanApp.LoanAmount | currency }}<br />
+                Term:  {{LoanApp.LoanTermMonths}} months<br />
+                Payment: {{LoanApp.LoanPaymentType}}<br />
+                Rate: {{LoanApp.InterestRateFrom | number:2 }}% to {{LoanApp.InterestRateTo | number:2 }}%
+            </p>
+
+            <p><a href="@Url.Action("LoanInfo")" tabindex="0">Edit loan information</a></p>
+        </div>
+        <div class="large-4 medium-4 columns">
+            <strong>Applicant  Information</strong>
+            <p ng-cloak="">
+                {{LoanApp.Applicants[0].FirstName}} {{LoanApp.Applicants[0].LastName}}<br/>
+                {{LoanApp.Applicants[0].EmailAddress}}<br/>
+                ({{LoanApp.Applicants[0].Residence.PhoneNumber.AreaCode}}) {{LoanApp.Applicants[0].Residence.PhoneNumber.CentralOfficeCode}} - {{LoanApp.Applicants[0].Residence.PhoneNumber.LineNumber}}<br/>
+                {{LoanApp.Applicants[0].Residence.Address.AddressLine}} {{LoanApp.Applicants[0].Residence.Address.SecondaryUnit.Type | hideNotSelected}} {{LoanApp.Applicants[0].Residence.Address.SecondaryUnit.Value}}<br/>
+                {{LoanApp.Applicants[0].Residence.Address.City}}, <span ls-two-letter-state-code state="LoanApp.Applicants[0].Residence.Address.State"></span> {{LoanApp.Applicants[0].Residence.Address.ZipCode}}<br/>
+            </p>
+            <p  ng-show="!LoanApp.IsAddCoApplicant" ><a href="@Url.Action("ApplicantInfo")">Edit contact information</a></p>
+        </div>
+
+        <div class="large-4 medium-4 columns" ng-cloak ng-show="LoanApp.ApplicationType == 'Joint'">
+            <strong>Co-Applicant Information</strong>
+            <p ng-cloak="">
+                {{LoanApp.Applicants[1].FirstName}} {{LoanApp.Applicants[1].LastName}}<br/>
+                {{LoanApp.Applicants[1].EmailAddress}}<br/>
+                ({{LoanApp.Applicants[1].Residence.PhoneNumber.AreaCode}}) {{LoanApp.Applicants[1].Residence.PhoneNumber.CentralOfficeCode}} - {{LoanApp.Applicants[1].Residence.PhoneNumber.LineNumber}}<br/>
+                {{LoanApp.Applicants[1].Residence.Address.AddressLine}} {{LoanApp.Applicants[1].Residence.Address.SecondaryUnit.Type | hideNotSelected}} {{LoanApp.Applicants[1].Residence.Address.SecondaryUnit.Value}}<br/>
+                {{LoanApp.Applicants[1].Residence.Address.City}}, <span ls-two-letter-state-code state="LoanApp.Applicants[1].Residence.Address.State"></span> {{LoanApp.Applicants[1].Residence.Address.ZipCode}}<br/>
+            </p>
+            <p><a href="@Url.Action("CoApplicantInfo")" tabindex="0">Edit contact information</a></p>
+        </div>
+    </div>    

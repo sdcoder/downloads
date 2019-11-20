@@ -1,0 +1,22 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@if (Model.IfAnyFeatureBulletsDefined())
+{
+    <div id="feature-bullet-accordion">
+        <section class="row ruled homefeatures desktop-view">
+            <h3 tabindex="0">@Html.Raw(Model.BenefitLine)</h3>
+            @foreach (var b in Model.FeatureBullets)
+            {
+                @Html.DisplayBullet(b)
+            }
+        </section>
+        <section class="row homefeatures mobile-view">
+            <h3>@Html.Raw(Model.BenefitLine)</h3>
+            <div class="small-12 columns">
+                @Html.DisplayAccordion(Model.FeatureBullets)
+            </div>
+        </section>
+    </div>
+}
+
+

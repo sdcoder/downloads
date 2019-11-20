@@ -1,0 +1,24 @@
+﻿@model LightStreamWeb.Models.ApplicationStatus.ApprovedPageModel
+@{
+  string ListItem = this.ViewData.ContainsKey("ListIndex") ? this.ViewData["ListIndex"].ToString() + "." : "";
+}
+<div class="row" >
+    <div class="medium-12 columns">
+        <h3 class="brand">@(ListItem) Email Preferences</h3>
+        <p>Check the emails you would like to receive.</p>
+    </div>
+</div>
+
+<div class="row ruled" >
+    <div class="medium-12 columns">
+        @foreach (var item in Model.GetEmailPreferences())
+        {
+            <div>
+                <label>
+                    <input type="checkbox" ls-checklist-model="LoanAcceptance.EmailPreferences" checklist-value="@item.Item1" id="@item.Item1"  />
+                    @item.Item2
+                </label>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+<div class="rate-banner-container">
+
+    @if (!Model.DisplayRate.IsDiscountedRate)
+    {
+        <div id="no-rate-discount">
+
+        </div>
+    }
+
+    <h3 class="cms banner-text" tabindex="0">@Html.Raw(Model.Content.RateTitle)</h3>
+    <h2 class="banner-text" tabindex="0">
+        from
+        @if (Model.DisplayRate.IsDiscountedRate && Model.DisplayRate.PurposeOfLoan.ToString() != "HomeImprovement")
+    {
+        <strike><span class="discounted-rate">@Model.DisplayRate.BaseRate.ToString("0.00##%")</span></strike><sup class="discounted-rate" style="font-size: .7em">*</sup>
+    }
+
+    @if (Model.DisplayRate.IsDiscountedRate && Model.DisplayRate.PurposeOfLoan.ToString() == "HomeImprovement")
+    {
+        <strike><span class="discounted-rate">@Model.DisplayRate.Base144Rate.ToString("0.00##%")</span></strike><sup class="discounted-rate" style="font-size: .7em">*</sup>
+    }
+        <span class="rate-banner-apr">@((Model.DisplayRate.MinRate * 100).ToString("0.00"))%<sup>*</sup></span> <br class="banner-br" />APR @Html.Raw(Model.Content.PageSubTitle)
+    </h2>
+    @if (!string.IsNullOrWhiteSpace(Model.DisplayRate.DiscountDescription))
+    {
+        <h4 class="banner-rate-subtext cms banner-text">and @Model.DisplayRate.DiscountDescription discount.</h4>
+    }    
+    <br />
+    <div class="row">
+        <div class="columns medium-12" style="text-align: center">
+            <form method="post" action="/apply" class="bannerButton">
+                <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()" />
+            </form>
+        </div>
+    </div>
+</div>
+

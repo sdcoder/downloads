@@ -1,0 +1,56 @@
+﻿@model LightStreamWeb.Models.Apply.SunTrustApplyPageModel
+
+@section styles {
+
+}
+
+@{Html.RegisterScriptFile("~/scripts/app/loan-application.js");}
+<div ng-app="LoanAppModule" ng-controller="LoanApplicationController" ng-init="initSuntrustApp()">
+
+    @Html.Partial("~/Views/Apply/Suntrust/_ProgressBar.cshtml", new LightStreamWeb.Models.Apply.ProgressBarModel(2))
+
+    <section class="row">
+	    <div class="large-12 columns">
+		    <p class="note"><sup>*</sup>indicates required field</p>
+	    </div>
+    </section>
+
+
+    <form action="#" class="applicationform" name="LoanApplication">
+        <section class="row">
+	        <div class="large-12 columns teammate-alert">
+		            <p class="note"><i class="fa fa-comment"></i> Important Note: Federal law requires all financial institutions to notify applicants that they will obtain, 
+                        verify and record information that identifies each person who opens an account or applies for a loan. When you open an account 
+                        or apply for a loan we are required to ask your name, address, date of birth, and other information that will allow you to be 
+                        identified as the account or loan applicant. In addition, we may ask for identifying documents in order to verify this information.</p>
+	        </div>
+        </section>
+
+        <section class="row">
+	        <div class="large-12 columns">
+		        <h2>Your Information</h2>
+	        </div>
+        </section>
+
+
+        @Html.Partial("~/Views/Apply/Partials/_Applicant.cshtml")
+
+        <span ng-show="LoanApp.ApplicationType == 'Joint'">
+            <section class="row">
+	            <div class="large-12 columns">
+		            <h2>Co-Applicant Information</h2>
+	            </div>
+            </section>
+
+            @Html.Partial("~/Views/Apply/Partials/_Applicant.cshtml")
+        </span>
+
+    </form>
+
+	<div class="row">
+        <div class="medium-6 columns">	
+		    <a href="@Url.Action("Confirm")" class="button" ng-click="saveLoanApp()">Continue</a>
+		</div>
+	</div>
+
+</div>

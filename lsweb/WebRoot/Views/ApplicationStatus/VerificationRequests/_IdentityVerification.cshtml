@@ -1,0 +1,42 @@
+﻿    <section class="row ruled" id="IdentityVerification" ng-controller="CustomerIdentificationController">
+        <div class="medium-12 columns">
+        <h2 class="brand">@Model.GetPartNumber()Identity Verification</h2>
+        <p><strong class="brand">Due by @Model.DueDate.ToString("D")</strong></p>
+
+        <p>For your own protection, you will be asked to answer a few multiple choice questions in order to verify your identity, and prevent someone else from fraudulently using your personal information.</p>
+
+        @foreach (var item in Model.CustomerIdentification.Items())
+        {
+            if (item.Status == FirstAgain.Domain.Lookups.FirstLook.VerificationRequestStatusLookup.VerificationRequestStatus.Requested ||
+                item.Status == FirstAgain.Domain.Lookups.FirstLook.VerificationRequestStatusLookup.VerificationRequestStatus.Resubmit)
+            {
+                <div class="row">
+                    <div class="medium-6 columns stepcomplete">
+                        <div class="status-icon" ng-cloak ng-show="IdentityVerificationStarted@(item.ApplicantType)"><img src="/Content/images/icon-plus.png" alt="icon-success" width="20px"></div>
+                        <p class="statusnote" ng-cloak ng-show="IdentityVerificationStarted@(item.ApplicantType)">Identity verification request for @item.Caption is in process.</p>
+
+                        <div class="status-icon" ng-show="!IdentityVerificationStarted@(item.ApplicantType)"><img src="/Content/images/icon-plus.png" alt="icon-plus" width="20px"></div>
+                        <p class="statusnote" ng-show="!IdentityVerificationStarted@(item.ApplicantType)">
+                            Complete identity verification for @item.Caption <br />
+                            <a class="button button-small button-medium button-navy" ng-click="customerIdentificationInit('@(HttpUtility.JavaScriptStringEncode(item.Caption))', '@item.ApplicantType')" data-open="KBAModal">Click here to begin</a>
+                        </p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="medium-6 columns stepcomplete">
+                        <div class="status-icon"><img src="/Content/images/icon-success.png" alt="icon-success" width="20px"></div>                
+                        <p class="statusnote">Identity verification request for @item.Caption completed.</p>
+                    </div>
+                </div>
+            }
+        }
+        </div>
+    
+        <div class="medium-6 columns"></div>
+        <div id="KBAModal" class="reveal small" data-reveal data-options="closeOnClick:false">
+            @Html.Partial("~/Views/Components/_CustomerIdentification.cshtml")
+        </div>
+    </section>

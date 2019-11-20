@@ -1,0 +1,83 @@
+﻿@media screen and (min-width: 0) {
+
+    #carouselRow {
+        height: 166px;
+        visibility: hidden;
+    }
+
+    #carouselLeft {
+        position: absolute;
+        cursor: pointer;
+        padding-left: 10px;
+        left: 2px;
+    }
+
+    #card-carousel {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    #carouselRight {
+        position: absolute;
+        right: 3px;
+        padding-right: 10px;
+    }
+
+    .carouselArrow {
+        font-size: 60px;
+        z-index: 500;
+        top: 18px;
+        position: relative;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .owl-theme .owl-dots .owl-dot.active span {
+        background-color: #10497C;
+        border: 2px solid #10497C;
+    }
+
+    .owl-theme .owl-dots .owl-dot span {
+        border: 2px solid #10497C;
+        background: white;
+    }
+
+    .owl-theme .owl-dots .owl-dots.active span, .owl-theme .owl-dots.clickable .owl- dot:hover span {
+        background: #10497C;
+    }
+
+    .owl-stage-outer {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 376px) {
+
+    #carouselLeft {
+        left: 2px;
+        padding-left: 0px;
+    }
+
+    #card-carousel {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #carouselRight {
+        right: 3px;
+        padding-right: 0px;
+    }
+
+    .carouselArrow {
+        font-size: 37px;
+        top: 50%;
+    }
+}
+
+@media screen and (min-width: 726px) and (max-width: 780px) {
+    #card-carousel > div.owl-stage-outer > div > div:nth-child(1) > div > div.cardBack > div:nth-child(3) {
+        font-size: 9px;
+    }
+}

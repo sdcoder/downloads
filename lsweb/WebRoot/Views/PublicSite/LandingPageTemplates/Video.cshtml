@@ -1,0 +1,170 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+
+@section styles {
+    @Styles.Render("~/bundles/css-template-redesign")
+
+
+    @if (Model.FeatureBullets != null && Model.FeatureBullets.Count() == 3)
+    {
+        @Styles.Render("~/bundles/three-feature-bullets");
+    }
+}
+
+@section header {
+    @Html.Partial("~/Views/Components/Navbar/VideoDesktopNav.cshtml", Model)
+    @Html.Partial("~/Views/Components/Navbar/DefaultMobileMenu.cshtml", Model)
+
+    <!-- Header -->
+    <header id="header" class="row widerow">
+        @Html.Partial("~/Views/Components/Navbar/DefaultMobileNav.cshtml", Model)
+
+        <img src="@Model.Content.CenterGraphic.ToImageUrl()" class="banner" alt="@Model.Content.CenterGraphic.Alt" align="right" />
+
+        <div ng-controller="LandingPageController">
+            @{ var displayRate = Model.DisplayRate; }
+
+            <div class="headline large-view">
+                <div class="row header-text">
+                    <div class="small-12 columns center">
+                        <p tabindex="0">
+                            <span class="headline-first"><span class="cms">@Html.Raw(Model.Title)</span> from</span>
+                            <br />
+                            <span class="headline-rate">@Html.FormatRateWithDataAttributes(displayRate)</span>
+                            <span class="headline-second">APR with AutoPay</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row video">
+                    <iframe id="video-iframe@(Guid.NewGuid().ToString("N"))"
+                            frameborder="0"
+                            webkitallowfullscreen
+                            mozallowfullscreen
+                            allowfullscreen
+                            tabindex="0"
+                            src="@(String.Format("{0}?controls=1&rel=0&showinfo=0&autoplay=0&modestbranding=1&enablejsapi=1&html5=1&fs=0", @Model.VideoUrl))"></iframe>
+                    <div id="action-buttons">
+                        <form method="post" action="/apply" class="bannerButton ng-pristine ng-valid">
+                            <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()">
+                        </form>
+
+                        <div id="subscribe-btn-container">
+                            <a href="#" id="subscribe-btn" data-open="subscribe-form-modal" class="button white-transparent" onclick="SC.main.banner.notReadyToApply()">
+                                <div class="auto-center-container">
+                                    <div class="auto-center-cell cms">
+                                        @Html.Raw(Model.SubscribeButtonText)
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="headline mobile-view">
+                <div class="row header-text">
+                    <div class="small-12 columns center">
+                        <p>
+                            <span class="headline-first"><span class="cms">@Html.Raw(Model.Title)</span> from</span>
+                            <br />
+                            <span class="headline-rate">@Html.FormatRateWithDataAttributes(displayRate) APR</span>
+                            <br />
+                            <span class="headline-second">with AutoPay</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /Header -->
+}
+
+<div class="row video mobile-view">
+    <iframe id="video-iframe@(Guid.NewGuid().ToString("N"))"
+            frameborder="0"
+            webkitallowfullscreen
+            mozallowfullscreen
+            allowfullscreen
+            tabindex="0"
+            src="@(String.Format("{0}?controls=1&rel=0&showinfo=0&autoplay=0&modestbranding=1&enablejsapi=1&html5=1&fs=0", @Model.VideoUrl))"></iframe>
+</div>
+
+<div id="action-buttons" class="row mobile-view">
+    <div class="small-6 columns">
+        <form method="post" action="/apply" class="bannerButton ng-pristine ng-valid">
+            <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()">
+        </form>
+    </div>
+    <div class="small-6 columns" id="subscribe-btn-container">
+        <a href="#" id="subscribe-btn" data-open="subscribe-form-modal" class="button brown-transparent" onclick="SC.main.banner.notReadyToApply()">
+            <div class="auto-center-container">
+                <div class="auto-center-cell cms">
+                    @Html.Raw(Model.SubscribeButtonText)
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "templateName", Model.TemplateName }, { "isOneClickDisclosure", true } })
+
+@Html.Partial("~/Views/Redesign/_FeatureBullets.cshtml", Model)
+
+<div class="row page-article">
+    <article class="cms">
+        @if (!string.IsNullOrEmpty(Model.Content.ArticleTitle))
+        {
+            @:<h1>@Html.Raw(Model.Content.ArticleTitle)</h1>
+        }
+
+        <span class="hide-for-small-only">
+            @Html.Raw(Model.Content.ArticleText)
+        </span>
+    </article>
+</div>
+
+<article class="rate-calculator">
+    @Html.Partial("~/Views/Components/RateCalculator.cshtml", Model.Calculator)
+</article>
+
+@if (Model.Content.DisplayCustomerTestimonialRow)
+{
+    <div class="row large-view">
+        <div class="small-12 columns">
+            @Html.Action("FeaturedTestimonialRedesign", "Components", new
+            {
+                testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+                mobileTestimonialGraphicUrl = @Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+                purpose = Model.PurposeOfLoan,
+                owlCarouselId = "customerCommentsCarouselLarge",
+                viewPath = "~/Views/Redesign/_CustomerCommentsWide.cshtml"
+            })
+        </div>
+    </div>
+    <div class="row mobile-view customer-testimonial-container">
+        <div class="small-12 columns center">
+            <div class="thatBlueFontTho sectionHeader">The LightStream experience</div>
+            @Html.Action("FeaturedTestimonialRedesign", "Components", new
+            {
+                testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+                mobileTestimonialGraphicUrl = @Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+                purpose = Model.PurposeOfLoan,
+                owlCarouselId = "customerCommentsCarouselSmall"
+            })
+        </div>
+    </div>
+}
+
+@section homeloanuses{
+    <section class="row ruled homeloanuses"></section>
+}
+
+@Html.Partial("~/Views/Components/_SubscribeForm.cshtml")
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/scripts-template-redesign")
+}

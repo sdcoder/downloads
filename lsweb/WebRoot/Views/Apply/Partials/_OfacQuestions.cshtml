@@ -1,0 +1,47 @@
+﻿@model FirstAgain.Domain.Lookups.FirstLook.ApplicantTypeLookup.ApplicantType
+@{
+    int index = 0;
+    string idPrefix = "Applicant";
+    if (Model == FirstAgain.Domain.Lookups.FirstLook.ApplicantTypeLookup.ApplicantType.Secondary)
+    {
+        index = 1;
+        idPrefix = "CoApplicant";
+    }
+}
+@if (FeatureSwitch.CitizenshipAndNRAQuestionShouldBeDisplayed) { 
+<div class="row">
+    <div class="medium-12 columns">
+        <label tabindex="0" aria-label="Click any of the countries listed below that @(idPrefix == "CoApplicant" ? "your Co Applicant is" : "you are") a citizen of."><sup>*</sup>Are you a citizen of any of the following countries? Check all that apply.</label>
+    </div>
+</div>
+<div ng-cloak class="row">
+    <div class="medium-6 columns">
+        <label ng-repeat="country in countries | removeNotSelected"
+               ng-class="{false:'invalid-label',true:''}[isCitizenshipSelected(LoanApp.Applicants[@index])]"
+               style="clear: both; float: left;" >
+                <input id="@(idPrefix)Citizenship{{$index}}" type="checkbox"
+                       ng-required="!isCitizenshipSelected(LoanApp.Applicants[@index])"
+                       ls-checklist-model="LoanApp.Applicants[@index].Residence.Citizenships"
+                       checklist-value="country.id" />
+                {{country.name}}
+        </label>
+    </div>
+</div>
+<div ng-show="isNonUsCitizen(LoanApp.Applicants[@index].Residence.Citizenships)">
+    <div class="row">
+        <div class="medium-12 columns">
+            <label><sup>*</sup>Have you been issued an alien registration card, otherwise known as a green card, or a valid social security number (not an ITIN)?</label>
+        </div>
+    </div>
+    <div ng-cloak class="row">
+        <div class="medium-6 columns">
+            <div class="radio-button-group">
+                <input type="radio" value="false" id="YesToNonResident" ng-model="LoanApp.Applicants[@index].Residence.IsNonResident" ng-required="true">
+                <label for="YesToNonResident" style="margin-right:0.5rem">Yes</label>
+                <input type="radio" value="true" id="NoToNonResident" ng-model="LoanApp.Applicants[@index].Residence.IsNonResident" ng-required="true">
+                <label for="NoToNonResident" style="margin-right:0.5rem">No</label>
+            </div>
+        </div>
+    </div>
+</div>
+}

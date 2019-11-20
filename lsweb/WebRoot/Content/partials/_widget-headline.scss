@@ -1,0 +1,141 @@
+﻿
+@media only screen {
+    .widget-headline {
+        padding-bottom: 5vw;
+
+        &.row {
+            margin-top: 50px;
+        }
+
+        .widget-header {
+            h2 {
+                text-align: center;
+                color: white;
+                padding:0;
+                text-shadow: 0.062em 0.062em 0.125em #2e2e2e;
+            }
+
+            .widget-headline-title,
+            .widget-headline-apr,
+            .widget-headline-apr-title,
+            .widget-headline-apr-subtitle {
+                line-height: 1;
+            }
+            .widget-headline-title {
+                font-size: 6.5vw;
+                font-weight: 700;
+            }
+
+            .widget-headline-apr {
+                font-weight: 700;
+                text-shadow: 0.062em 0.062em 0.125em #2e2e2e;
+                font-size: 15vw;
+
+                sup {
+                    top: -3vw;
+                    font-size: 34px;
+                }
+            }
+
+            .widget-headline-apr-title,
+            .widget-headline-apr-subtitle {
+                font-weight: 600;
+                font-size: 6vw;
+            }
+        }
+
+        .widget-body {
+            text-align: center;
+            margin-top: 5vw;
+
+            .widget-banner-actions {
+                .btn-apply-now-action {
+                    font-size: 5.75vw;
+                    background: $dark-yellow-2x;
+                    color: $light-navyblue !important;
+
+                    &:focus,
+                    &:hover {
+                        background: $dark-yellow-3x;
+                    }
+                }
+
+                .btn-redirect-action {
+                    font-size: 3.1vw;
+                    text-transform: unset;
+                    line-height: 1;
+                    font-weight: 700;
+                    color: #183560;
+                    color: $biscay;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 20em) {
+    .navigation-purpose-page {
+        .widget-headline {
+            &.row {
+                padding-top: 5.25vw;
+            }
+            .widget-header {
+                .widget-headline-title {
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width: 45.375em){
+    .widget-headline {
+        &.row {
+            margin-top: 92px;
+            padding-bottom: 9vw;
+        }
+
+        .widget-header {
+            .widget-headline-title {
+                font-size: 48px;
+            }
+
+            .widget-headline-apr {
+                font-size: 60px;
+
+                sup {
+                    top: -15px;
+                }
+            }
+
+            .widget-headline-apr-title,
+            .widget-headline-apr-subtitle {
+                font-size: 37px;
+            }
+        }
+
+        .widget-body {
+            margin-top: 1vw;
+
+            .widget-banner-actions {
+                form {
+                    display: inline-block;
+                }
+
+                .btn-apply-now-action {
+                    font-size: 18px;
+                    padding: 10.5px 48px;
+                    margin-bottom: 0 !important;
+                }
+
+                .btn-redirect-action {
+                    font-size: 15px;
+                    padding-right: 20px;
+                    padding-left: 20px;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                }
+            }
+        }
+    }
+}

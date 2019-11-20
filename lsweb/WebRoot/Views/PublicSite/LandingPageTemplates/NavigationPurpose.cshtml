@@ -1,0 +1,200 @@
+﻿@model LightStreamWeb.Models.PublicSite.LandingPageModel
+@using LightStreamWeb.Helpers
+@using LightStreamWeb.Models.PublicSite
+@using LightStreamWeb.Models.Components;
+
+@section metaTags {
+    @Html.Partial("~/Views/PublicSite/Partials/_LandingPageMetaTags.cshtml")
+}
+
+@{
+    Layout = "~/Views/Layouts/_RedesignBase.cshtml";
+
+    Model.NavClass = "bluetint";
+    Model.NavAutoLabel = "Auto";
+
+    var calculator = new RateCalculatorModel()
+    {
+        DisplayCalculator = true,
+        FirstAgainCodeTrackingId = Model.FirstAgainCodeTrackingId,
+        PurposeOfLoan = Model.PurposeOfLoan ?? FirstAgain.Domain.Lookups.FirstLook.PurposeOfLoanLookup.PurposeOfLoan.NotSelected,
+        DisplayItsEasyToFindYourRate = true,
+        TypeOfCalculator = Model.Content.TypeOfRateTableCalculator,
+        TypeOfDisplay = Model.Content.TypeOfRateTableCalculatorDisplay
+    };
+
+    var ctaBarModel = new CTABarModel()
+    {
+        CTABarDescriptions = Model.Content.CTABarDescriptions,
+        ShowCTAWhyLightStreamLink = Model.Content.ShowCTAWhyLightStreamLink
+    };
+
+    BlogModel blogModel = null;
+
+    if (Model.Content.Blog != null)
+    {
+        blogModel = new BlogModel
+        {
+            BlogHostName = Model.BloggerURL,
+            BlogTestUrl = Model.Content.Blog.BlogTestUrl,
+            Urn = Model.Content.Blog.Urn,
+        };
+    }
+}
+
+@Styles.Render("~/bundles/redesign-landing-page-styles")
+
+@if (Model.FeatureBullets != null && Model.FeatureBullets.Count() == 3)
+{
+    @Styles.Render("~/bundles/three-feature-bullets");
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Content.CustomCSS))
+{
+    <style>
+        @Html.Raw(Model.Content.CustomCSSMinified)
+    </style>
+}
+
+<div ng-app="LightStreamApp">
+    <div ng-controller="RateCalculator" ng-init="init('@Model.Calculator.PurposeOfLoan', '@Model.Calculator.Discount.ToString()', @Model.Calculator.IsSuntrustApplication.ToString().ToLower(), @Json.Encode(Model.Calculator.CustomRateDisclosureContent))" id="rates">
+
+        @section hero {
+            <div class="banner-container cms">
+                <img src="@Model.Content.CenterGraphic.ToImageUrl()" class="banner desktop-banner" alt="@Model.Content.CenterGraphic.Alt" align="right" />
+                <img src="@Model.Content.MobileCenterGraphic.ToImageUrl()" alt="@Model.Content.CenterGraphic.Alt" class="mobile-banner cms">
+            </div>
+
+            <div class="widget widget-headline row">
+                <div class="widget-header">
+                    <h2 class="widget-headline-title">@Html.Raw(Model.TitleRemoveFrom)</h2>
+                    <h2 class="hide-for-small-only">
+                        <span class="widget-headline-apr-title">from</span> <span class="widget-headline-apr">@Html.FormatRateWithDataAttributes(Model.DisplayRate, true)</span>
+                        <span class="widget-headline-apr-title">@Html.Raw(Model.Content.RateTitle)</span>
+                    </h2>
+                    <h2 class="widget-headline-apr show-for-small-only"><span class="widget-headline-apr-title">from</span> @Html.FormatRateWithDataAttributes(Model.DisplayRate, true)</h2>
+                    <h2 class="widget-headline-apr-title show-for-small-only">@Html.Raw(Model.Content.RateTitle)</h2>
+
+                    @if (!String.IsNullOrEmpty(Model.Content.RateSubtitle))
+                    {
+                        <h2 class="widget-headline-apr-subtitle"><span class="widget-headline-apr-title">@Html.Raw(Model.Content.RateSubtitle)</span></h2>
+                    }
+                </div>
+
+                @if (String.IsNullOrEmpty(@Model.Content.HeadlineButtonLink))
+                {
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="small-12 columns widget-banner-actions">
+                                <form method="post" action="/apply" class="bannerButton">
+                                    <input type="submit" class="button hundredHeightBold" value="Apply Now" onclick="SC.main.banner.applyNow()" tabindex="0" />
+                                </form>
+                                <input type="button"
+                                       id="ratesAndTerms"
+                                       value="See Rates & Terms"
+                                       class="transparentButtonWhiteBorder hundredHeightBold bannerButton ghostButton"
+                                       style="margin-left: 20px !important;"
+                                       onclick="SC.main.banner.ratesAndTerms()"
+                                       onmouseenter="doHover(true)"
+                                       onmouseout="doHover(false)"
+                                       tabindex="-1"
+                                       aria-hidden="true" />
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="widget-body">
+                        <div class="row">
+                            <div class="small-12 columns widget-banner-actions">
+                                <form method="post" action="/apply">
+                                    <input type="submit" class="btn btn-glowy btn-darkyellow btn-apply-now-action" value="Apply Now" onclick="SC.main.banner.applyNow()" />
+                                </form>
+                                <span class="btn-border-white">
+                                    <a class="btn btn-whitetransparent btn-redirect-action" href="@Model.Content.HeadlineButtonLink">For used car from <br />private party</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @Html.Partial("~/Views/PublicSite/Partials/_CTABar.cshtml", ctaBarModel)
+
+        @Html.Partial("~/Views/PublicSite/Partials/_CTABarMobile.cshtml", ctaBarModel)
+
+        @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "isOneClickDisclosure", true } })
+
+        @Html.Partial("~/Views/Redesign/_FeatureBullets.cshtml", Model)
+
+        @Html.Partial("~/Views/Components/RateCalculator.cshtml", calculator)
+
+        <div class="ratings-reviews-component-container web-component">
+            <lswc-section section-headline="Our customers love us. Find out why.">
+                <lswc-ratings-reviews reviews-url="/reviews-ratings"></lswc-ratings-reviews>
+            </lswc-section>
+        </div>
+
+        @if (blogModel != null)
+        {
+            @Html.Partial("~/Views/Components/Blog.cshtml", blogModel)
+        }
+
+        <div class="row">
+            <div class="small-12 columns">
+                @Html.Action("FeaturedTestimonialRedesign", "Components", new
+               {
+                   testimonialGraphicUrl = @Model.Content.TestimonialCommentsGraphic.ToImageUrl(),
+                   mobileTestimonialGraphicUrl = @Model.Content.MobileTestimonialCommentsGraphic.ToImageUrl(),
+                   purpose = Model.PurposeOfLoan,
+                   owlCarouselId = "customerCommentsCarouselLarge",
+                   viewPath = "~/Views/Components/CustomerCommentsWide.cshtml"
+               })
+            </div>
+        </div>
+
+        @Html.Partial("~/Views/PublicSite/Partials/_LendingUncomplicated.cshtml")
+        @section APRDisclosure1 {
+            @Html.Partial("~/Views/Components/APRDisclosureShort.cshtml", Model.DisplayRate, new ViewDataDictionary() { { "showPaymentExample", true } })
+        }
+
+        @section APRDisclosure {
+            <br />
+            @Html.Raw(@ADAHelper.PreventMultipleBRsRepeatingBlank(Model.Content.DisclosureCopy))
+        }
+        @Html.Partial("~/Views/PublicSite/Modals/VideoModal.cshtml", String.IsNullOrWhiteSpace(Model.VideoUrl) ? "https://www.youtube.com/embed/YYuxezlgMIg" : Model.VideoUrl)
+
+        <section class="row ruled homeloanuses">
+            @Html.Partial("~/Views/Components/LandingPageLinks.cshtml", new LandingPageLinksModel())
+        </section>
+    </div>
+</div>
+
+<div hidden data-ls-api-base-url='@Model.PublicRestApiUri'></div>
+
+@section webComponents{
+    <script src="~/Scripts/webcomponents/components.js?cachebust=@(Model.GetFileHash("scripts/webcomponents/components.js"))"></script>
+}
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/scripts-template-redesign")
+    @Scripts.Render("~/bundles/scripts-blog")
+
+    <script src="~/Scripts/app/player.min.js"></script>
+
+    <script>
+
+        @if (Model.Content.TemplateType == FirstAgain.Domain.SharedTypes.ContentManagement.LandingPageContent.VerticalMarketTemplateType.NavigationPurpose)
+        {
+          <text>SC._t({ pageName: '@Model.CustomOmniHierarchy', hier1: '@Model.CustomOmniHierarchy', products: ';AnythingLoan', events: 'prodView' });</text>
+        }
+        else
+        {
+          <text>SC._t({ pageName: '@Model.OmniPageName', hier1: '@Model.OmniHierarchy', products: ';AnythingLoan', events: 'prodView'  });</text>
+        }
+    </script>
+}

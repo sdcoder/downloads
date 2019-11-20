@@ -1,0 +1,38 @@
+﻿    <div class="row" ng-show="ENotices.ShowSecurityPrompt" ng-cloak="">
+        <form>
+        
+        <div class="medium-8 columns callout panel push-2" >
+            <div class="row">
+                <div class="medium-12 columns">
+                    <h3 ng-cloak="">I hereby certify that I am {{ENotices.Docs[ActiveENotice].ApplicantName}}</h3>
+                    <div class="formalert" tabindex="0" ng-show="ErrorMessage"><p>{{ErrorMessage}}</p></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-8 columns">
+                    <label for="SSN">Social Security Number	(last 4 digits)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-4 columns">
+                    <input type="text" name="SSN" id="SSN" required ls-numbers-only maxlength="4" ng-model="SSN" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-8 columns">
+                    <label for="DateOfBirth">Date of Birth</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-4 columns">
+                    <input type="text" name="DateOfBirth" id="DateOfBirth" required ls-date-of-birth ng-model="DateOfBirth" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="medium-4 columns">
+                    <input type="button" class="button" value="Submit" ng-click="validateApplicant()" />
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>

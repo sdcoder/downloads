@@ -1,0 +1,37 @@
+﻿@using FirstAgain.Domain.SharedTypes.ContentManagement.SiteContent.Sitewide;
+@model SiteAdObject
+
+
+@if (Model.Default)
+{
+    @Html.Raw(Model.Html);
+}
+else
+{
+    if (Model.Type == SiteAdObject.SiteAdType.ApplyNow)
+    {
+          <!-- Ad - Apply -->
+          <div class="temp-home-improvement-ad" id="adobject"
+              @if (Model.LoanPurposeAd.Image != null && Model.LoanPurposeAd.Image.IsValid) {
+                  @:style="background:url(@Model.LoanPurposeAd.Image.ToImageUrl()) center; background-size: cover; display: block;"
+              }
+              >
+            <p>@Html.Raw(Model.Tagline)</p>
+            <a href="/apply?purposeOfLoan=@Model.LoanPurposeAd.PurposeOfLoan.ToString()" class="button button-med">Apply Now</a>
+            <p class="learn-more">
+                <a href="@(String.IsNullOrEmpty(Model.HyperLink) ? "" : Model.HyperLink)">
+                    @(String.IsNullOrEmpty(Model.LoanPurposeAd.LearnMore) ? Html.Raw("Learn More &raquo;") : Html.Raw(Model.LoanPurposeAd.LearnMore))
+                </a>
+            </p>
+          </div>
+    }
+    else if (Model.Type == SiteAdObject.SiteAdType.NewsArticle) {
+        <!-- Ad - News -->
+        <div class="ad recentnews">
+            <a href='@(String.IsNullOrEmpty(Model.HyperLink) ? "" : Model.HyperLink)' data-jump='true' target='_blank'>
+                <p>&quot;@Html.Raw(String.IsNullOrEmpty(Model.Tagline) ? "" : Model.Tagline)&quot;</p>
+                <cite>@(String.IsNullOrEmpty(Model.NewsQuoteAd.Date) ? "" : Model.NewsQuoteAd.Date + ", ")<text></text> @(String.IsNullOrEmpty(Model.NewsQuoteAd.Source) ? "" : Model.NewsQuoteAd.Source)</cite>
+            </a>
+        </div>
+    }
+}
