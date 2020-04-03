@@ -1,10 +1,25 @@
-var c19bannerHtml = "<div style='color:#414141; padding: 0.3rem; line-height:1rem;background-color: #d4eefc' class='c19-banner'><i class='fa fas fa-exclamation-circle'></i> Find out more about how we're responding to the coronavirus (COVID-19). <a href='https://www.lightstream.com/coronavirus-response' style='color: #0068A8'>Click here</a>.";
+<style type="text/css">
+    @media (min-width: 728px) { 
+        div.hide-for-large .c19-banner {
+            display: none
+        ;} 
+    }
+    </style>
 
-// kentico. mobile and desktop. below navbar
-$('.l-main-content').before(c19bannerHtml)
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) { 
+    var c19bannerHtml = "<div style='color:#414141; padding: 0.3rem; line-height:1rem;background-color: #d4eefc' class='c19-banner'><i class='fa fas fa-exclamation-circle'></i> Find out more about how we're responding to the coronavirus (COVID-19). <a href='https://www.lightstream.com/coronavirus-response' style='color: #0068A8'>Click here</a>.";
 
-// heritage, above CTA bar
-$('div.navbar-inner').after(c19bannerHtml);
-$('div.small-12.mobile-nav').after("<div class='small-12 hide-for-large' style='margin-top: 50px;'>" + c19bannerHtml + "</div>");
+    // kentico. mobile and desktop. below navbar
+    $('.l-main-content').before(c19bannerHtml)
 
-$('head').append("<style type='text/css'>@media (min-width: 728px) { div.hide-for-large .c19-banner {display: none;} </style>")
+    // heritage, above CTA bar
+    $('div.navbar-inner').first().after(c19bannerHtml);
+    if ($('#partner-nav-mobile').length !== 1) {
+        $('div.small-12.mobile-nav').after("<div class='small-12 hide-for-large' style='margin-top: 50px;'>" + c19bannerHtml + "</div>");
+    } else { 
+        $('.partner-logo-container').append(c19bannerHtml);
+        $('.rate-banner-container').css('margin-top', '1rem');
+    }
+});
+</script>
